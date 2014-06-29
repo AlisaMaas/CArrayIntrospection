@@ -26,6 +26,15 @@ penv.ParseConfig('llvm-config --cxxflags')
 penv.AppendUnique(CCFLAGS='-fexceptions', delete_existing=True)
 
 plugin = penv.SharedLibrary('IIGlueReader.cc')
+Default(plugin)
+
+
+########################################################################
+#
+#  subdirectories
+#
+
+SConscript(dirs='tests', exports='env')
 
 
 # Local variables:
