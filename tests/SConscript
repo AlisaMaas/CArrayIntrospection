@@ -1,0 +1,33 @@
+Import('env')
+
+bitcode = env.Command(
+    'iiglue-reader-peek.bc', 'iiglue-reader-peek.c',
+    'clang -emit-llvm -o $TARGET -c $SOURCE',
+)
+
+json = 'iiglue-reader-peek.json'
+
+plugin = env.File('../${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
+
+actual, = env.Command(
+    'iiglue-reader-peek.actual', (plugin, json, bitcode),
+    'opt -o $TARGET -analyze -load ${SOURCES[0].abspath} -iiglue-reader -iiglue-read-file ${SOURCES[1]} ${SOURCES[2]}',
+)
+
+expected = actual.target_from_source('', '.expected')
+
+env.Command(
+    'iiglue-reader-peek.passed', (actual, expected),
+    [
+        'cmp --silent $SOURCES',
+        Touch('$TARGET'),
+    ],
+)
+
+
+Alias('test', Glob('*.passed'))
+
+
+# Local variables:
+# flycheck-flake8rc: "../scons-flake8.ini"
+# End:
