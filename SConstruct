@@ -23,5 +23,6 @@ penv = env.Clone(
 
 penv.PrependENVPath('PATH', '/s/gcc-4.8.2/bin')
 penv.ParseConfig('llvm-config --cxxflags')
+penv.AppendUnique(CCFLAGS='-fexceptions', delete_existing=True)
 
 plugin = penv.SharedLibrary('IIGlueReader.cc')
