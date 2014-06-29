@@ -26,3 +26,8 @@ penv.ParseConfig('llvm-config --cxxflags')
 penv.AppendUnique(CCFLAGS='-fexceptions', delete_existing=True)
 
 plugin = penv.SharedLibrary('IIGlueReader.cc')
+
+
+# Local variables:
+# flycheck-flake8rc: "scons-flake8.ini"
+# End:
