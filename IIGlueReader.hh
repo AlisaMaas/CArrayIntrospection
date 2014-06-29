@@ -23,6 +23,7 @@ public:
   static char ID;
   void getAnalysisUsage(llvm::AnalysisUsage &) const override final;
   bool runOnModule(llvm::Module &) override final;
+  void print(llvm::raw_ostream &, const llvm::Module *) const;
 
   // convenience methods to query loaded iiglue annotations
   bool isArray(const llvm::Argument &) const;

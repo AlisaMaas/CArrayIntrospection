@@ -1,6 +1,8 @@
 #include "IIGlueReader.hh"
 
+#include <boost/container/flat_set.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include <boost/range/adaptor/indirected.hpp>
 #include <boost/range/adaptor/map.hpp>
 #include <boost/range/algorithm/find.hpp>
 #include <boost/range/combine.hpp>
@@ -101,4 +103,23 @@ bool IIGlueReader::runOnModule(Module &module)
   // we never change anything; we just stash information in private
   // fields of this pass instance for later use
   return false;
+}
+
+
+void IIGlueReader::print(raw_ostream &sink, const Module *) const
+{
+  sink << "\tarray arguments:\n";
+
+  // function-qualified names of array arguments
+  const auto names =
+    arrayArguments
+    | indirected
+    | transformed([](const Argument &arg) {
+	return (arg.getParent()->getName() + "::" + arg.getName()).str();
+      });
+
+  // print in sorted order for consistent output
+  boost::container::flat_set<string> ordered(names.begin(), names.end());
+  for (const auto &argument : ordered)
+    sink << "\t\t" << argument << '\n';
 }
