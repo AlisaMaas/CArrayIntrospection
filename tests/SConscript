@@ -1,36 +1,53 @@
+########################################################################
+#
+#  common imports and setup for all tests
+#
+
 Import('env')
 
 
 ########################################################################
+#
+#  IIGlueReader tests
+#
 
-
-# compile C source to LLVM bitcode
-source = File('iiglue-reader-peek.c')
-bitcode = env.BitcodeBinary(source)
-
-# run IIGlueReader to read saved iiglue output
-json = source.target_from_source('', '.json')
-plugin = env.File('../${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
-actual = source.target_from_source('', '.actual')
-env.Command(
-    actual, (plugin, json, bitcode),
-    [
-        [
-            'opt',
-            '-analyze', '-o', '$TARGET',
-            '-load', '${SOURCES[0].abspath}',
-            '-iiglue-reader', '-iiglue-read-file', '${SOURCES[1]}',
-            '${SOURCES[2]}',
-        ],
-    ],
+tests = (
+    'peek',
+    'variadic',
 )
 
-# compare IIGlueReader output dump to expected output
-env.Expect(actual)
+sources = File(['iiglue-reader-%s.c' % tail for tail in tests])
+
+for source in sources:
+
+    # compile C source to LLVM bitcode
+    bitcode = env.BitcodeBinary(source)
+
+    # run IIGlueReader to read saved iiglue output
+    json = source.target_from_source('', '.json')
+    plugin = env.File('../${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
+    actual = source.target_from_source('', '.actual')
+    env.Command(
+        actual, (plugin, json, bitcode),
+        [
+            [
+                'opt',
+                '-analyze', '-o', '$TARGET',
+                '-load', '${SOURCES[0].abspath}',
+                '-iiglue-reader', '-iiglue-read-file', '${SOURCES[1]}',
+                '${SOURCES[2]}',
+            ],
+        ],
+    )
+
+    # compare IIGlueReader output dump to expected output
+    env.Expect(actual)
 
 
 ########################################################################
-
+#
+#  common post-setup work for all tests
+#
 
 # convenient "scons test" alias to run all tests
 Alias('test', Glob('*.passed'))
