@@ -26,10 +26,10 @@ namespace
 	       true, true);
 
   static cl::opt<string>
-  iiglueFileName("iiglue-input-file",
+  iiglueFileName("iiglue-read-file",
 		 cl::Required,
 		 cl::value_desc("filename"),
-		 cl::desc("Input filename containing iiglue analysis results"));
+		 cl::desc("Filename containing iiglue analysis results"));
 }
 
 
