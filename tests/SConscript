@@ -6,11 +6,7 @@ Import('env')
 
 # compile C source to LLVM bitcode
 source = File('iiglue-reader-peek.c')
-bitcode = source.target_from_source('', '.bc')
-env.Command(
-    bitcode, source,
-    'clang -emit-llvm -o $TARGET -c $SOURCE',
-)
+bitcode = env.BitcodeBinary(source)
 
 # run IIGlueReader to read saved iiglue output
 json = source.target_from_source('', '.json')
@@ -30,15 +26,7 @@ env.Command(
 )
 
 # compare IIGlueReader output dump to expected output
-expected = source.target_from_source('', '.expected')
-passed = source.target_from_source('', '.passed')
-env.Command(
-    passed, (actual, expected),
-    [
-        'cmp --silent $SOURCES',
-        Touch('$TARGET'),
-    ],
-)
+env.Expect(actual)
 
 
 ########################################################################

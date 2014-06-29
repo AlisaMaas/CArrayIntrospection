@@ -5,6 +5,14 @@
 
 env = Environment(
     LLVM_ROOT=Dir('/unsup/llvm-3.3'),
+    tools=(
+        'bitcode',
+        'default',
+        'expect',
+    ),
+    toolpath=(
+        'scons-tools',
+    ),
 )
 
 env.PrependENVPath('PATH', env.subst('$LLVM_ROOT/bin'))
