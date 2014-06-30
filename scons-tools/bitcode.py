@@ -40,7 +40,6 @@ def generate(env):
             'BitcodeBinary': __bitcode_builder('-c', 'bc'),
             'BitcodeSource': __bitcode_builder('-S', 'll'),
             },
-        CLANG='clang',
         )
 
 
