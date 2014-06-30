@@ -54,7 +54,7 @@ bool IIGlueReader::runOnModule(Module &module)
   json_parser::read_json(iiglueFileName, root);
 
   // iterate over iiglue-recognized library functions
-  const ptree &libraryFunctions(root.get_child("libraryFunctions"));
+  const ptree &libraryFunctions = root.get_child("libraryFunctions");
   for (const auto &functionInfo : libraryFunctions | map_values)
     {
       // find corresponding LLVM function object
