@@ -4,7 +4,15 @@
 #
 
 env = Environment(
-    LLVM_ROOT=Dir('/unsup/llvm-3.3'),
+    LLVM_ROOT=Dir('/p/polyglot/public/llvm/install'),
+    tools=(
+        'bitcode',
+        'default',
+        'expect',
+    ),
+    toolpath=(
+        'scons-tools',
+    ),
 )
 
 env.PrependENVPath('PATH', env.subst('$LLVM_ROOT/bin'))
@@ -21,7 +29,26 @@ penv = env.Clone(
     INCPREFIX='-isystem ',
 )
 
-penv.PrependENVPath('PATH', '/s/gcc-4.8.2/bin')
+penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
 penv.ParseConfig('llvm-config --cxxflags')
+penv.AppendUnique(
+    CCFLAGS=(
+        '-fexceptions',
+        '-frtti',
+    ), delete_existing=True)
 
 plugin = penv.SharedLibrary('IIGlueReader.cc')
+Default(plugin)
+
+
+########################################################################
+#
+#  subdirectories
+#
+
+SConscript(dirs='tests', exports='env')
+
+
+# Local variables:
+# flycheck-flake8rc: "scons-flake8.ini"
+# End:
