@@ -4,7 +4,7 @@
 #
 
 env = Environment(
-    LLVM_ROOT=Dir('/unsup/llvm-3.3'),
+    LLVM_ROOT=Dir('/p/polyglot/public/llvm/install'),
     tools=(
         'bitcode',
         'default',
