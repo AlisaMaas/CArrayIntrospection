@@ -27,10 +27,11 @@ penv = env.Clone(
     CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11'),
     CPPPATH='/unsup/boost-1.55.0/include',
     INCPREFIX='-isystem ',
+    LIBS=('LLVM-3.4',),
 )
 
 penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
-penv.ParseConfig('llvm-config --cxxflags')
+penv.ParseConfig('llvm-config --cxxflags --ldflags')
 penv.AppendUnique(
     CCFLAGS=(
         '-fexceptions',
