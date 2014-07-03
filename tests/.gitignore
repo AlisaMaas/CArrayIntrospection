@@ -1,3 +1,6 @@
+*.a
 *.actual
 *.bc
+*.o
 *.passed
+iiglue-unit

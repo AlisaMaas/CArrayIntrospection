@@ -1,0 +1,7 @@
+{
+    "libraryFunctions" : [
+	{
+	    "foreignFunctionName" : "noSuchFunction"
+	}
+    ]
+}

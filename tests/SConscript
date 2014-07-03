@@ -3,7 +3,7 @@
 #  common imports and setup for all tests
 #
 
-Import('env')
+Import('env', 'penv')
 
 plugin = env.File('../${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
 
@@ -43,6 +43,38 @@ for source in sources:
 
     # compare IIGlueReader output dump to expected output
     env.Expect(actual)
+
+
+########################################################################
+#
+#  unit tests using Google Test and Google Mock
+#
+
+# Fedora 20 intentionally ships the Google Mock run-time library in
+# source form only, so we need to compile it here ourselves.  We
+# compile it as a static library to keep things simple.
+env.VariantDir('.', '/usr/src/gmock', duplicate=False)
+libgmock = env.StaticLibrary('gmock', 'gmock-all.cc')
+libgmock_main = env.StaticLibrary('gmock_main.cc')
+
+menv = penv.Clone()
+menv.PrependUnique(
+    LIBPATH=['.'],
+    LIBS=(
+        plugin,
+        libgmock_main,
+    ),
+    RPATH=[Dir('#').abspath],
+)
+menv.ParseConfig('gmock-config --cppflags --cxxflags --ldflags --libs')
+menv.ParseConfig('gtest-config --cppflags --cxxflags --ldflags --libs')
+
+tester, = menv.Program('iiglue-unit.cc')
+stamp = tester.target_from_source('', '.passed')
+env.Command(stamp, tester, [
+    ['$SOURCE'],
+    Touch('$TARGET'),
+])
 
 
 ########################################################################

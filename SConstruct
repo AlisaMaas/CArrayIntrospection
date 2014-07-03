@@ -47,7 +47,7 @@ Default(plugin)
 #  subdirectories
 #
 
-SConscript(dirs='tests', exports='env')
+SConscript(dirs='tests', exports=['env', 'penv'])
 
 
 # Local variables:
