@@ -5,6 +5,8 @@
 
 Import('env')
 
+plugin = env.File('../${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
+
 
 ########################################################################
 #
@@ -25,7 +27,6 @@ for source in sources:
 
     # run IIGlueReader to read saved iiglue output
     json = source.target_from_source('', '.json')
-    plugin = env.File('../${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
     actual = source.target_from_source('', '.actual')
     env.Command(
         actual, (plugin, json, bitcode),
