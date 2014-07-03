@@ -7,7 +7,6 @@
 #include <boost/range/algorithm/find.hpp>
 #include <boost/range/combine.hpp>
 #include <llvm/IR/Module.h>
-#include <llvm/Support/CommandLine.h>
 #include <llvm/Support/raw_ostream.h>
 
 using namespace boost::adaptors;
@@ -24,13 +23,13 @@ namespace
   registration("iiglue-reader",
 	       "Read iiglue analysis results and add them as metadata on corresponding LLVM entities",
 	       true, true);
-
-  static cl::opt<string>
-  iiglueFileName("iiglue-read-file",
-		 cl::Required,
-		 cl::value_desc("filename"),
-		 cl::desc("Filename containing iiglue analysis results"));
 }
+
+cl::opt<string>
+IIGlueReader::iiglueFileName("iiglue-read-file",
+			     cl::Required,
+			     cl::value_desc("filename"),
+			     cl::desc("Filename containing iiglue analysis results"));
 
 
 void IIGlueReader::getAnalysisUsage(AnalysisUsage &usage) const

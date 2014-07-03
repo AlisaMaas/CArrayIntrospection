@@ -2,6 +2,7 @@
 #define INCLUDE_IIGLUE_READER_HH
 
 #include <llvm/Pass.h>
+#include <llvm/Support/CommandLine.h>
 #include <unordered_set>
 
 namespace llvm
@@ -24,6 +25,9 @@ public:
   void getAnalysisUsage(llvm::AnalysisUsage &) const override final;
   bool runOnModule(llvm::Module &) override final;
   void print(llvm::raw_ostream &, const llvm::Module *) const;
+
+  // command-line flag for "opt" and other tools
+  static llvm::cl::opt<std::string> iiglueFileName;
 
   // convenience methods to query loaded iiglue annotations
   bool isArray(const llvm::Argument &) const;
