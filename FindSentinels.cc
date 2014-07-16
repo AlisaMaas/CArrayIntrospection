@@ -1,4 +1,5 @@
 #include <llvm/Analysis/LoopPass.h>
+#include "IIGlueReader.hh"
 #include <llvm/PassManager.h>
 #include <llvm/Support/PatternMatch.h>
 #include <llvm/Support/raw_ostream.h>
@@ -83,8 +84,7 @@ void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const
   // read-only pass never changes anything
   usage.setPreservesAll();
   usage.addRequired<LoopInfo>();
-
-  //TODO: add required pass - the iiglue reader.
+  usage.addRequired<IIGlueReader>();
 }
 
 
@@ -93,6 +93,7 @@ bool FindSentinels::runOnFunction(Function &func)
   (void) func;
   //TODO: iterate over arguments, check to see whether each of them is an array. If no arrays, skip.
   LoopInfo &LI = getAnalysis<LoopInfo>();
+  IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
   //We must look through all the loops to determine if any of them contain a sentinel check. 
   for (LoopInfo::iterator i = LI.begin(), e = LI.end(); i != e; ++i) {
  	std::vector<BasicBlock*> sentinelChecks;
@@ -218,11 +219,6 @@ bool FindSentinels::runOnFunction(Function &func)
 	    errs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n";
 	    errs() << "  exits loop by jumping to %" << sentinelDestination->getName() << '\n';
 		errs() << "  The argument was " << *pointer << '\n';
-		for(auto argument = func.arg_begin(); argument != func.arg_end(); ++argument)
-		{
-			if(argument == pointer)
-				errs() << "It does match an argument.\n";
-		}
 		//mark this block as one of the sentinel checks this loop. 
 		sentinelChecks.push_back(exitingBlock);
 	    auto induction(loop->getCanonicalInductionVariable());

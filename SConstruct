@@ -38,8 +38,9 @@ penv.AppendUnique(
         '-frtti',
     ), delete_existing=True)
 
-plugin = penv.SharedLibrary('IIGlueReader.cc')
-Default(plugin)
+IIGluePlugin = penv.SharedLibrary('IIGlueReader.cc')
+FindSentinelsPlugin = penv.SharedLibrary('FindSentinels.cc')
+#Default(plugin)
 
 
 ########################################################################

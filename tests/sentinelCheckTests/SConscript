@@ -1,0 +1,68 @@
+########################################################################
+#
+#  common imports and setup for all tests
+#
+
+Import('env')
+sourceDirectory = '../../'
+testDir = 'tests/sentinelCheckTests/'
+iigluePlugin = env.File(sourceDirectory + '${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
+findSentinelsPlugin = env.File(sourceDirectory + '${LIBPREFIX}FindSentinels${SHLIBSUFFIX}')
+iigluePath = './iiglue'
+
+########################################################################
+#
+#  FindSentinels tests
+#
+
+tests = range(1, 17)
+
+sources = File(['FindSentinelCheck%s.c' % tail for tail in tests])
+
+for source in sources:
+    # compile C source to LLVM bitcode
+    bitcode = env.BitcodeBinary(source)
+    json = source.target_from_source('json/', '.json') 
+    env.Command(
+        json, (bitcode),
+        [
+            [
+                './iiglue',
+                '${SOURCES[0].abspath}',
+                '-r', testDir + 'json/', 
+            ],
+        ],
+    )
+    #run IIGlueReader to read saved iiglue output
+    actual = source.target_from_source('actuals/', '.actual')
+    env.Command(
+        actual, (iigluePlugin, findSentinelsPlugin, json, bitcode),
+        [
+            [
+                'opt',
+                '-analyze', '-o', '$TARGET',
+                '-load', '${SOURCES[0].abspath}',
+                '-iiglue-reader', '-iiglue-read-file', '${SOURCES[2]}',
+                '${SOURCES[3]}',
+                 '-load', '${SOURCES[1].abspath}',
+                '-find-sentinels',
+            ],
+        ],
+    )
+
+    # compare output dump to expected output
+    #env.Expect(actual)
+
+
+########################################################################
+#
+#  common post-setup work for all tests
+#
+
+# convenient "scons test" alias to run all tests
+Alias('test', Glob('*.passed'))
+
+
+# Local variables:
+# flycheck-flake8rc: "../scons-flake8.ini"
+# End:
