@@ -4,10 +4,9 @@
 #
 
 Import('env')
-sourceDirectory = '../../'
 testDir = 'tests/sentinelCheckTests/'
-iigluePlugin = env.File(sourceDirectory + '${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
-findSentinelsPlugin = env.File(sourceDirectory + '${LIBPREFIX}FindSentinels${SHLIBSUFFIX}')
+iigluePlugin = env.File('#${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
+findSentinelsPlugin = env.File('#${LIBPREFIX}FindSentinels${SHLIBSUFFIX}')
 iigluePath = './iiglue'
 
 ########################################################################
@@ -41,7 +40,7 @@ for source in sources:
             [
                 'opt',
                 '-analyze', '-o', '$TARGET',
-                '-load', '${SOURCES[0].abspath}',
+                '-load', '${SOURCES[0].abspath}', '-mem2reg',
                 '-iiglue-reader', '-iiglue-read-file', '${SOURCES[2]}',
                 '${SOURCES[3]}',
                  '-load', '${SOURCES[1].abspath}',

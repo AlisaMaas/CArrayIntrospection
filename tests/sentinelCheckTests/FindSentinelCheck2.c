@@ -1,3 +1,9 @@
+/**
+* This check tests we detect a non-optional sentinel check 
+* in a loop where there is another read from the array.
+*
+* We expect to find one non-optional sentinel check.
+**/
 void print(char* string){}
 int find(char string[], char goal)
 {

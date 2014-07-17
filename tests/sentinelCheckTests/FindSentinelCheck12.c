@@ -1,3 +1,9 @@
+/**
+* This check tests we do not spurously detect sentinel
+* checks in a loop with no reads in the array.
+*
+* We expect to find no sentinel checks.
+**/
 void print(char* string){}
 int find(char string[], int distance)
 {
