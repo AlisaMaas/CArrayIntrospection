@@ -1,51 +1,55 @@
-#include <boost/range/iterator_range.hpp>
 #include "IIGlueReader.hh"
+#include "PatternMatch-extras.hh"
+
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/PassManager.h>
 #include <llvm/Support/PatternMatch.h>
 #include <llvm/Support/raw_ostream.h>
 #include <llvm/Transforms/IPO/PassManagerBuilder.h>
-#include "PatternMatch-extras.hh"
 
-using namespace boost;
 using namespace llvm;
 using namespace llvm::PatternMatch;
 
 /**
- * This method checks whether a given list of sentinel checks is optional using a modified depth first search.
- * The basic question this attempts to answer is: "Is there a path from loop entry to loop entry without passing
- * through a sentinel check?"
+ * This mutually-recursive group of functions check whether a given list of sentinel checks is
+ * optional using a modified depth first search.  The basic question they attempt to answer is: "Is
+ * there a nontrivial path from loop entry to loop entry without passing through a sentinel check?"
  *
- * Sentinel checks are pre-added to foundSoFar, current starts as loop entry, and the goal is loop entry. 
- * Since in some circumstances loop entry is its own successor, we must ignore the case where loop entry is the 
- * successor and parent. We simply skip that successor, if it exists.
+ * Sentinel checks are pre-added to foundSoFar, current starts as loop entry, and the goal is loop
+ * entry.
  **/
-static bool DFSCheckSentinelOptional(std::unordered_set<BasicBlock*> &foundSoFar, BasicBlock *current, BasicBlock *goal) {
-	//If the current node is null, there can't be a path from it to loop entry without going through a sentinel check.
-	if (current == NULL) {
-		return false;
-	}
 
-	foundSoFar.insert(current);
+typedef std::unordered_set<const BasicBlock *> BlockSet;
 
-	for (BasicBlock *succ : make_iterator_range(succ_begin(current), succ_end(current))) {
-		//first make sure we haven't looked at this successor so far and it's not in the list of sentinel checks
-		if (foundSoFar.find(succ) == foundSoFar.end()) {
-			if (DFSCheckSentinelOptional(foundSoFar, succ, goal)) {
-				return true; //if it's optional for my kids, it's optional for me.
-			}		
-		}
-		//If the successor is the goal, first make sure it isn't its parent. If not, we found a path from loop entry to loop entry
-		//while ignoring sentinel checks.
-		if (succ == goal) {
-			if (succ == current) {
-				continue;
-			}
-			return true;
-		}	
-	}
-	//If we make it all the way around, we didn't find a path from loop entry to loop entry skipping all sentinel checks.
-	return false;
+static bool reachable(const Loop &, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal);
+
+static bool reachableNontrivially(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal) {
+	// look for reachable path across any one successor
+	return std::any_of(succ_begin(&current), succ_end(&current),
+			   [&](const BasicBlock * const succ) { return reachable(loop, foundSoFar, *succ, goal); });
+}
+
+static bool reachable(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal) {
+
+	// trivially reached goal
+	if (&current == &goal) return true;
+
+	// not allowed to leave this loop
+	if (!loop.contains(&current)) return false;
+
+	// mark as found so we don't revisit in the future
+	const bool novel = foundSoFar.insert(&current).second;
+
+	// already explored here, or is intentionally closed-off sentinel check
+	if (!novel) return false;
+
+	// not trivially done, so look for nontrivial path
+	return reachableNontrivially(loop, foundSoFar, current, goal);
+}
+
+static bool DFSCheckSentinelOptional(const Loop &loop, BlockSet &foundSoFar) {
+	const BasicBlock &loopEntry = *loop.getHeader();
+	return reachableNontrivially(loop, foundSoFar, loopEntry, loopEntry);
 }
 
 namespace
@@ -96,7 +100,7 @@ bool FindSentinels::runOnFunction(Function &func) {
 
 	//We must look through all the loops to determine if any of them contain a sentinel check. 
 	for (LoopInfo::iterator i = LI.begin(), e = LI.end(); i != e; ++i) {
-		std::unordered_set<BasicBlock*> sentinelChecks;
+		BlockSet sentinelChecks;
 		Loop *loop = *i;
 		SmallVector<BasicBlock *, 4> exitingBlocks;
 		loop->getExitingBlocks(exitingBlocks);
@@ -219,11 +223,10 @@ bool FindSentinels::runOnFunction(Function &func) {
 					errs() << "  loop has no canonical induction variable\n";
 			}
 		}
-		BasicBlock *loopEntry = *(loop->block_begin());
 		if (sentinelChecks.size() == 0) {
 			errs() << "There were no sentinel checks in this loop.\n";
 		}
-		else if (DFSCheckSentinelOptional(sentinelChecks, loopEntry, loopEntry)) {
+		else if (DFSCheckSentinelOptional(*loop, sentinelChecks)) {
 			errs() << "The sentinel check was optional!\n";
 		}
 		else {
