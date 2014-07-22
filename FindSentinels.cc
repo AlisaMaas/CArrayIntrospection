@@ -37,9 +37,8 @@ static bool DFSCheckSentinelOptional(std::unordered_set<BasicBlock*> &foundSoFar
 		}
 		//If the successor is the goal, first make sure it isn't its parent. If not, we found a path from loop entry to loop entry
 		//while ignoring sentinel checks.
-		if (succ == goal){
-			if (succ == current)
-			{
+		if (succ == goal) {
+			if (succ == current) {
 				continue;
 			}
 			return true;
