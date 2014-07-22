@@ -1,4 +1,5 @@
 ((c++-mode
+  (c-file-style . "Linux")
   (flycheck-clang-definitions
    "__STDC_CONSTANT_MACROS"
    "__STDC_FORMAT_MACROS"
