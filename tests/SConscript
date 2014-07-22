@@ -5,7 +5,7 @@
 
 Import('env')
 
-plugin = env.File('../${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
+plugin = env['plugin']
 
 
 ########################################################################
@@ -52,6 +52,7 @@ for source in sources:
 
 # convenient "scons test" alias to run all tests
 Alias('test', Glob('*.passed'))
+
 
 ########################################################################
 #

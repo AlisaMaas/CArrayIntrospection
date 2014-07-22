@@ -1,5 +1,23 @@
 ########################################################################
 #
+#  path to Tristan Ravitch's iiglue analyzer
+
+from os import access, environ, X_OK
+from SCons.Script import *
+
+def pathIsExecutable(key, val, env):
+    found = env.WhereIs(val)
+    if found: val = found
+    PathVariable.PathIsFile(key, val, env)
+    if not access(val, X_OK):
+        raise SCons.Errors.UserError('Path for option %s is not executable: %s' % (key, val))
+
+variables = Variables(['.scons-options'], ARGUMENTS)
+variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/iiglue-tools/bin/iiglue', pathIsExecutable))
+
+
+########################################################################
+#
 #  common basis for all build environments
 #
 
@@ -13,6 +31,7 @@ env = Environment(
     toolpath=(
         'scons-tools',
     ),
+    variables=variables,
 )
 
 env.PrependENVPath('PATH', env.subst('$LLVM_ROOT/bin'))
@@ -38,9 +57,12 @@ penv.AppendUnique(
         '-frtti',
     ), delete_existing=True)
 
-IIGluePlugin = penv.SharedLibrary('IIGlueReader.cc')
-FindSentinelsPlugin = penv.SharedLibrary('FindSentinels.cc')
-#Default(plugin)
+plugin, = penv.SharedLibrary('CArrayIntrospection', (
+    'IIGlueReader.cc',
+    'FindSentinels.cc',
+))
+
+env['plugin'] = plugin
 
 
 ########################################################################

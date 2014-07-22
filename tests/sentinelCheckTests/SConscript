@@ -4,47 +4,39 @@
 #
 
 Import('env')
-testDir = 'tests/sentinelCheckTests/'
-iigluePlugin = env.File('#${LIBPREFIX}IIGlueReader${SHLIBSUFFIX}')
-findSentinelsPlugin = env.File('#${LIBPREFIX}FindSentinels${SHLIBSUFFIX}')
-iigluePath = './iiglue'
+
+testDir = Dir('.')
+plugin = env['plugin']
+
 
 ########################################################################
 #
 #  FindSentinels tests
 #
 
-tests = range(1, 17)
-
-sources = File(['FindSentinelCheck%s.c' % tail for tail in tests])
+sources = Glob('*.c')
 
 for source in sources:
     # compile C source to LLVM bitcode
     bitcode = env.BitcodeBinary(source)
     json = source.target_from_source('json/', '.json') 
     env.Command(
-        json, (bitcode),
-        [
-            [
-                './iiglue',
-                '${SOURCES[0].abspath}',
-                '-r', testDir + 'json/', 
-            ],
-        ],
+        json, bitcode,
+        '$IIGLUE $SOURCE -r $TARGET.dir',
     )
     #run IIGlueReader to read saved iiglue output
     actual = source.target_from_source('actuals/', '.actual')
     env.Command(
-        actual, (iigluePlugin, findSentinelsPlugin, json, bitcode),
+        actual, (plugin, json, bitcode),
         [
             [
                 'opt',
                 '-analyze', '-o', '$TARGET',
-                '-load', '${SOURCES[0].abspath}', '-mem2reg',
-                '-iiglue-reader', '-iiglue-read-file', '${SOURCES[2]}',
-                '${SOURCES[3]}',
-                 '-load', '${SOURCES[1].abspath}',
+                '-load', '${SOURCES[0].abspath}',
+                '-mem2reg',
+                '-iiglue-read-file', '${SOURCES[1]}',
                 '-find-sentinels',
+                '${SOURCES[2]}',
             ],
         ],
     )
