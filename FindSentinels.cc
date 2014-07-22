@@ -3,12 +3,14 @@
 
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/PassManager.h>
+#include <llvm/Support/Debug.h>
 #include <llvm/Support/PatternMatch.h>
 #include <llvm/Support/raw_ostream.h>
 #include <llvm/Transforms/IPO/PassManagerBuilder.h>
 
 using namespace llvm;
 using namespace llvm::PatternMatch;
+using namespace std;
 
 /**
  * This mutually-recursive group of functions check whether a given list of sentinel checks is
@@ -19,14 +21,14 @@ using namespace llvm::PatternMatch;
  * entry.
  **/
 
-typedef std::unordered_set<const BasicBlock *> BlockSet;
+typedef unordered_set<const BasicBlock *> BlockSet;
 
 static bool reachable(const Loop &, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal);
 
 static bool reachableNontrivially(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal) {
 	// look for reachable path across any one successor
-	return std::any_of(succ_begin(&current), succ_end(&current),
-			   [&](const BasicBlock * const succ) { return reachable(loop, foundSoFar, *succ, goal); });
+	return any_of(succ_begin(&current), succ_end(&current),
+		      [&](const BasicBlock * const succ) { return reachable(loop, foundSoFar, *succ, goal); });
 }
 
 static bool reachable(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal) {
@@ -52,18 +54,16 @@ static bool DFSCheckSentinelOptional(const Loop &loop, BlockSet &foundSoFar) {
 	return reachableNontrivially(loop, foundSoFar, loopEntry, loopEntry);
 }
 
-namespace
-{
-class FindSentinels : public FunctionPass
-{
-public:
-	FindSentinels();
-	static char ID;
-	void getAnalysisUsage(AnalysisUsage &) const final;
-	bool runOnFunction(Function &) override final;
-};
+namespace {
+	class FindSentinels : public FunctionPass {
+	public:
+		FindSentinels();
+		static char ID;
+		void getAnalysisUsage(AnalysisUsage &) const final;
+		bool runOnFunction(Function &) override final;
+	};
 
-char FindSentinels::ID;
+	char FindSentinels::ID;
 }
 
 static const RegisterPass<FindSentinels> registration("find-sentinels",
@@ -87,39 +87,49 @@ void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const
 
 
 bool FindSentinels::runOnFunction(Function &func) {
-	LoopInfo &LI = getAnalysis<LoopInfo>();
-	IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
-	bool foundArg = false;
-	for (Function::arg_iterator args = func.arg_begin(), end = func.arg_end(); args != end; args++) {
-		if (iiglue.isArray(*args)) {
-			foundArg = true;
-		}
-	}
-	if (!foundArg)
+	const LoopInfo &LI = getAnalysis<LoopInfo>();
+	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
+
+	// bail out early if func has no array arguments
+	if (!any_of(func.arg_begin(), func.arg_end(), [&](const Argument &arg) {
+				return iiglue.isArray(arg);
+			}))
 		return false;
 
 	//We must look through all the loops to determine if any of them contain a sentinel check. 
-	for (LoopInfo::iterator i = LI.begin(), e = LI.end(); i != e; ++i) {
+	for (const Loop * const loop : LI) {
+
 		BlockSet sentinelChecks;
-		Loop *loop = *i;
+
 		SmallVector<BasicBlock *, 4> exitingBlocks;
 		loop->getExitingBlocks(exitingBlocks);
-		for (const auto exitingBlock : exitingBlocks) {
-			const auto terminator(exitingBlock->getTerminator());
-			// to be bound to pattern elements if match succeeds      
+		for (BasicBlock * const exitingBlock : exitingBlocks) {
+
+			TerminatorInst * const terminator = exitingBlock->getTerminator();
+			// to be bound to pattern elements if match succeeds
 			BasicBlock *trueBlock, *falseBlock;
 			CmpInst::Predicate predicate;
 			//This will need to be checked to make sure it corresponds to an argument identified as an array.
 			Argument *pointer; 
 			Value *slot;
 
-			// reusable pattern fragment
-			auto loadPattern(m_Load(
-					m_GetElementPointer(
-							m_FormalArgument(pointer),
-							m_Value(slot)
+			// reusable pattern fragments
+
+			auto loadPattern = m_Load(
+				m_GetElementPointer(
+					m_FormalArgument(pointer),
+					m_Value(slot)
 					)
-			));
+				);
+
+			auto compareZeroPattern = m_ICmp(predicate,
+							 m_CombineOr(
+								 loadPattern,
+								 m_SExt(loadPattern)
+								 ),
+							 m_Zero()
+				);
+
 			// Clang 3.4 without optimization, after running mem2reg:
 			//
 			//     %0 = getelementptr inbounds i8* %pointer, i64 %slot
@@ -142,56 +152,25 @@ bool FindSentinels::runOnFunction(Function &func) {
 			//    %or.cond = or i1 %cmp, %cmp6
 			//    %indvars.iv.next = add i64 %indvars.iv, 1
 			//    br i1 %or.cond, label %for.end, label %for.cond
-			bool matched = false;
 			if (match(terminator,
-					m_Br(
-							m_ICmp(predicate,
-									m_CombineOr(
-											loadPattern,
-											m_SExt(loadPattern)
-									),
-									m_Zero()
-							),
-							trueBlock,
-							falseBlock)
-			)) {
-				matched = true;
-			}
-			//These section math a sentinel check containing an OR statement including the check for the sentinel value. 
-			else if (match(terminator,
-					m_Br(
-							m_Or(
-									m_ICmp(predicate,
-											m_CombineOr(
-													loadPattern,
-													m_SExt(loadPattern)
-											),
-											m_Zero()
-									),
-									m_Value()),
-									trueBlock,
-									falseBlock)
-			)) {
-				matched = true;
-			}
-			else if (match(terminator,
-					m_Br(
-							m_Or(
-									m_Value(),
-									m_ICmp(predicate,
-											m_CombineOr(
-													loadPattern,
-													m_SExt(loadPattern)
-											),
-											m_Zero()
-									)),
-									trueBlock,
-									falseBlock)
-			)) {
-				matched = true;
-			}
-			if (matched) {
-				if (!iiglue.isArray(*pointer)){
+				  m_Br(
+					  m_CombineOr(
+						  compareZeroPattern,
+						  m_CombineOr(
+							  m_Or(
+								  compareZeroPattern,
+								  m_Value()
+								  ),
+							  m_Or(
+								  m_Value(),
+								  compareZeroPattern
+								  )
+							  )
+						  ),
+					  trueBlock,
+					  falseBlock)
+				    )) {
+				if (!iiglue.isArray(*pointer)) {
 					continue;
 				}		
 				// check that we actually leave the loop when sentinel is found
@@ -207,40 +186,42 @@ bool FindSentinels::runOnFunction(Function &func) {
 					continue;
 				}
 				if (loop->contains(sentinelDestination)) {
-					errs() << "dest still in loop!\n";
+					DEBUG(dbgs() << "dest still in loop!\n");
 					continue;
 				}	
 				// all tests pass; this is a possible sentinel check!
 
-				errs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n";
-				errs() << "  exits loop by jumping to %" << sentinelDestination->getName() << '\n';
+				DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
+				      << "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
 				//mark this block as one of the sentinel checks this loop. 
 				sentinelChecks.insert(exitingBlock);
 				auto induction(loop->getCanonicalInductionVariable());
 				if (induction)
-					errs() << "  loop has canonical induction variable %" << induction->getName() << '\n';
+					DEBUG(dbgs() << "  loop has canonical induction variable %" << induction->getName() << '\n');
 				else
-					errs() << "  loop has no canonical induction variable\n";
+					DEBUG(dbgs() << "  loop has no canonical induction variable\n");
 			}
 		}
-		if (sentinelChecks.size() == 0) {
-			errs() << "There were no sentinel checks in this loop.\n";
+		if (sentinelChecks.empty()) {
+			DEBUG(dbgs() << "There were no sentinel checks in this loop.\n");
 		}
 		else if (DFSCheckSentinelOptional(*loop, sentinelChecks)) {
-			errs() << "The sentinel check was optional!\n";
+			DEBUG(dbgs() << "The sentinel check was optional!\n");
 		}
 		else {
-			errs() << "The sentinel check was non-optional - hooray!\n";
+			DEBUG(dbgs() << "The sentinel check was non-optional - hooray!\n");
 		}
 	}
-
+	
 	// read-only pass never changes anything
 	return false;
 }
 //To be used if I need passes to run at a specific time in the opt-cycle - for now, this is unnecessary since we don't actually
 //run very many opt passes, just the ones from O0 and mem2reg.
-/*static RegisterStandardPasses MyPassRegistration(PassManagerBuilder::EP_LoopOptimizerEnd,
-  [](const PassManagerBuilder&, PassManagerBase& PM) {
-    errs() << "Registered pass!\n";
-    PM.add(new FindSentinels());
-  });*/
+#if 0
+static RegisterStandardPasses MyPassRegistration(PassManagerBuilder::EP_LoopOptimizerEnd,
+						 [](const PassManagerBuilder&, PassManagerBase& PM) {
+							 DEBUG(dbgs() << "Registered pass!\n");
+							 PM.add(new FindSentinels());
+						 });
+#endif
