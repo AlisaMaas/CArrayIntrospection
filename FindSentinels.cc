@@ -96,7 +96,7 @@ bool FindSentinels::runOnFunction(Function &func) {
 			}))
 		return false;
 
-	//We must look through all the loops to determine if any of them contain a sentinel check. 
+	//We must look through all the loops to determine if any of them contain a sentinel check.
 	for (const Loop * const loop : LI) {
 
 		BlockSet sentinelChecks;
@@ -110,7 +110,7 @@ bool FindSentinels::runOnFunction(Function &func) {
 			BasicBlock *trueBlock, *falseBlock;
 			CmpInst::Predicate predicate;
 			//This will need to be checked to make sure it corresponds to an argument identified as an array.
-			Argument *pointer; 
+			Argument *pointer;
 			Value *slot;
 
 			// reusable pattern fragments
@@ -172,7 +172,7 @@ bool FindSentinels::runOnFunction(Function &func) {
 				    )) {
 				if (!iiglue.isArray(*pointer)) {
 					continue;
-				}		
+				}
 				// check that we actually leave the loop when sentinel is found
 				const BasicBlock *sentinelDestination;
 				switch (predicate) {
@@ -188,12 +188,12 @@ bool FindSentinels::runOnFunction(Function &func) {
 				if (loop->contains(sentinelDestination)) {
 					DEBUG(dbgs() << "dest still in loop!\n");
 					continue;
-				}	
+				}
 				// all tests pass; this is a possible sentinel check!
 
 				DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
 				      << "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
-				//mark this block as one of the sentinel checks this loop. 
+				//mark this block as one of the sentinel checks this loop.
 				sentinelChecks.insert(exitingBlock);
 				auto induction(loop->getCanonicalInductionVariable());
 				if (induction)
@@ -212,7 +212,7 @@ bool FindSentinels::runOnFunction(Function &func) {
 			DEBUG(dbgs() << "The sentinel check was non-optional - hooray!\n");
 		}
 	}
-	
+
 	// read-only pass never changes anything
 	return false;
 }
