@@ -31,7 +31,7 @@ for source in sources:
         [
             [
                 'opt',
-                '-analyze', '-o', '$TARGET', '-debug',
+                '-analyze', '-o', '$TARGET',
                 '-load', '${SOURCES[0].abspath}',
                 '-mem2reg',
                 '-iiglue-read-file', '${SOURCES[1]}',

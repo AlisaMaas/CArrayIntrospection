@@ -91,11 +91,9 @@ static const RegisterPass<FindSentinels> registration("find-sentinels",
 inline FindSentinels::FindSentinels()
 : FunctionPass(ID)
 {
-  outs() << "Constructor for " << this << "\n";
 }
 
 inline FindSentinels::~FindSentinels(){
-	outs() << "Destructor for " << this << "\n";
 }
 
 void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const
@@ -242,28 +240,47 @@ bool FindSentinels::runOnFunction(Function &func) {
 	// read-only pass never changes anything
 	return false;
 }
-class loopCompare { // simple comparison function
+
+/**
+* Compare two BasicBlock*'s using their names.
+**/
+class basicBlockCompare { // simple comparison function
    public:
       bool operator()(const BasicBlock* x,const BasicBlock* y) { return x->getName() < y->getName(); } 
 };
+
+/**
+* Print helper method. The output looks like the following:
+* Analyzing function: functionName
+* EITHER: 	Detected no sentinel checks (end of output)
+* OR:	We found N loops.
+* FOR EACH LOOP:
+* 	There are M sentinel checks in this loop(nameOfLoopHeaderBlock)
+*	We can/can not bypass all sentinel checks.
+*	Sentinel checks:
+* For each sentinel check, the name of its basic block is printed.
+**/
 void FindSentinels::print(raw_ostream &sink, const Module*) const {
+	//print function name, how many loops found if any
 	sink << "Analyzing function: " << current->getName() << "\n";
 	if(allSentinelChecks.find(current) == allSentinelChecks.end()){
 		sink << "\tDetected no sentinel checks\n";
 		return;
 	}
-	unordered_map<BasicBlock const *, pair<BlockSet, bool>> loopSentinelChecks = allSentinelChecks.at(current);
-	sink << "\tWe found: " << loopSentinelChecks.size() << " loops\n";
-	set<BasicBlock const*, loopCompare> loops;
-	for (auto mapElements : loopSentinelChecks) {
-		loops.insert(mapElements.first);
+	unordered_map<BasicBlock const *, pair<BlockSet, bool>> loopHeaderToSentinelChecks = allSentinelChecks.at(current);
+	sink << "\tWe found: " << loopHeaderToSentinelChecks.size() << " loops\n";
+	set<BasicBlock const*, basicBlockCompare> loopHeaderBlocks;
+	for (auto mapElements : loopHeaderToSentinelChecks) {
+		loopHeaderBlocks.insert(mapElements.first);
 	}
 
-	for (const BasicBlock * const loop : loops) {
-		pair<BlockSet, bool> entry = loopSentinelChecks[loop];
+	//For each loop, print all sentinel checks and whether it is possible to go from loop entry to loop entry without
+	//passing a sentinel check.
+	for (const BasicBlock * const header : loopHeaderBlocks) {
+		pair<BlockSet, bool> entry = loopHeaderToSentinelChecks[header];
 		BlockSet sentinelChecks = entry.first;
 		bool optional = entry.second;
-    	sink << "\tThere are " << sentinelChecks.size() << " sentinel checks in this loop(" << loop->getName() << ")\n";
+    	sink << "\tThere are " << sentinelChecks.size() << " sentinel checks in this loop(" << header->getName() << ")\n";
     	sink << "\tWe can " << (optional?"":"not ") << "bypass all sentinel checks.\n";
     	const auto names =
     		sentinelChecks
