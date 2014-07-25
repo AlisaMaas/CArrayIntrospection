@@ -7,6 +7,16 @@
 * We expect to find one non-optional sentinel check.
 **/
 void print(char* string){}
+int foo(char string[])
+{
+  for(int i = 0; ; i++){
+		if(string[i] == '\0'){
+            print("About to break from loop");
+			break;
+			}
+	}
+  return 1;
+}
 int find(char string[])
 {
   for(int i = 0; ; i++){

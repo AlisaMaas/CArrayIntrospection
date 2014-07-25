@@ -18,20 +18,20 @@ sources = Glob('*.c')
 
 for source in sources:
     # compile C source to LLVM bitcode
-    bitcode = env.BitcodeBinary(source)
+    bitcode = env.BitcodeSource(source)
     json = source.target_from_source('json/', '.json') 
     env.Command(
         json, bitcode,
         '$IIGLUE $SOURCE -r $TARGET.dir',
     )
     #run IIGlueReader to read saved iiglue output
-    actual = source.target_from_source('actuals/', '.actual')
+    actual = source.target_from_source('actualsAndExpecteds/', '.actual')
     env.Command(
         actual, (plugin, json, bitcode),
         [
             [
                 'opt',
-                '-analyze', '-o', '$TARGET',
+                '-analyze', '-o', '$TARGET', '-debug',
                 '-load', '${SOURCES[0].abspath}',
                 '-mem2reg',
                 '-iiglue-read-file', '${SOURCES[1]}',
@@ -42,7 +42,7 @@ for source in sources:
     )
 
     # compare output dump to expected output
-    #env.Expect(actual)
+    env.Expect(actual)
 
 
 ########################################################################

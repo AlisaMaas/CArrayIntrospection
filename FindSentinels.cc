@@ -1,13 +1,22 @@
 #include "IIGlueReader.hh"
 #include "PatternMatch-extras.hh"
 
+#include <boost/container/flat_set.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/range/adaptor/indirected.hpp>
+#include <boost/range/adaptor/map.hpp>
+#include <boost/range/algorithm/find.hpp>
+#include <boost/range/combine.hpp>
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/PassManager.h>
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/PatternMatch.h>
 #include <llvm/Support/raw_ostream.h>
 #include <llvm/Transforms/IPO/PassManagerBuilder.h>
+#include <unordered_map>
 
+using namespace boost::adaptors;
+using namespace boost::property_tree;
 using namespace llvm;
 using namespace llvm::PatternMatch;
 using namespace std;
@@ -32,18 +41,21 @@ static bool reachableNontrivially(const Loop &loop, BlockSet &foundSoFar, const 
 }
 
 static bool reachable(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal) {
-
-	// trivially reached goal
-	if (&current == &goal) return true;
-
-	// not allowed to leave this loop
-	if (!loop.contains(&current)) return false;
-
 	// mark as found so we don't revisit in the future
 	const bool novel = foundSoFar.insert(&current).second;
 
 	// already explored here, or is intentionally closed-off sentinel check
 	if (!novel) return false;
+	
+	// trivially reached goal
+	if (&current == &goal){
+		return true;
+	}
+
+	// not allowed to leave this loop
+	if (!loop.contains(&current)){
+		return false;
+	}
 
 	// not trivially done, so look for nontrivial path
 	return reachableNontrivially(loop, foundSoFar, current, goal);
@@ -58,9 +70,14 @@ namespace {
 	class FindSentinels : public FunctionPass {
 	public:
 		FindSentinels();
+		~FindSentinels();
 		static char ID;
 		void getAnalysisUsage(AnalysisUsage &) const final;
 		bool runOnFunction(Function &) override final;
+		void print(raw_ostream &, const Module *) const;
+	private:
+		unordered_map<Function *, unordered_map<BasicBlock const *, pair<BlockSet, bool>>> allSentinelChecks;
+		Function * current; //Awful HACK because of the way llvm reuses Pass objects.
 	};
 
 	char FindSentinels::ID;
@@ -74,8 +91,12 @@ static const RegisterPass<FindSentinels> registration("find-sentinels",
 inline FindSentinels::FindSentinels()
 : FunctionPass(ID)
 {
+  outs() << "Constructor for " << this << "\n";
 }
 
+inline FindSentinels::~FindSentinels(){
+	outs() << "Destructor for " << this << "\n";
+}
 
 void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const
 {
@@ -87,18 +108,18 @@ void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const
 
 
 bool FindSentinels::runOnFunction(Function &func) {
+	current = &func;
 	const LoopInfo &LI = getAnalysis<LoopInfo>();
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
-
+	unordered_map<BasicBlock const *, pair<BlockSet, bool>> functionSentinelChecks;
 	// bail out early if func has no array arguments
-	if (!any_of(func.arg_begin(), func.arg_end(), [&](const Argument &arg) {
+	//up for discussion - seems to lead to some unintuitive results that I want to discuss before readding.
+	/*if (!any_of(func.arg_begin(), func.arg_end(), [&](const Argument &arg) {
 				return iiglue.isArray(arg);
 			}))
-		return false;
-
+		return false;*/
 	//We must look through all the loops to determine if any of them contain a sentinel check.
 	for (const Loop * const loop : LI) {
-
 		BlockSet sentinelChecks;
 
 		SmallVector<BasicBlock *, 4> exitingBlocks;
@@ -204,18 +225,60 @@ bool FindSentinels::runOnFunction(Function &func) {
 		}
 		if (sentinelChecks.empty()) {
 			DEBUG(dbgs() << "There were no sentinel checks in this loop.\n");
+			functionSentinelChecks[loop->getHeader()] = pair<BlockSet, bool>(sentinelChecks, true);
+			continue;
 		}
-		else if (DFSCheckSentinelOptional(*loop, sentinelChecks)) {
+		BlockSet foundSoFar = sentinelChecks;
+		bool optional = DFSCheckSentinelOptional(*loop, foundSoFar);
+		functionSentinelChecks[loop->getHeader()] = pair<BlockSet, bool>(sentinelChecks, optional);
+		if (optional) {
 			DEBUG(dbgs() << "The sentinel check was optional!\n");
 		}
 		else {
 			DEBUG(dbgs() << "The sentinel check was non-optional - hooray!\n");
 		}
 	}
-
+	allSentinelChecks[&func] = functionSentinelChecks;
 	// read-only pass never changes anything
 	return false;
 }
+class loopCompare { // simple comparison function
+   public:
+      bool operator()(const BasicBlock* x,const BasicBlock* y) { return x->getName() < y->getName(); } 
+};
+void FindSentinels::print(raw_ostream &sink, const Module*) const {
+	sink << "Analyzing function: " << current->getName() << "\n";
+	if(allSentinelChecks.find(current) == allSentinelChecks.end()){
+		sink << "\tDetected no sentinel checks\n";
+		return;
+	}
+	unordered_map<BasicBlock const *, pair<BlockSet, bool>> loopSentinelChecks = allSentinelChecks.at(current);
+	sink << "\tWe found: " << loopSentinelChecks.size() << " loops\n";
+	set<BasicBlock const*, loopCompare> loops;
+	for (auto mapElements : loopSentinelChecks) {
+		loops.insert(mapElements.first);
+	}
+
+	for (const BasicBlock * const loop : loops) {
+		pair<BlockSet, bool> entry = loopSentinelChecks[loop];
+		BlockSet sentinelChecks = entry.first;
+		bool optional = entry.second;
+    	sink << "\tThere are " << sentinelChecks.size() << " sentinel checks in this loop(" << loop->getName() << ")\n";
+    	sink << "\tWe can " << (optional?"":"not ") << "bypass all sentinel checks.\n";
+    	const auto names =
+    		sentinelChecks
+    		| indirected
+    		| transformed([](const BasicBlock &block) {
+    		return (block.getName()).str();
+    		});
+		// print in sorted order for consistent output
+  		boost::container::flat_set<string> ordered(names.begin(), names.end());
+  		sink << "\tSentinel checks: \n";
+  		for (const auto &sentinelCheck : ordered)
+    		sink << "\t\t" << sentinelCheck << '\n';
+    		}
+}
+
 //To be used if I need passes to run at a specific time in the opt-cycle - for now, this is unnecessary since we don't actually
 //run very many opt passes, just the ones from O0 and mem2reg.
 #if 0
