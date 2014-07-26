@@ -4,7 +4,7 @@
 *
 * We expect to find one non-optional sentinel check.
 **/
-void print(char* string){}
+void print(int value){}
 void foo(int distance){
 	for(int i = 0; i < distance; i++){
 		print(i);
