@@ -22,11 +22,11 @@ sources = File(['iiglue-reader-%s.c' % tail for tail in tests])
 
 for source in sources:
 
-    # compile C source to LLVM bitcode
-    bitcode = env.BitcodeBinary(source)
+    # compile C source to LLVM bitcode, then analyze using iiglue
+    bitcode = env.BitcodeSource(source)
+    json = env.IIGlueAnalyze(bitcode)
 
     # run IIGlueReader to read saved iiglue output
-    json = source.target_from_source('', '.json')
     actual = source.target_from_source('', '.actual')
     env.Command(
         actual, (plugin, json, bitcode),

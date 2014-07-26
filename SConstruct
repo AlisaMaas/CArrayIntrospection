@@ -27,6 +27,7 @@ env = Environment(
         'bitcode',
         'default',
         'expect',
+        'iiglue',
     ),
     toolpath=(
         'scons-tools',

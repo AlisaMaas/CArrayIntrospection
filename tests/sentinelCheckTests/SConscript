@@ -17,14 +17,13 @@ plugin = env['plugin']
 sources = Glob('*.c')
 
 for source in sources:
-    # compile C source to LLVM bitcode
+
+    # compile C source to LLVM bitcode, then analyze using iiglue
     bitcode = env.BitcodeSource(source)
     json = source.target_from_source('json/', '.json') 
-    env.Command(
-        json, bitcode,
-        '$IIGLUE $SOURCE -r $TARGET.dir',
-    )
-    #run IIGlueReader to read saved iiglue output
+    env.IIGlueAnalyze(json, bitcode)
+
+    # search for sentinel checks
     actual = source.target_from_source('actualsAndExpecteds/', '.actual')
     env.Command(
         actual, (plugin, json, bitcode),
