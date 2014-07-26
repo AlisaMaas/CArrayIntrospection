@@ -35,6 +35,8 @@ env = Environment(
     variables=variables,
 )
 
+Help(variables.GenerateHelpText(env))
+
 env.PrependENVPath('PATH', env.subst('$LLVM_ROOT/bin'))
 
 
