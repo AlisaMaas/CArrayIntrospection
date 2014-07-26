@@ -51,7 +51,7 @@ for source in sources:
 #
 
 # convenient "scons test" alias to run all tests
-Alias('test', Glob('*.passed'))
+Alias('test', Glob('actualsAndExpecteds/*.passed'))
 
 
 # Local variables:

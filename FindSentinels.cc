@@ -46,7 +46,6 @@ static bool reachable(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &
 
 	// already explored here, or is intentionally closed-off sentinel check
 	if (!novel) return false;
-	
 	// trivially reached goal
 	if (&current == &goal){
 		return true;
@@ -70,7 +69,6 @@ namespace {
 	class FindSentinels : public FunctionPass {
 	public:
 		FindSentinels();
-		~FindSentinels();
 		static char ID;
 		void getAnalysisUsage(AnalysisUsage &) const final;
 		bool runOnFunction(Function &) override final;
@@ -91,9 +89,6 @@ static const RegisterPass<FindSentinels> registration("find-sentinels",
 inline FindSentinels::FindSentinels()
 : FunctionPass(ID)
 {
-}
-
-inline FindSentinels::~FindSentinels(){
 }
 
 void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const
@@ -244,15 +239,15 @@ bool FindSentinels::runOnFunction(Function &func) {
 /**
 * Compare two BasicBlock*'s using their names.
 **/
-class basicBlockCompare { // simple comparison function
-   public:
-      bool operator()(const BasicBlock* x,const BasicBlock* y) { return x->getName() < y->getName(); } 
+class BasicBlockCompare { // simple comparison function
+	public:
+	bool operator()(const BasicBlock* x,const BasicBlock* y) { return x->getName() < y->getName(); }
 };
 
 /**
 * Print helper method. The output looks like the following:
 * Analyzing function: functionName
-* EITHER: 	Detected no sentinel checks (end of output)
+* EITHER:	Detected no sentinel checks (end of output)
 * OR:	We found N loops.
 * FOR EACH LOOP:
 * 	There are M sentinel checks in this loop(nameOfLoopHeaderBlock)
@@ -262,14 +257,14 @@ class basicBlockCompare { // simple comparison function
 **/
 void FindSentinels::print(raw_ostream &sink, const Module*) const {
 	//print function name, how many loops found if any
-	sink << "Analyzing function: " << current->getName() << "\n";
-	if(allSentinelChecks.find(current) == allSentinelChecks.end()){
+	sink << "Analyzing function: " << current->getName() << '\n';
+	if (allSentinelChecks.find(current) == allSentinelChecks.end()) {
 		sink << "\tDetected no sentinel checks\n";
 		return;
 	}
 	unordered_map<BasicBlock const *, pair<BlockSet, bool>> loopHeaderToSentinelChecks = allSentinelChecks.at(current);
 	sink << "\tWe found: " << loopHeaderToSentinelChecks.size() << " loops\n";
-	set<BasicBlock const*, basicBlockCompare> loopHeaderBlocks;
+	set<BasicBlock const*, BasicBlockCompare> loopHeaderBlocks;
 	for (auto mapElements : loopHeaderToSentinelChecks) {
 		loopHeaderBlocks.insert(mapElements.first);
 	}
@@ -280,20 +275,20 @@ void FindSentinels::print(raw_ostream &sink, const Module*) const {
 		pair<BlockSet, bool> entry = loopHeaderToSentinelChecks[header];
 		BlockSet sentinelChecks = entry.first;
 		bool optional = entry.second;
-    	sink << "\tThere are " << sentinelChecks.size() << " sentinel checks in this loop(" << header->getName() << ")\n";
-    	sink << "\tWe can " << (optional?"":"not ") << "bypass all sentinel checks.\n";
-    	const auto names =
-    		sentinelChecks
-    		| indirected
-    		| transformed([](const BasicBlock &block) {
-    		return (block.getName()).str();
-    		});
+		sink << "\tThere are " << sentinelChecks.size() << " sentinel checks in this loop(" << header->getName() << ")\n";
+		sink << "\tWe can " << (optional?"":"not ") << "bypass all sentinel checks.\n";
+		const auto names =
+			sentinelChecks
+			| indirected
+			| transformed([](const BasicBlock &block) {
+				return block.getName().str();
+			});
 		// print in sorted order for consistent output
-  		boost::container::flat_set<string> ordered(names.begin(), names.end());
-  		sink << "\tSentinel checks: \n";
-  		for (const auto &sentinelCheck : ordered)
-    		sink << "\t\t" << sentinelCheck << '\n';
-    		}
+		boost::container::flat_set<string> ordered(names.begin(), names.end());
+		sink << "\tSentinel checks: \n";
+		for (const auto &sentinelCheck : ordered)
+			sink << "\t\t" << sentinelCheck << '\n';
+		}
 }
 
 //To be used if I need passes to run at a specific time in the opt-cycle - for now, this is unnecessary since we don't actually
