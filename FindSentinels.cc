@@ -250,7 +250,7 @@ class BasicBlockCompare { // simple comparison function
 * EITHER:	Detected no sentinel checks (end of output)
 * OR:	We found N loops.
 * FOR EACH LOOP:
-* 	There are M sentinel checks in this loop(nameOfLoopHeaderBlock)
+*	There are M sentinel checks in this loop(nameOfLoopHeaderBlock)
 *	We can/can not bypass all sentinel checks.
 *	Sentinel checks:
 * For each sentinel check, the name of its basic block is printed.
