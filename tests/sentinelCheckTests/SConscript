@@ -5,29 +5,27 @@
 
 Import('env')
 
+testDir = Dir('.')
 plugin = env['plugin']
 
 
 ########################################################################
 #
-#  IIGlueReader tests
+#  FindSentinels tests
 #
 
-tests = (
-    'peek',
-    'variadic',
-)
-
-sources = File(['iiglue-reader-%s.c' % tail for tail in tests])
+sources = Glob('*.c')
 
 for source in sources:
-
     # compile C source to LLVM bitcode
-    bitcode = env.BitcodeBinary(source)
-
-    # run IIGlueReader to read saved iiglue output
-    json = source.target_from_source('', '.json')
-    actual = source.target_from_source('', '.actual')
+    bitcode = env.BitcodeSource(source)
+    json = source.target_from_source('json/', '.json') 
+    env.Command(
+        json, bitcode,
+        '$IIGLUE $SOURCE -r $TARGET.dir',
+    )
+    #run IIGlueReader to read saved iiglue output
+    actual = source.target_from_source('actualsAndExpecteds/', '.actual')
     env.Command(
         actual, (plugin, json, bitcode),
         [
@@ -35,13 +33,15 @@ for source in sources:
                 'opt',
                 '-analyze', '-o', '$TARGET',
                 '-load', '${SOURCES[0].abspath}',
-                '-iiglue-reader', '-iiglue-read-file', '${SOURCES[1]}',
+                '-mem2reg',
+                '-iiglue-read-file', '${SOURCES[1]}',
+                '-find-sentinels',
                 '${SOURCES[2]}',
             ],
         ],
     )
 
-    # compare IIGlueReader output dump to expected output
+    # compare output dump to expected output
     env.Expect(actual)
 
 
@@ -51,15 +51,8 @@ for source in sources:
 #
 
 # convenient "scons test" alias to run all tests
-Alias('test', Glob('*.passed'))
+Alias('test', Glob('actualsAndExpecteds/*.passed'))
 
-
-########################################################################
-#
-#  subdirectories
-#
-
-SConscript(dirs='sentinelCheckTests', exports='env')
 
 # Local variables:
 # flycheck-flake8rc: "../scons-flake8.ini"
