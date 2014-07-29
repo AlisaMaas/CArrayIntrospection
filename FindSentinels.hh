@@ -1,11 +1,14 @@
 #ifndef INCLUDE_FIND_SENTINELS_HH
 #define INCLUDE_FIND_SENTINELS_HH
+
+#include <llvm/IR/Argument.h>
 #include <llvm/Pass.h>
 #include <llvm/Support/raw_ostream.h>
 
 #include <unordered_map>
 #include <unordered_set>
 typedef std::unordered_set<const llvm::BasicBlock *> BlockSet;
+typedef std::unordered_map<llvm::Argument *, std::pair<BlockSet, bool>> ArgumentToBlockSet;
 
 namespace {
 	class FindSentinels : public llvm::FunctionPass {
@@ -16,7 +19,7 @@ namespace {
 		bool runOnFunction(llvm::Function &) override final;
 		void print(llvm::raw_ostream &, const llvm::Module *) const;
 	private:
-		std::unordered_map<llvm::Function *, std::unordered_map<llvm::BasicBlock const *, std::pair<BlockSet, bool>>> allSentinelChecks;
+		std::unordered_map<llvm::Function *, std::unordered_map<llvm::BasicBlock const *, ArgumentToBlockSet>> allSentinelChecks;
 		llvm::Function * current; 
 	};
 

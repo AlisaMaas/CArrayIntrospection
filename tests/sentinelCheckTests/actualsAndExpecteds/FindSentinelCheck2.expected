@@ -10,13 +10,11 @@ Analyzing function: print
 Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array' for function 'foo':
 Analyzing function: foo
 	We found: 1 loops
-	There are 0 sentinel checks in this loop(for.cond)
-	We can bypass all sentinel checks.
-	Sentinel checks: 
 Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array' for function 'find':
 Analyzing function: find
 	We found: 1 loops
-	There are 1 sentinel checks in this loop(for.cond)
-	We can not bypass all sentinel checks.
-	Sentinel checks: 
-		for.body
+	Examining string in loop for.cond
+		There are 1 sentinel checks of this argument in this loop
+			We can not bypass all sentinel checks for this argument in this loop.
+		Sentinel checks: 
+			for.body
