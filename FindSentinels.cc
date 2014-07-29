@@ -1,3 +1,4 @@
+#include "FindSentinels.hh"
 #include "IIGlueReader.hh"
 #include "PatternMatch-extras.hh"
 
@@ -11,9 +12,7 @@
 #include <llvm/PassManager.h>
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/PatternMatch.h>
-#include <llvm/Support/raw_ostream.h>
 #include <llvm/Transforms/IPO/PassManagerBuilder.h>
-#include <unordered_map>
 
 using namespace boost::adaptors;
 using namespace boost::property_tree;
@@ -29,8 +28,6 @@ using namespace std;
  * Sentinel checks are pre-added to foundSoFar, current starts as loop entry, and the goal is loop
  * entry.
  **/
-
-typedef unordered_set<const BasicBlock *> BlockSet;
 
 static bool reachable(const Loop &, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal);
 
@@ -65,21 +62,6 @@ static bool DFSCheckSentinelOptional(const Loop &loop, BlockSet &foundSoFar) {
 	return reachableNontrivially(loop, foundSoFar, loopEntry, loopEntry);
 }
 
-namespace {
-	class FindSentinels : public FunctionPass {
-	public:
-		FindSentinels();
-		static char ID;
-		void getAnalysisUsage(AnalysisUsage &) const final;
-		bool runOnFunction(Function &) override final;
-		void print(raw_ostream &, const Module *) const;
-	private:
-		unordered_map<Function *, unordered_map<BasicBlock const *, pair<BlockSet, bool>>> allSentinelChecks;
-		Function * current; //Awful HACK because of the way llvm reuses Pass objects.
-	};
-
-	char FindSentinels::ID;
-}
 
 static const RegisterPass<FindSentinels> registration("find-sentinels",
 		"Find each branch used to exit a loop when a sentinel value is found in an array",
