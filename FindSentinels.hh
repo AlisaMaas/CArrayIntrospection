@@ -16,6 +16,7 @@ namespace {
 		FindSentinels();
 		static char ID;
 		void getAnalysisUsage(llvm::AnalysisUsage &) const final;
+		std::unordered_map<llvm::BasicBlock const *, ArgumentToBlockSet> getResultsForFunction(llvm::Function*) const;
 		bool runOnFunction(llvm::Function &) override final;
 		void print(llvm::raw_ostream &, const llvm::Module *) const;
 	private:
@@ -25,5 +26,9 @@ namespace {
 
 	char FindSentinels::ID;
 }
+
+inline std::unordered_map<llvm::BasicBlock const *, ArgumentToBlockSet> FindSentinels::getResultsForFunction(llvm::Function *func) const{
+	return allSentinelChecks.at(func);
+};
 
 #endif // !INCLUDE_FIND_SENTINELS_HH

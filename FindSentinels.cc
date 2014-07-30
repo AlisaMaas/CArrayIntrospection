@@ -82,6 +82,7 @@ void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const
 }
 
 
+
 bool FindSentinels::runOnFunction(Function &func) {
 	current = &func;
 	const LoopInfo &LI = getAnalysis<LoopInfo>();
