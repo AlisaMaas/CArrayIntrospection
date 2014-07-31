@@ -1,5 +1,6 @@
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
+#include <llvm/Support/InstIterator.h>
 #include <llvm/IR/Module.h>
 #include <llvm/PassManager.h>
 #include <llvm/Support/raw_ostream.h>
@@ -31,8 +32,8 @@ static const RegisterPass<NullAnnotator> registration("null-annotator",
 		"Determine whether and how to annotate each function with the null-terminated annotation",
 		true, true);
 
-bool existsNonOptionalSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument *arg);
-bool hasLoopWithSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument *arg);
+bool existsNonOptionalSentinelCheck(const unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg);
+bool hasLoopWithSentinelCheck(const unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg);
 
 inline NullAnnotator::NullAnnotator()
 : ModulePass(ID) { }
@@ -67,7 +68,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 	while (changed) {
 		changed = false;
 		for (const Function &func : module) {
-			unordered_map<const BasicBlock *, ArgumentToBlockSet> functionChecks = findSentinels.getResultsForFunction(&func);
+			const unordered_map<const BasicBlock *, ArgumentToBlockSet> functionChecks = findSentinels.getResultsForFunction(&func);
 			for (const Argument &arg : func.getArgumentList()) {
 				pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
 				if (!iiglue.isArray(arg)) {
@@ -79,28 +80,36 @@ bool NullAnnotator::runOnModule(Module &module) {
 				if (firstTime) {
 					firstTime = false;
 					//process loops exactly once
-					if(existsNonOptionalSentinelCheck(functionChecks, &arg)){
+					if (existsNonOptionalSentinelCheck(functionChecks, arg)) {
 						annotations[key] = NULL_TERMINATED;
 						changed = true;
 						continue;
 					}
 				}
 				//if we haven't yet continued, process evidence from callees.
-				//int foundDontCare = false;
+				//bool foundDontCare = false;
+				//bool foundNonNullTerminated = false;
 				//for call : callees
+				//for (auto I = inst_begin(*func), E = inst_end(*func); I != E; ++I) {
+				//	ImmutableCallSite call(&*I);
 					//Answer report = getAnswer(arg)
 					//if (report == NULL_TERMINATED){
 						//annotations[key] = NULL_TERMINATED;
 						//changed = true;
 						//continue;
 					//}
-					//else if (report == NON_NULL_TERMINATED)
+					//else if (report == NON_NULL_TERMINATED) {
 						//maybe set/check a flag for error reporting
-					//else
+						//foundNonNullTerminated = true;
+					//}
+					//else {
 						//maybe set/check a flag for error reporting
+						//foundDontCare = true;
+					//}
+				//}
 				//if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
-				if (hasLoopWithSentinelCheck(functionChecks, &arg)){
-					if(oldResult != NON_NULL_TERMINATED){
+				if (hasLoopWithSentinelCheck(functionChecks, arg)) {
+					if (oldResult != NON_NULL_TERMINATED) {
 						annotations[key] = NON_NULL_TERMINATED;
 						changed = true;
 						//if (foundDontCare)
@@ -122,22 +131,22 @@ void NullAnnotator::print(raw_ostream &sink, const Module*) const {
 	(void)sink;
 }
 
-bool existsNonOptionalSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument *arg) {
+bool existsNonOptionalSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg) {
 
 	for (auto mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
 		ArgumentToBlockSet entry = checks.at(header);
-		if(!entry.at(arg).second)
+		if(!entry.at(&arg).second)
 			return true;
 	}
 	return false;
 }
 
-bool hasLoopWithSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument *arg){
+bool hasLoopWithSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg){
 	for (auto mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
 		ArgumentToBlockSet entry = checks.at(header);
-		if(!entry.at(arg).first.empty()){
+		if(!entry.at(&arg).first.empty()){
 			return true;
 		}
 	}
