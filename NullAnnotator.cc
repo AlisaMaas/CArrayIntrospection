@@ -15,14 +15,14 @@ namespace {
 	public:
 		NullAnnotator();
 		static char ID;
-		bool annotate(Function * func, Argument * arg) const;
+		bool annotate(const Function *func, const Argument *arg) const;
 		void getAnalysisUsage(AnalysisUsage &) const final;
 		bool runOnModule(Module &) override final;
 		void print(raw_ostream &, const Module *) const;
 	private:
 		//map from function name and argument number to whether or not that argument gets annotated
 		map<pair<string, int>, Answer> annotations;
-		bool getAnswer(Function * func, Argument * arg) const;
+		bool getAnswer(const Function &func, const Argument &arg) const;
 	};
 	char NullAnnotator::ID;
 }
@@ -31,13 +31,13 @@ static const RegisterPass<NullAnnotator> registration("null-annotator",
 		"Determine whether and how to annotate each function with the null-terminated annotation",
 		true, true);
 
-bool existsNonOptionalSentinelCheck(unordered_map<BasicBlock const *, ArgumentToBlockSet> checks, Argument *arg);
-bool hasLoopWithSentinelCheck(unordered_map<BasicBlock const *, ArgumentToBlockSet> checks, Argument *arg);
+bool existsNonOptionalSentinelCheck(const unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg);
+bool hasLoopWithSentinelCheck(const unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg);
 
 inline NullAnnotator::NullAnnotator()
 : ModulePass(ID) { }
 
-bool NullAnnotator::annotate(Function * func, Argument * arg) const {
+bool NullAnnotator::annotate(const Function * func, const Argument * arg) const {
 	pair<string, int> key = make_pair(func->getName(), arg->getArgNo());
 	if (annotations.find(key) != annotations.end()){
 		return annotations.at(key)== NULL_TERMINATED;
@@ -53,8 +53,8 @@ void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	usage.addRequired<FindSentinels>();
 }
 
-bool NullAnnotator::getAnswer(Function * func, Argument * arg) const {
-	pair<string, int> key = make_pair(func->getName(), arg->getArgNo());
+bool NullAnnotator::getAnswer(const Function &func, const Argument &arg) const {
+	pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
 	if (annotations.find(key) != annotations.end()){
 		return annotations.at(key);
 	}
@@ -68,11 +68,11 @@ bool NullAnnotator::runOnModule(Module &module) {
 	bool firstTime = true;
 	while (changed) {
 		changed = false;
-		for (Function * func = module.begin(); func != module.end(); ++func) {
-			unordered_map<BasicBlock const *, ArgumentToBlockSet> functionChecks = findSentinels.getResultsForFunction(func);
-			for (Argument* arg = func->arg_begin(); arg != func->arg_end(); ++arg) {
-				pair<string, int> key = make_pair(func->getName(), arg->getArgNo());
-				if (!iiglue.isArray(*arg)) {
+		for (const Function &func : module) {
+			const unordered_map<const BasicBlock *, ArgumentToBlockSet> functionChecks = findSentinels.getResultsForFunction(&func);
+			for (const Argument &arg : func.getArgumentList()) {
+				pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
+				if (!iiglue.isArray(arg)) {
 					continue;
 				}
 				bool oldResult = getAnswer(func, arg);
@@ -109,7 +109,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 					//}
 				//}
 				//if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
-				if (hasLoopWithSentinelCheck(functionChecks, arg)){
+				if (hasLoopWithSentinelCheck(functionChecks, arg)) {
 					if (oldResult != NON_NULL_TERMINATED) {
 						annotations[key] = NON_NULL_TERMINATED;
 						changed = true;
@@ -132,22 +132,22 @@ void NullAnnotator::print(raw_ostream &sink, const Module*) const {
 	(void)sink;
 }
 
-bool existsNonOptionalSentinelCheck(unordered_map<BasicBlock const *, ArgumentToBlockSet> checks, Argument *arg) {
+bool existsNonOptionalSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg) {
 
 	for (auto mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
 		ArgumentToBlockSet entry = checks.at(header);
-		if(!entry.at(arg).second)
+		if(!entry.at(&arg).second)
 			return true;
 	}
 	return false;
 }
 
-bool hasLoopWithSentinelCheck(unordered_map<BasicBlock const *, ArgumentToBlockSet> checks, Argument *arg){
+bool hasLoopWithSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg){
 	for (auto mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
 		ArgumentToBlockSet entry = checks.at(header);
-		if(!entry.at(arg).first.empty()){
+		if(!entry.at(&arg).first.empty()){
 			return true;
 		}
 	}
