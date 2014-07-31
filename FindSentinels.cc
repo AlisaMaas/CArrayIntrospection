@@ -261,7 +261,7 @@ void FindSentinels::print(raw_ostream &sink, const Module*) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	//print function name, how many loops found if any
 	sink << "Analyzing function: " << current->getName() << '\n';
-	if (allSentinelChecks.find(current) == allSentinelChecks.end()) {
+	if (allSentinelChecks.count(current) == 0) {
 		sink << "\tDetected no sentinel checks\n";
 		return;
 	}
