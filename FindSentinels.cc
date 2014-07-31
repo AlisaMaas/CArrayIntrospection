@@ -218,18 +218,19 @@ bool FindSentinels::runOnFunction(Function &func) {
 			if (!iiglue.isArray(arg)) {
 					continue;
 			}
-			BlockSet foundSoFar = sentinelChecks[&arg].first;
-			sentinelChecks[&arg].second = true;
+			std::pair<BlockSet, bool> &checks = sentinelChecks[&arg];
+			BlockSet foundSoFar = checks.first;
+			checks.second = true;
 			bool optional = DFSCheckSentinelOptional(*loop, foundSoFar);
 			if (optional) {
 				DEBUG(dbgs() << "The sentinel check was optional!\n");
-				sentinelChecks[&arg].second = true;
+				checks.second = true;
 			}
 			else {
 				DEBUG(dbgs() << "The sentinel check was non-optional - hooray!\n");
-				sentinelChecks[&arg].second = false;
+				checks.second = false;
 			}
-		}		
+		}
 		functionSentinelChecks[loop->getHeader()] = sentinelChecks;
 	}
 	allSentinelChecks[&func] = functionSentinelChecks;
@@ -260,7 +261,7 @@ void FindSentinels::print(raw_ostream &sink, const Module*) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	//print function name, how many loops found if any
 	sink << "Analyzing function: " << current->getName() << '\n';
-	if (allSentinelChecks.find(current) == allSentinelChecks.end()) {
+	if (allSentinelChecks.count(current) == 0) {
 		sink << "\tDetected no sentinel checks\n";
 		return;
 	}
@@ -274,18 +275,17 @@ void FindSentinels::print(raw_ostream &sink, const Module*) const {
 	//For each loop, print all sentinel checks and whether it is possible to go from loop entry to loop entry without
 	//passing a sentinel check.
 	for (const BasicBlock * const header : loopHeaderBlocks) {
-		ArgumentToBlockSet entry = loopHeaderToSentinelChecks[header];
+		const ArgumentToBlockSet &entry = loopHeaderToSentinelChecks[header];
 		for (const Argument &arg : current->getArgumentList()) {
 			if (!iiglue.isArray(arg)) {
 					continue;
 			}
 			sink << "\tExamining " << arg.getName() << " in loop " << header->getName() << '\n';
-			BlockSet sentinelChecks = entry[&arg].first;
-			bool optional = entry[&arg].second;
-			sink << "\t\tThere are " << sentinelChecks.size() << " sentinel checks of this argument in this loop\n";
-			sink << "\t\t\tWe can " << (optional?"":"not ") << "bypass all sentinel checks for this argument in this loop.\n";
+			const pair<BlockSet, bool> &checks = entry.at(&arg);
+			sink << "\t\tThere are " << checks.first.size() << " sentinel checks of this argument in this loop\n";
+			sink << "\t\t\tWe can " << (checks.second ? "" : "not ") << "bypass all sentinel checks for this argument in this loop.\n";
 			const auto names =
-				sentinelChecks
+				checks.first
 				| indirected
 				| transformed([](const BasicBlock &block) {
 					return block.getName().str();

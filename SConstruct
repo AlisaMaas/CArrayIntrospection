@@ -68,6 +68,8 @@ plugin, = penv.SharedLibrary('CArrayIntrospection', (
 
 env['plugin'] = plugin
 
+Alias('plugin', plugin)
+
 
 ########################################################################
 #

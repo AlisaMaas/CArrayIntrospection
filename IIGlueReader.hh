@@ -42,7 +42,7 @@ inline IIGlueReader::IIGlueReader()
 
 
 inline bool IIGlueReader::isArray(const llvm::Argument &argument) const {
-	return arrayArguments.find(&argument) != arrayArguments.end();
+	return arrayArguments.count(&argument) != 0;
 }
 
 
