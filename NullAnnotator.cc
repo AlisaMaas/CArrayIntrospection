@@ -1,5 +1,6 @@
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
+#include <llvm/Support/InstIterator.h>
 #include <llvm/IR/Module.h>
 #include <llvm/PassManager.h>
 #include <llvm/Support/raw_ostream.h>
@@ -75,33 +76,41 @@ bool NullAnnotator::runOnModule(Module &module) {
 					continue;
 				}
 				bool oldResult = getAnswer(func, arg);
-				if(oldResult == NULL_TERMINATED)
+				if (oldResult == NULL_TERMINATED)
 					continue;
 				if (firstTime) {
 					firstTime = false;
 					//process loops exactly once
-					if(existsNonOptionalSentinelCheck(functionChecks, arg)){
+					if (existsNonOptionalSentinelCheck(functionChecks, arg)) {
 						annotations[key] = NULL_TERMINATED;
 						changed = true;
 						continue;
 					}
 				}
 				//if we haven't yet continued, process evidence from callees.
-				//int foundDontCare = false;
+				//bool foundDontCare = false;
+				//bool foundNonNullTerminated = false;
 				//for call : callees
+				//for (auto I = inst_begin(*func), E = inst_end(*func); I != E; ++I) {
+				//	ImmutableCallSite call(&*I);
 					//Answer report = getAnswer(call.function(), arg)
-					//if (report == NULL_TERMINATED){
+					//if (report == NULL_TERMINATED) {
 						//annotations[key] = NULL_TERMINATED;
 						//changed = true;
 						//continue;
 					//}
-					//else if (report == NON_NULL_TERMINATED)
+					//else if (report == NON_NULL_TERMINATED) {
 						//maybe set/check a flag for error reporting
-					//else
+						//foundNonNullTerminated = true;
+					//}
+					//else {
 						//maybe set/check a flag for error reporting
+						//foundDontCare = true;
+					//}
+				//}
 				//if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
 				if (hasLoopWithSentinelCheck(functionChecks, arg)){
-					if(oldResult != NON_NULL_TERMINATED){
+					if (oldResult != NON_NULL_TERMINATED) {
 						annotations[key] = NON_NULL_TERMINATED;
 						changed = true;
 						//if (foundDontCare)

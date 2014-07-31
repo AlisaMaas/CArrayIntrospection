@@ -29,6 +29,10 @@ using namespace std;
  * entry.
  **/
 
+const std::unordered_map<llvm::BasicBlock const *, ArgumentToBlockSet>& FindSentinels::getResultsForFunction(llvm::Function *func) const{
+	return allSentinelChecks.at(func);
+}
+
 static bool reachable(const Loop &, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal);
 
 static bool reachableNontrivially(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal) {
@@ -66,6 +70,8 @@ static bool DFSCheckSentinelOptional(const Loop &loop, BlockSet &foundSoFar) {
 static const RegisterPass<FindSentinels> registration("find-sentinels",
 		"Find each branch used to exit a loop when a sentinel value is found in an array",
 		true, true);
+
+char FindSentinels::ID;
 
 
 inline FindSentinels::FindSentinels()
