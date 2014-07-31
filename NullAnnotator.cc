@@ -20,7 +20,8 @@ namespace {
 		void print(raw_ostream &, const Module *) const;
 	private:
 		//map from function name and argument number to whether or not that argument gets annotated
-		map<pair<string, int>, Answer> annotations;
+		typedef map<pair<string, int>, Answer> AnnotationMap;
+		AnnotationMap annotations;
 		bool getAnswer(const Argument &) const;
 	};
 	char NullAnnotator::ID;
@@ -39,10 +40,8 @@ inline NullAnnotator::NullAnnotator()
 bool NullAnnotator::annotate(const Argument &arg) const {
 	const Function &func = *arg.getParent();
 	pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
-	if (annotations.find(key) != annotations.end()){
-		return annotations.at(key)== NULL_TERMINATED;
-	}
-	return false;
+	AnnotationMap::const_iterator found = annotations.find(key);
+	return found != annotations.end() && found->second == NULL_TERMINATED;
 }
 
 
@@ -56,10 +55,8 @@ void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 bool NullAnnotator::getAnswer(const Argument &arg) const {
 	const Function &func = *arg.getParent();
 	pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
-	if (annotations.find(key) != annotations.end()){
-		return annotations.at(key);
-	}
-	return DONT_CARE;
+	AnnotationMap::const_iterator found = annotations.find(key);
+	return found == annotations.end() ? DONT_CARE : found->second;
 }
 
 bool NullAnnotator::runOnModule(Module &module) {
