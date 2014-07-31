@@ -87,7 +87,7 @@ bool FindSentinels::runOnFunction(Function &func) {
 	current = &func;
 	const LoopInfo &LI = getAnalysis<LoopInfo>();
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
-	unordered_map<BasicBlock const *, ArgumentToBlockSet> functionSentinelChecks;
+	unordered_map<const BasicBlock *, ArgumentToBlockSet> functionSentinelChecks;
 	// bail out early if func has no array arguments
 	//up for discussion - seems to lead to some unintuitive results that I want to discuss before readding.
 	/*if (!any_of(func.arg_begin(), func.arg_end(), [&](const Argument &arg) {
@@ -100,7 +100,7 @@ bool FindSentinels::runOnFunction(Function &func) {
 
 		SmallVector<BasicBlock *, 4> exitingBlocks;
 		loop->getExitingBlocks(exitingBlocks);
-		for (BasicBlock * const exitingBlock : exitingBlocks) {
+		for (BasicBlock *exitingBlock : exitingBlocks) {
 
 			TerminatorInst * const terminator = exitingBlock->getTerminator();
 			// to be bound to pattern elements if match succeeds
@@ -199,7 +199,7 @@ bool FindSentinels::runOnFunction(Function &func) {
 			}
 		}
 		if (sentinelChecks.empty()) {
-			for (Argument &arg : func.getArgumentList()) {
+			for (const Argument &arg : func.getArgumentList()) {
 				if (!iiglue.isArray(arg)) {
 					continue;
 				}
@@ -208,7 +208,7 @@ bool FindSentinels::runOnFunction(Function &func) {
 			functionSentinelChecks[loop->getHeader()] = sentinelChecks;
 			continue;
 		}
-		for (Argument &arg : func.getArgumentList()) {
+		for (const Argument &arg : func.getArgumentList()) {
 			if (!iiglue.isArray(arg)) {
 					continue;
 			}
@@ -258,9 +258,9 @@ void FindSentinels::print(raw_ostream &sink, const Module*) const {
 		sink << "\tDetected no sentinel checks\n";
 		return;
 	}
-	unordered_map<BasicBlock const *, ArgumentToBlockSet> loopHeaderToSentinelChecks = allSentinelChecks.at(current);
+	unordered_map<const BasicBlock *, ArgumentToBlockSet> loopHeaderToSentinelChecks = allSentinelChecks.at(current);
 	sink << "\tWe found: " << loopHeaderToSentinelChecks.size() << " loops\n";
-	set<BasicBlock const*, BasicBlockCompare> loopHeaderBlocks;
+	set<const BasicBlock*, BasicBlockCompare> loopHeaderBlocks;
 	for (auto mapElements : loopHeaderToSentinelChecks) {
 		loopHeaderBlocks.insert(mapElements.first);
 	}
@@ -269,7 +269,7 @@ void FindSentinels::print(raw_ostream &sink, const Module*) const {
 	//passing a sentinel check.
 	for (const BasicBlock * const header : loopHeaderBlocks) {
 		ArgumentToBlockSet entry = loopHeaderToSentinelChecks[header];
-		for (Argument &arg : current->getArgumentList()) {
+		for (const Argument &arg : current->getArgumentList()) {
 			if (!iiglue.isArray(arg)) {
 					continue;
 			}

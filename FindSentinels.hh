@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <unordered_set>
 typedef std::unordered_set<const llvm::BasicBlock *> BlockSet;
-typedef std::unordered_map<llvm::Argument *, std::pair<BlockSet, bool>> ArgumentToBlockSet;
+typedef std::unordered_map<const llvm::Argument *, std::pair<BlockSet, bool>> ArgumentToBlockSet;
 
 namespace {
 	class FindSentinels : public llvm::FunctionPass {
@@ -16,18 +16,18 @@ namespace {
 		FindSentinels();
 		static char ID;
 		void getAnalysisUsage(llvm::AnalysisUsage &) const final;
-		std::unordered_map<llvm::BasicBlock const *, ArgumentToBlockSet> getResultsForFunction(llvm::Function*) const;
+		std::unordered_map<const llvm::BasicBlock *, ArgumentToBlockSet> getResultsForFunction(const llvm::Function*) const;
 		bool runOnFunction(llvm::Function &) override final;
 		void print(llvm::raw_ostream &, const llvm::Module *) const;
 	private:
-		std::unordered_map<llvm::Function *, std::unordered_map<llvm::BasicBlock const *, ArgumentToBlockSet>> allSentinelChecks;
-		llvm::Function * current; 
+		std::unordered_map<const llvm::Function *, std::unordered_map<const llvm::BasicBlock *, ArgumentToBlockSet>> allSentinelChecks;
+		const llvm::Function *current; 
 	};
 
 	char FindSentinels::ID;
 }
 
-inline std::unordered_map<llvm::BasicBlock const *, ArgumentToBlockSet> FindSentinels::getResultsForFunction(llvm::Function *func) const{
+inline std::unordered_map<const llvm::BasicBlock *, ArgumentToBlockSet> FindSentinels::getResultsForFunction(const llvm::Function *func) const{
 	return allSentinelChecks.at(func);
 };
 
