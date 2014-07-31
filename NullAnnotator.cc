@@ -14,14 +14,14 @@ namespace {
 	public:
 		NullAnnotator();
 		static char ID;
-		bool annotate(const Function * func, const Argument * arg) const;
+		bool annotate(const Argument &) const;
 		void getAnalysisUsage(AnalysisUsage &) const final;
 		bool runOnModule(Module &) override final;
 		void print(raw_ostream &, const Module *) const;
 	private:
 		//map from function name and argument number to whether or not that argument gets annotated
 		map<pair<string, int>, Answer> annotations;
-		bool getAnswer(const Function * func, const Argument * arg) const;
+		bool getAnswer(const Argument &) const;
 	};
 	char NullAnnotator::ID;
 }
@@ -36,8 +36,9 @@ bool hasLoopWithSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockS
 inline NullAnnotator::NullAnnotator()
 : ModulePass(ID) { }
 
-bool NullAnnotator::annotate(const Function * func, const Argument * arg) const {
-	pair<string, int> key = make_pair(func->getName(), arg->getArgNo());
+bool NullAnnotator::annotate(const Argument &arg) const {
+	const Function &func = *arg.getParent();
+	pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
 	if (annotations.find(key) != annotations.end()){
 		return annotations.at(key)== NULL_TERMINATED;
 	}
@@ -52,8 +53,9 @@ void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	usage.addRequired<FindSentinels>();
 }
 
-bool NullAnnotator::getAnswer(const Function * func, const Argument * arg) const {
-	pair<string, int> key = make_pair(func->getName(), arg->getArgNo());
+bool NullAnnotator::getAnswer(const Argument &arg) const {
+	const Function &func = *arg.getParent();
+	pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
 	if (annotations.find(key) != annotations.end()){
 		return annotations.at(key);
 	}
@@ -74,7 +76,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 				if (!iiglue.isArray(arg)) {
 					continue;
 				}
-				bool oldResult = getAnswer(&func, &arg);
+				bool oldResult = getAnswer(arg);
 				if(oldResult == NULL_TERMINATED)
 					continue;
 				if (firstTime) {
@@ -89,7 +91,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 				//if we haven't yet continued, process evidence from callees.
 				//int foundDontCare = false;
 				//for call : callees
-					//Answer report = getAnswer(call.function(), arg)
+					//Answer report = getAnswer(arg)
 					//if (report == NULL_TERMINATED){
 						//annotations[key] = NULL_TERMINATED;
 						//changed = true;
