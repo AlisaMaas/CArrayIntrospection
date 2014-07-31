@@ -68,7 +68,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 	while (changed) {
 		changed = false;
 		for (const Function &func : module) {
-			const unordered_map<const BasicBlock *, ArgumentToBlockSet> functionChecks = findSentinels.getResultsForFunction(&func);
+			const unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionChecks = findSentinels.getResultsForFunction(&func);
 			for (const Argument &arg : func.getArgumentList()) {
 				pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
 				if (!iiglue.isArray(arg)) {
@@ -135,7 +135,7 @@ bool existsNonOptionalSentinelCheck(unordered_map<const BasicBlock *, ArgumentTo
 
 	for (auto mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
-		ArgumentToBlockSet entry = checks.at(header);
+		const ArgumentToBlockSet &entry = checks.at(header);
 		if(!entry.at(&arg).second)
 			return true;
 	}
@@ -145,10 +145,9 @@ bool existsNonOptionalSentinelCheck(unordered_map<const BasicBlock *, ArgumentTo
 bool hasLoopWithSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg){
 	for (auto mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
-		ArgumentToBlockSet entry = checks.at(header);
-		if(!entry.at(&arg).first.empty()){
+		const ArgumentToBlockSet &entry = checks.at(header);
+		if(!entry.at(&arg).first.empty())
 			return true;
-		}
 	}
 	return false;
 }
