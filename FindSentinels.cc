@@ -205,19 +205,13 @@ bool FindSentinels::runOnFunction(Function &func) {
 			}
 		}
 		if (sentinelChecks.empty()) {
-			for (const Argument &arg : func.getArgumentList()) {
-				if (!iiglue.isArray(arg)) {
-					continue;
-				}
+			for (const Argument &arg : iiglue.arrayArguments(func)) {
 				sentinelChecks[&arg].second = true;
 			}
 			functionSentinelChecks[loop->getHeader()] = sentinelChecks;
 			continue;
 		}
-		for (const Argument &arg : func.getArgumentList()) {
-			if (!iiglue.isArray(arg)) {
-					continue;
-			}
+		for (const Argument &arg : iiglue.arrayArguments(func)) {
 			std::pair<BlockSet, bool> &checks = sentinelChecks[&arg];
 			BlockSet foundSoFar = checks.first;
 			checks.second = true;
@@ -276,10 +270,7 @@ void FindSentinels::print(raw_ostream &sink, const Module*) const {
 	//passing a sentinel check.
 	for (const BasicBlock * const header : loopHeaderBlocks) {
 		const ArgumentToBlockSet &entry = loopHeaderToSentinelChecks[header];
-		for (const Argument &arg : current->getArgumentList()) {
-			if (!iiglue.isArray(arg)) {
-					continue;
-			}
+		for (const Argument &arg : iiglue.arrayArguments(*current)) {
 			sink << "\tExamining " << arg.getName() << " in loop " << header->getName() << '\n';
 			const pair<BlockSet, bool> &checks = entry.at(&arg);
 			sink << "\t\tThere are " << checks.first.size() << " sentinel checks of this argument in this loop\n";

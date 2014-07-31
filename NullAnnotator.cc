@@ -69,10 +69,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 		changed = false;
 		for (const Function &func : module) {
 			const unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionChecks = findSentinels.getResultsForFunction(&func);
-			for (const Argument &arg : func.getArgumentList()) {
-				if (!iiglue.isArray(arg)) {
-					continue;
-				}
+			for (const Argument &arg : iiglue.arrayArguments(func)) {
 				bool oldResult = getAnswer(arg);
 				if(oldResult == NULL_TERMINATED)
 					continue;
