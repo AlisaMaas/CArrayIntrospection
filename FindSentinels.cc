@@ -199,29 +199,29 @@ bool FindSentinels::runOnFunction(Function &func) {
 			}
 		}
 		if (sentinelChecks.empty()) {
-			for (auto argIterator = func.arg_begin(); argIterator != func.arg_end(); ++argIterator) {
-				if (!iiglue.isArray(*argIterator)) {
+			for (Argument &arg : func.getArgumentList()) {
+				if (!iiglue.isArray(arg)) {
 					continue;
 				}
-				sentinelChecks[argIterator].second = true;
+				sentinelChecks[&arg].second = true;
 			}
 			functionSentinelChecks[loop->getHeader()] = sentinelChecks;
 			continue;
 		}
-		for (auto argIterator = func.arg_begin(); argIterator != func.arg_end(); ++argIterator) {
-			if (!iiglue.isArray(*argIterator)) {
+		for (Argument &arg : func.getArgumentList()) {
+			if (!iiglue.isArray(arg)) {
 					continue;
 			}
-			BlockSet foundSoFar = sentinelChecks[argIterator].first;
-			sentinelChecks[argIterator].second = true;
+			BlockSet foundSoFar = sentinelChecks[&arg].first;
+			sentinelChecks[&arg].second = true;
 			bool optional = DFSCheckSentinelOptional(*loop, foundSoFar);
 			if (optional) {
 				DEBUG(dbgs() << "The sentinel check was optional!\n");
-				sentinelChecks[argIterator].second = true;
+				sentinelChecks[&arg].second = true;
 			}
 			else {
 				DEBUG(dbgs() << "The sentinel check was non-optional - hooray!\n");
-				sentinelChecks[argIterator].second = false;
+				sentinelChecks[&arg].second = false;
 			}
 		}		
 		functionSentinelChecks[loop->getHeader()] = sentinelChecks;
@@ -269,13 +269,13 @@ void FindSentinels::print(raw_ostream &sink, const Module*) const {
 	//passing a sentinel check.
 	for (const BasicBlock * const header : loopHeaderBlocks) {
 		ArgumentToBlockSet entry = loopHeaderToSentinelChecks[header];
-		for (auto argIterator = current->arg_begin(); argIterator != current->arg_end(); ++argIterator) {
-			if (!iiglue.isArray(*argIterator)) {
+		for (Argument &arg : current->getArgumentList()) {
+			if (!iiglue.isArray(arg)) {
 					continue;
 			}
-			sink << "\tExamining " << argIterator->getName() << " in loop " << header->getName() << '\n';
-			BlockSet sentinelChecks = entry[argIterator].first;
-			bool optional = entry[argIterator].second;
+			sink << "\tExamining " << arg.getName() << " in loop " << header->getName() << '\n';
+			BlockSet sentinelChecks = entry[&arg].first;
+			bool optional = entry[&arg].second;
 			sink << "\t\tThere are " << sentinelChecks.size() << " sentinel checks of this argument in this loop\n";
 			sink << "\t\t\tWe can " << (optional?"":"not ") << "bypass all sentinel checks for this argument in this loop.\n";
 			const auto names =

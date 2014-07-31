@@ -67,20 +67,20 @@ bool NullAnnotator::runOnModule(Module &module) {
 	bool firstTime = true;
 	while (changed) {
 		changed = false;
-		for (Function * func = module.begin(); func != module.end(); ++func) {
-			unordered_map<BasicBlock const *, ArgumentToBlockSet> functionChecks = findSentinels.getResultsForFunction(func);
-			for (Argument* arg = func->arg_begin(); arg != func->arg_end(); ++arg) {
-				pair<string, int> key = make_pair(func->getName(), arg->getArgNo());
-				if (!iiglue.isArray(*arg)) {
+		for (Function &func : module) {
+			unordered_map<BasicBlock const *, ArgumentToBlockSet> functionChecks = findSentinels.getResultsForFunction(&func);
+			for (Argument &arg : func.getArgumentList()) {
+				pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
+				if (!iiglue.isArray(arg)) {
 					continue;
 				}
-				bool oldResult = getAnswer(func, arg);
+				bool oldResult = getAnswer(&func, &arg);
 				if(oldResult == NULL_TERMINATED)
 					continue;
 				if (firstTime) {
 					firstTime = false;
 					//process loops exactly once
-					if(existsNonOptionalSentinelCheck(functionChecks, arg)){
+					if(existsNonOptionalSentinelCheck(functionChecks, &arg)){
 						annotations[key] = NULL_TERMINATED;
 						changed = true;
 						continue;
@@ -100,7 +100,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 					//else
 						//maybe set/check a flag for error reporting
 				//if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
-				if (hasLoopWithSentinelCheck(functionChecks, arg)){
+				if (hasLoopWithSentinelCheck(functionChecks, &arg)){
 					if(oldResult != NON_NULL_TERMINATED){
 						annotations[key] = NON_NULL_TERMINATED;
 						changed = true;
