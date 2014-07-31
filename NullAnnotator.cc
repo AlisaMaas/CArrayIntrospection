@@ -1,9 +1,12 @@
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
-#include <llvm/Support/InstIterator.h>
+
 #include <llvm/IR/Module.h>
 #include <llvm/PassManager.h>
+#include <llvm/Support/CallSite.h>
+#include <llvm/Support/InstIterator.h>
 #include <llvm/Support/raw_ostream.h>
+#include <llvm/IR/Use.h>
 #include <tuple>
 using namespace llvm;
 using namespace std;
@@ -21,8 +24,9 @@ namespace {
 		void print(raw_ostream &, const Module *) const;
 	private:
 		//map from function name and argument number to whether or not that argument gets annotated
-		map<pair<string, int>, Answer> annotations;
-		bool getAnswer(const Argument &) const;
+		unordered_map<const Argument*, Answer> annotations;
+		Answer getAnswer(const Argument &) const;
+		unordered_map<const Function*, unordered_set<ImmutableCallSite*>> functionToCallSites;
 	};
 	char NullAnnotator::ID;
 }
@@ -38,10 +42,8 @@ inline NullAnnotator::NullAnnotator()
 : ModulePass(ID) { }
 
 bool NullAnnotator::annotate(const Argument &arg) const {
-	const Function &func = *arg.getParent();
-	pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
-	if (annotations.find(key) != annotations.end()){
-		return annotations.at(key)== NULL_TERMINATED;
+	if (annotations.count(&arg)) {
+		return annotations.at(&arg)== NULL_TERMINATED;
 	}
 	return false;
 }
@@ -54,11 +56,9 @@ void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	usage.addRequired<FindSentinels>();
 }
 
-bool NullAnnotator::getAnswer(const Argument &arg) const {
-	const Function &func = *arg.getParent();
-	pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
-	if (annotations.find(key) != annotations.end()){
-		return annotations.at(key);
+Answer NullAnnotator::getAnswer(const Argument &arg) const {
+	if (annotations.count(&arg)){
+		return annotations.at(&arg);
 	}
 	return DONT_CARE;
 }
@@ -73,7 +73,6 @@ bool NullAnnotator::runOnModule(Module &module) {
 		for (const Function &func : module) {
 			const unordered_map<const BasicBlock *, ArgumentToBlockSet> functionChecks = findSentinels.getResultsForFunction(&func);
 			for (const Argument &arg : func.getArgumentList()) {
-				pair<string, int> key = make_pair(func.getName(), arg.getArgNo());
 				if (!iiglue.isArray(arg)) {
 					continue;
 				}
@@ -84,38 +83,71 @@ bool NullAnnotator::runOnModule(Module &module) {
 					firstTime = false;
 					//process loops exactly once
 					if (existsNonOptionalSentinelCheck(functionChecks, arg)) {
-						annotations[key] = NULL_TERMINATED;
+						annotations[&arg] = NULL_TERMINATED;
 						changed = true;
 						continue;
 					}
+					for (auto I = inst_begin(func), E = inst_end(func); I != E; ++I) {
+						ImmutableCallSite call(&*I);
+						if (call) {
+							functionToCallSites[&func].insert(&call);
+						}
+					}
 				}
 				//if we haven't yet continued, process evidence from callees.
-				//bool foundDontCare = false;
-				//bool foundNonNullTerminated = false;
-				//for call : callees
-				//for (auto I = inst_begin(*func), E = inst_end(*func); I != E; ++I) {
-				//	ImmutableCallSite call(&*I);
-					//Answer report = getAnswer(arg)
-					//if (report == NULL_TERMINATED){
-						//annotations[key] = NULL_TERMINATED;
-						//changed = true;
-						//continue;
-					//}
-					//else if (report == NON_NULL_TERMINATED) {
+				bool foundDontCare = false;
+				bool foundNonNullTerminated = false;
+				bool nextArgumentPlease = false;
+				
+				for (const ImmutableCallSite *call : functionToCallSites[&func]) {
+					const Argument * parameter = NULL;
+					unsigned argNo = 0;
+					bool foundArg = false;
+					for (auto AI = call->arg_begin(), E = call->arg_end(); AI != E; ++AI) {
+						if (AI->get() == &arg){
+							argNo = AI - AI->getUser()->op_begin();
+							foundArg = true;
+						}
+					}
+					if (!foundArg) {
+						continue;
+					}
+					for (const Argument &param : call->getCalledFunction()->getArgumentList()) {
+						if (param.getArgNo() == argNo) {
+							parameter = &param;
+							break;
+						}
+					}
+				
+					Answer report = getAnswer(*parameter);
+					if (report == NULL_TERMINATED) {
+						annotations[&arg] = NULL_TERMINATED;
+						changed = true;
+						nextArgumentPlease = true;
+						break;
+					}
+					else if (report == NON_NULL_TERMINATED) {
 						//maybe set/check a flag for error reporting
-						//foundNonNullTerminated = true;
-					//}
-					//else {
+						foundNonNullTerminated = true;
+					}
+					else {
 						//maybe set/check a flag for error reporting
-						//foundDontCare = true;
-					//}
-				//}
+						if(foundNonNullTerminated){
+							errs() << "Found both DONT_CARE and NON_NULL_TERMINATED among callees.\n";
+						}
+						foundDontCare = true;
+					}
+				}
+				if (nextArgumentPlease) {
+					continue;
+				}
 				//if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
 				if (hasLoopWithSentinelCheck(functionChecks, arg)) {
 					if (oldResult != NON_NULL_TERMINATED) {
-						annotations[key] = NON_NULL_TERMINATED;
+						annotations[&arg] = NON_NULL_TERMINATED;
 						changed = true;
-						//if (foundDontCare)
+						if (foundDontCare)
+							errs() << "Marking NULL_TERMINATED even though other calls say DONT_CARE.\n";
 							//do error reporting stuff
 						continue;
 					}
