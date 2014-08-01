@@ -62,12 +62,12 @@ Answer NullAnnotator::getAnswer(const Argument &arg) const {
 
 bool NullAnnotator::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
-	const FindSentinels &findSentinels = getAnalysis<FindSentinels>();
 	bool changed = true;
 	bool firstTime = true;
 	while (changed) {
 		changed = false;
-		for (const Function &func : module) {
+		for (Function &func : module) {
+			const FindSentinels &findSentinels = getAnalysis<FindSentinels>(func);
 			const unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionChecks = findSentinels.getResultsForFunction(&func);
 			for (const Argument &arg : func.getArgumentList()) {
 				if (!iiglue.isArray(arg)) {

@@ -11,29 +11,26 @@ plugin = env['plugin']
 
 ########################################################################
 #
-#  FindSentinels tests
+#  NullAnnotator tests
 #
 
 sources = Glob('*.c')
-
 for source in sources:
-
     # compile C source to LLVM bitcode, then analyze using iiglue
     bitcode = env.BitcodeSource(source)
     json = source.target_from_source('json/', '.json') 
     env.IIGlueAnalyze(json, bitcode)
-
     actual = source.target_from_source('actualsAndExpecteds/', '.actual')
     env.Command(
         actual, (plugin, json, bitcode),
         [
             [
-                'opt', 
-                '-analyze', '-std-compile-opts', '-verify-each', '-o', '$TARGET',
+                'opt',
+                '-analyze', '-o', '$TARGET',
                 '-load', '${SOURCES[0].abspath}',
                 '-mem2reg',
-                '-null-annotator',
                 '-iiglue-read-file', '${SOURCES[1]}',
+                '-find-sentinels', 
                 '${SOURCES[2]}',
             ],
         ],
@@ -45,14 +42,13 @@ for source in sources:
 
 ########################################################################
 #
-#  subdirectories
-#
-
-SConscript(dirs='interproceduralTests', exports='env')
-
-########################################################################
-#
 #  common post-setup work for all tests
 #
 
-# convenient "scons 
+# convenient "scons test" alias to run all tests
+Alias('test', Glob('actualsAndExpecteds/*.passed'))
+
+
+# Local variables:
+# flycheck-flake8rc: "../scons-flake8.ini"
+# End:
