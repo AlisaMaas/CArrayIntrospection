@@ -205,19 +205,13 @@ bool FindSentinels::runOnModule(Module &module) {
 				}
 			}
 			if (sentinelChecks.empty()) {
-				for (const Argument &arg : func.getArgumentList()) {
-					if (!iiglue.isArray(arg)) {
-						continue;
-					}
+				for (const Argument &arg : iiglue.arrayArguments(func)) {
 					sentinelChecks[&arg].second = true;
 				}
 				functionSentinelChecks[loop->getHeader()] = sentinelChecks;
 				continue;
 			}
-			for (const Argument &arg : func.getArgumentList()) {
-				if (!iiglue.isArray(arg)) {
-					continue;
-				}
+			for (const Argument &arg : iiglue.arrayArguments(func)) {
 				std::pair<BlockSet, bool> &checks = sentinelChecks[&arg];
 				BlockSet foundSoFar = checks.first;
 				checks.second = true;
@@ -258,11 +252,10 @@ class BasicBlockCompare { // simple comparison function
  *	Sentinel checks:
  * For each sentinel check, the name of its basic block is printed.
  **/
-void FindSentinels::print(raw_ostream &sink, const Module* module) const {
+void FindSentinels::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
-	//print function name, how many loops found if any
 	for (const Function &func : *module) {
-
+		//print function name, how many loops found if any
 		sink << "Analyzing function: " << func.getName() << '\n';
 		if (allSentinelChecks.count(&func) == 0) {
 			sink << "\tDetected no sentinel checks\n";
@@ -279,10 +272,7 @@ void FindSentinels::print(raw_ostream &sink, const Module* module) const {
 		//passing a sentinel check.
 		for (const BasicBlock * const header : loopHeaderBlocks) {
 			const ArgumentToBlockSet &entry = loopHeaderToSentinelChecks[header];
-			for (const Argument &arg : func.getArgumentList()) {
-				if (!iiglue.isArray(arg)) {
-					continue;
-				}
+			for (const Argument &arg : iiglue.arrayArguments(func)) {
 				sink << "\tExamining " << arg.getName() << " in loop " << header->getName() << '\n';
 				const pair<BlockSet, bool> &checks = entry.at(&arg);
 				sink << "\t\tThere are " << checks.first.size() << " sentinel checks of this argument in this loop\n";
@@ -302,13 +292,3 @@ void FindSentinels::print(raw_ostream &sink, const Module* module) const {
 		}
 	}
 }
-
-//To be used if I need passes to run at a specific time in the opt-cycle - for now, this is unnecessary since we don't actually
-//run very many opt passes, just the ones from O0 and mem2reg.
-#if 0
-static RegisterStandardPasses MyPassRegistration(PassManagerBuilder::EP_LoopOptimizerEnd,
-		[](const PassManagerBuilder&, PassManagerBase& PM) {
-	DEBUG(dbgs() << "Registered pass!\n");
-	PM.add(new FindSentinels());
-});
-#endif

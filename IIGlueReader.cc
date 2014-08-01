@@ -88,7 +88,7 @@ bool IIGlueReader::runOnModule(Module &module) {
 			// PAArray annotation means iiglue thinks this is an array;
 			// ignore inferred array dimensionality: not needed yet
 			if (find(annotationTags, "PAArray") != end(annotationTags))
-				arrayArguments.insert(&slot.get<1>());
+				arrays.insert(&slot.get<1>());
 		}
 	}
 
@@ -103,7 +103,7 @@ void IIGlueReader::print(raw_ostream &sink, const Module *) const {
 
 	// function-qualified names of array arguments
 	const auto names =
-		arrayArguments
+		arrays
 		| indirected
 		| transformed([](const Argument &arg) {
 				return (arg.getParent()->getName() + "::" + arg.getName()).str();

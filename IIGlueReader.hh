@@ -1,6 +1,8 @@
 #ifndef INCLUDE_IIGLUE_READER_HH
 #define INCLUDE_IIGLUE_READER_HH
 
+#include <boost/range/adaptor/filtered.hpp>
+#include <llvm/IR/Function.h>
 #include <llvm/Pass.h>
 #include <unordered_set>
 
@@ -15,6 +17,21 @@ namespace llvm {
 //
 
 class IIGlueReader : public llvm::ModulePass {
+
+private:
+	// utility functor for filtering
+	class IsArray {
+	public:
+		IsArray(const IIGlueReader &);
+		bool operator()(const llvm::Argument &) const;
+
+	private:
+		const IIGlueReader &iiglue;
+	};
+
+	// formal function arguments marked as arrays by iiglue
+	std::unordered_set<const llvm::Argument *> arrays;
+
 public:
 	// standard LLVM pass interface
 	IIGlueReader();
@@ -23,16 +40,25 @@ public:
 	bool runOnModule(llvm::Module &) override final;
 	void print(llvm::raw_ostream &, const llvm::Module *) const;
 
-	// convenience methods to query loaded iiglue annotations
+	// convenience methods to access loaded iiglue annotations
+	typedef boost::filtered_range<IsArray, const llvm::Function::ArgumentListType> ArrayArgumentsRange;
 	bool isArray(const llvm::Argument &) const;
-
-private:
-	// formal function arguments marked as arrays by iiglue
-	std::unordered_set<const llvm::Argument *> arrayArguments;
+	ArrayArgumentsRange arrayArguments(const llvm::Function &function) const;
 };
 
 
 ////////////////////////////////////////////////////////////////////////
+
+
+inline IIGlueReader::IsArray::IsArray(const IIGlueReader &iiglue)
+	: iiglue(iiglue)
+{
+}
+
+
+inline bool IIGlueReader::IsArray::operator()(const llvm::Argument &argument) const {
+	return iiglue.isArray(argument);
+}
 
 
 inline IIGlueReader::IIGlueReader()
@@ -42,8 +68,13 @@ inline IIGlueReader::IIGlueReader()
 
 
 inline bool IIGlueReader::isArray(const llvm::Argument &argument) const {
-	return arrayArguments.count(&argument) != 0;
+	return arrays.count(&argument) != 0;
 }
+
+
+inline IIGlueReader::ArrayArgumentsRange IIGlueReader::arrayArguments(const llvm::Function &function) const {
+	return { IsArray(*this), function.getArgumentList() };
+};
 
 
 #endif // !INCLUDE_IIGLUE_READER_HH
