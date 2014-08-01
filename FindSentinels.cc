@@ -9,6 +9,7 @@
 #include <boost/range/algorithm/find.hpp>
 #include <boost/range/combine.hpp>
 #include <llvm/Analysis/LoopPass.h>
+#include <llvm/IR/Module.h>
 #include <llvm/PassManager.h>
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/PatternMatch.h>
@@ -38,7 +39,7 @@ static bool reachable(const Loop &, BlockSet &foundSoFar, const BasicBlock &curr
 static bool reachableNontrivially(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal) {
 	// look for reachable path across any one successor
 	return any_of(succ_begin(&current), succ_end(&current),
-		      [&](const BasicBlock * const succ) { return reachable(loop, foundSoFar, *succ, goal); });
+			[&](const BasicBlock * const succ) { return reachable(loop, foundSoFar, *succ, goal); });
 }
 
 static bool reachable(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal) {
@@ -75,7 +76,7 @@ char FindSentinels::ID;
 
 
 inline FindSentinels::FindSentinels()
-: FunctionPass(ID)
+: ModulePass(ID)
 {
 }
 
@@ -89,212 +90,215 @@ void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const
 
 
 
-bool FindSentinels::runOnFunction(Function &func) {
-	current = &func;
-	const LoopInfo &LI = getAnalysis<LoopInfo>();
+bool FindSentinels::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
-	unordered_map<const BasicBlock *, ArgumentToBlockSet> functionSentinelChecks;
-	// bail out early if func has no array arguments
-	//up for discussion - seems to lead to some unintuitive results that I want to discuss before readding.
-	/*if (!any_of(func.arg_begin(), func.arg_end(), [&](const Argument &arg) {
-				return iiglue.isArray(arg);
-			}))
-		return false;*/
-	//We must look through all the loops to determine if any of them contain a sentinel check.
-	for (const Loop * const loop : LI) {
-		ArgumentToBlockSet sentinelChecks;
+	for (Function &func : module) {
+		const LoopInfo &LI = getAnalysis<LoopInfo>(func);
+		unordered_map<const BasicBlock *, ArgumentToBlockSet> functionSentinelChecks;
+		// bail out early if func has no array arguments
+		//up for discussion - seems to lead to some unintuitive results that I want to discuss before readding.
+		/*if (!any_of(func.arg_begin(), func.arg_end(), [&](const Argument &arg) {
+					return iiglue.isArray(arg);
+				}))
+			return false;*/
+		//We must look through all the loops to determine if any of them contain a sentinel check.
+		for (const Loop * const loop : LI) {
+			ArgumentToBlockSet sentinelChecks;
 
-		SmallVector<BasicBlock *, 4> exitingBlocks;
-		loop->getExitingBlocks(exitingBlocks);
-		for (BasicBlock *exitingBlock : exitingBlocks) {
+			SmallVector<BasicBlock *, 4> exitingBlocks;
+			loop->getExitingBlocks(exitingBlocks);
+			for (BasicBlock *exitingBlock : exitingBlocks) {
 
-			TerminatorInst * const terminator = exitingBlock->getTerminator();
-			// to be bound to pattern elements if match succeeds
-			BasicBlock *trueBlock, *falseBlock;
-			CmpInst::Predicate predicate;
-			//This will need to be checked to make sure it corresponds to an argument identified as an array.
-			Argument *pointer;
-			Value *slot;
+				TerminatorInst * const terminator = exitingBlock->getTerminator();
+				// to be bound to pattern elements if match succeeds
+				BasicBlock *trueBlock, *falseBlock;
+				CmpInst::Predicate predicate;
+				//This will need to be checked to make sure it corresponds to an argument identified as an array.
+				Argument *pointer;
+				Value *slot;
 
-			// reusable pattern fragments
+				// reusable pattern fragments
 
-			auto loadPattern = m_Load(
-				m_GetElementPointer(
-					m_FormalArgument(pointer),
-					m_Value(slot)
-					)
-				);
+				auto loadPattern = m_Load(
+						m_GetElementPointer(
+								m_FormalArgument(pointer),
+								m_Value(slot)
+								)
+						);
 
-			auto compareZeroPattern = m_ICmp(predicate,
-							 m_CombineOr(
-								 loadPattern,
-								 m_SExt(loadPattern)
-								 ),
-							 m_Zero()
-				);
+				auto compareZeroPattern = m_ICmp(predicate,
+						m_CombineOr(
+								loadPattern,
+								m_SExt(loadPattern)
+								),
+								m_Zero()
+						);
 
-			// Clang 3.4 without optimization, after running mem2reg:
-			//
-			//     %0 = getelementptr inbounds i8* %pointer, i64 %slot
-			//     %1 = load i8* %0, align 1
-			//     %element = sext i8 %1 to i32
-			//     %2 = icmp ne i32 %element, 0
-			//     br i1 %2, label %trueBlock, label %falseBlock
-			//
-			// Clang 3.4 with any level of optimization:
-			//
-			//     %0 = getelementptr inbounds i8* %pointer, i64 %slot
-			//     %1 = load i8* %0, align 1
-			//     %element = icmp eq i8 %1, 0
-			//     br i1 %element, label %trueBlock, label %falseBlock
-			// When optimized code has an OR:
-			//    %arrayidx = getelementptr inbounds i8* %pointer, i64 %slot
-			//    %0 = load i8* %arrayidx, align 1, !tbaa !0
-			//    %cmp = icmp eq i8 %0, %goal
-			//    %cmp6 = icmp eq i8 %0, 0
-			//    %or.cond = or i1 %cmp, %cmp6
-			//    %indvars.iv.next = add i64 %indvars.iv, 1
-			//    br i1 %or.cond, label %for.end, label %for.cond
-			if (match(terminator,
-				  m_Br(
-					  m_CombineOr(
-						  compareZeroPattern,
-						  m_CombineOr(
-							  m_Or(
-								  compareZeroPattern,
-								  m_Value()
-								  ),
-							  m_Or(
-								  m_Value(),
-								  compareZeroPattern
-								  )
-							  )
-						  ),
-					  trueBlock,
-					  falseBlock)
-				    )) {
-				if (!iiglue.isArray(*pointer)) {
-					continue;
-				}
-				// check that we actually leave the loop when sentinel is found
-				const BasicBlock *sentinelDestination;
-				switch (predicate) {
-				case CmpInst::ICMP_EQ:
-					sentinelDestination = trueBlock;
+				// Clang 3.4 without optimization, after running mem2reg:
+				//
+				//     %0 = getelementptr inbounds i8* %pointer, i64 %slot
+				//     %1 = load i8* %0, align 1
+				//     %element = sext i8 %1 to i32
+				//     %2 = icmp ne i32 %element, 0
+				//     br i1 %2, label %trueBlock, label %falseBlock
+				//
+				// Clang 3.4 with any level of optimization:
+				//
+				//     %0 = getelementptr inbounds i8* %pointer, i64 %slot
+				//     %1 = load i8* %0, align 1
+				//     %element = icmp eq i8 %1, 0
+				//     br i1 %element, label %trueBlock, label %falseBlock
+				// When optimized code has an OR:
+				//    %arrayidx = getelementptr inbounds i8* %pointer, i64 %slot
+				//    %0 = load i8* %arrayidx, align 1, !tbaa !0
+				//    %cmp = icmp eq i8 %0, %goal
+				//    %cmp6 = icmp eq i8 %0, 0
+				//    %or.cond = or i1 %cmp, %cmp6
+				//    %indvars.iv.next = add i64 %indvars.iv, 1
+				//    br i1 %or.cond, label %for.end, label %for.cond
+				if (match(terminator,
+						m_Br(
+							m_CombineOr(
+									compareZeroPattern,
+									m_CombineOr(
+										m_Or(
+											compareZeroPattern,
+											m_Value()
+											),
+										m_Or(
+											m_Value(),
+											compareZeroPattern
+											)
+									)
+							),
+							trueBlock,
+							falseBlock))) {
+					if (!iiglue.isArray(*pointer)) {
+						continue;
+					}
+					// check that we actually leave the loop when sentinel is found
+					const BasicBlock *sentinelDestination;
+					switch (predicate) {
+					case CmpInst::ICMP_EQ:
+						sentinelDestination = trueBlock;
 					break;
-				case CmpInst::ICMP_NE:
-					sentinelDestination = falseBlock;
+					case CmpInst::ICMP_NE:
+						sentinelDestination = falseBlock;
 					break;
-				default:
-					continue;
+					default:
+						continue;
+					}
+					if (loop->contains(sentinelDestination)) {
+						DEBUG(dbgs() << "dest still in loop!\n");
+						continue;
+					}
+					// all tests pass; this is a possible sentinel check!
+					DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
+							<< "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
+					//mark this block as one of the sentinel checks this loop.
+					sentinelChecks[pointer].first.insert(exitingBlock);
+					auto induction(loop->getCanonicalInductionVariable());
+					if (induction)
+						DEBUG(dbgs() << "  loop has canonical induction variable %" << induction->getName() << '\n');
+					else
+						DEBUG(dbgs() << "  loop has no canonical induction variable\n");
 				}
-				if (loop->contains(sentinelDestination)) {
-					DEBUG(dbgs() << "dest still in loop!\n");
-					continue;
-				}
-				// all tests pass; this is a possible sentinel check!
-				DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
-				      << "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
-				//mark this block as one of the sentinel checks this loop.
-				sentinelChecks[pointer].first.insert(exitingBlock);
-				auto induction(loop->getCanonicalInductionVariable());
-				if (induction)
-					DEBUG(dbgs() << "  loop has canonical induction variable %" << induction->getName() << '\n');
-				else
-					DEBUG(dbgs() << "  loop has no canonical induction variable\n");
 			}
-		}
-		if (sentinelChecks.empty()) {
+			if (sentinelChecks.empty()) {
+				for (const Argument &arg : func.getArgumentList()) {
+					if (!iiglue.isArray(arg)) {
+						continue;
+					}
+					sentinelChecks[&arg].second = true;
+				}
+				functionSentinelChecks[loop->getHeader()] = sentinelChecks;
+				continue;
+			}
 			for (const Argument &arg : func.getArgumentList()) {
 				if (!iiglue.isArray(arg)) {
 					continue;
 				}
-				sentinelChecks[&arg].second = true;
+				std::pair<BlockSet, bool> &checks = sentinelChecks[&arg];
+				BlockSet foundSoFar = checks.first;
+				checks.second = true;
+				bool optional = DFSCheckSentinelOptional(*loop, foundSoFar);
+				if (optional) {
+					DEBUG(dbgs() << "The sentinel check was optional!\n");
+					checks.second = true;
+				}
+				else {
+					DEBUG(dbgs() << "The sentinel check was non-optional - hooray!\n");
+					checks.second = false;
+				}
 			}
 			functionSentinelChecks[loop->getHeader()] = sentinelChecks;
-			continue;
 		}
-		for (const Argument &arg : func.getArgumentList()) {
-			if (!iiglue.isArray(arg)) {
-					continue;
-			}
-			std::pair<BlockSet, bool> &checks = sentinelChecks[&arg];
-			BlockSet foundSoFar = checks.first;
-			checks.second = true;
-			bool optional = DFSCheckSentinelOptional(*loop, foundSoFar);
-			if (optional) {
-				DEBUG(dbgs() << "The sentinel check was optional!\n");
-				checks.second = true;
-			}
-			else {
-				DEBUG(dbgs() << "The sentinel check was non-optional - hooray!\n");
-				checks.second = false;
-			}
-		}
-		functionSentinelChecks[loop->getHeader()] = sentinelChecks;
+		allSentinelChecks[&func] = functionSentinelChecks;
 	}
-	allSentinelChecks[&func] = functionSentinelChecks;
 	// read-only pass never changes anything
 	return false;
 }
 
 /**
-* Compare two BasicBlock*'s using their names.
-**/
+ * Compare two BasicBlock*'s using their names.
+ **/
 class BasicBlockCompare { // simple comparison function
 	public:
-	bool operator()(const BasicBlock* x,const BasicBlock* y) { return x->getName() < y->getName(); }
+		bool operator()(const BasicBlock* x,const BasicBlock* y) { return x->getName() < y->getName(); }
 };
 
 /**
-* Print helper method. The output looks like the following:
-* Analyzing function: functionName
-* EITHER:	Detected no sentinel checks (end of output)
-* OR:	We found N loops.
-* FOR EACH LOOP:
-*	There are M sentinel checks in this loop(nameOfLoopHeaderBlock)
-*	We can/can not bypass all sentinel checks.
-*	Sentinel checks:
-* For each sentinel check, the name of its basic block is printed.
-**/
-void FindSentinels::print(raw_ostream &sink, const Module*) const {
+ * Print helper method. The output looks like the following:
+ * Analyzing function: functionName
+ * EITHER:	Detected no sentinel checks (end of output)
+ * OR:	We found N loops.
+ * FOR EACH LOOP:
+ *	There are M sentinel checks in this loop(nameOfLoopHeaderBlock)
+ *	We can/can not bypass all sentinel checks.
+ *	Sentinel checks:
+ * For each sentinel check, the name of its basic block is printed.
+ **/
+void FindSentinels::print(raw_ostream &sink, const Module* module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	//print function name, how many loops found if any
-	sink << "Analyzing function: " << current->getName() << '\n';
-	if (allSentinelChecks.count(current) == 0) {
-		sink << "\tDetected no sentinel checks\n";
-		return;
-	}
-	unordered_map<const BasicBlock *, ArgumentToBlockSet> loopHeaderToSentinelChecks = allSentinelChecks.at(current);
-	sink << "\tWe found: " << loopHeaderToSentinelChecks.size() << " loops\n";
-	set<const BasicBlock*, BasicBlockCompare> loopHeaderBlocks;
-	for (auto mapElements : loopHeaderToSentinelChecks) {
-		loopHeaderBlocks.insert(mapElements.first);
-	}
+	for (const Function &func : *module) {
 
-	//For each loop, print all sentinel checks and whether it is possible to go from loop entry to loop entry without
-	//passing a sentinel check.
-	for (const BasicBlock * const header : loopHeaderBlocks) {
-		const ArgumentToBlockSet &entry = loopHeaderToSentinelChecks[header];
-		for (const Argument &arg : current->getArgumentList()) {
-			if (!iiglue.isArray(arg)) {
+		sink << "Analyzing function: " << func.getName() << '\n';
+		if (allSentinelChecks.count(&func) == 0) {
+			sink << "\tDetected no sentinel checks\n";
+			return;
+		}
+		unordered_map<const BasicBlock *, ArgumentToBlockSet> loopHeaderToSentinelChecks = allSentinelChecks.at(&func);
+		sink << "\tWe found: " << loopHeaderToSentinelChecks.size() << " loops\n";
+		set<const BasicBlock*, BasicBlockCompare> loopHeaderBlocks;
+		for (auto mapElements : loopHeaderToSentinelChecks) {
+			loopHeaderBlocks.insert(mapElements.first);
+		}
+
+		//For each loop, print all sentinel checks and whether it is possible to go from loop entry to loop entry without
+		//passing a sentinel check.
+		for (const BasicBlock * const header : loopHeaderBlocks) {
+			const ArgumentToBlockSet &entry = loopHeaderToSentinelChecks[header];
+			for (const Argument &arg : func.getArgumentList()) {
+				if (!iiglue.isArray(arg)) {
 					continue;
+				}
+				sink << "\tExamining " << arg.getName() << " in loop " << header->getName() << '\n';
+				const pair<BlockSet, bool> &checks = entry.at(&arg);
+				sink << "\t\tThere are " << checks.first.size() << " sentinel checks of this argument in this loop\n";
+				sink << "\t\t\tWe can " << (checks.second ? "" : "not ") << "bypass all sentinel checks for this argument in this loop.\n";
+				const auto names =
+						checks.first
+						| indirected
+						| transformed([](const BasicBlock &block) {
+							return block.getName().str();
+						});
+				// print in sorted order for consistent output
+				boost::container::flat_set<string> ordered(names.begin(), names.end());
+				sink << "\t\tSentinel checks: \n";
+				for (const auto &sentinelCheck : ordered)
+					sink << "\t\t\t" << sentinelCheck << '\n';
 			}
-			sink << "\tExamining " << arg.getName() << " in loop " << header->getName() << '\n';
-			const pair<BlockSet, bool> &checks = entry.at(&arg);
-			sink << "\t\tThere are " << checks.first.size() << " sentinel checks of this argument in this loop\n";
-			sink << "\t\t\tWe can " << (checks.second ? "" : "not ") << "bypass all sentinel checks for this argument in this loop.\n";
-			const auto names =
-				checks.first
-				| indirected
-				| transformed([](const BasicBlock &block) {
-					return block.getName().str();
-				});
-			// print in sorted order for consistent output
-			boost::container::flat_set<string> ordered(names.begin(), names.end());
-			sink << "\t\tSentinel checks: \n";
-			for (const auto &sentinelCheck : ordered)
-				sink << "\t\t\t" << sentinelCheck << '\n';
 		}
 	}
 }
@@ -303,8 +307,8 @@ void FindSentinels::print(raw_ostream &sink, const Module*) const {
 //run very many opt passes, just the ones from O0 and mem2reg.
 #if 0
 static RegisterStandardPasses MyPassRegistration(PassManagerBuilder::EP_LoopOptimizerEnd,
-						 [](const PassManagerBuilder&, PassManagerBase& PM) {
-							 DEBUG(dbgs() << "Registered pass!\n");
-							 PM.add(new FindSentinels());
-						 });
+		[](const PassManagerBuilder&, PassManagerBase& PM) {
+	DEBUG(dbgs() << "Registered pass!\n");
+	PM.add(new FindSentinels());
+});
 #endif
