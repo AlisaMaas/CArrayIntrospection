@@ -28,11 +28,11 @@ for source in sources:
         actual, (plugin, json, bitcode),
         [
             [
-                'opt', 
-                '-analyze', '-std-compile-opts', '-verify-each', '-o', '$TARGET',
+                'opt',
+                '-analyze', '-o', '$TARGET',
                 '-load', '${SOURCES[0].abspath}',
                 '-mem2reg',
-                '-null-annotator',
+                '-find-sentinels',
                 '-iiglue-read-file', '${SOURCES[1]}',
                 '${SOURCES[2]}',
             ],
@@ -52,7 +52,4 @@ SConscript(dirs='interproceduralTests', exports='env')
 
 ########################################################################
 #
-#  common post-setup work for all tests
-#
-
-# convenient "scons 
+#  common post-setup work

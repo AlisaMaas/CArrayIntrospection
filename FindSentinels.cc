@@ -108,7 +108,6 @@ bool FindSentinels::runOnModule(Module &module) {
 			SmallVector<BasicBlock *, 4> exitingBlocks;
 			loop->getExitingBlocks(exitingBlocks);
 			for (BasicBlock *exitingBlock : exitingBlocks) {
-
 				TerminatorInst * const terminator = exitingBlock->getTerminator();
 				// to be bound to pattern elements if match succeeds
 				BasicBlock *trueBlock, *falseBlock;
@@ -172,62 +171,63 @@ bool FindSentinels::runOnModule(Module &module) {
 									)
 							),
 							trueBlock,
-							falseBlock))) {
-					if (!iiglue.isArray(*pointer)) {
-						continue;
+							falseBlock))) 
+					{
+						if (!iiglue.isArray(*pointer)) {
+							continue;
+						}
+						// check that we actually leave the loop when sentinel is found
+						const BasicBlock *sentinelDestination;
+						switch (predicate) {
+						case CmpInst::ICMP_EQ:
+							sentinelDestination = trueBlock;
+							break;
+						case CmpInst::ICMP_NE:
+							sentinelDestination = falseBlock;
+							break;
+						default:
+							continue;
+						}
+						if (loop->contains(sentinelDestination)) {
+							DEBUG(dbgs() << "dest still in loop!\n");
+							continue;
+						}
+						// all tests pass; this is a possible sentinel check!
+						DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
+								<< "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
+						//mark this block as one of the sentinel checks this loop.
+						sentinelChecks[pointer].first.insert(exitingBlock);
+						auto induction(loop->getCanonicalInductionVariable());
+						if (induction)
+							DEBUG(dbgs() << "  loop has canonical induction variable %" << induction->getName() << '\n');
+						else
+							DEBUG(dbgs() << "  loop has no canonical induction variable\n");
 					}
-					// check that we actually leave the loop when sentinel is found
-					const BasicBlock *sentinelDestination;
-					switch (predicate) {
-					case CmpInst::ICMP_EQ:
-						sentinelDestination = trueBlock;
-					break;
-					case CmpInst::ICMP_NE:
-						sentinelDestination = falseBlock;
-					break;
-					default:
-						continue;
-					}
-					if (loop->contains(sentinelDestination)) {
-						DEBUG(dbgs() << "dest still in loop!\n");
-						continue;
-					}
-					// all tests pass; this is a possible sentinel check!
-					DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
-							<< "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
-					//mark this block as one of the sentinel checks this loop.
-					sentinelChecks[pointer].first.insert(exitingBlock);
-					auto induction(loop->getCanonicalInductionVariable());
-					if (induction)
-						DEBUG(dbgs() << "  loop has canonical induction variable %" << induction->getName() << '\n');
-					else
-						DEBUG(dbgs() << "  loop has no canonical induction variable\n");
 				}
-			}
-			if (sentinelChecks.empty()) {
+				if (sentinelChecks.empty()) {
+					for (const Argument &arg : iiglue.arrayArguments(func)) {
+						sentinelChecks[&arg].second = true;
+					}
+					functionSentinelChecks[loop->getHeader()] = sentinelChecks;
+					continue;
+				}
 				for (const Argument &arg : iiglue.arrayArguments(func)) {
-					sentinelChecks[&arg].second = true;
+					std::pair<BlockSet, bool> &checks = sentinelChecks[&arg];
+					BlockSet foundSoFar = checks.first;
+					checks.second = true;
+					bool optional = DFSCheckSentinelOptional(*loop, foundSoFar);
+					if (optional) {
+						DEBUG(dbgs() << "The sentinel check was optional!\n");
+						checks.second = true;
+					}
+					else {
+						DEBUG(dbgs() << "The sentinel check was non-optional - hooray!\n");
+						checks.second = false;
+					}
 				}
 				functionSentinelChecks[loop->getHeader()] = sentinelChecks;
-				continue;
 			}
-			for (const Argument &arg : iiglue.arrayArguments(func)) {
-				std::pair<BlockSet, bool> &checks = sentinelChecks[&arg];
-				BlockSet foundSoFar = checks.first;
-				checks.second = true;
-				bool optional = DFSCheckSentinelOptional(*loop, foundSoFar);
-				if (optional) {
-					DEBUG(dbgs() << "The sentinel check was optional!\n");
-					checks.second = true;
-				}
-				else {
-					DEBUG(dbgs() << "The sentinel check was non-optional - hooray!\n");
-					checks.second = false;
-				}
-			}
-			functionSentinelChecks[loop->getHeader()] = sentinelChecks;
-		}
-		allSentinelChecks[&func] = functionSentinelChecks;
+			allSentinelChecks[&func] = functionSentinelChecks;
 	}
 	// read-only pass never changes anything
 	return false;

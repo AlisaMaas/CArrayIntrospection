@@ -8,10 +8,9 @@ Printing analysis 'Promote Memory to Register' for function 'baz':
 Pass::print not implemented for pass: 'Promote Memory to Register'!
 Printing analysis 'Promote Memory to Register' for function 'find':
 Pass::print not implemented for pass: 'Promote Memory to Register'!
-Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array' for function 'print':
+Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array':
 Analyzing function: print
 	We found: 0 loops
-Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array' for function 'bar':
 Analyzing function: bar
 	We found: 1 loops
 	Examining string in loop for.cond
@@ -19,7 +18,6 @@ Analyzing function: bar
 			We can not bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body
-Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array' for function 'foo':
 Analyzing function: foo
 	We found: 1 loops
 	Examining string in loop for.cond
@@ -27,7 +25,6 @@ Analyzing function: foo
 			We can not bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body
-Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array' for function 'baz':
 Analyzing function: baz
 	We found: 1 loops
 	Examining string in loop for.cond
@@ -35,7 +32,6 @@ Analyzing function: baz
 			We can not bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body
-Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array' for function 'find':
 Analyzing function: find
 	We found: 14 loops
 	Examining string in loop for.cond

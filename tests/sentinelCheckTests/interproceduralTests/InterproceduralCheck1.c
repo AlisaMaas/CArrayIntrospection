@@ -1,21 +1,19 @@
 /**
-* This check tests we detect a non-optional sentinel check 
-* in a loop where there is no loop guard and no other reads 
-* from the array, but there is a statement between the sentinel
-* check and the break from the loop.
-*
-* We expect to find one non-optional sentinel check.
+* This is a simple interproceedural test that ensures with three functions,
+* it recognizes that foo calls the null-terminated print though it contains no
+* null checks. The results should note that string is null terminated in both foo
+* and find, but not print.
 **/
 void print(char* string){}
 int foo(char string[])
 {
   for(int i = 0; ; i++){
-		if(string[i] == '\0'){
+		if(string[i] != '\0'){
             print("About to break from loop");
 			break;
 			}
 	}
-  return 1;
+	return find(string);
 }
 int find(char string[])
 {
