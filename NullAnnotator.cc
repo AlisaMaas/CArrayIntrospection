@@ -67,7 +67,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 	bool firstTime = true;
 	while (changed) {
 		changed = false;
-		for (Function &func : module) {
+		for (const Function &func : module) {
 			errs() << "About to get the map for this function\n";
 			const unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionChecks = findSentinels.getResultsForFunction(&func);
 			errs() << "Got the map\n";
