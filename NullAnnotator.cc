@@ -27,7 +27,7 @@ namespace {
 		//map from function name and argument number to whether or not that argument gets annotated
 		typedef unordered_map<const Argument*, Answer> AnnotationMap;
 		AnnotationMap annotations;
-		unordered_map<const Function*, unordered_set<CallInst*>> functionToCallSites;
+		unordered_map<const Function*, unordered_set<const CallInst*>> functionToCallSites;
 		Answer getAnswer(const Argument &) const;
 	};
 	char NullAnnotator::ID;
@@ -68,8 +68,8 @@ bool NullAnnotator::runOnModule(Module &module) {
 	bool firstTime = true;
 	while (changed) {
 		changed = false;
-		for (Function &func : module) {
-			errs() << "Analyzing " << func.getName() << "\n";
+		for (const Function &func : module) {
+			errs() << "About to get the map for this function\n";
 			const unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionChecks = findSentinels.getResultsForFunction(&func);
 			for (const Argument &arg : iiglue.arrayArguments(func)) {
 				errs() << "\tConsidering " << arg.getArgNo() << "\n";
@@ -86,7 +86,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 						continue;
 					}
 					for (auto I = inst_begin(func), E = inst_end(func); I != E; ++I) {
-						CallInst *call = dyn_cast<CallInst>(&*I);
+						const CallInst *call = dyn_cast<CallInst>(&*I);
 						if (call) {
 							functionToCallSites[&func].insert(call);
 						}
