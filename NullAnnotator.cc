@@ -1,14 +1,16 @@
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
 
+#include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
+#include <llvm/IR/Use.h>
 #include <llvm/PassManager.h>
 #include <llvm/Support/CallSite.h>
+#include <llvm/Support/Debug.h>
 #include <llvm/Support/InstIterator.h>
-#include <llvm/IR/Instructions.h>
 #include <llvm/Support/raw_ostream.h>
-#include <llvm/IR/Use.h>
 #include <tuple>
+
 using namespace llvm;
 using namespace std;
 
@@ -69,18 +71,18 @@ bool NullAnnotator::runOnModule(Module &module) {
 	while (changed) {
 		changed = false;
 		for (const Function &func : module) {
-			errs() << "About to get the map for this function\n";
+			DEBUG(dbgs() << "About to get the map for this function\n");
 			const unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionChecks = findSentinels.getResultsForFunction(&func);
 			for (const Argument &arg : iiglue.arrayArguments(func)) {
-				errs() << "\tConsidering " << arg.getArgNo() << "\n";
+				DEBUG(dbgs() << "\tConsidering " << arg.getArgNo() << "\n");
 				Answer oldResult = getAnswer(arg);
-				errs() << "\tOld result: " << oldResult << '\n';
+				DEBUG(dbgs() << "\tOld result: " << oldResult << '\n');
 				if(oldResult == NULL_TERMINATED)
 					continue;
 				if (firstTime) {
 					//process loops exactly once
 					if (existsNonOptionalSentinelCheck(functionChecks, arg)) {
-						errs() << "\tFound a non-optional sentinel check in some loop!\n";
+						DEBUG(dbgs() << "\tFound a non-optional sentinel check in some loop!\n");
 						annotations[&arg] = NULL_TERMINATED;
 						changed = true;
 						continue;
@@ -91,8 +93,8 @@ bool NullAnnotator::runOnModule(Module &module) {
 							functionToCallSites[&func].insert(call);
 						}
 					}
-					errs() << "went through all the instructions and grabbed calls\n";
-					errs() << "We found " << functionToCallSites[&func].size() << " calls\n";
+					DEBUG(dbgs() << "went through all the instructions and grabbed calls\n");
+					DEBUG(dbgs() << "We found " << functionToCallSites[&func].size() << " calls\n");
 				}
 				//if we haven't yet continued, process evidence from callees.
 				bool foundDontCare = false;
@@ -103,17 +105,17 @@ bool NullAnnotator::runOnModule(Module &module) {
 					const Argument * parameter = NULL;
 					unsigned argNo = 0;
 					bool foundArg = false;
-					errs() << "About to iterate over the arguments to the call\n";
+					DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
 					for (unsigned i = 0; i < call->getNumArgOperands(); ++i) {
-						errs() << "got one, about to call get\n";
+						DEBUG(dbgs() << "got one, about to call get\n");
 						if (call->getArgOperand(i) == &arg){
-							errs() << "hey, it matches!\n";
+							DEBUG(dbgs() << "hey, it matches!\n");
 							argNo = i;
 							foundArg = true;
 							break;
 						}
 					}
-					errs() << "Done looking through arguments\n";
+					DEBUG(dbgs() << "Done looking through arguments\n");
 					if (!foundArg) {
 						continue;
 					}
@@ -126,7 +128,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 				
 					Answer report = getAnswer(*parameter);
 					if (report == NULL_TERMINATED) {
-						errs() << "Marking NULL_TERMINATED\n";
+						DEBUG(dbgs() << "Marking NULL_TERMINATED\n");
 						annotations[&arg] = NULL_TERMINATED;
 						changed = true;
 						nextArgumentPlease = true;
@@ -139,7 +141,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 					else {
 						//maybe set/check a flag for error reporting
 						if(foundNonNullTerminated){
-							errs() << "Found both DONT_CARE and NON_NULL_TERMINATED among callees.\n";
+							DEBUG(dbgs() << "Found both DONT_CARE and NON_NULL_TERMINATED among callees.\n");
 						}
 						foundDontCare = true;
 					}
@@ -150,11 +152,11 @@ bool NullAnnotator::runOnModule(Module &module) {
 				//if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
 				if (hasLoopWithSentinelCheck(functionChecks, arg)) {
 					if (oldResult != NON_NULL_TERMINATED) {
-						errs() << "Marking NOT_NULL_TERMINATED\n";
+						DEBUG(dbgs() << "Marking NOT_NULL_TERMINATED\n");
 						annotations[&arg] = NON_NULL_TERMINATED;
 						changed = true;
 						if (foundDontCare)
-							errs() << "Marking NULL_TERMINATED even though other calls say DONT_CARE.\n";
+							DEBUG(dbgs() << "Marking NULL_TERMINATED even though other calls say DONT_CARE.\n");
 							//do error reporting stuff
 						continue;
 					}
