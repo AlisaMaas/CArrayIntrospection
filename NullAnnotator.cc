@@ -1,6 +1,9 @@
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
 
+#include <boost/lambda/core.hpp>
+#include <boost/range/adaptor/filtered.hpp>
+#include <boost/range/adaptor/transformed.hpp>
 #include <boost/range/irange.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <llvm/IR/Instructions.h>
@@ -9,6 +12,7 @@
 #include <llvm/Support/InstIterator.h>
 
 using namespace boost;
+using namespace boost::adaptors;
 using namespace llvm;
 using namespace std;
 
@@ -31,7 +35,8 @@ namespace {
 		// map from function name and argument number to whether or not that argument gets annotated
 		typedef unordered_map<const Argument*, Answer> AnnotationMap;
 		AnnotationMap annotations;
-		unordered_map<const Function*, unordered_set<const CallInst*>> functionToCallSites;
+		typedef unordered_set<const CallInst*> CallInstSet;
+		unordered_map<const Function*, CallInstSet> functionToCallSites;
 		Answer getAnswer(const Argument &) const;
 	};
 	char NullAnnotator::ID;
@@ -66,11 +71,25 @@ Answer NullAnnotator::getAnswer(const Argument &arg) const {
 	return found == annotations.end() ? DONT_CARE : found->second;
 }
 
-bool NullAnnotator::runOnModule(Module &module) {
+bool NullAnnotator::runOnModule(Module &) {
+
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
+
+	// collect calls in each function for repeated scanning later
+	for (const Function &func : iiglue.arrayReceivers()) {
+		const auto instructions =
+			make_iterator_range(inst_begin(func), inst_end(func))
+			| transformed([](const Instruction &inst) { return dyn_cast<CallInst>(&inst); })
+			| filtered(boost::lambda::_1);
+		functionToCallSites.emplace(&func, CallInstSet(instructions.begin(), instructions.end()));
+		DEBUG(dbgs() << "went through all the instructions and grabbed calls\n");
+		DEBUG(dbgs() << "We found " << functionToCallSites[&func].size() << " calls in " << func.getName() << '\n');
+	}
+
 	const FindSentinels &findSentinels = getAnalysis<FindSentinels>();
 	bool firstTime = true;
 	bool changed;
+
 	do {
 		changed = false;
 		for (const Function &func : iiglue.arrayReceivers()) {
@@ -90,14 +109,6 @@ bool NullAnnotator::runOnModule(Module &module) {
 						changed = true;
 						continue;
 					}
-					for (const auto &I : make_iterator_range(inst_begin(func), inst_end(func))) {
-						const CallInst * const call = dyn_cast<CallInst>(&I);
-						if (call) {
-							functionToCallSites[&func].insert(call);
-						}
-					}
-					DEBUG(dbgs() << "went through all the instructions and grabbed calls\n");
-					DEBUG(dbgs() << "We found " << functionToCallSites[&func].size() << " calls\n");
 				}
 				// if we haven't yet continued, process evidence from callees.
 				bool foundDontCare = false;
