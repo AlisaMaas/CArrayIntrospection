@@ -115,14 +115,14 @@ bool NullAnnotator::runOnModule(Module &) {
 				bool foundNonNullTerminated = false;
 				bool nextArgumentPlease = false;
 				
-				for (const CallInst *call : functionToCallSites[&func]) {
+				for (const CallInst &call : functionToCallSites[&func] | indirected) {
 					const Argument * parameter = NULL;
 					unsigned argNo = 0;
 					bool foundArg = false;
 					DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
-					for (const unsigned i : irange(0u, call->getNumArgOperands())) {
+					for (const unsigned i : irange(0u, call.getNumArgOperands())) {
 						DEBUG(dbgs() << "got one, about to call get\n");
-						if (call->getArgOperand(i) == &arg) {
+						if (call.getArgOperand(i) == &arg) {
 							DEBUG(dbgs() << "hey, it matches!\n");
 							argNo = i;
 							foundArg = true;
@@ -133,7 +133,7 @@ bool NullAnnotator::runOnModule(Module &) {
 					if (!foundArg) {
 						continue;
 					}
-					for (const Argument &param : call->getCalledFunction()->getArgumentList()) {
+					for (const Argument &param : call.getCalledFunction()->getArgumentList()) {
 						if (param.getArgNo() == argNo) {
 							parameter = &param;
 							break;
