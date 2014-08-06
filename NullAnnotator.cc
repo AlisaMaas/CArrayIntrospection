@@ -2,6 +2,7 @@
 #include "IIGlueReader.hh"
 
 #include <boost/range/irange.hpp>
+#include <boost/range/iterator_range.hpp>
 #include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/Debug.h>
@@ -85,8 +86,8 @@ bool NullAnnotator::runOnModule(Module &module) {
 						changed = true;
 						continue;
 					}
-					for (auto I = inst_begin(func), E = inst_end(func); I != E; ++I) {
-						const CallInst *call = dyn_cast<CallInst>(&*I);
+					for (const auto &I : make_iterator_range(inst_begin(func), inst_end(func))) {
+						const CallInst * const call = dyn_cast<CallInst>(&I);
 						if (call) {
 							functionToCallSites[&func].insert(call);
 						}
