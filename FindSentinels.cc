@@ -76,7 +76,6 @@ void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const {
 }
 
 
-
 bool FindSentinels::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (Function &func : module) {
@@ -249,7 +248,7 @@ void FindSentinels::print(raw_ostream &sink, const Module *module) const {
 		}
 		unordered_map<const BasicBlock *, ArgumentToBlockSet> loopHeaderToSentinelChecks = allSentinelChecks.at(&func);
 		sink << "\tWe found: " << loopHeaderToSentinelChecks.size() << " loops\n";
-		set<const BasicBlock*, BasicBlockCompare> loopHeaderBlocks;
+		set<const BasicBlock *, BasicBlockCompare> loopHeaderBlocks;
 		for (auto mapElements : loopHeaderToSentinelChecks) {
 			loopHeaderBlocks.insert(mapElements.first);
 		}
