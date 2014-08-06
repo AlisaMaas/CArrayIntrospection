@@ -123,25 +123,18 @@ bool NullAnnotator::runOnModule(Module &) {
 				bool nextArgumentPlease = false;
 
 				for (const CallInst &call : functionToCallSites[&func] | indirected) {
-					unordered_set<unsigned> argNos;
 					DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
-					for (const unsigned i : irange(0u, call.getNumArgOperands())) {
-						DEBUG(dbgs() << "got one, about to call get\n");
-						if (call.getArgOperand(i) == &arg) {
-							DEBUG(dbgs() << "hey, it matches!\n");
-							argNos.insert(i);
-						}
-					}
-					DEBUG(dbgs() << "Done looking through arguments\n");
-					if (argNos.empty()) {
-						continue;
-					}
-					for(unsigned argNo : argNos) {
-						auto formals = call.getCalledFunction()->getArgumentList().begin();
-						advance(formals, argNo);
-						const Argument &parameter = *formals;
+					const auto formals = call.getCalledFunction()->getArgumentList().begin();
 
-						switch (getAnswer(parameter)) {
+					for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
+						DEBUG(dbgs() << "got one, about to call get\n");
+						if (call.getArgOperand(argNo) != &arg) continue;
+
+						DEBUG(dbgs() << "hey, it matches!\n");
+						auto parameter = formals;
+						advance(parameter, argNo);
+
+						switch (getAnswer(*parameter)) {
 						case NULL_TERMINATED:
 							DEBUG(dbgs() << "Marking NULL_TERMINATED\n");
 							annotations[&arg] = NULL_TERMINATED;
