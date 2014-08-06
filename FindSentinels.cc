@@ -3,20 +3,12 @@
 #include "PatternMatch-extras.hh"
 
 #include <boost/container/flat_set.hpp>
-#include <boost/property_tree/json_parser.hpp>
 #include <boost/range/adaptor/indirected.hpp>
-#include <boost/range/adaptor/map.hpp>
-#include <boost/range/algorithm/find.hpp>
-#include <boost/range/combine.hpp>
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/IR/Module.h>
-#include <llvm/PassManager.h>
 #include <llvm/Support/Debug.h>
-#include <llvm/Support/PatternMatch.h>
-#include <llvm/Transforms/IPO/PassManagerBuilder.h>
 
 using namespace boost::adaptors;
-using namespace boost::property_tree;
 using namespace llvm;
 using namespace llvm::PatternMatch;
 using namespace std;

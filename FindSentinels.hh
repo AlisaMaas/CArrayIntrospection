@@ -2,7 +2,6 @@
 #define INCLUDE_FIND_SENTINELS_HH
 
 #include <llvm/Pass.h>
-#include <llvm/Support/raw_ostream.h>
 
 #include <unordered_map>
 #include <unordered_set>
