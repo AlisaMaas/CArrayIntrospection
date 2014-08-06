@@ -186,7 +186,7 @@ void NullAnnotator::print(raw_ostream &sink, const Module* module) const {
 
 bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg) {
 
-	for (auto mapElements : checks) {
+	for (const auto &mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
 		const ArgumentToBlockSet &entry = checks.at(header);
 		if (!entry.at(&arg).second)
@@ -196,7 +196,7 @@ bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults &checks
 }
 
 bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg) {
-	for (auto mapElements : checks) {
+	for (const auto &mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
 		const ArgumentToBlockSet &entry = checks.at(header);
 		if (!entry.at(&arg).first.empty())
