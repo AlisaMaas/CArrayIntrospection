@@ -221,8 +221,10 @@ bool FindSentinels::runOnModule(Module &module) {
  * Compare two BasicBlock*'s using their names.
  **/
 class BasicBlockCompare { // simple comparison function
-	public:
-		bool operator()(const BasicBlock *x, const BasicBlock *y) { return x->getName() < y->getName(); }
+public:
+	bool operator()(const BasicBlock *x, const BasicBlock *y) {
+		return x->getName() < y->getName();
+	}
 };
 
 /**
