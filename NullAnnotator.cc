@@ -174,9 +174,10 @@ bool NullAnnotator::runOnModule(Module &) {
 						DEBUG(dbgs() << "Marking NOT_NULL_TERMINATED\n");
 						annotations[&arg] = NON_NULL_TERMINATED;
 						changed = true;
-						if (foundDontCare)
+						if (foundDontCare) {
 							DEBUG(dbgs() << "Marking NULL_TERMINATED even though other calls say DONT_CARE.\n");
 							// do error reporting stuff
+						}
 						continue;
 					}
 				}
@@ -185,16 +186,16 @@ bool NullAnnotator::runOnModule(Module &) {
 		}
 		firstTime = false;
 	} while (changed);
-	
+
 	return false;
 }
 
 
-void NullAnnotator::print(raw_ostream &sink, const Module* module) const {
+void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
-			sink << func.getName() << " with argument "<< arg.getArgNo() << " should " << (annotate(arg)?"":"not ");
+			sink << func.getName() << " with argument " << arg.getArgNo() << " should " << (annotate(arg) ? "" : "not ");
 			sink << "be annotated NULL_TERMINATED.\n";
 		}
 	}
