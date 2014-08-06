@@ -17,12 +17,16 @@ enum Answer { DONT_CARE, NON_NULL_TERMINATED, NULL_TERMINATED };
 namespace {
 	class NullAnnotator : public ModulePass {
 	public:
+		// standard LLVM pass interface
 		NullAnnotator();
 		static char ID;
-		bool annotate(const Argument &) const;
 		void getAnalysisUsage(AnalysisUsage &) const final;
 		bool runOnModule(Module &) override final;
 		void print(raw_ostream &, const Module *) const;
+
+		// access to analysis results derived by this pass
+		bool annotate(const Argument &) const;
+
 	private:
 		// map from function name and argument number to whether or not that argument gets annotated
 		typedef unordered_map<const Argument*, Answer> AnnotationMap;
