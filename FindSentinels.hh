@@ -26,7 +26,7 @@ public:
 
 	// access to analysis results derived by this pass
 	typedef std::unordered_map<const llvm::BasicBlock *, ArgumentToBlockSet> FunctionResults;
-	const FunctionResults& getResultsForFunction(const llvm::Function*) const;
+	const FunctionResults &getResultsForFunction(const llvm::Function *) const;
 
 private:
 	std::unordered_map<const llvm::Function *, FunctionResults> allSentinelChecks;

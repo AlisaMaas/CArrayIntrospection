@@ -36,10 +36,10 @@ namespace {
 
 	private:
 		// map from function name and argument number to whether or not that argument gets annotated
-		typedef unordered_map<const Argument*, Answer> AnnotationMap;
+		typedef unordered_map<const Argument *, Answer> AnnotationMap;
 		AnnotationMap annotations;
-		typedef unordered_set<const CallInst*> CallInstSet;
-		unordered_map<const Function*, CallInstSet> functionToCallSites;
+		typedef unordered_set<const CallInst *> CallInstSet;
+		unordered_map<const Function *, CallInstSet> functionToCallSites;
 		Answer getAnswer(const Argument &) const;
 	};
 	char NullAnnotator::ID;
