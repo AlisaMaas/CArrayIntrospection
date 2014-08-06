@@ -7,38 +7,26 @@ Import('env')
 env.AppendUnique(CLANG_FLAGS='-Werror')
 
 
+def RunTests(self, **kwargs):
+    sources = Glob('*.c')
+    for source in sources:
+        bitcode = self.BitcodeSource(source)
+        json = source.target_from_source('json/', '.json')
+        self.IIGlueAnalyze(json, bitcode)
+        actual = source.target_from_source('actualsAndExpecteds/', '.actual')
+        self.RunPlugin(actual, (bitcode, json), **kwargs)
+        passed = self.Expect(actual)
+        Alias('test', passed)
+
+env.AddMethod(RunTests)
+
+
 ########################################################################
 #
 #  IIGlueReader tests
 #
 
-tests = (
-    'peek',
-    'variadic',
-)
-
-sources = File(['iiglue-reader-%s.c' % tail for tail in tests])
-
-for source in sources:
-
-    # compile C source to LLVM bitcode, then analyze using iiglue
-    bitcode = env.BitcodeSource(source)
-    json = env.IIGlueAnalyze(bitcode)
-
-    # run IIGlueReader to read saved iiglue output
-    actual = env.RunPlugin((bitcode, json), PLUGIN_ARGS='-iiglue-reader')
-
-    # compare IIGlueReader output dump to expected output
-    env.Expect(actual)
-
-
-########################################################################
-#
-#  common post-setup work for all tests
-#
-
-# convenient "scons test" alias to run all tests
-Alias('test', Glob('*.passed'))
+env.RunTests(PLUGIN_ARGS='-iiglue-reader')
 
 
 ########################################################################
