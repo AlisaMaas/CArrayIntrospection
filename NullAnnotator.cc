@@ -73,7 +73,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 	bool changed;
 	do {
 		changed = false;
-		for (const Function &func : module) {
+		for (const Function &func : iiglue.arrayReceivers()) {
 			DEBUG(dbgs() << "About to get the map for this function\n");
 			const FindSentinels::FunctionResults &functionChecks = findSentinels.getResultsForFunction(&func);
 			for (const Argument &arg : iiglue.arrayArguments(func)) {
