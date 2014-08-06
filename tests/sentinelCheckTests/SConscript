@@ -1,55 +1,5 @@
-########################################################################
-#
-#  common imports and setup for all tests
-#
-
 Import('env')
 
-testDir = Dir('.')
-plugin = env['plugin']
-
-
-########################################################################
-#
-#  FindSentinels tests
-#
-
-sources = Glob('*.c')
-
-for source in sources:
-
-    # compile C source to LLVM bitcode, then analyze using iiglue
-    bitcode = env.BitcodeSource(source)
-    json = source.target_from_source('json/', '.json') 
-    env.IIGlueAnalyze(json, bitcode)
-
-    actual = source.target_from_source('actualsAndExpecteds/', '.actual')
-    env.Command(
-        actual, (plugin, json, bitcode),
-        [
-            [
-                'opt',
-                '-analyze', '-o', '$TARGET',
-                '-load', '${SOURCES[0].abspath}',
-                '-mem2reg',
-                '-find-sentinels',
-                '-iiglue-read-file', '${SOURCES[1]}',
-                '${SOURCES[2]}',
-            ],
-        ],
-    )
-
-    # compare output dump to expected output
-    env.Expect(actual)
-
-
-########################################################################
-#
-#  subdirectories
-#
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-find-sentinels'))
 
 SConscript(dirs='interproceduralTests', exports='env')
-
-########################################################################
-#
-#  common post-setup work

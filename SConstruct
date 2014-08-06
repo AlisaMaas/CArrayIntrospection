@@ -28,6 +28,7 @@ env = Environment(
         'default',
         'expect',
         'iiglue',
+        'plugin',
     ),
     toolpath=(
         'scons-tools',
