@@ -116,7 +116,6 @@ bool NullAnnotator::runOnModule(Module &) {
 				bool nextArgumentPlease = false;
 				
 				for (const CallInst &call : functionToCallSites[&func] | indirected) {
-					const Argument * parameter = NULL;
 					unsigned argNo = 0;
 					bool foundArg = false;
 					DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
@@ -133,14 +132,11 @@ bool NullAnnotator::runOnModule(Module &) {
 					if (!foundArg) {
 						continue;
 					}
-					for (const Argument &param : call.getCalledFunction()->getArgumentList()) {
-						if (param.getArgNo() == argNo) {
-							parameter = &param;
-							break;
-						}
-					}
+					auto formals = call.getCalledFunction()->getArgumentList().begin();
+					advance(formals, argNo);
+					const Argument &parameter = *formals;
 				
-					Answer report = getAnswer(*parameter);
+					Answer report = getAnswer(parameter);
 					if (report == NULL_TERMINATED) {
 						DEBUG(dbgs() << "Marking NULL_TERMINATED\n");
 						annotations[&arg] = NULL_TERMINATED;
