@@ -21,20 +21,7 @@ for source in sources:
     json = source.target_from_source('json/', '.json') 
     env.IIGlueAnalyze(json, bitcode)
     actual = source.target_from_source('actualsAndExpecteds/', '.actual')
-    env.Command(
-        actual, (plugin, json, bitcode),
-        [
-            [
-                'opt',
-                '-analyze', '-o', '$TARGET',
-                '-load', '${SOURCES[0].abspath}',
-                '-mem2reg',
-                '-iiglue-read-file', '${SOURCES[1]}',
-                '-null-annotator', 
-                '${SOURCES[2]}',
-            ],
-        ],
-    )
+    env.RunPlugin(actual, (bitcode, json), PLUGIN_ARGS=('-mem2reg', '-null-annotator'))
 
     # compare output dump to expected output
     env.Expect(actual)

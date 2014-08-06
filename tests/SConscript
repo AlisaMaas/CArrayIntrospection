@@ -28,19 +28,7 @@ for source in sources:
     json = env.IIGlueAnalyze(bitcode)
 
     # run IIGlueReader to read saved iiglue output
-    actual = source.target_from_source('', '.actual')
-    env.Command(
-        actual, (plugin, json, bitcode),
-        [
-            [
-                'opt',
-                '-analyze', '-o', '$TARGET',
-                '-load', '${SOURCES[0].abspath}',
-                '-iiglue-reader', '-iiglue-read-file', '${SOURCES[1]}',
-                '${SOURCES[2]}',
-            ],
-        ],
-    )
+    actual = env.RunPlugin((bitcode, json), PLUGIN_ARGS='-iiglue-reader')
 
     # compare IIGlueReader output dump to expected output
     env.Expect(actual)
