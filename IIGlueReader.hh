@@ -58,8 +58,7 @@ public:
 
 
 inline IIGlueReader::IsArray::IsArray(const IIGlueReader &iiglue)
-	: iiglue(iiglue)
-{
+	: iiglue(iiglue) {
 }
 
 
@@ -69,8 +68,7 @@ inline bool IIGlueReader::IsArray::operator()(const llvm::Argument &argument) co
 
 
 inline IIGlueReader::IIGlueReader()
-	: ModulePass(ID)
-{
+	: ModulePass(ID) {
 }
 
 

@@ -68,8 +68,7 @@ inline FindSentinels::FindSentinels()
 	: ModulePass(ID) {
 }
 
-void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const
-{
+void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
 	usage.addRequired<LoopInfo>();
