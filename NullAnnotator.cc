@@ -1,8 +1,10 @@
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
 
+#include <boost/algorithm/cxx11/any_of.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/range/adaptor/filtered.hpp>
+#include <boost/range/adaptor/map.hpp>
 #include <boost/range/adaptor/transformed.hpp>
 #include <boost/range/irange.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -13,6 +15,7 @@
 
 using namespace boost;
 using namespace boost::adaptors;
+using namespace boost::algorithm;
 using namespace llvm;
 using namespace std;
 
@@ -198,22 +201,11 @@ void NullAnnotator::print(raw_ostream &sink, const Module* module) const {
 }
 
 bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg) {
-
-	for (const auto &mapElements : checks) {
-		const BasicBlock * const header = mapElements.first;
-		const ArgumentToBlockSet &entry = checks.at(header);
-		if (!entry.at(&arg).second)
-			return true;
-	}
-	return false;
+	return any_of(checks | map_values,
+		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).second; });
 }
 
 bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg) {
-	for (const auto &mapElements : checks) {
-		const BasicBlock * const header = mapElements.first;
-		const ArgumentToBlockSet &entry = checks.at(header);
-		if (!entry.at(&arg).first.empty())
-			return true;
-	}
-	return false;
+	return any_of(checks | map_values,
+		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).first.empty(); });
 }
