@@ -201,7 +201,7 @@ bool FindSentinels::runOnModule(Module &module) {
 					continue;
 				}
 				for (const Argument &arg : iiglue.arrayArguments(func)) {
-					std::pair<BlockSet, bool> &checks = sentinelChecks[&arg];
+					pair<BlockSet, bool> &checks = sentinelChecks[&arg];
 					BlockSet foundSoFar = checks.first;
 					checks.second = true;
 					bool optional = DFSCheckSentinelOptional(*loop, foundSoFar);
