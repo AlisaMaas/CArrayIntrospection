@@ -22,10 +22,6 @@ using namespace std;
  * entry.
  **/
 
-const unordered_map<BasicBlock const *, ArgumentToBlockSet>& FindSentinels::getResultsForFunction(const Function *func) const {
-	return allSentinelChecks.at(func);
-}
-
 static bool reachable(const Loop &, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal);
 
 static bool reachableNontrivially(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &current, const BasicBlock &goal) {

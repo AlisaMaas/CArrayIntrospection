@@ -31,4 +31,13 @@ private:
 	std::unordered_map<const llvm::Function *, FunctionResults> allSentinelChecks;
 };
 
+
+////////////////////////////////////////////////////////////////////////
+
+
+inline const FindSentinels::FunctionResults &FindSentinels::getResultsForFunction(const llvm::Function *func) const {
+	return allSentinelChecks.at(func);
+}
+
+
 #endif // !INCLUDE_FIND_SENTINELS_HH
