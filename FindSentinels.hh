@@ -14,6 +14,7 @@ namespace llvm {
 typedef std::unordered_set<const llvm::BasicBlock *> BlockSet;
 typedef std::unordered_map<const llvm::Argument *, std::pair<BlockSet, bool>> ArgumentToBlockSet;
 
+
 class FindSentinels : public llvm::ModulePass {
 public:
 	// standard LLVM pass interface
