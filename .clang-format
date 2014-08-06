@@ -1,0 +1,11 @@
+BasedOnStyle: LLVM
+
+AccessModifierOffset: -8
+AllowShortIfStatementsOnASingleLine: true
+ColumnLimit: 0
+ConstructorInitializerIndentWidth: 8
+IndentWidth: 8
+MaxEmptyLinesToKeep: 2
+NamespaceIndentation: All
+Standard: Cpp11
+UseTab: Always

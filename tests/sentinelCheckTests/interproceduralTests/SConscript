@@ -1,0 +1,54 @@
+########################################################################
+#
+#  common imports and setup for all tests
+#
+
+Import('env')
+
+testDir = Dir('.')
+plugin = env['plugin']
+
+
+########################################################################
+#
+#  NullAnnotator tests
+#
+
+sources = Glob('*.c')
+for source in sources:
+    # compile C source to LLVM bitcode, then analyze using iiglue
+    bitcode = env.BitcodeSource(source)
+    json = source.target_from_source('json/', '.json') 
+    env.IIGlueAnalyze(json, bitcode)
+    actual = source.target_from_source('actualsAndExpecteds/', '.actual')
+    env.Command(
+        actual, (plugin, json, bitcode),
+        [
+            [
+                'opt',
+                '-analyze', '-o', '$TARGET',
+                '-load', '${SOURCES[0].abspath}',
+                '-mem2reg',
+                '-iiglue-read-file', '${SOURCES[1]}',
+                '-null-annotator', 
+                '${SOURCES[2]}',
+            ],
+        ],
+    )
+
+    # compare output dump to expected output
+    env.Expect(actual)
+
+
+########################################################################
+#
+#  common post-setup work for all tests
+#
+
+# convenient "scons test" alias to run all tests
+Alias('test', Glob('actualsAndExpecteds/*.passed'))
+
+
+# Local variables:
+# flycheck-flake8rc: "../scons-flake8.ini"
+# End:

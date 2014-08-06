@@ -23,7 +23,6 @@ for source in sources:
     json = source.target_from_source('json/', '.json') 
     env.IIGlueAnalyze(json, bitcode)
 
-    # search for sentinel checks
     actual = source.target_from_source('actualsAndExpecteds/', '.actual')
     env.Command(
         actual, (plugin, json, bitcode),
@@ -33,8 +32,8 @@ for source in sources:
                 '-analyze', '-o', '$TARGET',
                 '-load', '${SOURCES[0].abspath}',
                 '-mem2reg',
-                '-iiglue-read-file', '${SOURCES[1]}',
                 '-find-sentinels',
+                '-iiglue-read-file', '${SOURCES[1]}',
                 '${SOURCES[2]}',
             ],
         ],
@@ -46,13 +45,11 @@ for source in sources:
 
 ########################################################################
 #
-#  common post-setup work for all tests
+#  subdirectories
 #
 
-# convenient "scons test" alias to run all tests
-Alias('test', Glob('actualsAndExpecteds/*.passed'))
+SConscript(dirs='interproceduralTests', exports='env')
 
-
-# Local variables:
-# flycheck-flake8rc: "../scons-flake8.ini"
-# End:
+########################################################################
+#
+#  common post-setup work

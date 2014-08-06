@@ -4,6 +4,7 @@
 #
 
 Import('env')
+env.AppendUnique(CLANG_FLAGS='-Werror')
 
 plugin = env['plugin']
 

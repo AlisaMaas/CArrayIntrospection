@@ -1,4 +1,3 @@
-void variadic(int *vector, ...)
-{
-  vector[3] = 7;
+void variadic(int *vector, ...) {
+	vector[3] = 7;
 }
