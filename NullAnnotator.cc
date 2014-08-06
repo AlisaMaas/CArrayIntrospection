@@ -136,24 +136,30 @@ bool NullAnnotator::runOnModule(Module &) {
 					advance(formals, argNo);
 					const Argument &parameter = *formals;
 				
-					const Answer report = getAnswer(parameter);
-					if (report == NULL_TERMINATED) {
+					switch (getAnswer(parameter)) {
+					case NULL_TERMINATED:
 						DEBUG(dbgs() << "Marking NULL_TERMINATED\n");
 						annotations[&arg] = NULL_TERMINATED;
 						changed = true;
 						nextArgumentPlease = true;
 						break;
-					}
-					else if (report == NON_NULL_TERMINATED) {
+
+					case NON_NULL_TERMINATED:
 						// maybe set/check a flag for error reporting
 						foundNonNullTerminated = true;
-					}
-					else {
+						break;
+
+					case DONT_CARE:
 						// maybe set/check a flag for error reporting
 						if (foundNonNullTerminated) {
 							DEBUG(dbgs() << "Found both DONT_CARE and NON_NULL_TERMINATED among callees.\n");
 						}
 						foundDontCare = true;
+						break;
+
+					default:
+						// should never happen!
+						abort();
 					}
 				}
 				if (nextArgumentPlease) {
