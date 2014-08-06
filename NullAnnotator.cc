@@ -109,7 +109,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 					unsigned argNo = 0;
 					bool foundArg = false;
 					DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
-					for (unsigned i : irange(0u, call->getNumArgOperands())) {
+					for (const unsigned i : irange(0u, call->getNumArgOperands())) {
 						DEBUG(dbgs() << "got one, about to call get\n");
 						if (call->getArgOperand(i) == &arg) {
 							DEBUG(dbgs() << "hey, it matches!\n");
