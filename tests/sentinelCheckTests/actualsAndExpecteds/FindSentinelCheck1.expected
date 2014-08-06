@@ -11,13 +11,13 @@ Analyzing function: foo
 	We found: 1 loops
 	Examining string in loop for.cond
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.cond
 Analyzing function: find
 	We found: 1 loops
 	Examining string in loop for.cond
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.cond

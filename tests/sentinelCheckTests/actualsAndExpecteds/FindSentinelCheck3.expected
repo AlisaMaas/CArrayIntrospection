@@ -15,92 +15,92 @@ Analyzing function: bar
 	We found: 1 loops
 	Examining string in loop for.cond
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body
 Analyzing function: foo
 	We found: 1 loops
 	Examining string in loop for.cond
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body
 Analyzing function: baz
 	We found: 1 loops
 	Examining string in loop for.cond
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body
 Analyzing function: find
 	We found: 14 loops
 	Examining string in loop for.cond
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body
 	Examining string in loop for.cond109
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body112
 	Examining string in loop for.cond124
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body127
 	Examining string in loop for.cond139
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body142
 	Examining string in loop for.cond154
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body157
 	Examining string in loop for.cond169
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body172
 	Examining string in loop for.cond184
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body187
 	Examining string in loop for.cond19
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body22
 	Examining string in loop for.cond34
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body37
 	Examining string in loop for.cond4
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body7
 	Examining string in loop for.cond49
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body52
 	Examining string in loop for.cond64
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body67
 	Examining string in loop for.cond79
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body82
 	Examining string in loop for.cond94
 		There are 1 sentinel checks of this argument in this loop
-			We can not bypass all sentinel checks for this argument in this loop.
+			We cannot bypass all sentinel checks for this argument in this loop.
 		Sentinel checks: 
 			for.body97
