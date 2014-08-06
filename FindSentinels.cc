@@ -159,8 +159,7 @@ bool FindSentinels::runOnModule(Module &module) {
 									)
 							),
 							trueBlock,
-							falseBlock))) 
-					{
+							falseBlock))) {
 						if (!iiglue.isArray(*pointer)) {
 							continue;
 						}
