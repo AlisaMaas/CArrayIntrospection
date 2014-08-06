@@ -228,7 +228,7 @@ bool FindSentinels::runOnModule(Module &module) {
  **/
 class BasicBlockCompare { // simple comparison function
 	public:
-		bool operator()(const BasicBlock* x,const BasicBlock* y) { return x->getName() < y->getName(); }
+		bool operator()(const BasicBlock *x, const BasicBlock *y) { return x->getName() < y->getName(); }
 };
 
 /**
