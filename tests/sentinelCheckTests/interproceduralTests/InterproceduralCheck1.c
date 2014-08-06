@@ -4,6 +4,7 @@
 * null checks. The results should note that string is null terminated in both foo
 * and find, but not print.
 **/
+int find(char []);
 void print(char* string){}
 int foo(char string[])
 {
