@@ -136,7 +136,7 @@ bool NullAnnotator::runOnModule(Module &) {
 					advance(formals, argNo);
 					const Argument &parameter = *formals;
 				
-					Answer report = getAnswer(parameter);
+					const Answer report = getAnswer(parameter);
 					if (report == NULL_TERMINATED) {
 						DEBUG(dbgs() << "Marking NULL_TERMINATED\n");
 						annotations[&arg] = NULL_TERMINATED;
