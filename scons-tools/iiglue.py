@@ -12,7 +12,6 @@ def __iiglue_analyze_builder(env):
         suffix='.json',
         src_suffix=['.bc', '.ll'],
         src_builder=env['BUILDERS'].get('BitcodeSource'),
-        source_scanner=CScanner,
     )
 
 
