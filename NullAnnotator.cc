@@ -19,7 +19,11 @@ using namespace boost::algorithm;
 using namespace llvm;
 using namespace std;
 
-enum Answer { DONT_CARE, NON_NULL_TERMINATED, NULL_TERMINATED };
+enum Answer {
+	DONT_CARE,
+	NON_NULL_TERMINATED,
+	NULL_TERMINATED
+};
 
 namespace {
 	class NullAnnotator : public ModulePass {
