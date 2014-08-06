@@ -82,7 +82,7 @@ bool FindSentinels::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (Function &func : module) {
 		const LoopInfo &LI = getAnalysis<LoopInfo>(func);
-		unordered_map<const BasicBlock *, ArgumentToBlockSet> functionSentinelChecks;
+		unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionSentinelChecks = allSentinelChecks[&func];
 #if 0
 		// bail out early if func has no array arguments
 		// up for discussion - seems to lead to some unintuitive results that I want to discuss before readding.
@@ -93,7 +93,7 @@ bool FindSentinels::runOnModule(Module &module) {
 #endif
 		// We must look through all the loops to determine if any of them contain a sentinel check.
 		for (const Loop * const loop : LI) {
-			ArgumentToBlockSet sentinelChecks;
+			ArgumentToBlockSet &sentinelChecks = functionSentinelChecks[loop->getHeader()];
 
 			SmallVector<BasicBlock *, 4> exitingBlocks;
 			loop->getExitingBlocks(exitingBlocks);
@@ -198,7 +198,6 @@ bool FindSentinels::runOnModule(Module &module) {
 					for (const Argument &arg : iiglue.arrayArguments(func)) {
 						sentinelChecks[&arg].second = true;
 					}
-					functionSentinelChecks[loop->getHeader()] = sentinelChecks;
 					continue;
 				}
 				for (const Argument &arg : iiglue.arrayArguments(func)) {
@@ -215,9 +214,7 @@ bool FindSentinels::runOnModule(Module &module) {
 						checks.second = false;
 					}
 				}
-				functionSentinelChecks[loop->getHeader()] = sentinelChecks;
 			}
-			allSentinelChecks[&func] = functionSentinelChecks;
 	}
 	// read-only pass never changes anything
 	return false;
