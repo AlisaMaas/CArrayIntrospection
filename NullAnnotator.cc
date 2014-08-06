@@ -117,7 +117,7 @@ bool NullAnnotator::runOnModule(Module &) {
 				bool foundDontCare = false;
 				bool foundNonNullTerminated = false;
 				bool nextArgumentPlease = false;
-				
+
 				for (const CallInst &call : functionToCallSites[&func] | indirected) {
 					unsigned argNo = 0;
 					bool foundArg = false;
@@ -138,7 +138,7 @@ bool NullAnnotator::runOnModule(Module &) {
 					auto formals = call.getCalledFunction()->getArgumentList().begin();
 					advance(formals, argNo);
 					const Argument &parameter = *formals;
-				
+
 					switch (getAnswer(parameter)) {
 					case NULL_TERMINATED:
 						DEBUG(dbgs() << "Marking NULL_TERMINATED\n");
