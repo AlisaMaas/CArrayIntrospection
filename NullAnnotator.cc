@@ -49,7 +49,7 @@ inline NullAnnotator::NullAnnotator()
 }
 
 bool NullAnnotator::annotate(const Argument &arg) const {
-	AnnotationMap::const_iterator found = annotations.find(&arg);
+	const AnnotationMap::const_iterator found = annotations.find(&arg);
 	return found != annotations.end() && found->second == NULL_TERMINATED;
 }
 
@@ -62,16 +62,16 @@ void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 }
 
 Answer NullAnnotator::getAnswer(const Argument &arg) const {
-	AnnotationMap::const_iterator found = annotations.find(&arg);
+	const AnnotationMap::const_iterator found = annotations.find(&arg);
 	return found == annotations.end() ? DONT_CARE : found->second;
 }
 
 bool NullAnnotator::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	const FindSentinels &findSentinels = getAnalysis<FindSentinels>();
-	bool changed = true;
 	bool firstTime = true;
-	while (changed) {
+	bool changed;
+	do {
 		changed = false;
 		for (const Function &func : module) {
 			DEBUG(dbgs() << "About to get the map for this function\n");
@@ -168,7 +168,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 			}
 		}
 		firstTime = false;
-	}
+	} while (changed);
 	
 	return false;
 }
