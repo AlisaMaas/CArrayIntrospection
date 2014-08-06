@@ -87,8 +87,10 @@ bool IIGlueReader::runOnModule(Module &module) {
 
 			// PAArray annotation means iiglue thinks this is an array;
 			// ignore inferred array dimensionality: not needed yet
-			if (find(annotationTags, "PAArray") != end(annotationTags))
+			if (find(annotationTags, "PAArray") != end(annotationTags)) {
 				arrays.insert(&slot.get<1>());
+				atLeastOneArrayArg.insert(function);
+			}
 		}
 	}
 

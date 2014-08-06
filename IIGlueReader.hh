@@ -2,6 +2,7 @@
 #define INCLUDE_IIGLUE_READER_HH
 
 #include <boost/range/adaptor/filtered.hpp>
+#include <boost/range/adaptor/indirected.hpp>
 #include <llvm/IR/Function.h>
 #include <llvm/Pass.h>
 #include <unordered_set>
@@ -32,6 +33,10 @@ private:
 	// formal function arguments marked as arrays by iiglue
 	std::unordered_set<const llvm::Argument *> arrays;
 
+	// functions having at least one array as formal argument
+	typedef std::unordered_set<const llvm::Function *> FunctionSet;
+	FunctionSet atLeastOneArrayArg;
+
 public:
 	// standard LLVM pass interface
 	IIGlueReader();
@@ -42,8 +47,10 @@ public:
 
 	// convenience methods to access loaded iiglue annotations
 	typedef boost::filtered_range<IsArray, const llvm::Function::ArgumentListType> ArrayArgumentsRange;
+	typedef boost::indirected_range<const FunctionSet> ArrayReceiversRange;
 	bool isArray(const llvm::Argument &) const;
 	ArrayArgumentsRange arrayArguments(const llvm::Function &function) const;
+	ArrayReceiversRange arrayReceivers() const;
 };
 
 
@@ -74,6 +81,11 @@ inline bool IIGlueReader::isArray(const llvm::Argument &argument) const {
 
 inline IIGlueReader::ArrayArgumentsRange IIGlueReader::arrayArguments(const llvm::Function &function) const {
 	return { IsArray(*this), function.getArgumentList() };
+};
+
+
+inline IIGlueReader::ArrayReceiversRange IIGlueReader::arrayReceivers() const {
+	return atLeastOneArrayArg | boost::adaptors::indirected;
 };
 
 
