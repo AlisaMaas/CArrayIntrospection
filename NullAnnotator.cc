@@ -9,7 +9,7 @@
 using namespace llvm;
 using namespace std;
 
-enum Answer{ DONT_CARE, NON_NULL_TERMINATED, NULL_TERMINATED };
+enum Answer { DONT_CARE, NON_NULL_TERMINATED, NULL_TERMINATED };
 
 namespace {
 	class NullAnnotator : public ModulePass {
@@ -38,7 +38,8 @@ bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults &checks
 bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg);
 
 inline NullAnnotator::NullAnnotator()
-: ModulePass(ID) { }
+	: ModulePass(ID) {
+}
 
 bool NullAnnotator::annotate(const Argument &arg) const {
 	AnnotationMap::const_iterator found = annotations.find(&arg);
@@ -72,7 +73,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 				DEBUG(dbgs() << "\tConsidering " << arg.getArgNo() << "\n");
 				Answer oldResult = getAnswer(arg);
 				DEBUG(dbgs() << "\tOld result: " << oldResult << '\n');
-				if(oldResult == NULL_TERMINATED)
+				if (oldResult == NULL_TERMINATED)
 					continue;
 				if (firstTime) {
 					// process loops exactly once
@@ -103,7 +104,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 					DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
 					for (unsigned i = 0; i < call->getNumArgOperands(); ++i) {
 						DEBUG(dbgs() << "got one, about to call get\n");
-						if (call->getArgOperand(i) == &arg){
+						if (call->getArgOperand(i) == &arg) {
 							DEBUG(dbgs() << "hey, it matches!\n");
 							argNo = i;
 							foundArg = true;
@@ -135,7 +136,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 					}
 					else {
 						// maybe set/check a flag for error reporting
-						if(foundNonNullTerminated){
+						if (foundNonNullTerminated) {
 							DEBUG(dbgs() << "Found both DONT_CARE and NON_NULL_TERMINATED among callees.\n");
 						}
 						foundDontCare = true;
@@ -181,7 +182,7 @@ bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults &checks
 	for (auto mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
 		const ArgumentToBlockSet &entry = checks.at(header);
-		if(!entry.at(&arg).second)
+		if (!entry.at(&arg).second)
 			return true;
 	}
 	return false;
@@ -191,7 +192,7 @@ bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults &checks, cons
 	for (auto mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
 		const ArgumentToBlockSet &entry = checks.at(header);
-		if(!entry.at(&arg).first.empty())
+		if (!entry.at(&arg).first.empty())
 			return true;
 	}
 	return false;

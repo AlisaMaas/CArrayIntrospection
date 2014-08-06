@@ -38,12 +38,12 @@ static bool reachable(const Loop &loop, BlockSet &foundSoFar, const BasicBlock &
 	// already explored here, or is intentionally closed-off sentinel check
 	if (!novel) return false;
 	// trivially reached goal
-	if (&current == &goal){
+	if (&current == &goal) {
 		return true;
 	}
 
 	// not allowed to leave this loop
-	if (!loop.contains(&current)){
+	if (!loop.contains(&current)) {
 		return false;
 	}
 
@@ -65,8 +65,7 @@ char FindSentinels::ID;
 
 
 inline FindSentinels::FindSentinels()
-: ModulePass(ID)
-{
+	: ModulePass(ID) {
 }
 
 void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const
