@@ -84,12 +84,14 @@ bool FindSentinels::runOnModule(Module &module) {
 	for (Function &func : module) {
 		const LoopInfo &LI = getAnalysis<LoopInfo>(func);
 		unordered_map<const BasicBlock *, ArgumentToBlockSet> functionSentinelChecks;
+#if 0
 		// bail out early if func has no array arguments
 		// up for discussion - seems to lead to some unintuitive results that I want to discuss before readding.
-		/*if (!any_of(func.arg_begin(), func.arg_end(), [&](const Argument &arg) {
+		if (!any_of(func.arg_begin(), func.arg_end(), [&](const Argument &arg) {
 					return iiglue.isArray(arg);
 				}))
-			return false;*/
+			return false;
+#endif
 		// We must look through all the loops to determine if any of them contain a sentinel check.
 		for (const Loop * const loop : LI) {
 			ArgumentToBlockSet sentinelChecks;
