@@ -30,7 +30,7 @@ for source in sources:
                 '-load', '${SOURCES[0].abspath}',
                 '-mem2reg',
                 '-iiglue-read-file', '${SOURCES[1]}',
-                '-find-sentinels', 
+                '-null-annotator', 
                 '${SOURCES[2]}',
             ],
         ],

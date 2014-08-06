@@ -1,8 +1,7 @@
 /**
-* This is a simple interproceedural test that ensures with three functions,
-* it recognizes that foo calls the null-terminated print though it contains no
-* null checks. The results should note that string is null terminated in both foo
-* and find, but not print.
+* Makes sure that if find calls foo with a null-terminated argument,
+* the analysis still reports that find's argument is null-terminated even though
+* it is being used as a non-null terminated string in foo.
 **/
 void print(char* string){}
 int foo(char string[])
@@ -13,7 +12,7 @@ int foo(char string[])
 			break;
 			}
 	}
-	return find(string);
+	return 0;
 }
 int find(char string[])
 {
@@ -23,5 +22,5 @@ int find(char string[])
 			break;
 			}
 	}
-  return 1;
+  return foo(string);
 }

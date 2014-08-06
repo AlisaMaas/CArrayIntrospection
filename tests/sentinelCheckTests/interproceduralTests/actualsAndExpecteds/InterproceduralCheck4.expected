@@ -1,0 +1,11 @@
+Printing analysis 'Promote Memory to Register' for function 'print':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'find':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'foo':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Determine whether and how to annotate each function with the null-terminated annotation':
+find with argument 0 should be annotated NULL_TERMINATED.
+find with argument 1 should not be annotated NULL_TERMINATED.
+foo with argument 0 should not be annotated NULL_TERMINATED.
+foo with argument 1 should be annotated NULL_TERMINATED.
