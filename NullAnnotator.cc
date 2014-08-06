@@ -27,37 +27,37 @@ enum Answer {
 
 namespace {
 	class NullAnnotator : public ModulePass {
-		public:
-			// standard LLVM pass interface
-			NullAnnotator();
-	static char ID;
-	void getAnalysisUsage(AnalysisUsage &) const final;
-	bool runOnModule(Module &) override final;
-	void print(raw_ostream &, const Module *) const;
+	public:
+		// standard LLVM pass interface
+		NullAnnotator();
+		static char ID;
+		void getAnalysisUsage(AnalysisUsage &) const final;
+		bool runOnModule(Module &) override final;
+		void print(raw_ostream &, const Module *) const;
 
-	// access to analysis results derived by this pass
-	bool annotate(const Argument &) const;
+		// access to analysis results derived by this pass
+		bool annotate(const Argument &) const;
 
 	private:
 		// map from function name and argument number to whether or not that argument gets annotated
 		typedef unordered_map<const Argument *, Answer> AnnotationMap;
-	AnnotationMap annotations;
-	typedef unordered_set<const CallInst *> CallInstSet;
-	unordered_map<const Function *, CallInstSet> functionToCallSites;
-	Answer getAnswer(const Argument &) const;
+		AnnotationMap annotations;
+		typedef unordered_set<const CallInst *> CallInstSet;
+		unordered_map<const Function *, CallInstSet> functionToCallSites;
+		Answer getAnswer(const Argument &) const;
 	};
 	char NullAnnotator::ID;
 }
 
 static const RegisterPass<NullAnnotator> registration("null-annotator",
-		"Determine whether and how to annotate each function with the null-terminated annotation",
-		true, true);
+						      "Determine whether and how to annotate each function with the null-terminated annotation",
+						      true, true);
 
 bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg);
 bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg);
 
 inline NullAnnotator::NullAnnotator()
-: ModulePass(ID) {
+	: ModulePass(ID) {
 }
 
 bool NullAnnotator::annotate(const Argument &arg) const {
@@ -85,9 +85,9 @@ bool NullAnnotator::runOnModule(Module &) {
 	// collect calls in each function for repeated scanning later
 	for (const Function &func : iiglue.arrayReceivers()) {
 		const auto instructions =
-				make_iterator_range(inst_begin(func), inst_end(func))
-				| transformed([](const Instruction &inst) { return dyn_cast<CallInst>(&inst); })
-				| filtered(boost::lambda::_1);
+			make_iterator_range(inst_begin(func), inst_end(func))
+			| transformed([](const Instruction &inst) { return dyn_cast<CallInst>(&inst); })
+			| filtered(boost::lambda::_1);
 		functionToCallSites.emplace(&func, CallInstSet(instructions.begin(), instructions.end()));
 		DEBUG(dbgs() << "went through all the instructions and grabbed calls\n");
 		DEBUG(dbgs() << "We found " << functionToCallSites[&func].size() << " calls in " << func.getName() << '\n');
@@ -209,10 +209,10 @@ void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 
 bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg) {
 	return any_of(checks | map_values,
-			[&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).second; });
+		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).second; });
 }
 
 bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg) {
 	return any_of(checks | map_values,
-			[&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).first.empty(); });
+		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).first.empty(); });
 }
