@@ -96,12 +96,12 @@ bool FindSentinels::runOnModule(Module &module) {
 		const LoopInfo &LI = getAnalysis<LoopInfo>(func);
 		unordered_map<const BasicBlock *, ArgumentToBlockSet> functionSentinelChecks;
 		// bail out early if func has no array arguments
-		//up for discussion - seems to lead to some unintuitive results that I want to discuss before readding.
+		// up for discussion - seems to lead to some unintuitive results that I want to discuss before readding.
 		/*if (!any_of(func.arg_begin(), func.arg_end(), [&](const Argument &arg) {
 					return iiglue.isArray(arg);
 				}))
 			return false;*/
-		//We must look through all the loops to determine if any of them contain a sentinel check.
+		// We must look through all the loops to determine if any of them contain a sentinel check.
 		for (const Loop * const loop : LI) {
 			ArgumentToBlockSet sentinelChecks;
 
@@ -112,7 +112,7 @@ bool FindSentinels::runOnModule(Module &module) {
 				// to be bound to pattern elements if match succeeds
 				BasicBlock *trueBlock, *falseBlock;
 				CmpInst::Predicate predicate;
-				//This will need to be checked to make sure it corresponds to an argument identified as an array.
+				// This will need to be checked to make sure it corresponds to an argument identified as an array.
 				Argument *pointer;
 				Value *slot;
 
@@ -195,7 +195,7 @@ bool FindSentinels::runOnModule(Module &module) {
 						// all tests pass; this is a possible sentinel check!
 						DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
 								<< "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
-						//mark this block as one of the sentinel checks this loop.
+						// mark this block as one of the sentinel checks this loop.
 						sentinelChecks[pointer].first.insert(exitingBlock);
 						auto induction(loop->getCanonicalInductionVariable());
 						if (induction)
@@ -255,7 +255,7 @@ class BasicBlockCompare { // simple comparison function
 void FindSentinels::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
-		//print function name, how many loops found if any
+		// print function name, how many loops found if any
 		sink << "Analyzing function: " << func.getName() << '\n';
 		if (allSentinelChecks.count(&func) == 0) {
 			sink << "\tDetected no sentinel checks\n";
@@ -268,8 +268,8 @@ void FindSentinels::print(raw_ostream &sink, const Module *module) const {
 			loopHeaderBlocks.insert(mapElements.first);
 		}
 
-		//For each loop, print all sentinel checks and whether it is possible to go from loop entry to loop entry without
-		//passing a sentinel check.
+		// For each loop, print all sentinel checks and whether it is possible to go from loop entry to loop entry without
+		// passing a sentinel check.
 		for (const BasicBlock * const header : loopHeaderBlocks) {
 			const ArgumentToBlockSet &entry = loopHeaderToSentinelChecks[header];
 			for (const Argument &arg : iiglue.arrayArguments(func)) {

@@ -26,7 +26,7 @@ namespace {
 		bool runOnModule(Module &) override final;
 		void print(raw_ostream &, const Module *) const;
 	private:
-		//map from function name and argument number to whether or not that argument gets annotated
+		// map from function name and argument number to whether or not that argument gets annotated
 		typedef unordered_map<const Argument*, Answer> AnnotationMap;
 		AnnotationMap annotations;
 		unordered_map<const Function*, unordered_set<const CallInst*>> functionToCallSites;
@@ -80,7 +80,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 				if(oldResult == NULL_TERMINATED)
 					continue;
 				if (firstTime) {
-					//process loops exactly once
+					// process loops exactly once
 					if (existsNonOptionalSentinelCheck(functionChecks, arg)) {
 						DEBUG(dbgs() << "\tFound a non-optional sentinel check in some loop!\n");
 						annotations[&arg] = NULL_TERMINATED;
@@ -96,7 +96,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 					DEBUG(dbgs() << "went through all the instructions and grabbed calls\n");
 					DEBUG(dbgs() << "We found " << functionToCallSites[&func].size() << " calls\n");
 				}
-				//if we haven't yet continued, process evidence from callees.
+				// if we haven't yet continued, process evidence from callees.
 				bool foundDontCare = false;
 				bool foundNonNullTerminated = false;
 				bool nextArgumentPlease = false;
@@ -135,11 +135,11 @@ bool NullAnnotator::runOnModule(Module &module) {
 						break;
 					}
 					else if (report == NON_NULL_TERMINATED) {
-						//maybe set/check a flag for error reporting
+						// maybe set/check a flag for error reporting
 						foundNonNullTerminated = true;
 					}
 					else {
-						//maybe set/check a flag for error reporting
+						// maybe set/check a flag for error reporting
 						if(foundNonNullTerminated){
 							DEBUG(dbgs() << "Found both DONT_CARE and NON_NULL_TERMINATED among callees.\n");
 						}
@@ -149,7 +149,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 				if (nextArgumentPlease) {
 					continue;
 				}
-				//if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
+				// if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
 				if (hasLoopWithSentinelCheck(functionChecks, arg)) {
 					if (oldResult != NON_NULL_TERMINATED) {
 						DEBUG(dbgs() << "Marking NOT_NULL_TERMINATED\n");
@@ -157,11 +157,11 @@ bool NullAnnotator::runOnModule(Module &module) {
 						changed = true;
 						if (foundDontCare)
 							DEBUG(dbgs() << "Marking NULL_TERMINATED even though other calls say DONT_CARE.\n");
-							//do error reporting stuff
+							// do error reporting stuff
 						continue;
 					}
 				}
-				//otherwise it stays as DONT_CARE for now.
+				// otherwise it stays as DONT_CARE for now.
 			}
 		}
 		firstTime = false;
