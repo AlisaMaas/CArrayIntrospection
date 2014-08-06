@@ -16,14 +16,19 @@ typedef std::unordered_map<const llvm::Argument *, std::pair<BlockSet, bool>> Ar
 
 class FindSentinels : public llvm::ModulePass {
 public:
+	// standard LLVM pass interface
 	FindSentinels();
 	static char ID;
 	void getAnalysisUsage(llvm::AnalysisUsage &) const final;
-	const std::unordered_map<llvm::BasicBlock const *, ArgumentToBlockSet>& getResultsForFunction(const llvm::Function*) const;
 	bool runOnModule(llvm::Module &) override final;
 	void print(llvm::raw_ostream &, const llvm::Module *) const;
+
+	// access to analysis results derived by this pass
+	typedef std::unordered_map<const llvm::BasicBlock *, ArgumentToBlockSet> FunctionResults;
+	const FunctionResults& getResultsForFunction(const llvm::Function*) const;
+
 private:
-	std::unordered_map<const llvm::Function *, std::unordered_map<const llvm::BasicBlock *, ArgumentToBlockSet>> allSentinelChecks;
+	std::unordered_map<const llvm::Function *, FunctionResults> allSentinelChecks;
 };
 
 #endif // !INCLUDE_FIND_SENTINELS_HH

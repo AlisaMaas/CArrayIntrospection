@@ -34,8 +34,8 @@ static const RegisterPass<NullAnnotator> registration("null-annotator",
 		"Determine whether and how to annotate each function with the null-terminated annotation",
 		true, true);
 
-bool existsNonOptionalSentinelCheck(const unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg);
-bool hasLoopWithSentinelCheck(const unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg);
+bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg);
+bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg);
 
 inline NullAnnotator::NullAnnotator()
 : ModulePass(ID) { }
@@ -67,7 +67,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 		changed = false;
 		for (const Function &func : module) {
 			DEBUG(dbgs() << "About to get the map for this function\n");
-			const unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionChecks = findSentinels.getResultsForFunction(&func);
+			const FindSentinels::FunctionResults &functionChecks = findSentinels.getResultsForFunction(&func);
 			for (const Argument &arg : iiglue.arrayArguments(func)) {
 				DEBUG(dbgs() << "\tConsidering " << arg.getArgNo() << "\n");
 				Answer oldResult = getAnswer(arg);
@@ -176,7 +176,7 @@ void NullAnnotator::print(raw_ostream &sink, const Module* module) const {
 	}
 }
 
-bool existsNonOptionalSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg) {
+bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg) {
 
 	for (auto mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
@@ -187,7 +187,7 @@ bool existsNonOptionalSentinelCheck(unordered_map<const BasicBlock *, ArgumentTo
 	return false;
 }
 
-bool hasLoopWithSentinelCheck(unordered_map<const BasicBlock *, ArgumentToBlockSet> checks, const Argument &arg){
+bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults &checks, const Argument &arg) {
 	for (auto mapElements : checks) {
 		const BasicBlock * const header = mapElements.first;
 		const ArgumentToBlockSet &entry = checks.at(header);
