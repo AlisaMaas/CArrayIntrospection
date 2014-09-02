@@ -63,8 +63,10 @@ penv.AppendUnique(
 
 plugin, = penv.SharedLibrary('CArrayIntrospection', (
     'IIGlueReader.cc',
+    'FindLengthChecks.cc',
     'FindSentinels.cc',
     'NullAnnotator.cc',
+    'UpperBoundIndexing.cc',
 ))
 
 env['plugin'] = plugin

@@ -34,7 +34,7 @@ env.RunTests(PLUGIN_ARGS='-iiglue-reader')
 #  subdirectories
 #
 
-SConscript(dirs='sentinelCheckTests', exports='env')
+SConscript(dirs=['sentinelCheckTests','fixedLengthTests'], exports='env')
 
 # Local variables:
 # flycheck-flake8rc: "../scons-flake8.ini"
