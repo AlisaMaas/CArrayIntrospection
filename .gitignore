@@ -2,4 +2,5 @@
 *.os
 *.so
 *~
+.scons-options
 .sconsign.dblite

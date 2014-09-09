@@ -37,6 +37,7 @@ env = Environment(
 )
 
 Help(variables.GenerateHelpText(env))
+variables.Save('.scons-options', env)
 
 env.PrependENVPath('PATH', env.subst('$LLVM_ROOT/bin'))
 
