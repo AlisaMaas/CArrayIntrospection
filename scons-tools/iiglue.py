@@ -9,7 +9,6 @@ from SCons.Script import *
 
 def __iiglue_target_scanner(node, env, path):
     return (
-        env['IIGLUE'],
         env.WhereIs('opt'),
     )
 
