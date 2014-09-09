@@ -8,6 +8,7 @@
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/Debug.h>
+#include <set>
 
 using namespace boost::adaptors;
 using namespace llvm;
