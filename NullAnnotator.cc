@@ -16,7 +16,10 @@
 #  include <llvm/IR/InstIterator.h>
 #else // LLVM 3.4 or earlier
 #  include <llvm/Support/InstIterator.h>
+#  undef DEBUG_TYPE
 #endif // LLVM 3.4 or earlier
+
+#define DEBUG_TYPE "null-annotator"
 
 using namespace boost;
 using namespace boost::adaptors;
