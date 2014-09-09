@@ -11,7 +11,12 @@
 #include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/Debug.h>
-#include <llvm/Support/InstIterator.h>
+
+#if LLVM_VERSION_MAJOR > 3 || (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR > 4)
+#  include <llvm/IR/InstIterator.h>
+#else // LLVM 3.4 or earlier
+#  include <llvm/Support/InstIterator.h>
+#endif // LLVM 3.4 or earlier
 
 using namespace boost;
 using namespace boost::adaptors;
