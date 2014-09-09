@@ -2,5 +2,7 @@
 *.os
 *.so
 *~
+.sconf_temp
 .scons-options
 .sconsign.dblite
+config.log
