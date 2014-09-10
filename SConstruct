@@ -28,8 +28,9 @@ variables.Add(PathVariable('LLVM_CONFIG', 'Path to llvm-config executable', defa
 
 env = Environment(
     tools=(
+        'default',              # load first, so others can override
         'bitcode',
-        'default',
+        'clang-analyzer',
         'expect',
         'iiglue',
         'plugin',
