@@ -8,6 +8,12 @@
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/Debug.h>
+#include <set>
+
+#if LLVM_VERSION_MAJOR <= 3 || (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 4)
+#  undef DEBUG_TYPE
+#endif // LLVM 3.4 and earlier
+#define DEBUG_TYPE "find-sentinels"
 
 using namespace boost::adaptors;
 using namespace llvm;

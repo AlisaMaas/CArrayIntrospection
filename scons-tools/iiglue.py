@@ -6,12 +6,20 @@ from SCons.Script import *
 #  generate JSON analysis output from LLVM bitcode
 #
 
+
+def __iiglue_target_scanner(node, env, path):
+    return (
+        env.WhereIs('opt'),
+    )
+
+
 def __iiglue_analyze_builder(env):
     return Builder(
         action='$IIGLUE $SOURCE -r $TARGET.dir',
         suffix='.json',
         src_suffix=['.bc', '.ll'],
         src_builder=env['BUILDERS'].get('BitcodeSource'),
+        target_scanner=Scanner(__iiglue_target_scanner),
     )
 
 
