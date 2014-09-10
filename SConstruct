@@ -24,8 +24,9 @@ variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/p
 env = Environment(
     LLVM_ROOT=Dir('/p/polyglot/public/llvm/install'),
     tools=(
+        'default',              # load first, so others can override
         'bitcode',
-        'default',
+        'clang-analyzer',
         'expect',
         'iiglue',
         'plugin',
