@@ -139,8 +139,7 @@ bool NullAnnotator::runOnModule(Module &) {
 						if (call.getArgOperand(argNo) != &arg) continue;
 
 						DEBUG(dbgs() << "hey, it matches!\n");
-						auto parameter = formals;
-						advance(parameter, argNo);
+						const auto parameter = next(formals, argNo);
 
 						switch (getAnswer(*parameter)) {
 						case NULL_TERMINATED:
