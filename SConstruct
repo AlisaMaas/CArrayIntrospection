@@ -13,10 +13,10 @@ def pathIsExecutable(key, val, env):
         raise SCons.Errors.UserError('Path for option %s is not executable: %s' % (key, val))
 
 variables = Variables(['.scons-options'], ARGUMENTS)
-variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/iiglue-tools/bin/iiglue', pathIsExecutable))
+variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsExecutable))
 
 default = WhereIs('llvm-config', (
-    '/p/polyglot/public/llvm/install/bin',
+    '/p/polyglot/public/bin',
     '/usr/bin',
 ))
 variables.Add(PathVariable('LLVM_CONFIG', 'Path to llvm-config executable', default, pathIsExecutable))
