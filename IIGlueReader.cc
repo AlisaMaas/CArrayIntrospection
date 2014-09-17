@@ -82,8 +82,11 @@ bool IIGlueReader::runOnModule(Module &module) {
 				slot.get<0>()
 				| map_values
 				| transformed([](const ptree &pt) {
-						return pt.get<string>("tag");
-					});
+						assert(pt.size() == 1);
+						return pt.front();
+					})
+				| map_keys
+				;
 
 			// PAArray annotation means iiglue thinks this is an array;
 			// ignore inferred array dimensionality: not needed yet
