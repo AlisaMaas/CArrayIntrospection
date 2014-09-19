@@ -22,7 +22,7 @@ def __iiglue_target_scanner(node, env, path):
 
 def __iiglue_analyze_builder(env):
     return Builder(
-        action='$IIGLUE $SOURCE -r $TARGET.dir',
+        action='$IIGLUE $SOURCE -r $TARGET.dir 2>/dev/null',
         suffix='.json',
         src_suffix=['.bc', '.ll'],
         src_builder=env['BUILDERS'].get('BitcodeSource'),
