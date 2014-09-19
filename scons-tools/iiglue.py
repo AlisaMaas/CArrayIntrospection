@@ -1,3 +1,4 @@
+from itertools import imap
 from SCons.Script import *
 
 
@@ -8,9 +9,15 @@ from SCons.Script import *
 
 
 def __iiglue_target_scanner(node, env, path):
-    return (
-        env.WhereIs('opt'),
-    )
+    iiglue = env.File('$IIGLUE')
+    if iiglue.path == '/p/polyglot/public/bin/iiglue':
+        return (
+            '/p/polyglot/public/iiglue-tools/.cabal-sandbox/bin/iiglue',
+            '/p/polyglot/public/tools/z3-4.3.2.5a45711f22d9-x64-debian-7.4/bin/z3',
+            '/unsup/llvm-3.3/bin/opt',
+        )
+    else:
+        return filter(bool, imap(env.WhereIs, ('opt', 'z3')))
 
 
 def __iiglue_analyze_builder(env):
