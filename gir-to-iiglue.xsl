@@ -17,8 +17,8 @@
 				</xsl:if>
 				<xsl:text>]}</xsl:text>
 			</xsl:for-each>
-		<xsl:text>]}</xsl:text>
+			<xsl:text>]}</xsl:text>
 		</xsl:for-each>
-  	<xsl:text>]}</xsl:text>
+  		<xsl:text>]}</xsl:text>
 	</xsl:template>
 </xsl:stylesheet>
