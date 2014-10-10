@@ -47,7 +47,6 @@ def generate(env):
             'RunPlugin': __run_plugin_builder,
         },
         _RUN_PLUGIN_SOURCE_ARGS=__run_plugin_source_args,
-        jsondir='.',
     )
 
 
