@@ -1,0 +1,1 @@
+int peek(int *, int);
