@@ -97,6 +97,18 @@ bool IIGlueReader::runOnModule(Module &module) {
 }
 
 
+static string describeArgument(const Argument &arg) {
+	string storage;
+	raw_string_ostream stream(storage);
+	stream << arg.getParent()->getName() << "::";
+	if (arg.getName().empty())
+		stream << arg.getArgNo();
+	else
+		stream << arg.getName();
+	return stream.str();
+}
+
+
 void IIGlueReader::print(raw_ostream &sink, const Module *) const {
 	sink << "\tarray arguments:\n";
 
@@ -104,9 +116,7 @@ void IIGlueReader::print(raw_ostream &sink, const Module *) const {
 	const auto names =
 		arrays
 		| indirected
-		| transformed([](const Argument &arg) {
-				return (arg.getParent()->getName() + "::" + arg.getName()).str();
-			});
+		| transformed(describeArgument);
 
 	// print in sorted order for consistent output
 	boost::container::flat_set<string> ordered(names.begin(), names.end());
