@@ -33,7 +33,10 @@ env.AddMethod(RunTests)
 #  IIGlueReader tests
 #
 
-env.RunTests(PLUGIN_ARGS='-iiglue-reader')
+tenv = env.Clone(PLUGIN_ARGS='-iiglue-reader')
+tenv.RunTest('iiglue-reader-peek.c')
+tenv.RunTest('iiglue-reader-variadic.c')
+tenv.RunTest('iiglue-reader-multiple.c', json=('json/iiglue-reader-peek.json', 'json/iiglue-reader-variadic.json'))
 
 
 ########################################################################
