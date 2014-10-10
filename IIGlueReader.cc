@@ -39,12 +39,6 @@ void IIGlueReader::getAnalysisUsage(AnalysisUsage &usage) const {
 
 
 bool IIGlueReader::runOnModule(Module &module) {
-	// make sure we know what to do, or complain if we don't
-	if (iiglueFileName.empty()) {
-		errs() << "warning: no input file given for iiglue reader\n";
-		return false;
-	}
-
 	// read entire JSON-formatted iiglue output as property tree
 	ptree root;
 	json_parser::read_json(iiglueFileName, root);
