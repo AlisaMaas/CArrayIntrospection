@@ -1,4 +1,5 @@
 from SCons.Script import *
+from SCons.Util import splitext
 
 
 ########################################################################
@@ -8,13 +9,27 @@ from SCons.Script import *
 
 
 def __run_plugin_emitter(target, source, env):
-    bitcode, json = source
-    source.append('$plugin')
+    source.insert(0, '$plugin')
     return target, source
 
 
+def __run_plugin_source_args(target, source, env, for_signature):
+    def generate():
+        for input in source:
+            extension = splitext(input.name)[1]
+            if extension == '.json':
+                yield '-iiglue-read-file'
+                yield input
+            elif extension == '.so':
+                yield '-load'
+                yield './%s' % input
+            else:
+                yield input
+    return list(generate())
+
+
 __run_plugin_builder = Builder(
-    action='opt -analyze -o $TARGET -load ./${SOURCES[2]} -iiglue-read-file ${SOURCES[1]} $PLUGIN_ARGS ${SOURCES[0]}',
+    action='opt -analyze -o $TARGET $_RUN_PLUGIN_SOURCE_ARGS $PLUGIN_ARGS',
     emitter=__run_plugin_emitter,
     suffix='.actual',
 )
@@ -31,6 +46,7 @@ def generate(env):
         BUILDERS={
             'RunPlugin': __run_plugin_builder,
         },
+        _RUN_PLUGIN_SOURCE_ARGS=__run_plugin_source_args,
         jsondir='.',
     )
 
