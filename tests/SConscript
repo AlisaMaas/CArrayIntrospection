@@ -44,7 +44,8 @@ tenv.RunTest('iiglue-reader-multiple.c', json=('json/iiglue-reader-peek.json', '
 #  subdirectories
 #
 
-SConscript(dirs='sentinelCheckTests', exports='env')
+SConscript(dirs=['sentinelCheckTests'], exports='env')
+#SConscript(dirs=['sentinelCheckTests','fixedLengthTests'], exports='env')
 
 # Local variables:
 # flycheck-flake8rc: "../scons-flake8.ini"

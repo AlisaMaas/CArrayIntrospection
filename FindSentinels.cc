@@ -8,12 +8,6 @@
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/Debug.h>
-#include <set>
-
-#if LLVM_VERSION_MAJOR <= 3 || (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR <= 4)
-#  undef DEBUG_TYPE
-#endif // LLVM 3.4 and earlier
-#define DEBUG_TYPE "find-sentinels"
 
 using namespace boost::adaptors;
 using namespace llvm;
@@ -85,6 +79,7 @@ void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const {
 bool FindSentinels::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (Function &func : module) {
+		if ((func.isDeclaration())) continue;
 		const LoopInfo &LI = getAnalysis<LoopInfo>(func);
 		unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionSentinelChecks = allSentinelChecks[&func];
 #if 0
