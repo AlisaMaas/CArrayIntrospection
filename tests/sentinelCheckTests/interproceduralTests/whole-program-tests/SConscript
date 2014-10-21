@@ -1,0 +1,16 @@
+Import('env')
+
+def RunWholeProgramTests(self, **kwargs):
+
+    #source = 'pkg-config.bc'
+    #json = 'json/pkg-config.json'
+    #actual = 'actualsAndExpecteds/pkg-config.actual'
+    source = 'libglib-2.0.so.0.3400.1.bc'
+    json = 'json/libglib-2.0.so.0.3400.1.json'
+    actual = 'actualsAndExpecteds/glib.actual'
+    self.RunPlugin(actual, (source, json), **kwargs)
+    passed = self.Expect(actual)
+    Alias('test', passed)
+
+env.AddMethod(RunWholeProgramTests)
+env.RunWholeProgramTests(PLUGIN_ARGS=('-mem2reg', '-null-annotator'))

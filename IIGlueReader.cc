@@ -24,11 +24,11 @@ namespace {
 		     "Read iiglue analysis results and add them as metadata on corresponding LLVM entities",
 		     true, true);
 
-	static cl::opt<string>
-	iiglueFileName("iiglue-read-file",
-		       cl::Required,
-		       cl::value_desc("filename"),
-		       cl::desc("Filename containing iiglue analysis results"));
+	static cl::list<string>
+	iiglueFileNames("iiglue-read-file",
+			cl::OneOrMore,
+			cl::value_desc("filename"),
+			cl::desc("Filename containing iiglue analysis results; use multiple times to read multiple files"));
 }
 
 
@@ -39,60 +39,58 @@ void IIGlueReader::getAnalysisUsage(AnalysisUsage &usage) const {
 
 
 bool IIGlueReader::runOnModule(Module &module) {
-	// make sure we know what to do, or complain if we don't
-	if (iiglueFileName.empty()) {
-		errs() << "warning: no input file given for iiglue reader\n";
-		return false;
-	}
+	// iterate over iiglue files we've been asked to read
+	for (const string &iiglueFileName : iiglueFileNames) {
 
-	// read entire JSON-formatted iiglue output as property tree
-	ptree root;
-	json_parser::read_json(iiglueFileName, root);
+		// read entire JSON-formatted iiglue output as property tree
+		ptree root;
+		json_parser::read_json(iiglueFileName, root);
 
-	// iterate over iiglue-recognized library functions
-	const ptree &libraryFunctions = root.get_child("libraryFunctions");
-	for (const auto &functionInfo : libraryFunctions | map_values) {
-		// find corresponding LLVM function object
-		const string name = functionInfo.get<string>("foreignFunctionName");
-		const Function * const function = module.getFunction(name);
-		if (!function) {
-			errs() << "warning: found function " << name << " in iiglue results but not in bitcode\n";
-			continue;
-		}
+		// iterate over iiglue-recognized library functions
+		const ptree &libraryFunctions = root.get_child("libraryFunctions");
+		for (const auto &functionInfo : libraryFunctions | map_values) {
+			// find corresponding LLVM function object
+			const string name = functionInfo.get<string>("foreignFunctionName");
+			const Function * const function = module.getFunction(name);
+			if (!function) {
+				errs() << "warning: found function " << name << " in iiglue results but not in bitcode\n";
+				continue;
+			}
 
-		// focus on function parameters, and check for arity mismatch
-		const ptree &foreignFunctionParameters = functionInfo.get_child("foreignFunctionParameters");
-		const Function::ArgumentListType &args = function->getArgumentList();
-		if (foreignFunctionParameters.size() != args.size()) {
-			errs() << "warning: function " << name << " has " << foreignFunctionParameters.size() << " arguments in iiglue results but " << args.size() << " arguments in bitcode\n";
-			continue;
-		}
+			// focus on function parameters, and check for arity mismatch
+			const ptree &foreignFunctionParameters = functionInfo.get_child("foreignFunctionParameters");
+			const Function::ArgumentListType &args = function->getArgumentList();
+			if (foreignFunctionParameters.size() != args.size()) {
+				errs() << "warning: function " << name << " has " << foreignFunctionParameters.size() << " arguments in iiglue results but " << args.size() << " arguments in bitcode\n";
+				continue;
+			}
 
-		// iterate across each parameter and corresponding annotations
-		const auto parameterAnnotations =
-			foreignFunctionParameters
-			| map_values
-			| transformed([](const ptree &pt) {
-					return pt.get_child("parameterAnnotations");
-				})
-			;
-		for (const auto &slot : boost::combine(parameterAnnotations, args)) {
-			// extract just the names (tags) of each annotation
-			const auto annotationTags =
-				slot.get<0>()
+			// iterate across each parameter and corresponding annotations
+			const auto parameterAnnotations =
+				foreignFunctionParameters
 				| map_values
 				| transformed([](const ptree &pt) {
-						assert(pt.size() == 1);
-						return pt.front();
+						return pt.get_child("parameterAnnotations");
 					})
-				| map_keys
 				;
+			for (const auto &slot : boost::combine(parameterAnnotations, args)) {
+				// extract just the names (tags) of each annotation
+				const auto annotationTags =
+					slot.get<0>()
+					| map_values
+					| transformed([](const ptree &pt) {
+							assert(pt.size() == 1);
+							return pt.front();
+						})
+					| map_keys
+					;
 
-			// PAArray annotation means iiglue thinks this is an array;
-			// ignore inferred array dimensionality: not needed yet
-			if (find(annotationTags, "PAArray") != end(annotationTags)) {
-				arrays.insert(&slot.get<1>());
-				atLeastOneArrayArg.insert(function);
+				// PAArray annotation means iiglue thinks this is an array;
+				// ignore inferred array dimensionality: not needed yet
+				if (find(annotationTags, "PAArray") != end(annotationTags)) {
+					arrays.insert(&slot.get<1>());
+					atLeastOneArrayArg.insert(function);
+				}
 			}
 		}
 	}
@@ -103,6 +101,18 @@ bool IIGlueReader::runOnModule(Module &module) {
 }
 
 
+static string describeArgument(const Argument &arg) {
+	string storage;
+	raw_string_ostream stream(storage);
+	stream << arg.getParent()->getName() << "::";
+	if (arg.getName().empty())
+		stream << arg.getArgNo();
+	else
+		stream << arg.getName();
+	return stream.str();
+}
+
+
 void IIGlueReader::print(raw_ostream &sink, const Module *) const {
 	sink << "\tarray arguments:\n";
 
@@ -110,9 +120,7 @@ void IIGlueReader::print(raw_ostream &sink, const Module *) const {
 	const auto names =
 		arrays
 		| indirected
-		| transformed([](const Argument &arg) {
-				return (arg.getParent()->getName() + "::" + arg.getName()).str();
-			});
+		| transformed(describeArgument);
 
 	// print in sorted order for consistent output
 	boost::container::flat_set<string> ordered(names.begin(), names.end());
