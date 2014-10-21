@@ -13,8 +13,13 @@ def pathIsExecutable(key, val, env):
         raise SCons.Errors.UserError('Path for option %s is not executable: %s' % (key, val))
 
 variables = Variables(['.scons-options'], ARGUMENTS)
-variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/iiglue-tools/bin/iiglue', pathIsExecutable))
+variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsExecutable))
 
+default = WhereIs('llvm-config', (
+    '/p/polyglot/public/bin',
+    '/usr/bin',
+))
+variables.Add(PathVariable('LLVM_CONFIG', 'Path to llvm-config executable', default, pathIsExecutable))
 
 ########################################################################
 #
@@ -22,10 +27,10 @@ variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/p
 #
 
 env = Environment(
-    LLVM_ROOT=Dir('/p/polyglot/public/llvm/install'),
     tools=(
+        'default',              # load first, so others can override
         'bitcode',
-        'default',
+        'clang-analyzer',
         'expect',
         'iiglue',
         'plugin',
@@ -37,8 +42,48 @@ env = Environment(
 )
 
 Help(variables.GenerateHelpText(env))
+variables.Save('.scons-options', env)
 
-env.PrependENVPath('PATH', env.subst('$LLVM_ROOT/bin'))
+
+########################################################################
+#
+#  LLVM configuration
+#
+
+from distutils.version import StrictVersion
+
+def llvm_version(context):
+    context.Message('checking LLVM version ... ')
+    succeeded, output = context.TryAction('$LLVM_CONFIG --version >$TARGET')
+    if succeeded:
+        result = output.rstrip('\n')
+        context.env['llvm_version'] = result
+        context.Result(result)
+        return result
+    else:
+        context.Result('failed')
+        context.env.Exit(1)
+
+def llvm_bindir(context):
+    context.Message('checking LLVM executables ... ')
+    succeeded, output = context.TryAction('$LLVM_CONFIG --bindir >$TARGET')
+    if succeeded:
+        output = output.rstrip()
+        context.env.PrependENVPath('PATH', output)
+        context.Result(output)
+        return output
+    else:
+        context.Result('failed')
+        context.env.Exit(1)
+
+conf = Configure(env, custom_tests={
+        'LLVMVersion': llvm_version,
+        'LLVMBinDir': llvm_bindir,
+        })
+
+conf.LLVMVersion()
+conf.LLVMBinDir()
+env = conf.Finish()
 
 
 ########################################################################
@@ -50,11 +95,11 @@ penv = env.Clone(
     CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11'),
     CPPPATH='/unsup/boost-1.55.0/include',
     INCPREFIX='-isystem ',
-    LIBS=('LLVM-3.4',),
+    LIBS=('LLVM-$llvm_version',),
 )
 
 penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
-penv.ParseConfig('llvm-config --cxxflags --ldflags')
+penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
 penv.AppendUnique(
     CCFLAGS=(
         '-fexceptions',
@@ -63,10 +108,8 @@ penv.AppendUnique(
 
 plugin, = penv.SharedLibrary('CArrayIntrospection', (
     'IIGlueReader.cc',
-    'FindLengthChecks.cc',
     'FindSentinels.cc',
     'NullAnnotator.cc',
-    'UpperBoundIndexing.cc',
 ))
 
 env['plugin'] = plugin

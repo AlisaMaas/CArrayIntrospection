@@ -3,8 +3,10 @@
 
 #include <boost/range/adaptor/filtered.hpp>
 #include <boost/range/adaptor/indirected.hpp>
+#include <llvm/Support/CommandLine.h>
 #include <llvm/IR/Function.h>
 #include <llvm/Pass.h>
+#include <llvm/Support/CommandLine.h>
 #include <unordered_set>
 
 namespace llvm {
@@ -36,7 +38,7 @@ private:
 	// functions having at least one array as formal argument
 	typedef std::unordered_set<const llvm::Function *> FunctionSet;
 	FunctionSet atLeastOneArrayArg;
-
+	void readFile(llvm::Module &, llvm::cl::opt<std::string>);
 public:
 	// standard LLVM pass interface
 	IIGlueReader();

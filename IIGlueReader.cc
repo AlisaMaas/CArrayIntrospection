@@ -7,7 +7,6 @@
 #include <boost/range/algorithm/find.hpp>
 #include <boost/range/combine.hpp>
 #include <llvm/IR/Module.h>
-#include <llvm/Support/CommandLine.h>
 #include <llvm/Support/raw_ostream.h>
 
 using namespace boost::adaptors;
@@ -29,6 +28,10 @@ namespace {
 		       cl::Required,
 		       cl::value_desc("filename"),
 		       cl::desc("Filename containing iiglue analysis results"));
+	static cl::opt<string>
+	extraFileName("extra-read-file",
+		       cl::value_desc("filename"),
+		       cl::desc("Filename containing fake iiglue analysis results"));
 }
 
 
@@ -37,17 +40,17 @@ void IIGlueReader::getAnalysisUsage(AnalysisUsage &usage) const {
 	usage.setPreservesAll();
 }
 
-
-bool IIGlueReader::runOnModule(Module &module) {
+void IIGlueReader::readFile(Module & module, cl::opt<string> filename) {
 	// make sure we know what to do, or complain if we don't
-	if (iiglueFileName.empty()) {
+	if (filename.empty()) {
 		errs() << "warning: no input file given for iiglue reader\n";
-		return false;
+		return;
 	}
+	errs() << "Non-empty input file called " << filename << "\n";
 
 	// read entire JSON-formatted iiglue output as property tree
 	ptree root;
-	json_parser::read_json(iiglueFileName, root);
+	json_parser::read_json(filename, root);
 
 	// iterate over iiglue-recognized library functions
 	const ptree &libraryFunctions = root.get_child("libraryFunctions");
@@ -82,8 +85,11 @@ bool IIGlueReader::runOnModule(Module &module) {
 				slot.get<0>()
 				| map_values
 				| transformed([](const ptree &pt) {
-						return pt.get<string>("tag");
-					});
+						assert(pt.size() == 1);
+						return pt.front();
+					})
+				| map_keys
+				;
 
 			// PAArray annotation means iiglue thinks this is an array;
 			// ignore inferred array dimensionality: not needed yet
@@ -93,7 +99,11 @@ bool IIGlueReader::runOnModule(Module &module) {
 			}
 		}
 	}
+}
 
+bool IIGlueReader::runOnModule(Module &module) {
+	readFile(module, iiglueFileName);
+	readFile(module, extraFileName);
 	// we never change anything; we just stash information in private
 	// fields of this pass instance for later use
 	return false;

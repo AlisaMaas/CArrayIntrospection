@@ -32,6 +32,9 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
 			}
 		}
 		
+		else {
+			errs() << "FLAG HERE - not constant bounded\n";
+		}
 	}
 };
 
@@ -71,12 +74,15 @@ bool FindLengthChecks::runOnModule(Module &module) {
 }
 
 void FindLengthChecks::print(raw_ostream &sink, const Module *module) const {
+	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
 		const ArgumentToMaxIndexMap map = maxIndexes.at(&func);
 		sink << "Analyzing " << func.getName() << "\n";
 		for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end())) {
 			if (map.count(&arg))
 				sink << "Argument " << arg.getName() << " has max index " << map.at(&arg) << '\n';
+			else if (iiglue.isArray(arg))
+				sink << "Argument " << arg.getName() << " has unknown max index.\n";
 		}
 	}
 	

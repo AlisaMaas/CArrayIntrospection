@@ -79,6 +79,7 @@ void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const {
 bool FindSentinels::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (Function &func : module) {
+		if ((func.isDeclaration())) continue;
 		const LoopInfo &LI = getAnalysis<LoopInfo>(func);
 		unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionSentinelChecks = allSentinelChecks[&func];
 #if 0
