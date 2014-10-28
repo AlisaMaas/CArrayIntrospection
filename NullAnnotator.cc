@@ -53,7 +53,7 @@ namespace {
 		typedef unordered_set<const CallInst *> CallInstSet;
 		unordered_map<const Function *, CallInstSet> functionToCallSites;
 		Answer getAnswer(const Argument &) const;
-		void dumpToFile(string filename, const IIGlueReader &iiglue) const;
+		void dumpToFile(string filename, const IIGlueReader &iiglue, const Module &module) const;
 		void populateFromFile(string filename, Module &module);
 	};
 	char NullAnnotator::ID;
@@ -114,30 +114,29 @@ void NullAnnotator::populateFromFile(string filename, Module &module) {
 	}
 }
 
-void NullAnnotator::dumpToFile(string filename, const IIGlueReader &iiglue) const {
+void NullAnnotator::dumpToFile(string filename, const IIGlueReader &iiglue, const Module &module) const {
 	ofstream file;
 	file.open(filename);
 	std::string type_str;
 	llvm::raw_string_ostream rso(type_str);
 	file << "{\"library_functions\":[";
 	string functions = "";
-	for (const Function &func : iiglue.arrayReceivers()) {
+	(void) iiglue;
+	for (const Function &func : module) {
 		functions+= "{\n\"name\":\"" + func.getName().str() + "\",";
 		func.getReturnType()->print(rso);
-		functions += "\"return\":\"" + rso.str() + "\",";
-		string argumentTypes = "";
 		string argumentAnnotations = "";
+		string argumentArrayReceivers = "";
 		for (const Argument &arg : func.getArgumentList()) {
-			arg.getType()->print(rso);
-			argumentTypes += "\"" + rso.str() + "\",";
 			int answer = getAnswer(arg);
 			argumentAnnotations += to_string(answer) + ",";
+			argumentArrayReceivers += to_string(iiglue.isArray(arg)) + ",";
 		}
-		argumentTypes = argumentTypes.substr(0, argumentTypes.length()-1);
 		argumentAnnotations = argumentAnnotations.substr(0, argumentAnnotations.length()-1);
+		argumentArrayReceivers = argumentArrayReceivers.substr(0, argumentArrayReceivers.length()-1);
 
-		functions +=  "\n\t\"argument_types\":[" + argumentTypes + "],"; 
 		functions +=  "\n\t\"argument_annotations\":[" + argumentAnnotations + "]"; 
+		functions +=  "\n\t\"args_array_receivers\":[" + argumentArrayReceivers + "]"; 
 		functions +=  "},";
 	}
 	functions = functions.substr(0, functions.length()-1);
@@ -257,7 +256,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 		}
 		firstTime = false;
 	} while (changed);
-	dumpToFile("output.json", iiglue);
+	dumpToFile("output.json", iiglue, module);
 	return false;
 }
 

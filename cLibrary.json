@@ -5,7 +5,7 @@
 {"name":"strcpy","return":"char*","argument_types":["char*", "char*"],"argument_annotations":[2, 2]},
 {"name":"strncat","return":"char*","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2, 2, 1]},
 {"name":"strncmp","return":"int","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2, 2, 1]},
-{"name":"strncpy","return":"char*","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2, 2, 1]},
+{"name":"strncpy","return":"char*","argument_types":["char*", "char*", "size_t"],"argument_annotations":[0, 2, 1]},
 {"name":"strcasecmp","return":"int","argument_types":["char*", "char*"],"argument_annotations":[2, 2]},
 {"name":"strncasecmp","return":"int","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2, 2, 1]},
 {"name":"open","return":"int","argument_types":["char*", "int"],"argument_annotations":[2, 1]},
@@ -15,7 +15,6 @@
 {"name":"fputs","return":"int","argument_types":["char*", "FILE*"],"argument_annotations":[2, 1]},
 {"name":"puts","return":"int","argument_types":["char*"],"argument_annotations":[2]},
 {"name":"perror","return":"void","argument_types":["char*"],"argument_annotations":[2]},
-
 {"name":"strchr","return":"char*","argument_types":["char*", "int"],"argument_annotations":[2, 1]},
 {"name":"strrchr","return":"char*","argument_types":["char*", "int"],"argument_annotations":[2, 1]},
 {"name":"strchrnul","return":"char*","argument_types":["char*", "int"],"argument_annotations":[2, 1]},
@@ -44,7 +43,38 @@
 {"name":"unlink","return":"int","argument_types":["char*"],"argument_annotations":[2]},
 {"name":"fropen","return":"FILE*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
 {"name":"strlcpy","return":"size_t","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2,2, 0]},
-{"name":"strlcat","return":"size_t","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2,2, 0]}
+{"name":"strlcat","return":"size_t","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2,2, 0]},
+
+{"name":"execv","return":"int","argument_types":["char*", "char**"],"argument_annotations":[2,2]},
+{"name":"execvp","return":"int","argument_types":["char*", "char**"],"argument_annotations":[2,2]},
+{"name":"execvpe","return":"int","argument_types":["char*", "char**", "char**"],"argument_annotations":[2,2,2]},
+{"name":"write","return":"size_t","argument_types":["int", "void*", "size_t"],"argument_annotations":[1,0,1]},
+{"name":"strtol","return":"long","argument_types":["char*", "char**", "int"],"argument_annotations":[2,0,1]},
+{"name":"fopen","return":"FILE*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
+{"name":"iconv_open","return":"iconv_t","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
+{"name":"getenv","return":"char*","argument_types":["char*"],"argument_annotations":[2]},
+{"name":"strftime","return":"size_t","argument_types":["char*", "int", "char*", "struct tm"],"argument_annotations":[0,1,2,1]},
+{"name":"setlocale","return":"char*","argument_types":["int", "char*"],"argument_annotations":[1,2]},
+{"name":"strcspn","return":"size_t","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
+{"name":"opendir","return":"DIR*","argument_types":["char*"],"argument_annotations":[2]},
+{"name":"readlink","return":"ssize_t","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2,0,1]},
+{"name":"fdopen","return":"FILE*","argument_types":["int", "char*"],"argument_annotations":[0,2]},
+{"name":"ngettext","return":"char*","argument_types":["char*", "char*", "unsigned long"],"argument_annotations":[2,2,1]},
+{"name":"dngettext","return":"char*","argument_types":["char*", "char*", "char*", "unsigned long"],"argument_annotations":[2,2,2,1]},
+{"name":"dcngettext","return":"char*","argument_types":["char*", "char*", "char*", "unsigned long","unsigned long"],"argument_annotations":[2,2,2,1,1]},
+{"name":"textdomain","return":"char*","argument_types":["char*"],"argument_annotations":[2]},
+{"name":"bindtextdomain","return":"char*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
+{"name":"bind_textdomain_codeset","return":"char*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
+{"name":"strpbrk","return":"char*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
+{"name":"stat","return":"int","argument_types":["char*", "struct stat"],"argument_annotations":[2,1]},
+{"name":"lstat","return":"int","argument_types":["char*", "struct stat"],"argument_annotations":[2,1]},
+{"name":"rmdir","return":"int","argument_types":["char*"],"argument_annotations":[2]},
+{"name":"newlocale","return":"locale_t","argument_types":["int", "char*", "locale_t"],"argument_annotations":[1,2,1]},
+{"name":"strspn","return":"size_t","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
+{"name":"execve","return":"int","argument_types":["char*", "char*", "char*"],"argument_annotations":[2,2,2]},
+{"name":"execv","return":"int","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
+
+
 
 
 
