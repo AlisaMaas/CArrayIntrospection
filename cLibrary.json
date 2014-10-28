@@ -72,7 +72,7 @@
 {"name":"newlocale","return":"locale_t","argument_types":["int", "char*", "locale_t"],"argument_annotations":[1,2,1]},
 {"name":"strspn","return":"size_t","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
 {"name":"execve","return":"int","argument_types":["char*", "char*", "char*"],"argument_annotations":[2,2,2]},
-{"name":"execv","return":"int","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
+{"name":"execv","return":"int","argument_types":["char*", "char*"],"argument_annotations":[2,2]}
 
 
 
