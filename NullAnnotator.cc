@@ -135,7 +135,7 @@ void NullAnnotator::dumpToFile(string filename, const IIGlueReader &iiglue, cons
 		argumentAnnotations = argumentAnnotations.substr(0, argumentAnnotations.length()-1);
 		argumentArrayReceivers = argumentArrayReceivers.substr(0, argumentArrayReceivers.length()-1);
 
-		functions +=  "\n\t\"argument_annotations\":[" + argumentAnnotations + "]"; 
+		functions +=  "\n\t\"argument_annotations\":[" + argumentAnnotations + "],"; 
 		functions +=  "\n\t\"args_array_receivers\":[" + argumentArrayReceivers + "]"; 
 		functions +=  "},";
 	}
