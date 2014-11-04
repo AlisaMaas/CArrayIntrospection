@@ -825,19 +825,19 @@
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"start_element_raw_cb",
-	"argument_annotations":[0,0,0,0,0,0],
+	"argument_annotations":[0,2,2,0,0,0],
 	"args_array_receivers":[0,0,0,0,0,0]},{
 "name":"end_element_raw_cb",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[0,2,0,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"text_raw_cb",
 	"argument_annotations":[0,2,0,0,0],
 	"args_array_receivers":[0,0,0,0,0]},{
 "name":"is_element_full",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[0,2,2,2],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"parse_icon_element",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[0,2,0,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"strtol",
 	"argument_annotations":[2,0,1],
@@ -912,7 +912,7 @@
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"fopen",
-	"argument_annotations":[0,0],
+	"argument_annotations":[2,2],
 	"args_array_receivers":[0,0]},{
 "name":"fclose",
 	"argument_annotations":[0],
@@ -1035,7 +1035,7 @@
 	"argument_annotations":[2,0,0],
 	"args_array_receivers":[0,0,0]},{
 "name":"g_unescape_uri_string",
-	"argument_annotations":[5,0,0,0],
+	"argument_annotations":[5,0,2,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"hostname_validate",
 	"argument_annotations":[0],
@@ -1593,10 +1593,10 @@
 	"argument_annotations":[2,2],
 	"args_array_receivers":[1,0]},{
 "name":"g_build_path_va",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[2,0,0,0],
 	"args_array_receivers":[0,0,0,4]},{
 "name":"g_build_path",
-	"argument_annotations":[0,0],
+	"argument_annotations":[2,0],
 	"args_array_receivers":[1,4]},{
 "name":"g_build_filenamev",
 	"argument_annotations":[2],
@@ -1710,7 +1710,7 @@
 	"argument_annotations":[2,2],
 	"args_array_receivers":[0,0]},{
 "name":"bind_textdomain_codeset",
-	"argument_annotations":[0,0],
+	"argument_annotations":[2,2],
 	"args_array_receivers":[0,0]},{
 "name":"g_hash_table_new",
 	"argument_annotations":[0,0],
@@ -2133,7 +2133,7 @@
 	"argument_annotations":[0,0,0,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_key_file_set_value",
-	"argument_annotations":[0,0,2,2],
+	"argument_annotations":[0,2,2,2],
 	"args_array_receivers":[0,1,1,1]},{
 "name":"g_key_file_is_key_name",
 	"argument_annotations":[2],
@@ -2148,7 +2148,7 @@
 	"argument_annotations":[0,2,0,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_key_file_set_string",
-	"argument_annotations":[0,0,2,0],
+	"argument_annotations":[0,2,2,2],
 	"args_array_receivers":[0,1,1,1]},{
 "name":"g_key_file_parse_string_as_value",
 	"argument_annotations":[0,2,0],
@@ -2157,76 +2157,76 @@
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[0,0,0,0,0]},{
 "name":"g_key_file_set_string_list",
-	"argument_annotations":[0,0,2,2,0],
+	"argument_annotations":[0,2,2,2,0],
 	"args_array_receivers":[0,1,1,1,0]},{
 "name":"g_key_file_set_locale_string",
-	"argument_annotations":[0,0,0,0,0],
+	"argument_annotations":[0,2,0,0,2],
 	"args_array_receivers":[0,1,0,0,1]},{
 "name":"g_key_file_get_locale_string",
-	"argument_annotations":[0,0,0,0,0],
+	"argument_annotations":[0,0,0,2,0],
 	"args_array_receivers":[0,0,0,1,0]},{
 "name":"g_key_file_get_locale_string_list",
-	"argument_annotations":[0,0,0,0,0,0],
+	"argument_annotations":[0,0,0,2,0,0],
 	"args_array_receivers":[0,0,0,1,0,0]},{
 "name":"g_key_file_set_locale_string_list",
-	"argument_annotations":[0,0,0,0,2,0],
+	"argument_annotations":[0,2,0,0,2,0],
 	"args_array_receivers":[0,1,0,0,1,0]},{
 "name":"g_key_file_get_boolean",
 	"argument_annotations":[0,0,0,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_key_file_parse_value_as_boolean",
-	"argument_annotations":[0,0],
+	"argument_annotations":[2,0],
 	"args_array_receivers":[0,0]},{
 "name":"g_key_file_set_boolean",
-	"argument_annotations":[0,0,2,0],
+	"argument_annotations":[0,2,2,0],
 	"args_array_receivers":[0,1,1,0]},{
 "name":"g_key_file_get_boolean_list",
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[0,0,0,0,0]},{
 "name":"g_key_file_set_boolean_list",
-	"argument_annotations":[0,0,2,0,0],
+	"argument_annotations":[0,2,2,0,0],
 	"args_array_receivers":[0,1,1,1,0]},{
 "name":"g_key_file_get_integer",
 	"argument_annotations":[0,0,0,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_key_file_parse_value_as_integer",
-	"argument_annotations":[0,0],
+	"argument_annotations":[2,0],
 	"args_array_receivers":[0,0]},{
 "name":"g_key_file_set_integer",
-	"argument_annotations":[0,0,2,0],
+	"argument_annotations":[0,2,2,0],
 	"args_array_receivers":[0,1,1,0]},{
 "name":"g_key_file_get_int64",
 	"argument_annotations":[0,0,2,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_key_file_set_int64",
-	"argument_annotations":[0,0,2,0],
+	"argument_annotations":[0,2,2,0],
 	"args_array_receivers":[0,1,1,0]},{
 "name":"g_key_file_get_uint64",
 	"argument_annotations":[0,0,2,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_key_file_set_uint64",
-	"argument_annotations":[0,0,2,0],
+	"argument_annotations":[0,2,2,0],
 	"args_array_receivers":[0,1,1,0]},{
 "name":"g_key_file_get_integer_list",
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[0,0,0,0,0]},{
 "name":"g_key_file_set_integer_list",
-	"argument_annotations":[0,0,2,0,0],
+	"argument_annotations":[0,2,2,0,0],
 	"args_array_receivers":[0,1,1,1,0]},{
 "name":"g_key_file_get_double",
 	"argument_annotations":[0,0,2,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_key_file_parse_value_as_double",
-	"argument_annotations":[0,0],
+	"argument_annotations":[2,0],
 	"args_array_receivers":[0,0]},{
 "name":"g_key_file_set_double",
-	"argument_annotations":[0,0,2,0],
+	"argument_annotations":[0,2,2,0],
 	"args_array_receivers":[0,1,1,0]},{
 "name":"g_key_file_get_double_list",
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[0,0,0,0,0]},{
 "name":"g_key_file_set_double_list",
-	"argument_annotations":[0,0,2,0,0],
+	"argument_annotations":[0,2,2,0,0],
 	"args_array_receivers":[0,1,1,1,0]},{
 "name":"g_key_file_set_comment",
 	"argument_annotations":[0,0,0,0,0],
@@ -3588,22 +3588,22 @@
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"g_regex_match_simple",
-	"argument_annotations":[2,0,0,0],
+	"argument_annotations":[2,2,0,0],
 	"args_array_receivers":[1,1,0,0]},{
 "name":"g_regex_match_full",
-	"argument_annotations":[0,0,0,0,0,0,0],
+	"argument_annotations":[0,5,0,0,0,0,0],
 	"args_array_receivers":[0,5,0,0,0,0,0]},{
 "name":"g_regex_match",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[0,2,0,0],
 	"args_array_receivers":[0,1,0,0]},{
 "name":"match_info_new",
-	"argument_annotations":[0,0,0,0,0,0],
+	"argument_annotations":[0,5,0,0,0,0],
 	"args_array_receivers":[0,5,0,0,0,0]},{
 "name":"g_regex_match_all",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[0,2,0,0],
 	"args_array_receivers":[0,1,0,0]},{
 "name":"g_regex_match_all_full",
-	"argument_annotations":[0,0,0,0,0,0,0],
+	"argument_annotations":[0,5,0,0,0,0,0],
 	"args_array_receivers":[0,1,0,0,0,0,0]},{
 "name":"g_regex_get_string_number",
 	"argument_annotations":[0,2],
@@ -3612,31 +3612,31 @@
 	"argument_annotations":[2,2,0,0],
 	"args_array_receivers":[1,1,0,0]},{
 "name":"g_regex_split_full",
-	"argument_annotations":[0,0,0,0,0,0,0],
+	"argument_annotations":[0,5,0,0,0,0,0],
 	"args_array_receivers":[0,5,0,0,0,0,0]},{
 "name":"g_regex_split",
 	"argument_annotations":[0,2,0],
 	"args_array_receivers":[0,1,0]},{
 "name":"g_regex_replace",
-	"argument_annotations":[0,0,0,0,0,0,0],
+	"argument_annotations":[0,5,0,0,0,0,0],
 	"args_array_receivers":[0,5,0,0,1,0,0]},{
 "name":"g_regex_replace_eval",
-	"argument_annotations":[0,0,0,0,0,0,0,0],
+	"argument_annotations":[0,5,0,0,0,0,0,0],
 	"args_array_receivers":[0,5,0,0,0,0,0,0]},{
 "name":"g_regex_replace_literal",
-	"argument_annotations":[0,0,0,0,0,0,0],
+	"argument_annotations":[0,5,0,0,0,0,0],
 	"args_array_receivers":[0,5,0,0,0,0,0]},{
 "name":"literal_replacement",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[0,0,2],
 	"args_array_receivers":[0,0,0]},{
 "name":"g_regex_check_replacement",
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[1,0,0]},{
 "name":"g_regex_escape_nul",
-	"argument_annotations":[0,0],
+	"argument_annotations":[5,0],
 	"args_array_receivers":[5,0]},{
 "name":"g_regex_escape_string",
-	"argument_annotations":[0,0],
+	"argument_annotations":[5,0],
 	"args_array_receivers":[5,0]},{
 "name":"string_append",
 	"argument_annotations":[0,2,0],
@@ -3720,7 +3720,7 @@
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"g_scanner_input_text",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[0,5,0],
 	"args_array_receivers":[0,5,0]},{
 "name":"lseek",
 	"argument_annotations":[0,0,0],
@@ -4101,7 +4101,7 @@
 	"argument_annotations":[2],
 	"args_array_receivers":[0]},{
 "name":"g_fopen",
-	"argument_annotations":[0,0],
+	"argument_annotations":[2,2],
 	"args_array_receivers":[1,1]},{
 "name":"g_freopen",
 	"argument_annotations":[2,2,0],
@@ -4131,7 +4131,7 @@
 	"argument_annotations":[0,2],
 	"args_array_receivers":[0,0]},{
 "name":"stpcpy",
-	"argument_annotations":[2,2],
+	"argument_annotations":[0,2],
 	"args_array_receivers":[0,0]},{
 "name":"g_strdup_vprintf",
 	"argument_annotations":[0,0],
@@ -4149,7 +4149,7 @@
 	"argument_annotations":[2,0],
 	"args_array_receivers":[0,0]},{
 "name":"g_ascii_strtod",
-	"argument_annotations":[0,0],
+	"argument_annotations":[2,0],
 	"args_array_receivers":[0,0]},{
 "name":"strtod_l",
 	"argument_annotations":[2,0,0],
@@ -4191,13 +4191,13 @@
 	"argument_annotations":[0,2,0],
 	"args_array_receivers":[1,1,0]},{
 "name":"g_ascii_strdown",
-	"argument_annotations":[0,0],
+	"argument_annotations":[5,0],
 	"args_array_receivers":[5,0]},{
 "name":"g_ascii_tolower",
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"g_ascii_strup",
-	"argument_annotations":[0,0],
+	"argument_annotations":[5,0],
 	"args_array_receivers":[5,0]},{
 "name":"g_ascii_toupper",
 	"argument_annotations":[0],
@@ -4293,7 +4293,7 @@
 	"argument_annotations":[2],
 	"args_array_receivers":[1]},{
 "name":"newlocale",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[1,2,1],
 	"args_array_receivers":[0,0,0]},{
 "name":"g_string_sized_new",
 	"argument_annotations":[0],
@@ -4410,7 +4410,7 @@
 	"argument_annotations":[0,2],
 	"args_array_receivers":[0,1]},{
 "name":"g_string_chunk_insert_len",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[0,5,0],
 	"args_array_receivers":[0,5,0]},{
 "name":"g_string_chunk_insert_const",
 	"argument_annotations":[0,2],
@@ -4420,12 +4420,12 @@
 	"args_array_receivers":[0]},{
 "name":"g_test_init",
 	"argument_annotations":[0,0],
-	"args_array_receivers":[0,5]},{
+	"args_array_receivers":[0,4]},{
 "name":"test_run_seed",
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"gtest_default_log_handler",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[2,0,2,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_test_log",
 	"argument_annotations":[0,0,0,0,0],
@@ -4897,15 +4897,15 @@
 	"args_array_receivers":[0]},{
 "name":"g_utf8_strup",
 	"argument_annotations":[5,0],
-	"args_array_receivers":[0,0]},{
+	"args_array_receivers":[5,0]},{
 "name":"real_toupper",
-	"argument_annotations":[5,0,0,0],
+	"argument_annotations":[0,0,0,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_utf8_strdown",
 	"argument_annotations":[5,0],
 	"args_array_receivers":[1,0]},{
 "name":"real_tolower",
-	"argument_annotations":[5,0,0,0],
+	"argument_annotations":[0,0,0,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_utf8_casefold",
 	"argument_annotations":[5,0],
@@ -5271,7 +5271,7 @@
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"g_variant_lookup",
-	"argument_annotations":[0,2,0],
+	"argument_annotations":[0,2,2],
 	"args_array_receivers":[0,1,4]},{
 "name":"g_variant_format_string_scan_type",
 	"argument_annotations":[0,0,0],
@@ -5280,7 +5280,7 @@
 	"argument_annotations":[0,2,0],
 	"args_array_receivers":[0,1,1]},{
 "name":"g_variant_get_va",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[0,2,0,0],
 	"args_array_receivers":[0,1,0,0]},{
 "name":"g_variant_iter_init",
 	"argument_annotations":[0,0],
@@ -5421,28 +5421,28 @@
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0]},{
 "name":"g_variant_new",
-	"argument_annotations":[0],
+	"argument_annotations":[2],
 	"args_array_receivers":[4]},{
 "name":"valid_format_string",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[2,0,0],
 	"args_array_receivers":[0,0,0]},{
 "name":"g_variant_new_va",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[2,0,0],
 	"args_array_receivers":[1,0,0]},{
 "name":"g_variant_valist_new",
 	"argument_annotations":[0,0],
 	"args_array_receivers":[0,0]},{
 "name":"g_variant_get",
 	"argument_annotations":[0,2],
-	"args_array_receivers":[0,5]},{
+	"args_array_receivers":[0,4]},{
 "name":"g_variant_valist_get",
 	"argument_annotations":[0,0,0,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_variant_builder_add",
-	"argument_annotations":[0,0],
+	"argument_annotations":[0,2],
 	"args_array_receivers":[0,4]},{
 "name":"g_variant_get_child",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[0,0,2],
 	"args_array_receivers":[0,0,4]},{
 "name":"g_variant_iter_next",
 	"argument_annotations":[0,0],
@@ -6225,10 +6225,10 @@
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[0,0,0,0,0]},{
 "name":"execve",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[2,2,2],
 	"args_array_receivers":[0,0,0]},{
 "name":"execv",
-	"argument_annotations":[0,0],
+	"argument_annotations":[2,2],
 	"args_array_receivers":[0,0]},{
 "name":"script_execute",
 	"argument_annotations":[0,2,2],
@@ -6309,7 +6309,7 @@
 	"argument_annotations":[0,0,0,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"find_parens_sub",
-	"argument_annotations":[0,0,0,0,0,0,0],
+	"argument_annotations":[0,0,2,0,0,0,0],
 	"args_array_receivers":[0,0,0,0,0,0,0]},{
 "name":"check_char_prop",
 	"argument_annotations":[0,0,0,0],
@@ -6345,10 +6345,10 @@
 	"argument_annotations":[0,0,0,0,0,0],
 	"args_array_receivers":[0,1,0,0,1,0]},{
 "name":"pcre_copy_named_substring",
-	"argument_annotations":[0,0,0,0,0,0,0],
+	"argument_annotations":[0,0,0,0,2,0,0],
 	"args_array_receivers":[0,0,1,0,1,1,0]},{
 "name":"get_first_set",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[0,2,0],
 	"args_array_receivers":[0,0,0]},{
 "name":"pcre_get_substring_list",
 	"argument_annotations":[0,0,0,0],
@@ -6360,7 +6360,7 @@
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[0,1,0,0,0]},{
 "name":"pcre_get_named_substring",
-	"argument_annotations":[0,0,0,0,0,0],
+	"argument_annotations":[0,0,0,0,2,0],
 	"args_array_receivers":[0,0,1,0,1,0]},{
 "name":"pcre_free_substring",
 	"argument_annotations":[0],

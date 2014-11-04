@@ -1,7 +1,7 @@
 {"library_functions":[
 {"name":"strcmp","return":"int","argument_types":["char*", "char*"],"argument_annotations":[2, 2]},
 {"name":"strlen","return":"size_t","argument_types":["char*"],"argument_annotations":[2]},
-{"name":"stpcpy","return":"char*","argument_types":["char*", "char*"],"argument_annotations":[2, 2]},
+{"name":"stpcpy","return":"char*","argument_types":["char*", "char*"],"argument_annotations":[0, 2]},
 {"name":"strcpy","return":"char*","argument_types":["char*", "char*"],"argument_annotations":[2, 2]},
 {"name":"strncat","return":"char*","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2, 2, 1]},
 {"name":"strncmp","return":"int","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2, 2, 1]},

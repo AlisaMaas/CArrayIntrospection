@@ -1,5 +1,4 @@
 Import('env')
 
-#env.RunTests(PLUGIN_ARGS=('-mem2reg', '-null-annotator'))
-
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-null-annotator'))
 SConscript(dirs=['whole-program-tests'], exports='env')

@@ -144,7 +144,7 @@ void NullAnnotator::dumpToFile(string filename, const IIGlueReader &iiglue, cons
 	file.close();
 }
 bool NullAnnotator::runOnModule(Module &module) {
-	populateFromFile("cLibrary.json", module);
+	//populateFromFile("cLibrary.json", module);
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	// collect calls in each function for repeated scanning later
 	for (const Function &func : iiglue.arrayReceivers()) {

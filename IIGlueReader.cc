@@ -29,6 +29,7 @@ namespace {
 			cl::OneOrMore,
 			cl::value_desc("filename"),
 			cl::desc("Filename containing iiglue analysis results; use multiple times to read multiple files"));
+	static cl::opt<bool> Overreport ("overreport", cl::desc("Overreport iiglue output; report everything as an array."));
 }
 
 
@@ -40,6 +41,15 @@ void IIGlueReader::getAnalysisUsage(AnalysisUsage &usage) const {
 
 bool IIGlueReader::runOnModule(Module &module) {
 	// iterate over iiglue files we've been asked to read
+	if (Overreport) {
+		for (Function &func : module) {
+			atLeastOneArrayArg.insert(&func);
+			for (Argument &arg : func.getArgumentList()) {
+				arrays.insert(&arg);
+			} 
+		}
+		return false;
+	}
 	for (const string &iiglueFileName : iiglueFileNames) {
 
 		// read entire JSON-formatted iiglue output as property tree
@@ -94,7 +104,7 @@ bool IIGlueReader::runOnModule(Module &module) {
 			}
 		}
 	}
-
+	
 	// we never change anything; we just stash information in private
 	// fields of this pass instance for later use
 	return false;
