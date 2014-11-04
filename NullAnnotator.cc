@@ -121,20 +121,21 @@ void NullAnnotator::dumpToFile(string filename, const IIGlueReader &iiglue, cons
 	llvm::raw_string_ostream rso(type_str);
 	file << "{\"library_functions\":[";
 	string functions = "";
-	(void) iiglue;
 	for (const Function &func : module) {
 		functions+= "{\n\"name\":\"" + func.getName().str() + "\",";
-		func.getReturnType()->print(rso);
 		string argumentAnnotations = "";
 		string argumentArrayReceivers = "";
+		string argumentNames = "";
 		for (const Argument &arg : func.getArgumentList()) {
 			int answer = getAnswer(arg);
 			argumentAnnotations += to_string(answer) + ",";
 			argumentArrayReceivers += to_string(iiglue.isArray(arg)) + ",";
+			argumentNames += "\"" + arg.getName().str() + "\",";
 		}
 		argumentAnnotations = argumentAnnotations.substr(0, argumentAnnotations.length()-1);
 		argumentArrayReceivers = argumentArrayReceivers.substr(0, argumentArrayReceivers.length()-1);
-
+		argumentNames = argumentNames.substr(0, argumentNames.length()-1);
+		functions += "\n\t\"argument_names\":[" + argumentNames + "],"; 
 		functions +=  "\n\t\"argument_annotations\":[" + argumentAnnotations + "],"; 
 		functions +=  "\n\t\"args_array_receivers\":[" + argumentArrayReceivers + "]"; 
 		functions +=  "},";
@@ -144,7 +145,7 @@ void NullAnnotator::dumpToFile(string filename, const IIGlueReader &iiglue, cons
 	file.close();
 }
 bool NullAnnotator::runOnModule(Module &module) {
-	//populateFromFile("cLibrary.json", module);
+	populateFromFile("cLibrary.json", module);
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	// collect calls in each function for repeated scanning later
 	for (const Function &func : iiglue.arrayReceivers()) {

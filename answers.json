@@ -2235,10 +2235,10 @@
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[0,0,0,0,0]},{
 "name":"g_key_file_set_group_comment",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[0,0,2,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_key_file_set_top_comment",
-	"argument_annotations":[0,0],
+	"argument_annotations":[0,2],
 	"args_array_receivers":[0,0]},{
 "name":"g_key_file_get_comment",
 	"argument_annotations":[0,2,2,0],
@@ -2274,7 +2274,7 @@
 	"argument_annotations":[2],
 	"args_array_receivers":[0]},{
 "name":"g_key_file_parse_comment",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[0,2,0],
 	"args_array_receivers":[0,0,0]},{
 "name":"memchr",
 	"argument_annotations":[0,0,0],
@@ -2769,7 +2769,7 @@
 	"argument_annotations":[2,0,0],
 	"args_array_receivers":[1,0,0]},{
 "name":"mapped_file_new_from_fd",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[0,0,2,0],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"g_mapped_file_new_from_fd",
 	"argument_annotations":[0,0,0],
@@ -2820,10 +2820,10 @@
 	"argument_annotations":[0,2,0,0],
 	"args_array_receivers":[0,1,0,0]},{
 "name":"set_error_literal",
-	"argument_annotations":[0,0,0,0],
+	"argument_annotations":[0,0,0,2],
 	"args_array_receivers":[0,0,0,0]},{
 "name":"add_to_partial",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[0,2,0],
 	"args_array_receivers":[0,0,0]},{
 "name":"set_error",
 	"argument_annotations":[0,0,0,0],
@@ -2832,7 +2832,7 @@
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"name_validate",
-	"argument_annotations":[0,0,0],
+	"argument_annotations":[0,2,0],
 	"args_array_receivers":[0,0,0]},{
 "name":"emit_start_element",
 	"argument_annotations":[0,0],
@@ -2985,7 +2985,7 @@
 	"argument_annotations":[2,0,0,0],
 	"args_array_receivers":[1,0,0,0]},{
 "name":"g_return_if_fail_warning",
-	"argument_annotations":[2,0,0],
+	"argument_annotations":[2,0,2],
 	"args_array_receivers":[1,0,0]},{
 "name":"g_log_set_default_handler",
 	"argument_annotations":[0,0],
@@ -2997,7 +2997,7 @@
 	"argument_annotations":[2,0],
 	"args_array_receivers":[1,0]},{
 "name":"g_log",
-	"argument_annotations":[2,0,0],
+	"argument_annotations":[2,0,2],
 	"args_array_receivers":[1,0,4]},{
 "name":"g_logv",
 	"argument_annotations":[2,0,0,0],
@@ -3018,7 +3018,7 @@
 	"argument_annotations":[],
 	"args_array_receivers":[]},{
 "name":"g_warn_message",
-	"argument_annotations":[2,4,0,0,0],
+	"argument_annotations":[2,4,0,0,4],
 	"args_array_receivers":[1,0,0,0,0]},{
 "name":"g_assert_warning",
 	"argument_annotations":[2,0,0,0,0],
@@ -3030,7 +3030,7 @@
 	"argument_annotations":[0,0,0,0],
 	"args_array_receivers":[1,0,0,0]},{
 "name":"strdup_convert",
-	"argument_annotations":[2,0],
+	"argument_annotations":[2,2],
 	"args_array_receivers":[0,0]},{
 "name":"g_set_print_handler",
 	"argument_annotations":[0],
@@ -3255,7 +3255,7 @@
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"parse_arg",
-	"argument_annotations":[0,0,0,0,0,0],
+	"argument_annotations":[0,0,0,2,0,0],
 	"args_array_receivers":[0,0,0,0,0,0]},{
 "name":"exit",
 	"argument_annotations":[0],
@@ -3303,22 +3303,22 @@
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"g_quark_from_string",
-	"argument_annotations":[0],
+	"argument_annotations":[2],
 	"args_array_receivers":[1]},{
 "name":"quark_from_string",
-	"argument_annotations":[0,0],
+	"argument_annotations":[2,0],
 	"args_array_receivers":[0,0]},{
 "name":"g_quark_from_static_string",
-	"argument_annotations":[0],
+	"argument_annotations":[2],
 	"args_array_receivers":[1]},{
 "name":"g_quark_to_string",
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"g_intern_string",
-	"argument_annotations":[0],
+	"argument_annotations":[2],
 	"args_array_receivers":[1]},{
 "name":"g_intern_static_string",
-	"argument_annotations":[0],
+	"argument_annotations":[2],
 	"args_array_receivers":[1]},{
 "name":"g_queue_new",
 	"argument_annotations":[],

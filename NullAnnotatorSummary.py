@@ -24,6 +24,11 @@ if __name__ == '__main__':
 	numVarargs = 0
 	numFalsePosDueToLength = 0
 	numFalseNegsPassedToVararg = 0
+	numArguments = 0
+	numArrayArguments = 0
+	numWrongArrays = 0
+	numFalsePositiveArrays = 0
+	numFalsePosDueToLengthArrays = 0
 	for i in range(0, len(outputLibraryFunctions)):
 		outputFunc = outputLibraryFunctions[i]
 		answerFunc = answerLibraryFunctions[i]
@@ -35,47 +40,66 @@ if __name__ == '__main__':
 		for j in range (0, len(outputAnnotations)):
 			if answerAnnotations[j] == 4 or answerFunc['args_array_receivers'][j] == 4:
 				numVarargs += 1
+				continue
+			numArguments += 1
+			if answerIIGlueAnnotations[j] == 1:
+				numArrayArguments += 1
 			if answerAnnotations[j] == outputAnnotations[j]:
 				continue
 			if (answerAnnotations[j] == 2 or answerAnnotations[j] == 0) and answerAnnotations[j] != outputAnnotations[j]:
 				numWrongAnswers += 1
+				if answerIIGlueAnnotations[j] == 1:
+					numWrongArrays += 1
 				if outputIIGlueAnnotations[j] == 0:
 					numWrongDueToIIGlue += 1
 				if outputAnnotations[j] == 2:
-					print outputFunc['name'] + "[" + str(j) + "] should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+					print outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
 					numFalsePositives += 1
-					falsePositives += outputFunc['name'] + "[" + str(j) + "] should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+					if answerIIGlueAnnotations[j] == 1:
+						numFalsePositiveArrays += 1
+					falsePositives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
 				elif outputAnnotations[j] == 0:
-					falseNegatives += outputFunc['name'] + "[" + str(j) + "] should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+					falseNegatives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
 			elif answerAnnotations[j] == 1 and outputAnnotations[j] == 2:
 				print "THIS SHOULD NOT HAPPEN YET\n"
 				assert(False)
 			elif answerAnnotations[j] == 3 and outputAnnotations[j] != 0 and outputAnnotations[j] != 3:
+				if answerIIGlueAnnotations[j] == 1:
+					numWrongArrays += 1
+					numFalsePositiveArrays += 1
 				numWrongAnswers += 1
 				numFalsePositives += 1
-				falsePositives += outputFunc['name'] + "[" + str(j) + "] should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+				falsePositives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
 			
 			elif answerAnnotations[j] == 5 and outputAnnotations[j] != 0 and outputAnnotations[j] != 5:
+				if answerIIGlueAnnotations[j] == 1:
+					numWrongArrays += 1
+					numFalsePositiveArrays += 1
+					numFalsePosDueToLengthArrays += 1
 				numWrongAnswers += 1
 				numFalsePosDueToLength += 1
 				numFalsePositives += 1
-				falsePositives += outputFunc['name'] + "[" + str(j) + "] should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+				falsePositives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
 			elif answerAnnotations[j] == 6 and outputAnnotations[j] != 6 and outputAnnotations[j] != 2:
+				if answerIIGlueAnnotations[j] == 1:
+					numWrongArrays += 1
 				numWrongAnswers += 1
 				numFalseNegsPassedToVararg += 1
-				falseNegatives += outputFunc['name'] + "[" + str(j) + "] should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+				falseNegatives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
 				
 	print "Total number of functions: " + str(len(outputLibraryFunctions))
 	print "Number of wrong answers: " + str(numWrongAnswers)
-	print "Percent wrong answers: " + str(float(numWrongAnswers)/float(len(outputLibraryFunctions)))
+	print "Percent wrong answers total: " + str(float(numWrongAnswers)/float(numArguments))
+	print "Percent wrong answers in array arguments: " + str(float(numWrongArrays)/float(numArrayArguments))
 	print "Number of wrong answers due to IIGlue: " + str(numWrongDueToIIGlue)
 	print "Percent wrong answers due to IIGlue of all errors: " + str(float(numWrongDueToIIGlue)/float(numWrongAnswers))
-	print "Percent wrong answers not due to IIGlue: " + str(float(numWrongAnswers-numWrongDueToIIGlue)/float(len(outputLibraryFunctions)))
 	print "Number of false positives: " + str(numFalsePositives)
-	print "Percent false positives: " + str(float(numFalsePositives)/float(len(outputLibraryFunctions)))
+	print "Percent false positives total: " + str(float(numFalsePositives)/float(numArguments))
+	print "Percent false positives of array arguments: " + str(float(numFalsePositiveArrays)/float(numArrayArguments))
 	print "Percent false positives of all errors: " + str(float(numFalsePositives)/float(numWrongAnswers))
 	print "Number of false positives due to extra length parameter: " + str(numFalsePosDueToLength)
-	print "Percent false positives due to extra length parameter: " + str(float(numFalsePosDueToLength)/float(len(outputLibraryFunctions)))
+	print "Percent false positives due to extra length parameter total: " + str(float(numFalsePosDueToLength)/float(numArguments))
+	print "Percent false positives due to extra length parameter of array arguments: " + str(float(numFalsePosDueToLengthArrays)/float(numArrayArguments))
 	print "Percent false positives due to extra length parameter of false positives: " + str(float(numFalsePosDueToLength)/float(numFalsePositives))
 	print "Number of functions with varargs found: " + str(numVarargs)
 	print "Percent of functions with varags found: " + str(float(numVarargs)/float(len(outputLibraryFunctions)))
