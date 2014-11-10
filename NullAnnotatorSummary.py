@@ -29,6 +29,7 @@ if __name__ == '__main__':
 	numWrongArrays = 0
 	numFalsePositiveArrays = 0
 	numFalsePosDueToLengthArrays = 0
+	wronglyAnnotatedFunctions = []
 	for i in range(0, len(outputLibraryFunctions)):
 		outputFunc = outputLibraryFunctions[i]
 		answerFunc = answerLibraryFunctions[i]
@@ -47,6 +48,8 @@ if __name__ == '__main__':
 			if answerAnnotations[j] == outputAnnotations[j]:
 				continue
 			if (answerAnnotations[j] == 2 or answerAnnotations[j] == 0) and answerAnnotations[j] != outputAnnotations[j]:
+				if answerFunc['name'] not in wronglyAnnotatedFunctions:
+					wronglyAnnotatedFunctions.append(answerFunc['name'])
 				numWrongAnswers += 1
 				if answerIIGlueAnnotations[j] == 1:
 					numWrongArrays += 1
@@ -64,6 +67,8 @@ if __name__ == '__main__':
 				print "THIS SHOULD NOT HAPPEN YET\n"
 				assert(False)
 			elif answerAnnotations[j] == 3 and outputAnnotations[j] != 0 and outputAnnotations[j] != 3:
+				if answerFunc['name'] not in wronglyAnnotatedFunctions:
+					wronglyAnnotatedFunctions.append(answerFunc['name'])
 				if answerIIGlueAnnotations[j] == 1:
 					numWrongArrays += 1
 					numFalsePositiveArrays += 1
@@ -72,6 +77,8 @@ if __name__ == '__main__':
 				falsePositives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
 			
 			elif answerAnnotations[j] == 5 and outputAnnotations[j] != 0 and outputAnnotations[j] != 5:
+				if answerFunc['name'] not in wronglyAnnotatedFunctions:
+					wronglyAnnotatedFunctions.append(answerFunc['name'])
 				if answerIIGlueAnnotations[j] == 1:
 					numWrongArrays += 1
 					numFalsePositiveArrays += 1
@@ -81,6 +88,8 @@ if __name__ == '__main__':
 				numFalsePositives += 1
 				falsePositives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
 			elif answerAnnotations[j] == 6 and outputAnnotations[j] != 6 and outputAnnotations[j] != 2:
+				if answerFunc['name'] not in wronglyAnnotatedFunctions:
+					wronglyAnnotatedFunctions.append(answerFunc['name'])
 				if answerIIGlueAnnotations[j] == 1:
 					numWrongArrays += 1
 				numWrongAnswers += 1
@@ -88,6 +97,8 @@ if __name__ == '__main__':
 				falseNegatives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
 				
 	print "Total number of functions: " + str(len(outputLibraryFunctions))
+	print "Total number of wrongly annotated functions: " + str(len(wronglyAnnotatedFunctions))
+	print "Total percentage of wrongly annotated functions: " + str(float(len(wronglyAnnotatedFunctions))/float(len(outputLibraryFunctions)))
 	print "Number of wrong answers: " + str(numWrongAnswers)
 	print "Percent wrong answers total: " + str(float(numWrongAnswers)/float(numArguments))
 	print "Percent wrong answers in array arguments: " + str(float(numWrongArrays)/float(numArrayArguments))
