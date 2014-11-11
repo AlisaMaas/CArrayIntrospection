@@ -9,4 +9,4 @@ def RunWholeProgramTests(self, **kwargs):
     Alias('test', passed)
 
 env.AddMethod(RunWholeProgramTests)
-env.RunWholeProgramTests(PLUGIN_ARGS=('-mem2reg', '-null-annotator'))
+env.RunWholeProgramTests(PLUGIN_ARGS=('-mem2reg', '-null-annotator', '-overreport'))

@@ -2136,7 +2136,7 @@
 	"argument_annotations":[0,2,2,2],
 	"args_array_receivers":[0,1,1,1]},{
 "name":"g_key_file_is_key_name",
-	"argument_annotations":[2],
+	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"g_key_file_add_group",
 	"argument_annotations":[0,2],
@@ -2215,7 +2215,7 @@
 	"args_array_receivers":[0,1,1,1,0]},{
 "name":"g_key_file_get_double",
 	"argument_annotations":[0,0,2,0],
-	"args_array_receivers":[0,0,0,0]},{
+	"args_array_receivers":[0,0,4,0]},{
 "name":"g_key_file_parse_value_as_double",
 	"argument_annotations":[2,0],
 	"args_array_receivers":[0,0]},{
@@ -4746,7 +4746,7 @@
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"g_trash_stack_height",
-	"argument_annotations":[2],
+	"argument_annotations":[0],
 	"args_array_receivers":[0]},{
 "name":"g_tree_new",
 	"argument_annotations":[0],
@@ -4950,7 +4950,7 @@
 	"argument_annotations":[0,0],
 	"args_array_receivers":[0,0]},{
 "name":"g_utf8_strncpy",
-	"argument_annotations":[2,2,0],
+	"argument_annotations":[0,2,0],
 	"args_array_receivers":[1,1,0]},{
 "name":"g_unichar_to_utf8",
 	"argument_annotations":[0,0],
