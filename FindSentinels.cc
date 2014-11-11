@@ -102,14 +102,14 @@ bool FindSentinels::runOnModule(Module &module) {
 				BasicBlock *trueBlock, *falseBlock;
 				CmpInst::Predicate predicate;
 				// This will need to be checked to make sure it corresponds to an argument identified as an array.
-				Argument *pointer;
+				Value *pointer;
 				Value *slot;
 
 				// reusable pattern fragments
 
 				auto loadPattern = m_Load(
 						m_GetElementPointer(
-								m_FormalArgument(pointer),
+								m_Value(pointer),
 								m_Value(slot)
 								)
 						);
@@ -161,7 +161,33 @@ bool FindSentinels::runOnModule(Module &module) {
 							),
 							trueBlock,
 							falseBlock))) {
-						if (!iiglue.isArray(*pointer)) {
+						Argument *formalArg = NULL;
+						if (Argument::classof(pointer)) {
+							formalArg = (Argument*)pointer;
+						}
+						else if (PHINode::classof(pointer)){
+							PHINode *node = (PHINode*)pointer;
+							unsigned int n = node->getNumIncomingValues();
+							bool foundArgument = false;
+							for (unsigned int i = 0; i < n; ++i) {
+								Value *v = node->getIncomingValue(i);
+								if (Argument::classof(v)) {
+									if (foundArgument) {
+										formalArg = NULL;
+									}
+									else {
+										foundArgument = true;
+										formalArg = (Argument*)v;
+									}
+								}
+							}
+							
+						}
+						else {
+							errs() << "Looks like " << pointer->getName() << " isn't of concern\n";
+						}
+						if (formalArg == NULL) errs () << "NULL!!! " << pointer->getName() << "\n";
+						if (formalArg == NULL || !iiglue.isArray(*formalArg)) {
 							continue;
 						}
 						// check that we actually leave the loop when sentinel is found
@@ -181,10 +207,10 @@ bool FindSentinels::runOnModule(Module &module) {
 							continue;
 						}
 						// all tests pass; this is a possible sentinel check!
-						DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
+						DEBUG(dbgs() << "found possible sentinel check of %" << formalArg->getName() << "[%" << slot->getName() << "]\n"
 								<< "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
 						// mark this block as one of the sentinel checks this loop.
-						sentinelChecks[pointer].first.insert(exitingBlock);
+						sentinelChecks[formalArg].first.insert(exitingBlock);
 						auto induction(loop->getCanonicalInductionVariable());
 						if (induction)
 							DEBUG(dbgs() << "  loop has canonical induction variable %" << induction->getName() << '\n');
