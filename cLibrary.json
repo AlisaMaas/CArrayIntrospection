@@ -48,7 +48,7 @@
 {"name":"execv","return":"int","argument_types":["char*", "char**"],"argument_annotations":[2,2]},
 {"name":"execvp","return":"int","argument_types":["char*", "char**"],"argument_annotations":[2,2]},
 {"name":"execvpe","return":"int","argument_types":["char*", "char**", "char**"],"argument_annotations":[2,2,2]},
-{"name":"write","return":"size_t","argument_types":["int", "void*", "size_t"],"argument_annotations":[1,2,1]},
+{"name":"write","return":"size_t","argument_types":["int", "void*", "size_t"],"argument_annotations":[1,0,1]},
 {"name":"strtol","return":"long","argument_types":["char*", "char**", "int"],"argument_annotations":[2,0,1]},
 {"name":"fopen","return":"FILE*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
 {"name":"iconv_open","return":"iconv_t","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
@@ -72,7 +72,11 @@
 {"name":"newlocale","return":"locale_t","argument_types":["int", "char*", "locale_t"],"argument_annotations":[1,2,1]},
 {"name":"strspn","return":"size_t","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
 {"name":"execve","return":"int","argument_types":["char*", "char*", "char*"],"argument_annotations":[2,2,2]},
-{"name":"execv","return":"int","argument_types":["char*", "char*"],"argument_annotations":[2,2]}
+{"name":"execv","return":"int","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
+
+{"name":"strdup","return":"char*","argument_types":["char*"],"argument_annotations":[2]},
+{"name":"__strdup","return":"char*","argument_types":["char*"],"argument_annotations":[2]}
+
 
 
 

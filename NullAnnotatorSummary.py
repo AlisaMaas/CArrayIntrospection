@@ -10,7 +10,7 @@ When I have a way to reason about varargs parameters, hopefully this will be res
 '''
 if __name__ == '__main__':
 	output_data=open(sys.argv[1])
-	answer_data=open('answers.json')
+	answer_data=open(sys.argv[2])
 	output = json.load(output_data)
 	answers = json.load(answer_data)
 	outputLibraryFunctions = output['library_functions']
@@ -29,6 +29,7 @@ if __name__ == '__main__':
 	numWrongArrays = 0
 	numFalsePositiveArrays = 0
 	numFalsePosDueToLengthArrays = 0
+	numTruePositives = 0
 	wronglyAnnotatedFunctions = []
 	for i in range(0, len(outputLibraryFunctions)):
 		outputFunc = outputLibraryFunctions[i]
@@ -38,7 +39,11 @@ if __name__ == '__main__':
 		outputIIGlueAnnotations = outputFunc['args_array_receivers']
 		answerAnnotations = answerFunc['argument_annotations']
 		answerIIGlueAnnotations = answerFunc['args_array_receivers']
+		if len(answerIIGlueAnnotations) > 0 and answerIIGlueAnnotations[0] == -1:
+			continue
 		for j in range (0, len(outputAnnotations)):
+			if answerIIGlueAnnotations[j] == -1:
+				continue; #skip anything that was a dependency, don't count it either way.
 			if answerAnnotations[j] == 4 or answerFunc['args_array_receivers'][j] == 4:
 				numVarargs += 1
 				continue
@@ -46,6 +51,8 @@ if __name__ == '__main__':
 			if answerIIGlueAnnotations[j] == 1:
 				numArrayArguments += 1
 			if answerAnnotations[j] == outputAnnotations[j]:
+				if answerAnnotations[j] == 2:
+					numTruePositives += 1
 				continue
 			if (answerAnnotations[j] == 2 or answerAnnotations[j] == 0) and answerAnnotations[j] != outputAnnotations[j]:
 				if answerFunc['name'] not in wronglyAnnotatedFunctions:
@@ -56,7 +63,10 @@ if __name__ == '__main__':
 				if outputIIGlueAnnotations[j] == 0:
 					numWrongDueToIIGlue += 1
 				if outputAnnotations[j] == 2:
-					print outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+					print outputFunc['name'] + "[" + str(j) + "] (" + \
+					outputFunc['argument_names'][j] + ") should be " + \
+					str(answerAnnotations[j]) + " found " + \
+					str(outputAnnotations[j]) + " because " + outputFunc['argument_reasons'][j] + ".\n"
 					numFalsePositives += 1
 					if answerIIGlueAnnotations[j] == 1:
 						numFalsePositiveArrays += 1
@@ -97,6 +107,8 @@ if __name__ == '__main__':
 				falseNegatives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
 				
 	print "Total number of functions: " + str(len(outputLibraryFunctions))
+	print "Total number of arguments: " + str(numArguments)
+	print "Total number of array arguments: " + str(numArrayArguments)
 	print "Total number of wrongly annotated functions: " + str(len(wronglyAnnotatedFunctions))
 	print "Total percentage of wrongly annotated functions: " + str(float(len(wronglyAnnotatedFunctions))/float(len(outputLibraryFunctions)))
 	print "Number of wrong answers: " + str(numWrongAnswers)
@@ -105,13 +117,15 @@ if __name__ == '__main__':
 	print "Number of wrong answers due to IIGlue: " + str(numWrongDueToIIGlue)
 	print "Percent wrong answers due to IIGlue of all errors: " + str(float(numWrongDueToIIGlue)/float(numWrongAnswers))
 	print "Number of false positives: " + str(numFalsePositives)
-	print "Percent false positives total: " + str(float(numFalsePositives)/float(numArguments))
-	print "Percent false positives of array arguments: " + str(float(numFalsePositiveArrays)/float(numArrayArguments))
-	print "Percent false positives of all errors: " + str(float(numFalsePositives)/float(numWrongAnswers))
-	print "Number of false positives due to extra length parameter: " + str(numFalsePosDueToLength)
-	print "Percent false positives due to extra length parameter total: " + str(float(numFalsePosDueToLength)/float(numArguments))
-	print "Percent false positives due to extra length parameter of array arguments: " + str(float(numFalsePosDueToLengthArrays)/float(numArrayArguments))
-	print "Percent false positives due to extra length parameter of false positives: " + str(float(numFalsePosDueToLength)/float(numFalsePositives))
+	print "Number of true positives: " + str(numTruePositives)
+	if not numFalsePositives == 0:
+		print "Percent false positives total: " + str(float(numFalsePositives)/float(numArguments))
+		print "Percent false positives of array arguments: " + str(float(numFalsePositiveArrays)/float(numArrayArguments))
+		print "Percent false positives of all errors: " + str(float(numFalsePositives)/float(numWrongAnswers))
+		print "Number of false positives due to extra length parameter: " + str(numFalsePosDueToLength)
+		print "Percent false positives due to extra length parameter total: " + str(float(numFalsePosDueToLength)/float(numArguments))
+		print "Percent false positives due to extra length parameter of array arguments: " + str(float(numFalsePosDueToLengthArrays)/float(numArrayArguments))
+		print "Percent false positives due to extra length parameter of false positives: " + str(float(numFalsePosDueToLength)/float(numFalsePositives))
 	print "Number of functions with varargs found: " + str(numVarargs)
 	print "Percent of functions with varags found: " + str(float(numVarargs)/float(len(outputLibraryFunctions)))
 	print "Number of false negatives passed to varargs " + str(numFalseNegsPassedToVararg)

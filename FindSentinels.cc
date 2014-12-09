@@ -14,6 +14,46 @@ using namespace llvm;
 using namespace llvm::PatternMatch;
 using namespace std;
 
+static Argument *traversePHIs(Value *pointer, unordered_set<PHINode*> &foundSoFar) {
+   if (Argument::classof(pointer)) {
+	   return (Argument*)pointer;
+   }
+   else if (PHINode::classof(pointer)) {
+	   PHINode *node = (PHINode*)pointer;
+	   if (foundSoFar.count(node)) return NULL;
+	   foundSoFar.insert(node);
+	   unsigned int n = node->getNumIncomingValues();
+	   bool foundArgument = false;
+	   Argument *formalArg = NULL;
+	   for (unsigned int i = 0; i < n; ++i) {
+		   Value *v = node->getIncomingValue(i);
+		   if (Argument::classof(v)) {
+			   if (foundArgument) {
+				   formalArg = NULL;
+			   }
+			   else {
+				   foundArgument = true;
+				   formalArg = (Argument*)v;
+			   }
+		   }
+		   else if (PHINode::classof(v)) {
+		       Argument *ret = traversePHIs(v, foundSoFar);
+		       if (ret) {
+		       		if (foundArgument) {
+		       		    formalArg = NULL;
+		       		}
+		       		else {
+		       			foundArgument = true;
+		       			formalArg = ret;
+		       		}
+		       }
+		   }
+	   }
+	   return formalArg;
+	}
+	return NULL;	   
+}
+
 /**
  * This mutually-recursive group of functions check whether a given list of sentinel checks is
  * optional using a modified depth first search.  The basic question they attempt to answer is: "Is
@@ -161,32 +201,9 @@ bool FindSentinels::runOnModule(Module &module) {
 							),
 							trueBlock,
 							falseBlock))) {
-						Argument *formalArg = NULL;
-						if (Argument::classof(pointer)) {
-							formalArg = (Argument*)pointer;
-						}
-						else if (PHINode::classof(pointer)){
-							PHINode *node = (PHINode*)pointer;
-							unsigned int n = node->getNumIncomingValues();
-							bool foundArgument = false;
-							for (unsigned int i = 0; i < n; ++i) {
-								Value *v = node->getIncomingValue(i);
-								if (Argument::classof(v)) {
-									if (foundArgument) {
-										formalArg = NULL;
-									}
-									else {
-										foundArgument = true;
-										formalArg = (Argument*)v;
-									}
-								}
-							}
-							
-						}
-						else {
-							errs() << "Looks like " << pointer->getName() << " isn't of concern\n";
-						}
-						if (formalArg == NULL) errs () << "NULL!!! " << pointer->getName() << "\n";
+							unordered_set<PHINode*> phisFound;
+						Argument *formalArg = traversePHIs(pointer, phisFound);
+
 						if (formalArg == NULL || !iiglue.isArray(*formalArg)) {
 							continue;
 						}

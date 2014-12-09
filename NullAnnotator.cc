@@ -16,6 +16,7 @@
 #include <llvm/IR/Function.h>
 #include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
+#include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/InstIterator.h>
 
@@ -50,6 +51,7 @@ namespace {
 		// map from function name and argument number to whether or not that argument gets annotated
 		typedef unordered_map<const Argument *, Answer> AnnotationMap;
 		AnnotationMap annotations;
+		unordered_map<const Argument *, string> reasons;
 		typedef unordered_set<const CallInst *> CallInstSet;
 		unordered_map<const Function *, CallInstSet> functionToCallSites;
 		Answer getAnswer(const Argument &) const;
@@ -57,17 +59,55 @@ namespace {
 		void populateFromFile(string filename, Module &module);
 	};
 	char NullAnnotator::ID;
+	static const RegisterPass<NullAnnotator> registration("null-annotator",
+		"Determine whether and how to annotate each function with the null-terminated annotation",
+		true, true);
+	static cl::list<string>
+		dependencyFileNames("dependency",
+			cl::ZeroOrMore,
+			cl::value_desc("filename"),
+			cl::desc("Filename containing NullAnnotator results for dependencies; use multiple times to read multiple files"));
+	static cl::opt<string>
+		outputFileName("output",
+			cl::Optional,
+			cl::value_desc("filename"),
+			cl::desc("Filename to write results to"));
 }
 
-static const RegisterPass<NullAnnotator> registration("null-annotator",
-						      "Determine whether and how to annotate each function with the null-terminated annotation",
-						      true, true);
+
 
 bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg);
 bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg);
 
 inline NullAnnotator::NullAnnotator()
 	: ModulePass(ID) {
+}
+
+static Argument *traversePHIs(Value *pointer, const Argument *arg, unordered_set<const PHINode*> &foundSoFar) {
+   if (arg == pointer) {
+	   return (Argument*)pointer;
+   }
+   else if (PHINode::classof(pointer)) {
+	   const PHINode *node = (const PHINode*)pointer;
+	   if (foundSoFar.count(node)) return NULL;
+	   foundSoFar.insert(node);
+	   unsigned int n = node->getNumIncomingValues();
+	   Argument *formalArg = NULL;
+	   for (unsigned int i = 0; i < n; ++i) {
+		   Value *v = node->getIncomingValue(i);
+		   if (arg == v) {
+				   return (Argument*)v;
+		   }
+		   else if (PHINode::classof(v)) {
+		       Argument *ret = traversePHIs(v, arg, foundSoFar);
+		       if (ret) {
+		          return ret;
+		       }
+		   }
+	   }
+	   return formalArg;
+	}
+	return NULL;	   
 }
 
 bool NullAnnotator::annotate(const Argument &arg) const {
@@ -126,18 +166,22 @@ void NullAnnotator::dumpToFile(string filename, const IIGlueReader &iiglue, cons
 		string argumentAnnotations = "";
 		string argumentArrayReceivers = "";
 		string argumentNames = "";
+		string argumentReasons = "";
 		for (const Argument &arg : func.getArgumentList()) {
 			int answer = getAnswer(arg);
 			argumentAnnotations += to_string(answer) + ",";
 			argumentArrayReceivers += to_string(iiglue.isArray(arg)) + ",";
 			argumentNames += "\"" + arg.getName().str() + "\",";
+			argumentReasons += "\"" + reasons.at(&arg) + "\",";
 		}
 		argumentAnnotations = argumentAnnotations.substr(0, argumentAnnotations.length()-1);
 		argumentArrayReceivers = argumentArrayReceivers.substr(0, argumentArrayReceivers.length()-1);
 		argumentNames = argumentNames.substr(0, argumentNames.length()-1);
+		argumentReasons = argumentReasons.substr(0, argumentReasons.length()-1);
 		functions += "\n\t\"argument_names\":[" + argumentNames + "],"; 
 		functions +=  "\n\t\"argument_annotations\":[" + argumentAnnotations + "],"; 
-		functions +=  "\n\t\"args_array_receivers\":[" + argumentArrayReceivers + "]"; 
+		functions +=  "\n\t\"args_array_receivers\":[" + argumentArrayReceivers + "],";
+		functions +=  "\n\t\"argument_reasons\":[" + argumentReasons + "]"; 
 		functions +=  "},";
 	}
 	functions = functions.substr(0, functions.length()-1);
@@ -145,8 +189,17 @@ void NullAnnotator::dumpToFile(string filename, const IIGlueReader &iiglue, cons
 	file.close();
 }
 bool NullAnnotator::runOnModule(Module &module) {
-	populateFromFile("cLibrary.json", module);
+	for (const string &dependency : dependencyFileNames) {
+		populateFromFile(dependency, module);
+	}
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
+	
+	for (const Function &func : module) {
+		for (const Argument &arg : func.getArgumentList()) {
+			reasons[&arg] = " ";
+		}
+	}
+	
 	// collect calls in each function for repeated scanning later
 	for (const Function &func : iiglue.arrayReceivers()) {
 		const auto instructions =
@@ -178,6 +231,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 					if (existsNonOptionalSentinelCheck(functionChecks, arg)) {
 						DEBUG(dbgs() << "\tFound a non-optional sentinel check in some loop!\n");
 						annotations[&arg] = NULL_TERMINATED;
+						reasons[&arg] = "Found a non-optional sentinel check in some loop of this function.";
 						changed = true;
 						continue;
 					}
@@ -193,22 +247,31 @@ bool NullAnnotator::runOnModule(Module &module) {
 					const auto calledFunction = call.getCalledFunction();
 					if (calledFunction == NULL)
 						continue;
-					const auto formals = calledFunction->getArgumentList().begin(); //okay, this is the buggy thing.
+					const auto formals = calledFunction->getArgumentList().begin();
 					DEBUG(dbgs() << "Got formals\n");
 					for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
+						Argument *parameterArg = NULL;
 						DEBUG(dbgs() << "Starting iteration\n");
-						if (call.getArgOperand(argNo) != &arg) { 
-							continue;
+						Value *v = call.getArgOperand(argNo);
+						unordered_set<const PHINode*> phisFound;
+						parameterArg = traversePHIs(v, &arg, phisFound);
+						if (parameterArg == NULL) {
+								continue;
 						}
-						DEBUG(dbgs() << "Name of arg: " << call.getArgOperand(argNo)->getName() << "\n");
+						DEBUG(dbgs() << "Name of arg: " << parameterArg->getName() << "\n");
 						DEBUG(dbgs() << "hey, it matches!\n");
 						auto parameter = formals;
 						advance(parameter, argNo);
+						
+						if (parameter == calledFunction->getArgumentList().end() || argNo != (*parameter).getArgNo()) {
+							continue;
+						}
 						DEBUG(dbgs() << "About to enter the switch\n");
 						switch (getAnswer(*parameter)) {
 						case NULL_TERMINATED:
 							DEBUG(dbgs() << "Marking NULL_TERMINATED\n");
 							annotations[&arg] = NULL_TERMINATED;
+							reasons[&arg] = "Called " + calledFunction->getName().str() + ", marked as null terminated in this position";
 							changed = true;
 							nextArgumentPlease = true;
 							break;
@@ -244,9 +307,10 @@ bool NullAnnotator::runOnModule(Module &module) {
 					if (oldResult != NON_NULL_TERMINATED) {
 						DEBUG(dbgs() << "Marking NOT_NULL_TERMINATED\n");
 						annotations[&arg] = NON_NULL_TERMINATED;
+						reasons[&arg] = "Has a loop with an optional sentinel check";
 						changed = true;
 						if (foundDontCare) {
-							DEBUG(dbgs() << "Marking NULL_TERMINATED even though other calls say DONT_CARE.\n");
+							DEBUG(dbgs() << "Marking NOT_NULL_TERMINATED even though other calls say DONT_CARE.\n");
 							// do error reporting stuff
 						}
 						continue;
@@ -257,7 +321,8 @@ bool NullAnnotator::runOnModule(Module &module) {
 		}
 		firstTime = false;
 	} while (changed);
-	dumpToFile("output.json", iiglue, module);
+	if (!outputFileName.empty())
+		dumpToFile(outputFileName, iiglue, module);
 	return false;
 }
 
