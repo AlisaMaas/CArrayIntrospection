@@ -41,7 +41,7 @@ namespace {
 		NullAnnotator();
 		static char ID;
 		void getAnalysisUsage(AnalysisUsage &) const final;
-		bool runOnModule(Module &module) override final;
+		bool runOnModule(Module &) override final;
 		void print(raw_ostream &, const Module *) const;
 
 		// access to analysis results derived by this pass
@@ -55,8 +55,8 @@ namespace {
 		typedef unordered_set<const CallInst *> CallInstSet;
 		unordered_map<const Function *, CallInstSet> functionToCallSites;
 		Answer getAnswer(const Argument &) const;
-		void dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const;
-		void populateFromFile(const string &filename, const Module &module);
+		void dumpToFile(const string &filename, const IIGlueReader &, const Module &) const;
+		void populateFromFile(const string &filename, const Module &);
 	};
 	char NullAnnotator::ID;
 	static const RegisterPass<NullAnnotator> registration("null-annotator",
