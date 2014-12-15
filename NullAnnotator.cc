@@ -249,10 +249,9 @@ bool NullAnnotator::runOnModule(Module &module) {
 					const auto formals = calledFunction->getArgumentList().begin();
 					DEBUG(dbgs() << "Got formals\n");
 					for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
-						const Argument *parameterArg = nullptr;
 						DEBUG(dbgs() << "Starting iteration\n");
 						const Value * const v = call.getArgOperand(argNo);
-						parameterArg = traversePHIs(v, &arg);
+						const Argument * const parameterArg = traversePHIs(v, &arg);
 						if (parameterArg == nullptr) {
 								continue;
 						}
