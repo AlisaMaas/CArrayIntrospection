@@ -92,6 +92,7 @@ static const Argument *traversePHIs(const Value *pointer, const Argument *arg, u
 			const Value * const v = node->getIncomingValue(i);
 			if (arg == v) return arg;
 			else if (isa<PHINode>(v)) {
+				// !!!: We have done two dynamic checks for PHINode at this point.  It seems we should need just one.
 				if (const Argument * const ret = traversePHIs(v, arg, foundSoFar))
 					return ret;
 			}
