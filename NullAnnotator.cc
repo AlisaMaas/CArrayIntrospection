@@ -83,22 +83,22 @@ inline NullAnnotator::NullAnnotator()
 	: ModulePass(ID) {
 }
 
-static Argument *traversePHIs(Value *pointer, const Argument *arg, unordered_set<const PHINode*> &foundSoFar) {
+static const Argument *traversePHIs(const Value *pointer, const Argument *arg, unordered_set<const PHINode *> &foundSoFar) {
 	if (arg == pointer) {
-		return (Argument*)pointer;
+		return (const Argument *) pointer;
 	}
 	else if (PHINode::classof(pointer)) {
-		const PHINode *node = (const PHINode*)pointer;
+		const PHINode * const node = (const PHINode *) pointer;
 		if (foundSoFar.count(node)) return nullptr;
 		foundSoFar.insert(node);
-		Argument *formalArg = nullptr;
+		const Argument * const formalArg = nullptr;
 		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
-			Value *v = node->getIncomingValue(i);
+			const Value * const v = node->getIncomingValue(i);
 			if (arg == v) {
-				return (Argument*)v;
+				return (const Argument*) v;
 			}
 			else if (PHINode::classof(v)) {
-				Argument *ret = traversePHIs(v, arg, foundSoFar);
+				const Argument *ret = traversePHIs(v, arg, foundSoFar);
 				if (ret) {
 					return ret;
 				}
@@ -110,8 +110,8 @@ static Argument *traversePHIs(Value *pointer, const Argument *arg, unordered_set
 }
 
 
-static Argument *traversePHIs(Value *pointer, const Argument *arg) {
-	unordered_set<const PHINode*> foundSoFar;
+static const Argument *traversePHIs(const Value *pointer, const Argument *arg) {
+	unordered_set<const PHINode *> foundSoFar;
 	return traversePHIs(pointer, arg, foundSoFar);
 }
 
@@ -256,9 +256,9 @@ bool NullAnnotator::runOnModule(Module &module) {
 					const auto formals = calledFunction->getArgumentList().begin();
 					DEBUG(dbgs() << "Got formals\n");
 					for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
-						Argument *parameterArg = nullptr;
+						const Argument *parameterArg = nullptr;
 						DEBUG(dbgs() << "Starting iteration\n");
-						Value *v = call.getArgOperand(argNo);
+						const Value * const v = call.getArgOperand(argNo);
 						parameterArg = traversePHIs(v, &arg);
 						if (parameterArg == nullptr) {
 								continue;

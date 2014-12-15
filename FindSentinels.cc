@@ -18,23 +18,23 @@ using namespace std;
 
 static const Argument *traversePHIs(const Value *pointer, unordered_set<const PHINode*> &foundSoFar) {
 	if (Argument::classof(pointer)) {
-		return (const Argument*)pointer;
+		return (const Argument *) pointer;
 	}
 	else if (PHINode::classof(pointer)) {
-		const PHINode *node = (const PHINode*)pointer;
+		const PHINode *node = (const PHINode *) pointer;
 		if (foundSoFar.count(node)) return nullptr;
 		foundSoFar.insert(node);
 		bool foundArgument = false;
 		const Argument *formalArg = nullptr;
 		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
-			Value *v = node->getIncomingValue(i);
+			const Value * const v = node->getIncomingValue(i);
 			if (Argument::classof(v)) {
 				if (foundArgument) {
 					formalArg = nullptr;
 				}
 				else {
 					foundArgument = true;
-					formalArg = (Argument*)v;
+					formalArg = (const Argument *) v;
 				}
 			}
 			else if (PHINode::classof(v)) {
@@ -57,7 +57,7 @@ static const Argument *traversePHIs(const Value *pointer, unordered_set<const PH
 
 
 static const Argument *traversePHIs(const Value *pointer) {
-	unordered_set<const PHINode*> foundSoFar;
+	unordered_set<const PHINode *> foundSoFar;
 	return traversePHIs(pointer, foundSoFar);
 }
 
@@ -209,7 +209,7 @@ bool FindSentinels::runOnModule(Module &module) {
 							),
 							trueBlock,
 							falseBlock))) {
-						const Argument *formalArg = traversePHIs(pointer);
+						const Argument * const formalArg = traversePHIs(pointer);
 
 						if (formalArg == nullptr || !iiglue.isArray(*formalArg)) {
 							continue;
