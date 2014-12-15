@@ -55,8 +55,8 @@ namespace {
 		typedef unordered_set<const CallInst *> CallInstSet;
 		unordered_map<const Function *, CallInstSet> functionToCallSites;
 		Answer getAnswer(const Argument &) const;
-		void dumpToFile(string filename, const IIGlueReader &iiglue, const Module &module) const;
-		void populateFromFile(string filename, const Module &module);
+		void dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const;
+		void populateFromFile(const string &filename, const Module &module);
 	};
 	char NullAnnotator::ID;
 	static const RegisterPass<NullAnnotator> registration("null-annotator",
@@ -126,7 +126,7 @@ Answer NullAnnotator::getAnswer(const Argument &arg) const {
 	return found == annotations.end() ? DONT_CARE : found->second;
 }
 
-void NullAnnotator::populateFromFile(string filename, const Module &module) {
+void NullAnnotator::populateFromFile(const string &filename, const Module &module) {
 	ptree root;
 	json_parser::read_json(filename, root);
 	ptree &libraryFunctions = root.get_child("library_functions");
@@ -152,7 +152,7 @@ void NullAnnotator::populateFromFile(string filename, const Module &module) {
 	}
 }
 
-void NullAnnotator::dumpToFile(string filename, const IIGlueReader &iiglue, const Module &module) const {
+void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
 	ofstream file;
 	file.open(filename);
 	std::string type_str;
