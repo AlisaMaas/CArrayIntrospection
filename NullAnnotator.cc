@@ -56,7 +56,7 @@ namespace {
 		unordered_map<const Function *, CallInstSet> functionToCallSites;
 		Answer getAnswer(const Argument &) const;
 		void dumpToFile(string filename, const IIGlueReader &iiglue, const Module &module) const;
-		void populateFromFile(string filename, Module &module);
+		void populateFromFile(string filename, const Module &module);
 	};
 	char NullAnnotator::ID;
 	static const RegisterPass<NullAnnotator> registration("null-annotator",
@@ -93,10 +93,8 @@ static const Argument *traversePHIs(const Value *pointer, const Argument *arg, u
 			const Value * const v = node->getIncomingValue(i);
 			if (arg == v) return arg;
 			else if (isa<PHINode>(v)) {
-				const Argument *ret = traversePHIs(v, arg, foundSoFar);
-				if (ret) {
+				if (const Argument * const ret = traversePHIs(v, arg, foundSoFar))
 					return ret;
-				}
 			}
 		}
 		return formalArg;
@@ -129,7 +127,7 @@ Answer NullAnnotator::getAnswer(const Argument &arg) const {
 	return found == annotations.end() ? DONT_CARE : found->second;
 }
 
-void NullAnnotator::populateFromFile(string filename, Module &module) {
+void NullAnnotator::populateFromFile(string filename, const Module &module) {
 	ptree root;
 	json_parser::read_json(filename, root);
 	ptree &libraryFunctions = root.get_child("library_functions");
@@ -220,7 +218,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 		changed = false;
 		for (const Function &func : iiglue.arrayReceivers()) {
 			DEBUG(dbgs() << "About to get the map for this function\n");
-			const FindSentinels::FunctionResults *functionChecks = findSentinels.getResultsForFunction(&func);
+			const FindSentinels::FunctionResults * const functionChecks = findSentinels.getResultsForFunction(&func);
 			for (const Argument &arg : iiglue.arrayArguments(func)) {
 				DEBUG(dbgs() << "\tConsidering " << arg.getArgNo() << "\n");
 				Answer oldResult = getAnswer(arg);

@@ -33,7 +33,7 @@ static const Argument *traversePHIs(const Value *pointer, unordered_set<const PH
 					formalArg = arg;
 				}
 			} else if (isa<PHINode>(v)) {
-				const Argument *ret = traversePHIs(v, foundSoFar);
+				const Argument * const ret = traversePHIs(v, foundSoFar);
 				if (ret) {
 					if (foundArgument) {
 						formalArg = nullptr;
