@@ -91,9 +91,8 @@ static Argument *traversePHIs(Value *pointer, const Argument *arg, unordered_set
 	   const PHINode *node = (const PHINode*)pointer;
 	   if (foundSoFar.count(node)) return nullptr;
 	   foundSoFar.insert(node);
-	   unsigned int n = node->getNumIncomingValues();
 	   Argument *formalArg = nullptr;
-	   for (unsigned int i = 0; i < n; ++i) {
+	   for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
 		   Value *v = node->getIncomingValue(i);
 		   if (arg == v) {
 				   return (Argument*)v;

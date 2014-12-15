@@ -5,10 +5,12 @@
 #include <boost/container/flat_set.hpp>
 #include <boost/range/adaptor/indirected.hpp>
 #include <boost/range/adaptor/transformed.hpp>
+#include <boost/range/irange.hpp>
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/Debug.h>
 
+using namespace boost;
 using namespace boost::adaptors;
 using namespace llvm;
 using namespace llvm::PatternMatch;
@@ -22,10 +24,9 @@ static Argument *traversePHIs(Value *pointer, unordered_set<PHINode*> &foundSoFa
 	   PHINode *node = (PHINode*)pointer;
 	   if (foundSoFar.count(node)) return nullptr;
 	   foundSoFar.insert(node);
-	   unsigned int n = node->getNumIncomingValues();
 	   bool foundArgument = false;
 	   Argument *formalArg = nullptr;
-	   for (unsigned int i = 0; i < n; ++i) {
+	   for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
 		   Value *v = node->getIncomingValue(i);
 		   if (Argument::classof(v)) {
 			   if (foundArgument) {
