@@ -110,6 +110,13 @@ static Argument *traversePHIs(Value *pointer, const Argument *arg, unordered_set
 	return nullptr;
 }
 
+
+static Argument *traversePHIs(Value *pointer, const Argument *arg) {
+	unordered_set<const PHINode*> foundSoFar;
+	return traversePHIs(pointer, arg, foundSoFar);
+}
+
+
 bool NullAnnotator::annotate(const Argument &arg) const {
 	const AnnotationMap::const_iterator found = annotations.find(&arg);
 	return found != annotations.end() && found->second == NULL_TERMINATED;
@@ -253,8 +260,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 						Argument *parameterArg = nullptr;
 						DEBUG(dbgs() << "Starting iteration\n");
 						Value *v = call.getArgOperand(argNo);
-						unordered_set<const PHINode*> phisFound;
-						parameterArg = traversePHIs(v, &arg, phisFound);
+						parameterArg = traversePHIs(v, &arg);
 						if (parameterArg == nullptr) {
 								continue;
 						}

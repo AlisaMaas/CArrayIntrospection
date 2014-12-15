@@ -54,6 +54,13 @@ static Argument *traversePHIs(Value *pointer, unordered_set<PHINode*> &foundSoFa
 	return nullptr;
 }
 
+
+static Argument *traversePHIs(Value *pointer) {
+	unordered_set<PHINode*> foundSoFar;
+	return traversePHIs(pointer, foundSoFar);
+}
+
+
 /**
  * This mutually-recursive group of functions check whether a given list of sentinel checks is
  * optional using a modified depth first search.  The basic question they attempt to answer is: "Is
@@ -201,8 +208,7 @@ bool FindSentinels::runOnModule(Module &module) {
 							),
 							trueBlock,
 							falseBlock))) {
-							unordered_set<PHINode*> phisFound;
-						Argument *formalArg = traversePHIs(pointer, phisFound);
+						Argument *formalArg = traversePHIs(pointer);
 
 						if (formalArg == nullptr || !iiglue.isArray(*formalArg)) {
 							continue;
