@@ -36,10 +36,9 @@ private:
 ////////////////////////////////////////////////////////////////////////
 
 
-inline const FindSentinels::FunctionResults* FindSentinels::getResultsForFunction(const llvm::Function *func) const {
-	if (allSentinelChecks.count(func))
-		return &allSentinelChecks.at(func);
-	return nullptr;
+inline const FindSentinels::FunctionResults *FindSentinels::getResultsForFunction(const llvm::Function *func) const {
+	const auto found = allSentinelChecks.find(func);
+	return found == allSentinelChecks.end() ? nullptr : &found->second;
 }
 
 
