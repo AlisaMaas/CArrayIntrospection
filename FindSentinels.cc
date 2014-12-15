@@ -16,16 +16,16 @@ using namespace llvm;
 using namespace llvm::PatternMatch;
 using namespace std;
 
-static Argument *traversePHIs(Value *pointer, unordered_set<PHINode*> &foundSoFar) {
+static const Argument *traversePHIs(const Value *pointer, unordered_set<const PHINode*> &foundSoFar) {
    if (Argument::classof(pointer)) {
-	   return (Argument*)pointer;
+	   return (const Argument*)pointer;
    }
    else if (PHINode::classof(pointer)) {
-	   PHINode *node = (PHINode*)pointer;
+	   const PHINode *node = (const PHINode*)pointer;
 	   if (foundSoFar.count(node)) return nullptr;
 	   foundSoFar.insert(node);
 	   bool foundArgument = false;
-	   Argument *formalArg = nullptr;
+	   const Argument *formalArg = nullptr;
 	   for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
 		   Value *v = node->getIncomingValue(i);
 		   if (Argument::classof(v)) {
@@ -38,7 +38,7 @@ static Argument *traversePHIs(Value *pointer, unordered_set<PHINode*> &foundSoFa
 			   }
 		   }
 		   else if (PHINode::classof(v)) {
-		       Argument *ret = traversePHIs(v, foundSoFar);
+		       const Argument *ret = traversePHIs(v, foundSoFar);
 		       if (ret) {
 		       		if (foundArgument) {
 		       		    formalArg = nullptr;
@@ -56,8 +56,8 @@ static Argument *traversePHIs(Value *pointer, unordered_set<PHINode*> &foundSoFa
 }
 
 
-static Argument *traversePHIs(Value *pointer) {
-	unordered_set<PHINode*> foundSoFar;
+static const Argument *traversePHIs(const Value *pointer) {
+	unordered_set<const PHINode*> foundSoFar;
 	return traversePHIs(pointer, foundSoFar);
 }
 
@@ -209,7 +209,7 @@ bool FindSentinels::runOnModule(Module &module) {
 							),
 							trueBlock,
 							falseBlock))) {
-						Argument *formalArg = traversePHIs(pointer);
+						const Argument *formalArg = traversePHIs(pointer);
 
 						if (formalArg == nullptr || !iiglue.isArray(*formalArg)) {
 							continue;
