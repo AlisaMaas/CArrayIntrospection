@@ -20,16 +20,16 @@ static Argument *traversePHIs(Value *pointer, unordered_set<PHINode*> &foundSoFa
    }
    else if (PHINode::classof(pointer)) {
 	   PHINode *node = (PHINode*)pointer;
-	   if (foundSoFar.count(node)) return NULL;
+	   if (foundSoFar.count(node)) return nullptr;
 	   foundSoFar.insert(node);
 	   unsigned int n = node->getNumIncomingValues();
 	   bool foundArgument = false;
-	   Argument *formalArg = NULL;
+	   Argument *formalArg = nullptr;
 	   for (unsigned int i = 0; i < n; ++i) {
 		   Value *v = node->getIncomingValue(i);
 		   if (Argument::classof(v)) {
 			   if (foundArgument) {
-				   formalArg = NULL;
+				   formalArg = nullptr;
 			   }
 			   else {
 				   foundArgument = true;
@@ -40,7 +40,7 @@ static Argument *traversePHIs(Value *pointer, unordered_set<PHINode*> &foundSoFa
 		       Argument *ret = traversePHIs(v, foundSoFar);
 		       if (ret) {
 		       		if (foundArgument) {
-		       		    formalArg = NULL;
+		       		    formalArg = nullptr;
 		       		}
 		       		else {
 		       			foundArgument = true;
@@ -51,7 +51,7 @@ static Argument *traversePHIs(Value *pointer, unordered_set<PHINode*> &foundSoFa
 	   }
 	   return formalArg;
 	}
-	return NULL;	   
+	return nullptr;
 }
 
 /**
@@ -204,7 +204,7 @@ bool FindSentinels::runOnModule(Module &module) {
 							unordered_set<PHINode*> phisFound;
 						Argument *formalArg = traversePHIs(pointer, phisFound);
 
-						if (formalArg == NULL || !iiglue.isArray(*formalArg)) {
+						if (formalArg == nullptr || !iiglue.isArray(*formalArg)) {
 							continue;
 						}
 						// check that we actually leave the loop when sentinel is found

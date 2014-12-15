@@ -39,7 +39,7 @@ private:
 inline const FindSentinels::FunctionResults* FindSentinels::getResultsForFunction(const llvm::Function *func) const {
 	if (allSentinelChecks.count(func))
 		return &allSentinelChecks.at(func);
-	return NULL;
+	return nullptr;
 }
 
 

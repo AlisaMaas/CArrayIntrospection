@@ -89,10 +89,10 @@ static Argument *traversePHIs(Value *pointer, const Argument *arg, unordered_set
    }
    else if (PHINode::classof(pointer)) {
 	   const PHINode *node = (const PHINode*)pointer;
-	   if (foundSoFar.count(node)) return NULL;
+	   if (foundSoFar.count(node)) return nullptr;
 	   foundSoFar.insert(node);
 	   unsigned int n = node->getNumIncomingValues();
-	   Argument *formalArg = NULL;
+	   Argument *formalArg = nullptr;
 	   for (unsigned int i = 0; i < n; ++i) {
 		   Value *v = node->getIncomingValue(i);
 		   if (arg == v) {
@@ -107,7 +107,7 @@ static Argument *traversePHIs(Value *pointer, const Argument *arg, unordered_set
 	   }
 	   return formalArg;
 	}
-	return NULL;	   
+	return nullptr;
 }
 
 bool NullAnnotator::annotate(const Argument &arg) const {
@@ -245,17 +245,17 @@ bool NullAnnotator::runOnModule(Module &module) {
 					DEBUG(dbgs() << "Call: " << call.getName() << "\n");
 					DEBUG(dbgs() << "getCalledFunction name: " << call.getCalledFunction() << "\n");
 					const auto calledFunction = call.getCalledFunction();
-					if (calledFunction == NULL)
+					if (calledFunction == nullptr)
 						continue;
 					const auto formals = calledFunction->getArgumentList().begin();
 					DEBUG(dbgs() << "Got formals\n");
 					for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
-						Argument *parameterArg = NULL;
+						Argument *parameterArg = nullptr;
 						DEBUG(dbgs() << "Starting iteration\n");
 						Value *v = call.getArgOperand(argNo);
 						unordered_set<const PHINode*> phisFound;
 						parameterArg = traversePHIs(v, &arg, phisFound);
-						if (parameterArg == NULL) {
+						if (parameterArg == nullptr) {
 								continue;
 						}
 						DEBUG(dbgs() << "Name of arg: " << parameterArg->getName() << "\n");
@@ -338,14 +338,14 @@ void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 }
 
 bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg) {
-	if (checks == NULL)
+	if (checks == nullptr)
 		return false;
 	return any_of(*checks | map_values,
 		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).second; });
 }
 
 bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg) {
-	if (checks == NULL)
+	if (checks == nullptr)
 		return false;
 	return any_of(*checks | map_values,
 		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).first.empty(); });
