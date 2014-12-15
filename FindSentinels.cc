@@ -20,8 +20,7 @@ static const Argument *traversePHIs(const Value *pointer, unordered_set<const PH
 	if (const Argument * const arg = dyn_cast<Argument>(pointer)) {
 		return arg;
 	} else if (const PHINode * const node = dyn_cast<PHINode>(pointer)) {
-		if (foundSoFar.count(node)) return nullptr;
-		foundSoFar.insert(node);
+		if (!foundSoFar.insert(node).second) return nullptr;
 		bool foundArgument = false;
 		const Argument *formalArg = nullptr;
 		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
