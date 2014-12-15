@@ -88,7 +88,6 @@ static const Argument *traversePHIs(const Value *pointer, const Argument *arg, u
 		return arg;
 	} else if (const PHINode * const node = dyn_cast<PHINode>(pointer)) {
 		if (!foundSoFar.insert(node).second) return nullptr;
-		const Argument * const formalArg = nullptr;
 		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
 			const Value * const v = node->getIncomingValue(i);
 			if (arg == v) return arg;
@@ -97,7 +96,6 @@ static const Argument *traversePHIs(const Value *pointer, const Argument *arg, u
 					return ret;
 			}
 		}
-		return formalArg;
 	}
 	return nullptr;
 }
