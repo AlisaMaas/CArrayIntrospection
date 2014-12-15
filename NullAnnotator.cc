@@ -85,15 +85,14 @@ inline NullAnnotator::NullAnnotator()
 
 static const Argument *traversePHIs(const Value *pointer, const Argument *arg, unordered_set<const PHINode *> &foundSoFar) {
 	if (arg == pointer) {
-		return (const Argument *) pointer;
+		return arg;
 	} else if (const PHINode * const node = dyn_cast<PHINode>(pointer)) {
 		if (!foundSoFar.insert(node).second) return nullptr;
 		const Argument * const formalArg = nullptr;
 		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
 			const Value * const v = node->getIncomingValue(i);
-			if (arg == v) {
-				return (const Argument*) v;
-			} else if (isa<PHINode>(v)) {
+			if (arg == v) return arg;
+			else if (isa<PHINode>(v)) {
 				const Argument *ret = traversePHIs(v, arg, foundSoFar);
 				if (ret) {
 					return ret;
