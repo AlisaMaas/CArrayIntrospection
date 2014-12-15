@@ -17,33 +17,28 @@ using namespace llvm::PatternMatch;
 using namespace std;
 
 static const Argument *traversePHIs(const Value *pointer, unordered_set<const PHINode*> &foundSoFar) {
-	if (Argument::classof(pointer)) {
-		return (const Argument *) pointer;
-	}
-	else if (PHINode::classof(pointer)) {
-		const PHINode *node = (const PHINode *) pointer;
+	if (const Argument * const arg = dyn_cast<Argument>(pointer)) {
+		return arg;
+	} else if (const PHINode * const node = dyn_cast<PHINode>(pointer)) {
 		if (foundSoFar.count(node)) return nullptr;
 		foundSoFar.insert(node);
 		bool foundArgument = false;
 		const Argument *formalArg = nullptr;
 		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
 			const Value * const v = node->getIncomingValue(i);
-			if (Argument::classof(v)) {
+			if (const Argument * const arg = dyn_cast<Argument>(v)) {
 				if (foundArgument) {
 					formalArg = nullptr;
-				}
-				else {
+				} else {
 					foundArgument = true;
-					formalArg = (const Argument *) v;
+					formalArg = arg;
 				}
-			}
-			else if (PHINode::classof(v)) {
+			} else if (isa<PHINode>(v)) {
 				const Argument *ret = traversePHIs(v, foundSoFar);
 				if (ret) {
 					if (foundArgument) {
 						formalArg = nullptr;
-					}
-					else {
+					} else {
 						foundArgument = true;
 						formalArg = ret;
 					}
