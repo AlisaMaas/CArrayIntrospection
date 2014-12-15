@@ -84,27 +84,27 @@ inline NullAnnotator::NullAnnotator()
 }
 
 static Argument *traversePHIs(Value *pointer, const Argument *arg, unordered_set<const PHINode*> &foundSoFar) {
-   if (arg == pointer) {
-	   return (Argument*)pointer;
-   }
-   else if (PHINode::classof(pointer)) {
-	   const PHINode *node = (const PHINode*)pointer;
-	   if (foundSoFar.count(node)) return nullptr;
-	   foundSoFar.insert(node);
-	   Argument *formalArg = nullptr;
-	   for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
-		   Value *v = node->getIncomingValue(i);
-		   if (arg == v) {
-				   return (Argument*)v;
-		   }
-		   else if (PHINode::classof(v)) {
-		       Argument *ret = traversePHIs(v, arg, foundSoFar);
-		       if (ret) {
-		          return ret;
-		       }
-		   }
-	   }
-	   return formalArg;
+	if (arg == pointer) {
+		return (Argument*)pointer;
+	}
+	else if (PHINode::classof(pointer)) {
+		const PHINode *node = (const PHINode*)pointer;
+		if (foundSoFar.count(node)) return nullptr;
+		foundSoFar.insert(node);
+		Argument *formalArg = nullptr;
+		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
+			Value *v = node->getIncomingValue(i);
+			if (arg == v) {
+				return (Argument*)v;
+			}
+			else if (PHINode::classof(v)) {
+				Argument *ret = traversePHIs(v, arg, foundSoFar);
+				if (ret) {
+					return ret;
+				}
+			}
+		}
+		return formalArg;
 	}
 	return nullptr;
 }

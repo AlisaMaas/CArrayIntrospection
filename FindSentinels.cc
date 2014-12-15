@@ -17,40 +17,40 @@ using namespace llvm::PatternMatch;
 using namespace std;
 
 static const Argument *traversePHIs(const Value *pointer, unordered_set<const PHINode*> &foundSoFar) {
-   if (Argument::classof(pointer)) {
-	   return (const Argument*)pointer;
-   }
-   else if (PHINode::classof(pointer)) {
-	   const PHINode *node = (const PHINode*)pointer;
-	   if (foundSoFar.count(node)) return nullptr;
-	   foundSoFar.insert(node);
-	   bool foundArgument = false;
-	   const Argument *formalArg = nullptr;
-	   for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
-		   Value *v = node->getIncomingValue(i);
-		   if (Argument::classof(v)) {
-			   if (foundArgument) {
-				   formalArg = nullptr;
-			   }
-			   else {
-				   foundArgument = true;
-				   formalArg = (Argument*)v;
-			   }
-		   }
-		   else if (PHINode::classof(v)) {
-		       const Argument *ret = traversePHIs(v, foundSoFar);
-		       if (ret) {
-		       		if (foundArgument) {
-		       		    formalArg = nullptr;
-		       		}
-		       		else {
-		       			foundArgument = true;
-		       			formalArg = ret;
-		       		}
-		       }
-		   }
-	   }
-	   return formalArg;
+	if (Argument::classof(pointer)) {
+		return (const Argument*)pointer;
+	}
+	else if (PHINode::classof(pointer)) {
+		const PHINode *node = (const PHINode*)pointer;
+		if (foundSoFar.count(node)) return nullptr;
+		foundSoFar.insert(node);
+		bool foundArgument = false;
+		const Argument *formalArg = nullptr;
+		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
+			Value *v = node->getIncomingValue(i);
+			if (Argument::classof(v)) {
+				if (foundArgument) {
+					formalArg = nullptr;
+				}
+				else {
+					foundArgument = true;
+					formalArg = (Argument*)v;
+				}
+			}
+			else if (PHINode::classof(v)) {
+				const Argument *ret = traversePHIs(v, foundSoFar);
+				if (ret) {
+					if (foundArgument) {
+						formalArg = nullptr;
+					}
+					else {
+						foundArgument = true;
+						formalArg = ret;
+					}
+				}
+			}
+		}
+		return formalArg;
 	}
 	return nullptr;
 }
