@@ -15,12 +15,13 @@ if __name__ == '__main__':
 	answers = json.load(answer_data)
 	outputLibraryFunctions = output['library_functions']
 	answerLibraryFunctions = answers['library_functions']
-	assert (len(outputLibraryFunctions) == len(answerLibraryFunctions))
+	assert outputLibraryFunctions.keys() == answerLibraryFunctions.keys()
+	functionNames = outputLibraryFunctions()
 	numWrongAnswers = 0
 	numWrongDueToIIGlue = 0
 	numFalsePositives = 0
-	falsePositives = ''
-	falseNegatives = ''
+	falsePositives = []
+	falseNegatives = []
 	numVarargs = 0
 	numFalsePosDueToLength = 0
 	numFalseNegsPassedToVararg = 0
@@ -30,11 +31,11 @@ if __name__ == '__main__':
 	numFalsePositiveArrays = 0
 	numFalsePosDueToLengthArrays = 0
 	numTruePositives = 0
-	wronglyAnnotatedFunctions = []
-	for i in range(0, len(outputLibraryFunctions)):
-		outputFunc = outputLibraryFunctions[i]
-		answerFunc = answerLibraryFunctions[i]
-		assert(outputFunc['name'] == answerFunc['name'])
+	wronglyAnnotatedFunctions = set()
+	for functionName in functionNames:
+	for outputFunc, answerFunc in izip(outputLibraryFunctions, answerLibraryFunctions):
+		outputFunc = outputLibraryFunctions[functionName]
+		answerFunc = answerLibraryFunctions[functionName]
 		outputAnnotations = outputFunc['argument_annotations']
 		outputIIGlueAnnotations = outputFunc['args_array_receivers']
 		answerAnnotations = answerFunc['argument_annotations']
@@ -54,41 +55,41 @@ if __name__ == '__main__':
 				if answerAnnotations[j] == 2:
 					numTruePositives += 1
 				continue
+
+			def mismatch():
+				return "%s[%s] (%s) should be %s found %s" % (
+					functionName, j, outputFunc['argument_names'][j],
+					answerAnnotations[j], outputAnnotations[j],
+				)
+
 			if (answerAnnotations[j] == 2 or answerAnnotations[j] == 0) and answerAnnotations[j] != outputAnnotations[j]:
-				if answerFunc['name'] not in wronglyAnnotatedFunctions:
-					wronglyAnnotatedFunctions.append(answerFunc['name'])
+				wronglyAnnotatedFunctions.add(functionName)
 				numWrongAnswers += 1
 				if answerIIGlueAnnotations[j] == 1:
 					numWrongArrays += 1
 				if outputIIGlueAnnotations[j] == 0:
 					numWrongDueToIIGlue += 1
 				if outputAnnotations[j] == 2:
-					print outputFunc['name'] + "[" + str(j) + "] (" + \
-					outputFunc['argument_names'][j] + ") should be " + \
-					str(answerAnnotations[j]) + " found " + \
-					str(outputAnnotations[j]) + " because " + outputFunc['argument_reasons'][j] + ".\n"
+					print "%s because %s" % (mismatch(), outputFunc['argument_reasons'][j])
 					numFalsePositives += 1
 					if answerIIGlueAnnotations[j] == 1:
 						numFalsePositiveArrays += 1
-					falsePositives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+					falsePositives += mismatch()
 				elif outputAnnotations[j] == 0:
-					falseNegatives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+					falseNegatives += mismatch()
 			elif answerAnnotations[j] == 1 and outputAnnotations[j] == 2:
 				print "THIS SHOULD NOT HAPPEN YET\n"
 				assert(False)
 			elif answerAnnotations[j] == 3 and outputAnnotations[j] != 0 and outputAnnotations[j] != 3:
-				if answerFunc['name'] not in wronglyAnnotatedFunctions:
-					wronglyAnnotatedFunctions.append(answerFunc['name'])
+				wronglyAnnotatedFunctions.add(functionName)
 				if answerIIGlueAnnotations[j] == 1:
 					numWrongArrays += 1
 					numFalsePositiveArrays += 1
 				numWrongAnswers += 1
 				numFalsePositives += 1
-				falsePositives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
-			
+				falsePositives += mismatch()
 			elif answerAnnotations[j] == 5 and outputAnnotations[j] != 0 and outputAnnotations[j] != 5:
-				if answerFunc['name'] not in wronglyAnnotatedFunctions:
-					wronglyAnnotatedFunctions.append(answerFunc['name'])
+				wronglyAnnotatedFunctions.add(functionName)
 				if answerIIGlueAnnotations[j] == 1:
 					numWrongArrays += 1
 					numFalsePositiveArrays += 1
@@ -96,40 +97,42 @@ if __name__ == '__main__':
 				numWrongAnswers += 1
 				numFalsePosDueToLength += 1
 				numFalsePositives += 1
-				falsePositives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+				falsePositives += mismatch()
 			elif answerAnnotations[j] == 6 and outputAnnotations[j] != 6 and outputAnnotations[j] != 2:
-				if answerFunc['name'] not in wronglyAnnotatedFunctions:
-					wronglyAnnotatedFunctions.append(answerFunc['name'])
+				wronglyAnnotatedFunctions.add(functionName)
 				if answerIIGlueAnnotations[j] == 1:
 					numWrongArrays += 1
 				numWrongAnswers += 1
 				numFalseNegsPassedToVararg += 1
-				falseNegatives += outputFunc['name'] + "[" + str(j) + "] (" + outputFunc['argument_names'][j] + ") should be " + str(answerAnnotations[j]) + " found " + str(outputAnnotations[j]) + "\n"
+				falseNegatives += mismatch()
 				
-	print "Total number of functions: " + str(len(outputLibraryFunctions))
-	print "Total number of arguments: " + str(numArguments)
-	print "Total number of array arguments: " + str(numArrayArguments)
-	print "Total number of wrongly annotated functions: " + str(len(wronglyAnnotatedFunctions))
-	print "Total percentage of wrongly annotated functions: " + str(float(len(wronglyAnnotatedFunctions))/float(len(outputLibraryFunctions)))
-	print "Number of wrong answers: " + str(numWrongAnswers)
-	print "Percent wrong answers total: " + str(float(numWrongAnswers)/float(numArguments))
-	print "Percent wrong answers in array arguments: " + str(float(numWrongArrays)/float(numArrayArguments))
-	print "Number of wrong answers due to IIGlue: " + str(numWrongDueToIIGlue)
-	print "Percent wrong answers due to IIGlue of all errors: " + str(float(numWrongDueToIIGlue)/float(numWrongAnswers))
-	print "Number of false positives: " + str(numFalsePositives)
-	print "Number of true positives: " + str(numTruePositives)
-	if not numFalsePositives == 0:
-		print "Percent false positives total: " + str(float(numFalsePositives)/float(numArguments))
-		print "Percent false positives of array arguments: " + str(float(numFalsePositiveArrays)/float(numArrayArguments))
-		print "Percent false positives of all errors: " + str(float(numFalsePositives)/float(numWrongAnswers))
-		print "Number of false positives due to extra length parameter: " + str(numFalsePosDueToLength)
-		print "Percent false positives due to extra length parameter total: " + str(float(numFalsePosDueToLength)/float(numArguments))
-		print "Percent false positives due to extra length parameter of array arguments: " + str(float(numFalsePosDueToLengthArrays)/float(numArrayArguments))
-		print "Percent false positives due to extra length parameter of false positives: " + str(float(numFalsePosDueToLength)/float(numFalsePositives))
-	print "Number of functions with varargs found: " + str(numVarargs)
-	print "Percent of functions with varags found: " + str(float(numVarargs)/float(len(outputLibraryFunctions)))
-	print "Number of false negatives passed to varargs " + str(numFalseNegsPassedToVararg)
+	print "Total number of functions:", len(outputLibraryFunctions)
+	print "Total number of arguments:", numArguments
+	print "Total number of array arguments:", numArrayArguments
+	print "Total number of wrongly annotated functions:", len(wronglyAnnotatedFunctions)
+	print "Total percentage of wrongly annotated functions:", len(wronglyAnnotatedFunctions) / float(len(outputLibraryFunctions))
+	print "Number of wrong answers:", numWrongAnswers
+	print "Percent wrong answers total:", numWrongAnswers / float(numArguments)
+	print "Percent wrong answers in array arguments:", numWrongArrays / float(numArrayArguments)
+	print "Number of wrong answers due to IIGlue:", numWrongDueToIIGlue
+	print "Percent wrong answers due to IIGlue of all errors:", numWrongDueToIIGlue / float(numWrongAnswers)
+	print "Number of false positives:", numFalsePositives
+	print "Number of true positives:", numTruePositives
+	if numFalsePositives > 0:
+		print "Percent false positives total:", numFalsePositives / float(numArguments)
+		print "Percent false positives of array arguments:", numFalsePositiveArrays / float(numArrayArguments)
+		print "Percent false positives of all errors:", numFalsePositives / float(numWrongAnswers)
+		print "Number of false positives due to extra length parameter:", numFalsePosDueToLength
+		print "Percent false positives due to extra length parameter total:", numFalsePosDueToLength / float(numArguments)
+		print "Percent false positives due to extra length parameter of array arguments:", numFalsePosDueToLengthArrays / float(numArrayArguments)
+		print "Percent false positives due to extra length parameter of false positives:", numFalsePosDueToLength / float(numFalsePositives)
+	print "Number of functions with varargs found:", numVarargs
+	print "Percent of functions with varags found:", numVarargs / float(len(outputLibraryFunctions))
+	print "Number of false negatives passed to varargs:", numFalseNegsPassedToVararg
 	if '-v' in sys.argv:
-		print "False positives: " + falsePositives
-		print "False negatives: " + falseNegatives
-	output_data.close()
+		print "False positives:", "\n".join(falsePositives)
+		print "False negatives:", "\n".join(falseNegatives)
+
+# Local variables:
+# indent-tabs-mode: t
+# End:

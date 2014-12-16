@@ -1,3 +1,4 @@
+#include "Answer.hh"
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
 
@@ -8,19 +9,15 @@
 #include <boost/range/adaptor/filtered.hpp>
 #include <boost/range/adaptor/map.hpp>
 #include <boost/range/adaptor/transformed.hpp>
+#include <boost/range/combine.hpp>
 #include <boost/range/irange.hpp>
 #include <boost/range/iterator_range.hpp>
-
-#include <fstream>
-
 #include <llvm/IR/Function.h>
 #include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/InstIterator.h>
-
-#include <iostream>
 
 using namespace boost;
 using namespace boost::adaptors;
@@ -143,15 +140,15 @@ void NullAnnotator::populateFromFile(const string &filename, const Module &modul
 	ptree root;
 	read_json(filename, root);
 	const ptree &libraryFunctions = root.get_child("library_functions");
-	BOOST_FOREACH (const ptree::value_type& framePair, libraryFunctions) {
+	for (const auto &framePair : libraryFunctions) {
 		// find corresponding LLVM function object
-		const string name = framePair.second.get<string>("name");
+		const string &name = framePair.first;
 		const Function * const function = module.getFunction(name);
 		if (!function) {
 			errs() << "warning: found function " << name << " in iiglue results but not in bitcode\n";
 			continue;
 		}
-		auto iter = function->arg_begin();
+
 		const Function::ArgumentListType &arguments = function->getArgumentList();
 		const ptree &arg_annotations = framePair.second.get_child("argument_annotations");
 		if (arguments.size() != arg_annotations.size()) {
@@ -160,48 +157,55 @@ void NullAnnotator::populateFromFile(const string &filename, const Module &modul
 			       << " and the one found in the bitcode. Skipping.\n";
 			continue;
 		}
-		BOOST_FOREACH (const ptree::value_type &v, framePair.second.get_child("argument_annotations")) {
-			int annotation = v.second.get_value<int>();
-			annotations[&(*iter)] = (Answer) annotation;
-			iter++;
+		for (const auto &slot : boost::combine(arguments, arg_annotations)) {
+			const Argument &argument = slot.get<0>();
+			const Answer annotation = slot.get<1>().second.get_value<Answer>();
+			annotations[&argument] = annotation;
 		}
 	}
 }
 
 
+static const ptree emptyTree;
+static const string emptyString;
+
+
+static ptree &appendTree(ptree &parent, const ptree &child) {
+	return parent.push_back(make_pair(emptyString, child))->second;
+}
+
+
+template <typename Value>
+static void appendValue(ptree &array, const Value &value) {
+	appendTree(array, emptyTree).put(emptyString, value);
+}
+
+
 void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
-	ofstream file;
-	file.open(filename);
-	std::string type_str;
-	llvm::raw_string_ostream rso(type_str);
-	file << "{\"library_functions\":[";
-	string functions = "";
-	for (const Function &func : module) {
-		functions+= "{\n\"name\":\"" + func.getName().str() + "\",";
-		string argumentAnnotations = "";
-		string argumentArrayReceivers = "";
-		string argumentNames = "";
-		string argumentReasons = "";
-		for (const Argument &arg : func.getArgumentList()) {
-			int answer = getAnswer(arg);
-			argumentAnnotations += to_string(answer) + ",";
-			argumentArrayReceivers += to_string(iiglue.isArray(arg)) + ",";
-			argumentNames += "\"" + arg.getName().str() + "\",";
-			argumentReasons += "\"" + reasons.at(&arg) + "\",";
+	ptree libraryFunctions;
+	for (const Function &function : module) {
+		ptree argumentNames;
+		ptree argumentAnnotations;
+		ptree argumentArrayReceivers;
+		ptree argumentReasons;
+		for (const Argument &argument : function.getArgumentList()) {
+			appendValue(argumentNames, argument.getName().str());
+			appendValue(argumentAnnotations, getAnswer(argument));
+			appendValue(argumentArrayReceivers, iiglue.isArray(argument));
+			const auto reason = reasons.find(&argument);
+			appendValue(argumentReasons, reason == reasons.end() ? "" : reason->second);
 		}
-		argumentAnnotations = argumentAnnotations.substr(0, argumentAnnotations.length()-1);
-		argumentArrayReceivers = argumentArrayReceivers.substr(0, argumentArrayReceivers.length()-1);
-		argumentNames = argumentNames.substr(0, argumentNames.length()-1);
-		argumentReasons = argumentReasons.substr(0, argumentReasons.length()-1);
-		functions += "\n\t\"argument_names\":[" + argumentNames + "],"; 
-		functions +=  "\n\t\"argument_annotations\":[" + argumentAnnotations + "],"; 
-		functions +=  "\n\t\"args_array_receivers\":[" + argumentArrayReceivers + "],";
-		functions +=  "\n\t\"argument_reasons\":[" + argumentReasons + "]"; 
-		functions +=  "},";
+		ptree functionInfo;
+		functionInfo.put_child("argument_names", argumentNames);
+		functionInfo.put_child("argument_annotations", argumentAnnotations);
+		functionInfo.put_child("args_array_receivers", argumentArrayReceivers);
+		functionInfo.put_child("argument_reasons", argumentReasons);
+		libraryFunctions.put_child(function.getName().str(), functionInfo);
 	}
-	functions = functions.substr(0, functions.length()-1);
-	file << functions << "]}";
-	file.close();
+
+	ptree root;
+	root.put_child("library_functions", libraryFunctions);
+	write_json(filename, root);
 }
 
 
@@ -210,13 +214,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 		populateFromFile(dependency, module);
 	}
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
-	
-	for (const Function &func : module) {
-		for (const Argument &arg : func.getArgumentList()) {
-			reasons[&arg] = " ";
-		}
-	}
-	
+
 	// collect calls in each function for repeated scanning later
 	for (const Function &func : iiglue.arrayReceivers()) {
 		const auto instructions =
