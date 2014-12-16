@@ -335,8 +335,8 @@ void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
-			sink << func.getName() << " with argument " << arg.getArgNo() << " should " << (annotate(arg) ? "" : "not ");
-			sink << "be annotated NULL_TERMINATED (" << (getAnswer(arg)) << ").\n";
+			sink << func.getName() << " with argument " << arg.getArgNo() << " should " << (annotate(arg) ? "" : "not ")
+			     << "be annotated NULL_TERMINATED (" << (getAnswer(arg)) << ").\n";
 		}
 	}
 }
