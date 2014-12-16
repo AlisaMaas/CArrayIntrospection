@@ -279,7 +279,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 						auto parameter = formals;
 						advance(parameter, argNo);
 						
-						if (parameter == calledFunction->getArgumentList().end() || argNo != (*parameter).getArgNo()) {
+						if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
 							continue;
 						}
 						DEBUG(dbgs() << "About to enter the switch\n");
