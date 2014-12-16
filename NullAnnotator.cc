@@ -77,9 +77,21 @@ namespace {
 }
 
 
+static bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg) {
+	if (checks == nullptr)
+		return false;
+	return any_of(*checks | map_values,
+		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).second; });
+}
 
-bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg);
-bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg);
+
+static bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg) {
+	if (checks == nullptr)
+		return false;
+	return any_of(*checks | map_values,
+		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).first.empty(); });
+}
+
 
 inline NullAnnotator::NullAnnotator()
 	: ModulePass(ID) {
@@ -339,18 +351,4 @@ void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 			     << "be annotated NULL_TERMINATED (" << (getAnswer(arg)) << ").\n";
 		}
 	}
-}
-
-bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg) {
-	if (checks == nullptr)
-		return false;
-	return any_of(*checks | map_values,
-		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).second; });
-}
-
-bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg) {
-	if (checks == nullptr)
-		return false;
-	return any_of(*checks | map_values,
-		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).first.empty(); });
 }
