@@ -145,9 +145,9 @@ Answer NullAnnotator::getAnswer(const Argument &arg) const {
 
 void NullAnnotator::populateFromFile(const string &filename, const Module &module) {
 	ptree root;
-	json_parser::read_json(filename, root);
-	ptree &libraryFunctions = root.get_child("library_functions");
-	BOOST_FOREACH (ptree::value_type& framePair, libraryFunctions) {
+	read_json(filename, root);
+	const ptree &libraryFunctions = root.get_child("library_functions");
+	BOOST_FOREACH (const ptree::value_type& framePair, libraryFunctions) {
 		// find corresponding LLVM function object
 		const string name = framePair.second.get<string>("name");
 		const Function * const function = module.getFunction(name);
@@ -156,7 +156,7 @@ void NullAnnotator::populateFromFile(const string &filename, const Module &modul
 			continue;
 		}
 		auto iter = function->arg_begin();
-		BOOST_FOREACH (ptree::value_type &v, framePair.second.get_child("argument_annotations")) {
+		BOOST_FOREACH (const ptree::value_type &v, framePair.second.get_child("argument_annotations")) {
         	int annotation = v.second.get_value<int>();
         	if (iter == function->arg_end()) {
         		errs() << "Warning: Arity mismatch between function " << name << " in the .json file provided: " << filename;
