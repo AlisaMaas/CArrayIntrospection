@@ -28,11 +28,7 @@ using namespace boost::algorithm;
 using namespace boost::property_tree;
 using namespace llvm;
 using namespace std;
-enum Answer {
-	DONT_CARE,
-	NON_NULL_TERMINATED,
-	NULL_TERMINATED
-};
+
 
 namespace {
 	class NullAnnotator : public ModulePass {

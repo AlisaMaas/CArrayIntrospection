@@ -107,6 +107,7 @@ penv.AppendUnique(
     ), delete_existing=True)
 
 plugin, = penv.SharedLibrary('CArrayIntrospection', (
+    'Answer.cc',
     'IIGlueReader.cc',
     'FindSentinels.cc',
     'NullAnnotator.cc',
