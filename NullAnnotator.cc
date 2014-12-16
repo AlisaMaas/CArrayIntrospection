@@ -156,13 +156,16 @@ void NullAnnotator::populateFromFile(const string &filename, const Module &modul
 			continue;
 		}
 		auto iter = function->arg_begin();
+		const Function::ArgumentListType &arguments = function->getArgumentList();
+		const ptree &arg_annotations = framePair.second.get_child("argument_annotations");
+		if (arguments.size() != arg_annotations.size()) {
+			errs() << "Warning: Arity mismatch between function " << name
+			       << " in the .json file provided: " << filename
+			       << " and the one found in the bitcode. Skipping.\n";
+			continue;
+		}
 		BOOST_FOREACH (const ptree::value_type &v, framePair.second.get_child("argument_annotations")) {
 			int annotation = v.second.get_value<int>();
-			if (iter == function->arg_end()) {
-				errs() << "Warning: Arity mismatch between function " << name << " in the .json file provided: " << filename;
-				errs() << " and the one found in the bitcode. Skipping.\n";
-				continue;
-			}
 			annotations[&(*iter)] = (Answer) annotation;
 			iter++;
 		}
