@@ -58,6 +58,8 @@ namespace {
 		void dumpToFile(const string &filename, const IIGlueReader &, const Module &) const;
 		void populateFromFile(const string &filename, const Module &);
 	};
+
+
 	char NullAnnotator::ID;
 	static const RegisterPass<NullAnnotator> registration("null-annotator",
 		"Determine whether and how to annotate each function with the null-terminated annotation",
@@ -82,6 +84,7 @@ bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults *checks, cons
 inline NullAnnotator::NullAnnotator()
 	: ModulePass(ID) {
 }
+
 
 static const Argument *traversePHIs(const Value *pointer, const Argument *arg, unordered_set<const PHINode *> &foundSoFar) {
 	if (arg == pointer) {
@@ -121,10 +124,12 @@ void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	usage.addRequired<FindSentinels>();
 }
 
+
 Answer NullAnnotator::getAnswer(const Argument &arg) const {
 	const AnnotationMap::const_iterator found = annotations.find(&arg);
 	return found == annotations.end() ? DONT_CARE : found->second;
 }
+
 
 void NullAnnotator::populateFromFile(const string &filename, const Module &module) {
 	ptree root;
@@ -151,6 +156,7 @@ void NullAnnotator::populateFromFile(const string &filename, const Module &modul
         }
 	}
 }
+
 
 void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
 	ofstream file;
@@ -186,6 +192,8 @@ void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglu
 	file << functions << "]}";
 	file.close();
 }
+
+
 bool NullAnnotator::runOnModule(Module &module) {
 	for (const string &dependency : dependencyFileNames) {
 		populateFromFile(dependency, module);
