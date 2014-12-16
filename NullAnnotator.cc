@@ -12,6 +12,7 @@
 #include <boost/range/combine.hpp>
 #include <boost/range/irange.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <fstream>
 #include <llvm/IR/Function.h>
 #include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
@@ -159,53 +160,67 @@ void NullAnnotator::populateFromFile(const string &filename, const Module &modul
 		}
 		for (const auto &slot : boost::combine(arguments, arg_annotations)) {
 			const Argument &argument = slot.get<0>();
-			const Answer annotation = slot.get<1>().second.get_value<Answer>();
+			const Answer annotation = static_cast<Answer>(slot.get<1>().second.get_value<int>());
 			annotations[&argument] = annotation;
 		}
 	}
 }
 
 
-static const ptree emptyTree;
-static const string emptyString;
-
-
-static ptree &appendTree(ptree &parent, const ptree &child) {
-	return parent.push_back(make_pair(emptyString, child))->second;
-}
-
-
-template <typename Value>
-static void appendValue(ptree &array, const Value &value) {
-	appendTree(array, emptyTree).put(emptyString, value);
+template<typename Detail> static
+void dumpArgumentDetails(ostream &out, const Function::ArgumentListType &argumentList, const char key[], const Detail &detail) {
+	out << "\t\t\t\"" << key << "\": [";
+	for (const Argument &argument : argumentList) {
+		if (&argument != argumentList.begin())
+			out << ", ";
+		out << detail(argument);
+	}
+	out << ']';
 }
 
 
 void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
-	ptree libraryFunctions;
+	ofstream out(filename);
+	out << "{\n\t\"library_functions\": {\n";
 	for (const Function &function : module) {
-		ptree argumentNames;
-		ptree argumentAnnotations;
-		ptree argumentArrayReceivers;
-		ptree argumentReasons;
-		for (const Argument &argument : function.getArgumentList()) {
-			appendValue(argumentNames, argument.getName().str());
-			appendValue(argumentAnnotations, getAnswer(argument));
-			appendValue(argumentArrayReceivers, iiglue.isArray(argument));
-			const auto reason = reasons.find(&argument);
-			appendValue(argumentReasons, reason == reasons.end() ? "" : reason->second);
-		}
-		ptree functionInfo;
-		functionInfo.put_child("argument_names", argumentNames);
-		functionInfo.put_child("argument_annotations", argumentAnnotations);
-		functionInfo.put_child("args_array_receivers", argumentArrayReceivers);
-		functionInfo.put_child("argument_reasons", argumentReasons);
-		libraryFunctions.put_child(function.getName().str(), functionInfo);
-	}
 
-	ptree root;
-	root.put_child("library_functions", libraryFunctions);
-	write_json(filename, root);
+		if (&function != module.begin())
+			out << ",\n";
+
+		out << "\t\t\"" << function.getName().str() << "\": {\n";
+		const Function::ArgumentListType &argumentList = function.getArgumentList();
+
+		dumpArgumentDetails(out, argumentList, "argument_names",
+				    [](const Argument &arg) {
+					    return '\"' + arg.getName().str() + '\"';
+				    }
+			);
+		out << ",\n";
+
+		dumpArgumentDetails(out, argumentList, "argument_annotations",
+				    [&](const Argument &arg) {
+					    return getAnswer(arg);
+				    }
+			);
+		out << ",\n";
+
+		dumpArgumentDetails(out, argumentList, "args_array_receivers",
+				    [&](const Argument &arg) {
+					    return iiglue.isArray(arg);
+				    }
+			);
+		out << ",\n";
+
+		dumpArgumentDetails(out, argumentList, "argument_reasons",
+				    [&](const Argument &arg) {
+					    const auto reason = reasons.find(&arg);
+					    return '\"' + (reason == reasons.end() ? "" : reason->second) + '\"';
+				    }
+			);
+
+		out << "\n\t\t}";
+	}
+	out << "\n\t}\n}\n";
 }
 
 
