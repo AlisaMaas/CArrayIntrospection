@@ -279,9 +279,8 @@ bool NullAnnotator::runOnModule(Module &module) {
 						}
 						DEBUG(dbgs() << "Name of arg: " << parameterArg->getName() << "\n");
 						DEBUG(dbgs() << "hey, it matches!\n");
-						auto parameter = formals;
-						advance(parameter, argNo);
-						
+
+						auto parameter = next(formals, argNo);
 						if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
 							continue;
 						}
