@@ -1,3 +1,4 @@
+#include "BacktrackPhiNodes.hh"
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
 #include "PatternMatch-extras.hh"
@@ -16,40 +17,33 @@ using namespace llvm;
 using namespace llvm::PatternMatch;
 using namespace std;
 
-static const Argument *traversePHIs(const Value *pointer, unordered_set<const PHINode*> &foundSoFar) {
-	if (const Argument * const arg = dyn_cast<Argument>(pointer)) {
-		return arg;
-	} else if (const PHINode * const node = dyn_cast<PHINode>(pointer)) {
-		if (!foundSoFar.insert(node).second) return nullptr;
-		const Argument *formalArg = nullptr;
-		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
-			const Value * const v = node->getIncomingValue(i);
-			if (const Argument * const arg = dyn_cast<Argument>(v)) {
-				if (formalArg) {
-					return nullptr;
-				} else {
-					formalArg = arg;
-				}
-			} else if (isa<PHINode>(v)) {
-				// !!!: We have done two dynamic checks for PHINode at this point.  It seems we should need just one.
-				if (const Argument * const ret = traversePHIs(v, foundSoFar)) {
-					if (formalArg) {
-						return nullptr;
-					} else {
-						formalArg = ret;
-					}
-				}
-			}
-		}
-		return formalArg;
-	}
-	return nullptr;
+
+////////////////////////////////////////////////////////////////////////
+//
+//  collect the set of all arguments that may flow to a given value
+//  across zero or more phi nodes
+//
+
+namespace {
+	typedef std::unordered_set<const llvm::Argument *> ArgumentSet;
+
+	class ArgumentsReachingValue : public BacktrackPhiNodes {
+	public:
+		void visit(const Argument &) override;
+		ArgumentSet result;
+	};
 }
 
 
-static const Argument *traversePHIs(const Value *pointer) {
-	unordered_set<const PHINode *> foundSoFar;
-	return traversePHIs(pointer, foundSoFar);
+void ArgumentsReachingValue::visit(const Argument &reached) {
+	result.insert(&reached);
+}
+
+
+static ArgumentSet argumentsReachingValue(const Value &start) {
+	ArgumentsReachingValue explorer;
+	explorer.backtrack(start);
+	return std::move(explorer.result);
 }
 
 
@@ -200,11 +194,16 @@ bool FindSentinels::runOnModule(Module &module) {
 							),
 							trueBlock,
 							falseBlock))) {
-					const Argument * const formalArg = traversePHIs(pointer);
+					const ArgumentSet reaching = argumentsReachingValue(*pointer);
+					if (reaching.empty()) continue;
 
-					if (formalArg == nullptr || !iiglue.isArray(*formalArg)) {
-						continue;
-					}
+					// Two or more is possible,
+					// but we don't handle it yet.
+					assert(reaching.size() == 1);
+					const Argument &formalArg = **reaching.begin();
+
+					if (!iiglue.isArray(formalArg)) continue;
+
 					// check that we actually leave the loop when sentinel is found
 					const BasicBlock *sentinelDestination;
 					switch (predicate) {
@@ -222,10 +221,10 @@ bool FindSentinels::runOnModule(Module &module) {
 						continue;
 					}
 					// all tests pass; this is a possible sentinel check!
-					DEBUG(dbgs() << "found possible sentinel check of %" << formalArg->getName() << "[%" << slot->getName() << "]\n"
+					DEBUG(dbgs() << "found possible sentinel check of %" << formalArg.getName() << "[%" << slot->getName() << "]\n"
 					      << "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
 					// mark this block as one of the sentinel checks this loop.
-					sentinelChecks[formalArg].first.insert(exitingBlock);
+					sentinelChecks[&formalArg].first.insert(exitingBlock);
 					auto induction(loop->getCanonicalInductionVariable());
 					if (induction)
 						DEBUG(dbgs() << "  loop has canonical induction variable %" << induction->getName() << '\n');

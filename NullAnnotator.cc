@@ -1,4 +1,5 @@
 #include "Answer.hh"
+#include "BacktrackPhiNodes.hh"
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
 
@@ -87,33 +88,51 @@ static bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults *check
 }
 
 
+////////////////////////////////////////////////////////////////////////
+//
+//  test whether a specific argument may flow into a specific value
+//  across zero or more phi nodes
+//
+
+namespace {
+	class ArgumentReachesValue : public BacktrackPhiNodes {
+	public:
+		ArgumentReachesValue(const Argument &);
+		void visit(const Argument &) override;
+
+	private:
+		const Argument &goal;
+	};
+}
+
+
+inline ArgumentReachesValue::ArgumentReachesValue(const Argument &goal)
+	: goal(goal) {
+}
+
+
+void ArgumentReachesValue::visit(const Argument &reached) {
+	if (&reached == &goal)
+		throw this;
+}
+
+
+static bool argumentReachesValue(const Argument &goal, const Value &start) {
+	ArgumentReachesValue explorer(goal);
+	try {
+		explorer.backtrack(start);
+	} catch (const ArgumentReachesValue *) {
+		return true;
+	}
+	return false;
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+
 inline NullAnnotator::NullAnnotator()
 	: ModulePass(ID) {
-}
-
-
-static const Argument *traversePHIs(const Value *pointer, const Argument *arg, unordered_set<const PHINode *> &foundSoFar) {
-	if (arg == pointer) {
-		return arg;
-	} else if (const PHINode * const node = dyn_cast<PHINode>(pointer)) {
-		if (!foundSoFar.insert(node).second) return nullptr;
-		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
-			const Value * const v = node->getIncomingValue(i);
-			if (arg == v) return arg;
-			else if (isa<PHINode>(v)) {
-				// !!!: We have done two dynamic checks for PHINode at this point.  It seems we should need just one.
-				if (const Argument * const ret = traversePHIs(v, arg, foundSoFar))
-					return ret;
-			}
-		}
-	}
-	return nullptr;
-}
-
-
-static const Argument *traversePHIs(const Value *pointer, const Argument *arg) {
-	unordered_set<const PHINode *> foundSoFar;
-	return traversePHIs(pointer, arg, foundSoFar);
 }
 
 
@@ -281,12 +300,9 @@ bool NullAnnotator::runOnModule(Module &module) {
 					DEBUG(dbgs() << "Got formals\n");
 					for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
 						DEBUG(dbgs() << "Starting iteration\n");
-						const Value * const v = call.getArgOperand(argNo);
-						const Argument * const parameterArg = traversePHIs(v, &arg);
-						if (parameterArg == nullptr) {
-								continue;
-						}
-						DEBUG(dbgs() << "Name of arg: " << parameterArg->getName() << "\n");
+						const Value &actual = *call.getArgOperand(argNo);
+						if (!argumentReachesValue(arg, actual)) continue;
+						DEBUG(dbgs() << "Name of arg: " << arg.getName() << "\n");
 						DEBUG(dbgs() << "hey, it matches!\n");
 
 						auto parameter = next(formals, argNo);
