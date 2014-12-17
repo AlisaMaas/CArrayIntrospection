@@ -111,24 +111,25 @@ if __name__ == '__main__':
 	print "Total number of arguments:", numArguments
 	print "Total number of array arguments:", numArrayArguments
 	print "Total number of wrongly annotated functions:", len(wronglyAnnotatedFunctions)
-	print "Total percentage of wrongly annotated functions:", len(wronglyAnnotatedFunctions) / float(len(outputLibraryFunctions))
+	print "Total percentage of wrongly annotated functions: %.1f%%" % (100. * len(wronglyAnnotatedFunctions) / len(outputLibraryFunctions))
 	print "Number of wrong answers:", numWrongAnswers
-	print "Percent wrong answers total:", numWrongAnswers / float(numArguments)
-	print "Percent wrong answers in array arguments:", numWrongArrays / float(numArrayArguments)
+	print "Percent wrong answers total: %.1f%%" % (100. * numWrongAnswers / numArguments)
+	print "Percent wrong answers in array arguments: %.1f%%" % (100. * numWrongArrays / numArrayArguments)
 	print "Number of wrong answers due to IIGlue:", numWrongDueToIIGlue
-	print "Percent wrong answers due to IIGlue of all errors:", numWrongDueToIIGlue / float(numWrongAnswers)
+	if numWrongAnswers:
+		print "Percent wrong answers due to IIGlue of all errors: %.1f%%" % (100. * numWrongDueToIIGlue / numWrongAnswers)
 	print "Number of false positives:", numFalsePositives
 	print "Number of true positives:", numTruePositives
 	if numFalsePositives > 0:
-		print "Percent false positives total:", numFalsePositives / float(numArguments)
-		print "Percent false positives of array arguments:", numFalsePositiveArrays / float(numArrayArguments)
-		print "Percent false positives of all errors:", numFalsePositives / float(numWrongAnswers)
+		print "Percent false positives total: %.1f%%" % (100. * numFalsePositives / numArguments)
+		print "Percent false positives of array arguments: %.1f%%" % (100. * numFalsePositiveArrays / numArrayArguments)
+		print "Percent false positives of all errors: %.1f%%" % (100. * numFalsePositives / numWrongAnswers)
 		print "Number of false positives due to extra length parameter:", numFalsePosDueToLength
-		print "Percent false positives due to extra length parameter total:", numFalsePosDueToLength / float(numArguments)
-		print "Percent false positives due to extra length parameter of array arguments:", numFalsePosDueToLengthArrays / float(numArrayArguments)
-		print "Percent false positives due to extra length parameter of false positives:", numFalsePosDueToLength / float(numFalsePositives)
+		print "Percent false positives due to extra length parameter total: %.1f%%" % (100. * numFalsePosDueToLength / numArguments)
+		print "Percent false positives due to extra length parameter of array arguments: %.1f%%" % (100. * numFalsePosDueToLengthArrays / numArrayArguments)
+		print "Percent false positives due to extra length parameter of false positives: %.1f%%" % (100. * numFalsePosDueToLength / numFalsePositives)
 	print "Number of functions with varargs found:", numVarargs
-	print "Percent of functions with varags found:", numVarargs / float(len(outputLibraryFunctions))
+	print "Percent of functions with varags found: %.1f%%" % (100. * numVarargs / len(outputLibraryFunctions))
 	print "Number of false negatives passed to varargs:", numFalseNegsPassedToVararg
 	if '-v' in sys.argv:
 		print "False positives:", "\n".join(falsePositives)
