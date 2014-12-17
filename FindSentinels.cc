@@ -21,26 +21,21 @@ static const Argument *traversePHIs(const Value *pointer, unordered_set<const PH
 		return arg;
 	} else if (const PHINode * const node = dyn_cast<PHINode>(pointer)) {
 		if (!foundSoFar.insert(node).second) return nullptr;
-		// !!! Is foundArgument always identical to (formalArg != nullptr) ?
-		bool foundArgument = false;
 		const Argument *formalArg = nullptr;
 		for (const unsigned i : irange(0u, node->getNumIncomingValues())) {
 			const Value * const v = node->getIncomingValue(i);
 			if (const Argument * const arg = dyn_cast<Argument>(v)) {
-				if (foundArgument) {
-					// !!!: Is formalArg always null already at this point?
-					formalArg = nullptr;
+				if (formalArg) {
+					return nullptr;
 				} else {
-					foundArgument = true;
 					formalArg = arg;
 				}
 			} else if (isa<PHINode>(v)) {
 				// !!!: We have done two dynamic checks for PHINode at this point.  It seems we should need just one.
 				if (const Argument * const ret = traversePHIs(v, foundSoFar)) {
-					if (foundArgument) {
-						formalArg = nullptr;
+					if (formalArg) {
+						return nullptr;
 					} else {
-						foundArgument = true;
 						formalArg = ret;
 					}
 				}
