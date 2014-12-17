@@ -200,38 +200,38 @@ bool FindSentinels::runOnModule(Module &module) {
 							),
 							trueBlock,
 							falseBlock))) {
-						const Argument * const formalArg = traversePHIs(pointer);
+					const Argument * const formalArg = traversePHIs(pointer);
 
-						if (formalArg == nullptr || !iiglue.isArray(*formalArg)) {
-							continue;
-						}
-						// check that we actually leave the loop when sentinel is found
-						const BasicBlock *sentinelDestination;
-						switch (predicate) {
-						case CmpInst::ICMP_EQ:
-							sentinelDestination = trueBlock;
-							break;
-						case CmpInst::ICMP_NE:
-							sentinelDestination = falseBlock;
-							break;
-						default:
-							continue;
-						}
-						if (loop->contains(sentinelDestination)) {
-							DEBUG(dbgs() << "dest still in loop!\n");
-							continue;
-						}
-						// all tests pass; this is a possible sentinel check!
-						DEBUG(dbgs() << "found possible sentinel check of %" << formalArg->getName() << "[%" << slot->getName() << "]\n"
-								<< "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
-						// mark this block as one of the sentinel checks this loop.
-						sentinelChecks[formalArg].first.insert(exitingBlock);
-						auto induction(loop->getCanonicalInductionVariable());
-						if (induction)
-							DEBUG(dbgs() << "  loop has canonical induction variable %" << induction->getName() << '\n');
-						else
-							DEBUG(dbgs() << "  loop has no canonical induction variable\n");
+					if (formalArg == nullptr || !iiglue.isArray(*formalArg)) {
+						continue;
 					}
+					// check that we actually leave the loop when sentinel is found
+					const BasicBlock *sentinelDestination;
+					switch (predicate) {
+					case CmpInst::ICMP_EQ:
+						sentinelDestination = trueBlock;
+						break;
+					case CmpInst::ICMP_NE:
+						sentinelDestination = falseBlock;
+						break;
+					default:
+						continue;
+					}
+					if (loop->contains(sentinelDestination)) {
+						DEBUG(dbgs() << "dest still in loop!\n");
+						continue;
+					}
+					// all tests pass; this is a possible sentinel check!
+					DEBUG(dbgs() << "found possible sentinel check of %" << formalArg->getName() << "[%" << slot->getName() << "]\n"
+					      << "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
+					// mark this block as one of the sentinel checks this loop.
+					sentinelChecks[formalArg].first.insert(exitingBlock);
+					auto induction(loop->getCanonicalInductionVariable());
+					if (induction)
+						DEBUG(dbgs() << "  loop has canonical induction variable %" << induction->getName() << '\n');
+					else
+						DEBUG(dbgs() << "  loop has no canonical induction variable\n");
+				}
 				}
 				if (sentinelChecks.empty()) {
 					for (const Argument &arg : iiglue.arrayArguments(func)) {
