@@ -1,881 +1,881 @@
-{"library_functions":[{
-"name":"add_search_dir",
+{"library_functions":{
+"add_search_dir":{
 	"argument_names":["path"],
 	"argument_annotations":[2],
 	"args_array_receivers":[0],
-	"argument_reasons":["Called g_strdup, marked as null terminated in this position"]},{
-"name":"g_slist_append",
+	"argument_reasons":["Called g_strdup, marked as null terminated in this position"]},
+"g_slist_append":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"g_strdup",
+	"argument_reasons":["",""]},
+"g_strdup":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[1],
-	"argument_reasons":[" "]},{
-"name":"add_search_dirs",
+	"argument_reasons":[""]},
+"add_search_dirs":{
 	"argument_names":["path","separator"],
 	"argument_annotations":[2,2],
 	"args_array_receivers":[0,0],
-	"argument_reasons":["Called g_strsplit, marked as null terminated in this position","Called g_strsplit, marked as null terminated in this position"]},{
-"name":"g_strsplit",
+	"argument_reasons":["Called g_strsplit, marked as null terminated in this position","Called g_strsplit, marked as null terminated in this position"]},
+"g_strsplit":{
 	"argument_names":["","",""],
 	"argument_annotations":[2,2,0],
 	"args_array_receivers":[-1,-1,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"g_strfreev",
+	"argument_reasons":["","",""]},
+"g_strfreev":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"name_ends_in_uninstalled",
+	"argument_reasons":[""]},
+"name_ends_in_uninstalled":{
 	"argument_names":["str"],
 	"argument_annotations":[2],
 	"args_array_receivers":[1],
-	"argument_reasons":["Called strlen, marked as null terminated in this position"]},{
-"name":"strlen",
+	"argument_reasons":["Called strlen, marked as null terminated in this position"]},
+"strlen":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"strcmp",
+	"argument_reasons":[""]},
+"strcmp":{
 	"argument_names":["",""],
 	"argument_annotations":[2,2],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"package_init",
+	"argument_reasons":["",""]},
+"package_init":{
 	"argument_names":[],
 	"argument_annotations":[],
 	"args_array_receivers":[],
-	"argument_reasons":[]},{
-"name":"g_hash_table_new",
+	"argument_reasons":[]},
+"g_hash_table_new":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"g_str_hash",
+	"argument_reasons":["",""]},
+"g_str_hash":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_str_equal",
+	"argument_reasons":[""]},
+"g_str_equal":{
 	"argument_names":["",""],
 	"argument_annotations":[2,2],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"g_slist_foreach",
+	"argument_reasons":["",""]},
+"g_slist_foreach":{
 	"argument_names":["","",""],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":[" "," "," "]},{
-"name":"scan_dir",
+	"argument_reasons":["","",""]},
+"scan_dir":{
 	"argument_names":["dirname"],
 	"argument_annotations":[2],
 	"args_array_receivers":[0],
-	"argument_reasons":["Called g_strdup, marked as null terminated in this position"]},{
-"name":"get_package",
+	"argument_reasons":["Called g_strdup, marked as null terminated in this position"]},
+"get_package":{
 	"argument_names":["name"],
 	"argument_annotations":[2],
 	"args_array_receivers":[1],
-	"argument_reasons":["Called internal_get_package, marked as null terminated in this position"]},{
-"name":"internal_get_package",
+	"argument_reasons":["Called internal_get_package, marked as null terminated in this position"]},
+"internal_get_package":{
 	"argument_names":["name","warn"],
 	"argument_annotations":[2,0],
 	"args_array_receivers":[0,0],
-	"argument_reasons":["Called g_strndup, marked as null terminated in this position"," "]},{
-"name":"get_package_quiet",
+	"argument_reasons":["Called g_strndup, marked as null terminated in this position",""]},
+"get_package_quiet":{
 	"argument_names":["name"],
 	"argument_annotations":[2],
 	"args_array_receivers":[1],
-	"argument_reasons":["Called internal_get_package, marked as null terminated in this position"]},{
-"name":"package_get_l_libs",
+	"argument_reasons":["Called internal_get_package, marked as null terminated in this position"]},
+"package_get_l_libs":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"packages_get_l_libs",
+	"argument_reasons":[""]},
+"packages_get_l_libs":{
 	"argument_names":["pkgs"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"package_get_L_libs",
+	"argument_reasons":[""]},
+"package_get_L_libs":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"get_merged",
+	"argument_reasons":[""]},
+"get_merged":{
 	"argument_names":["pkg","func","include_private"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"get_L_libs",
+	"argument_reasons":["","",""]},
+"get_L_libs":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"packages_get_L_libs",
+	"argument_reasons":[""]},
+"packages_get_L_libs":{
 	"argument_names":["pkgs"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"get_multi_merged",
+	"argument_reasons":[""]},
+"get_multi_merged":{
 	"argument_names":["pkgs","func","include_private"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"package_get_other_libs",
+	"argument_reasons":["","",""]},
+"package_get_other_libs":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"get_other_libs",
+	"argument_reasons":[""]},
+"get_other_libs":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"packages_get_other_libs",
+	"argument_reasons":[""]},
+"packages_get_other_libs":{
 	"argument_names":["pkgs"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"packages_get_all_libs",
+	"argument_reasons":[""]},
+"packages_get_all_libs":{
 	"argument_names":["pkgs"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"g_string_new",
+	"argument_reasons":[""]},
+"g_string_new":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_string_append",
+	"argument_reasons":[""]},
+"g_string_append":{
 	"argument_names":["",""],
 	"argument_annotations":[0,2],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"g_free",
+	"argument_reasons":["",""]},
+"g_free":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_string_free",
+	"argument_reasons":[""]},
+"g_string_free":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"package_get_I_cflags",
+	"argument_reasons":["",""]},
+"package_get_I_cflags":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"get_I_cflags",
+	"argument_reasons":[""]},
+"get_I_cflags":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"packages_get_I_cflags",
+	"argument_reasons":[""]},
+"packages_get_I_cflags":{
 	"argument_names":["pkgs"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"package_get_other_cflags",
+	"argument_reasons":[""]},
+"package_get_other_cflags":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"get_other_cflags",
+	"argument_reasons":[""]},
+"get_other_cflags":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"packages_get_other_cflags",
+	"argument_reasons":[""]},
+"packages_get_other_cflags":{
 	"argument_names":["pkgs"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"package_get_cflags",
+	"argument_reasons":[""]},
+"package_get_cflags":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"g_assertion_message",
+	"argument_reasons":[""]},
+"g_assertion_message":{
 	"argument_names":["","","","",""],
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[-1,-1,-1,-1,-1],
-	"argument_reasons":[" "," "," "," "," "]},{
-"name":"packages_get_all_cflags",
+	"argument_reasons":["","","","",""]},
+"packages_get_all_cflags":{
 	"argument_names":["pkgs"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"define_global_variable",
+	"argument_reasons":[""]},
+"define_global_variable":{
 	"argument_names":["varname","varval"],
 	"argument_annotations":[2,2],
 	"args_array_receivers":[0,0],
-	"argument_reasons":["Called g_strdup, marked as null terminated in this position","Called g_strdup, marked as null terminated in this position"]},{
-"name":"g_hash_table_lookup",
+	"argument_reasons":["Called g_strdup, marked as null terminated in this position","Called g_strdup, marked as null terminated in this position"]},
+"g_hash_table_lookup":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"exit",
+	"argument_reasons":["",""]},
+"exit":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_hash_table_insert",
+	"argument_reasons":[""]},
+"g_hash_table_insert":{
 	"argument_names":["","",""],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":[" "," "," "]},{
-"name":"package_get_var",
+	"argument_reasons":["","",""]},
+"package_get_var":{
 	"argument_names":["pkg","var"],
 	"argument_annotations":[0,2],
 	"args_array_receivers":[0,1],
-	"argument_reasons":[" ","Called strcmp, marked as null terminated in this position"]},{
-"name":"packages_get_var",
+	"argument_reasons":["","Called strcmp, marked as null terminated in this position"]},
+"packages_get_var":{
 	"argument_names":["pkgs","varname"],
 	"argument_annotations":[0,2],
 	"args_array_receivers":[0,1],
-	"argument_reasons":[" ","Called package_get_var, marked as null terminated in this position"]},{
-"name":"compare_versions",
+	"argument_reasons":["","Called package_get_var, marked as null terminated in this position"]},
+"compare_versions":{
 	"argument_names":["a","b"],
 	"argument_annotations":[2,2],
 	"args_array_receivers":[1,1],
-	"argument_reasons":["Called rpmvercmp, marked as null terminated in this position","Called rpmvercmp, marked as null terminated in this position"]},{
-"name":"rpmvercmp",
+	"argument_reasons":["Called rpmvercmp, marked as null terminated in this position","Called rpmvercmp, marked as null terminated in this position"]},
+"rpmvercmp":{
 	"argument_names":["a","b"],
 	"argument_annotations":[2,2],
 	"args_array_receivers":[0,0],
-	"argument_reasons":["Called strcpy, marked as null terminated in this position","Called strcmp, marked as null terminated in this position"]},{
-"name":"version_test",
+	"argument_reasons":["Called strcpy, marked as null terminated in this position","Called strcmp, marked as null terminated in this position"]},
+"version_test":{
 	"argument_names":["comparison","a","b"],
 	"argument_annotations":[0,2,2],
 	"args_array_receivers":[0,1,1],
-	"argument_reasons":[" ","Called rpmvercmp, marked as null terminated in this position","Called rpmvercmp, marked as null terminated in this position"]},{
-"name":"comparison_to_str",
+	"argument_reasons":["","Called rpmvercmp, marked as null terminated in this position","Called rpmvercmp, marked as null terminated in this position"]},
+"comparison_to_str":{
 	"argument_names":["comparison"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"print_package_list",
+	"argument_reasons":[""]},
+"print_package_list":{
 	"argument_names":[],
 	"argument_annotations":[],
 	"args_array_receivers":[],
-	"argument_reasons":[]},{
-"name":"g_hash_table_foreach",
+	"argument_reasons":[]},
+"g_hash_table_foreach":{
 	"argument_names":["","",""],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"max_len_foreach",
+	"argument_reasons":["","",""]},
+"max_len_foreach":{
 	"argument_names":["key","value","data"],
 	"argument_annotations":[2,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":["Called strlen, marked as null terminated in this position"," "," "]},{
-"name":"packages_foreach",
+	"argument_reasons":["Called strlen, marked as null terminated in this position","",""]},
+"packages_foreach":{
 	"argument_names":["key","value","data"],
 	"argument_annotations":[2,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":["Called internal_get_package, marked as null terminated in this position"," "," "]},{
-"name":"enable_private_libs",
+	"argument_reasons":["Called internal_get_package, marked as null terminated in this position","",""]},
+"enable_private_libs":{
 	"argument_names":[],
 	"argument_annotations":[],
 	"args_array_receivers":[],
-	"argument_reasons":[]},{
-"name":"disable_private_libs",
+	"argument_reasons":[]},
+"disable_private_libs":{
 	"argument_names":[],
 	"argument_annotations":[],
 	"args_array_receivers":[],
-	"argument_reasons":[]},{
-"name":"enable_requires",
+	"argument_reasons":[]},
+"enable_requires":{
 	"argument_names":[],
 	"argument_annotations":[],
 	"args_array_receivers":[],
-	"argument_reasons":[]},{
-"name":"disable_requires",
+	"argument_reasons":[]},
+"disable_requires":{
 	"argument_names":[],
 	"argument_annotations":[],
 	"args_array_receivers":[],
-	"argument_reasons":[]},{
-"name":"enable_requires_private",
+	"argument_reasons":[]},
+"enable_requires_private":{
 	"argument_names":[],
 	"argument_annotations":[],
 	"args_array_receivers":[],
-	"argument_reasons":[]},{
-"name":"disable_requires_private",
+	"argument_reasons":[]},
+"disable_requires_private":{
 	"argument_names":[],
 	"argument_annotations":[],
 	"args_array_receivers":[],
-	"argument_reasons":[]},{
-"name":"g_strnfill",
+	"argument_reasons":[]},
+"g_strnfill":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"printf",
+	"argument_reasons":["",""]},
+"printf":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"strcpy",
+	"argument_reasons":[""]},
+"strcpy":{
 	"argument_names":["",""],
 	"argument_annotations":[2,2],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"__ctype_b_loc",
+	"argument_reasons":["",""]},
+"__ctype_b_loc":{
 	"argument_names":[],
 	"argument_annotations":[],
 	"args_array_receivers":[],
-	"argument_reasons":[]},{
-"name":"g_string_insert_c",
+	"argument_reasons":[]},
+"g_string_insert_c":{
 	"argument_names":["","",""],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":[" "," "," "]},{
-"name":"string_list_strip_duplicates",
+	"argument_reasons":["","",""]},
+"string_list_strip_duplicates":{
 	"argument_names":["list"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"g_slist_free",
+	"argument_reasons":[""]},
+"g_slist_free":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"string_list_to_string",
+	"argument_reasons":[""]},
+"string_list_to_string":{
 	"argument_names":["list"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"g_slist_prepend",
+	"argument_reasons":[""]},
+"g_slist_prepend":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"g_slist_reverse",
+	"argument_reasons":["",""]},
+"g_slist_reverse":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_hash_table_destroy",
+	"argument_reasons":[""]},
+"g_hash_table_destroy":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"recursive_fill_list",
+	"argument_reasons":[""]},
+"recursive_fill_list":{
 	"argument_names":["pkg","func","listp"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"get_requires_private",
+	"argument_reasons":["","",""]},
+"get_requires_private":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"get_requires",
+	"argument_reasons":[""]},
+"get_requires":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"g_slist_copy",
+	"argument_reasons":[""]},
+"g_slist_copy":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"g_slist_concat",
+	"argument_reasons":[""]},
+"g_slist_concat":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[0,0],
-	"argument_reasons":[" "," "]},{
-"name":"g_slist_sort",
+	"argument_reasons":["",""]},
+"g_slist_sort":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[0,0],
-	"argument_reasons":[" "," "]},{
-"name":"pathposcmp",
+	"argument_reasons":["",""]},
+"pathposcmp":{
 	"argument_names":["a","b"],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[0,0],
-	"argument_reasons":[" "," "]},{
-"name":"string_list_strip_duplicates_from_back",
+	"argument_reasons":["",""]},
+"string_list_strip_duplicates_from_back":{
 	"argument_names":["list"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"g_strconcat",
+	"argument_reasons":[""]},
+"g_strconcat":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"strstr",
+	"argument_reasons":[""]},
+"strstr":{
 	"argument_names":["",""],
 	"argument_annotations":[2,2],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"g_assertion_message_expr",
+	"argument_reasons":["",""]},
+"g_assertion_message_expr":{
 	"argument_names":["","","","",""],
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[-1,-1,-1,-1,-1],
-	"argument_reasons":[" "," "," "," "," "]},{
-"name":"g_strndup",
+	"argument_reasons":["","","","",""]},
+"g_strndup":{
 	"argument_names":["",""],
 	"argument_annotations":[2,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"g_getenv",
+	"argument_reasons":["",""]},
+"g_getenv":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"strncmp",
+	"argument_reasons":[""]},
+"strncmp":{
 	"argument_names":["","",""],
 	"argument_annotations":[2,2,1],
 	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":[" "," "," "]},{
-"name":"g_slist_remove",
+	"argument_reasons":["","",""]},
+"g_slist_remove":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"opendir",
+	"argument_reasons":["",""]},
+"opendir":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_strerror",
+	"argument_reasons":[""]},
+"g_strerror":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"__errno_location",
+	"argument_reasons":[""]},
+"__errno_location":{
 	"argument_names":[],
 	"argument_annotations":[],
 	"args_array_receivers":[],
-	"argument_reasons":[]},{
-"name":"readdir",
+	"argument_reasons":[]},
+"readdir":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_malloc",
+	"argument_reasons":[""]},
+"g_malloc":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"strncpy",
+	"argument_reasons":[""]},
+"strncpy":{
 	"argument_names":["","",""],
 	"argument_annotations":[0,2,1],
 	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":[" "," "," "]},{
-"name":"g_file_test",
+	"argument_reasons":["","",""]},
+"g_file_test":{
 	"argument_names":["",""],
 	"argument_annotations":[2,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"closedir",
+	"argument_reasons":["",""]},
+"closedir":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_malloc0_n",
+	"argument_reasons":[""]},
+"g_malloc0_n":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"fwrite",
+	"argument_reasons":["",""]},
+"fwrite":{
 	"argument_names":["","","",""],
 	"argument_annotations":[0,0,0,0],
 	"args_array_receivers":[-1,-1,-1,-1],
-	"argument_reasons":[" "," "," "," "]},{
-"name":"llvm.lifetime.start",
+	"argument_reasons":["","","",""]},
+"llvm.lifetime.start":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"llvm.lifetime.end",
+	"argument_reasons":["",""]},
+"llvm.lifetime.end":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"parse_module_list",
+	"argument_reasons":["",""]},
+"parse_module_list":{
 	"argument_names":["pkg","str","path"], 
 	"argument_annotations":[0,2,2],
 	"args_array_receivers":[0,1,0],
-	"argument_reasons":[" ","Found a non-optional sentinel check in some loop of this function."," "]},{
-"name":"parse_package_file",
+	"argument_reasons":["","Found a non-optional sentinel check in some loop of this function.",""]},
+"parse_package_file":{
 	"argument_names":["path","ignore_requires","ignore_private_libs","ignore_requires_private"],
 	"argument_annotations":[2,0,0,0],
 	"args_array_receivers":[1,0,0,0],
-	"argument_reasons":["Called g_path_get_dirname, marked as null terminated in this position"," "," "," "]},{
-"name":"fopen",
+	"argument_reasons":["Called g_path_get_dirname, marked as null terminated in this position","","",""]},
+"fopen":{
 	"argument_names":["",""],
 	"argument_annotations":[2,2],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"strerror",
+	"argument_reasons":["",""]},
+"strerror":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_path_get_dirname",
+	"argument_reasons":[""]},
+"g_path_get_dirname":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_string_truncate",
+	"argument_reasons":[""]},
+"g_string_truncate":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"fclose",
+	"argument_reasons":["",""]},
+"fclose":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"trim_string",
+	"argument_reasons":[""]},
+"trim_string":{
 	"argument_names":["str"],
 	"argument_annotations":[2],
 	"args_array_receivers":[0],
-	"argument_reasons":["Found a non-optional sentinel check in some loop of this function."]},{
-"name":"trim_and_sub",
+	"argument_reasons":["Found a non-optional sentinel check in some loop of this function."]},
+"trim_and_sub":{
 	"argument_names":["pkg","str","path"], 
 	"argument_annotations":[0,2,2],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" ","Called trim_string, marked as null terminated in this position"," "]},{
-"name":"strdup_escape_shell",
+	"argument_reasons":["","Called trim_string, marked as null terminated in this position",""]},
+"strdup_escape_shell":{
 	"argument_names":["s"],
 	"argument_annotations":[2],
 	"args_array_receivers":[0],
-	"argument_reasons":["Found a non-optional sentinel check in some loop of this function."]},{
-"name":"g_realloc",
+	"argument_reasons":["Found a non-optional sentinel check in some loop of this function."]},
+"g_realloc":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"_do_parse_libs",
+	"argument_reasons":["",""]},
+"_do_parse_libs":{
 	"argument_names":["pkg","argc","argv"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"g_return_if_fail_warning",
+	"argument_reasons":["","",""]},
+"g_return_if_fail_warning":{
 	"argument_names":["","",""],
 	"argument_annotations":[2,0,0],
 	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":[" "," "," "]},{
-"name":"_IO_getc",
+	"argument_reasons":["","",""]},
+"_IO_getc":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"ungetc",
+	"argument_reasons":[""]},
+"ungetc":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[0,0],
-	"argument_reasons":[" "," "]},{
-"name":"debug_spew",
+	"argument_reasons":["",""]},
+"debug_spew":{
 	"argument_names":["format"],
 	"argument_annotations":[2],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"llvm.va_start",
+	"argument_reasons":[""]},
+"llvm.va_start":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_strdup_vprintf",
+	"argument_reasons":[""]},
+"g_strdup_vprintf":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"llvm.va_end",
+	"argument_reasons":["",""]},
+"llvm.va_end":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"fputs",
+	"argument_reasons":[""]},
+"fputs":{
 	"argument_names":["",""],
 	"argument_annotations":[2,1],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"fflush",
+	"argument_reasons":["",""]},
+"fflush":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"verbose_error", 
+	"argument_reasons":[""]},
+"verbose_error":{ 
 	"argument_names":["format"],
 	"argument_annotations":[2],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"print_hashtable_key", 
+	"argument_reasons":[""]},
+"print_hashtable_key":{ 
 	"argument_names":["key","value","user_data"],
 	"argument_annotations":[2,0,0],
 	"args_array_receivers":[1,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"main",
+	"argument_reasons":["","",""]},
+"main":{
 	"argument_names":["argc","argv"],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[0,0],
-	"argument_reasons":[" "," "]},{
-"name":"popt_callback",
+	"argument_reasons":["",""]},
+"popt_callback":{
 	"argument_names":["con","reason","opt","arg","data"],
 	"argument_annotations":[0,0,0,2,0],
 	"args_array_receivers":[0,0,0,0,0],
-	"argument_reasons":[" "," "," ","Called g_strdup, marked as null terminated in this position"," "]},{
-"name":"llvm.memcpy.p0i8.p0i8.i64",
+	"argument_reasons":["","","","Called g_strdup, marked as null terminated in this position",""]},
+"llvm.memcpy.p0i8.p0i8.i64":{
 	"argument_names":["","","","",""],
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[-1,-1,-1,-1,-1],
-	"argument_reasons":[" "," "," "," "," "]},{
-"name":"getenv",
+	"argument_reasons":["","","","",""]},
+"getenv":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"fprintf",
+	"argument_reasons":[""]},
+"fprintf":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"g_strchomp",
+	"argument_reasons":["",""]},
+"g_strchomp":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"g_strchug",
+	"argument_reasons":[""]},
+"g_strchug":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"pkg_uninstalled",
+	"argument_reasons":[""]},
+"pkg_uninstalled":{
 	"argument_names":["pkg"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"g_slist_find",
+	"argument_reasons":[""]},
+"g_slist_find":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"puts",
+	"argument_reasons":["",""]},
+"puts":{
 	"argument_names":[""],
 	"argument_annotations":[2],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"putchar",
+	"argument_reasons":[""]},
+"putchar":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"fputc",
+	"argument_reasons":[""]},
+"fputc":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[0,0],
-	"argument_reasons":[" "," "]},{
-"name":"poptSetExecPath", 
+	"argument_reasons":["",""]},
+"poptSetExecPath":{ 
 	"argument_names":["con","path","allowAbsolute"],
 	"argument_annotations":[0,2,0],
 	"args_array_receivers":[0,1,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"free",
+	"argument_reasons":["","",""]},
+"free":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"__strdup",
+	"argument_reasons":[""]},
+"__strdup":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"poptGetContext",
+	"argument_reasons":[""]},
+"poptGetContext":{
 	"argument_names":["name","argc","argv","options","flags"],
 	"argument_annotations":[2,0,0,0,0],
 	"args_array_receivers":[1,0,0,0,0],
-	"argument_reasons":["Called strlen, marked as null terminated in this position"," "," "," "," "]},{
-"name":"malloc",
+	"argument_reasons":["Called strlen, marked as null terminated in this position","","","",""]},
+"malloc":{
 	"argument_names":[""],
 	"argument_annotations":[0],
 	"args_array_receivers":[-1],
-	"argument_reasons":[" "]},{
-"name":"llvm.memset.p0i8.i64",
+	"argument_reasons":[""]},
+"llvm.memset.p0i8.i64":{
 	"argument_names":["","","","",""],
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[-1,-1,-1,-1,-1],
-	"argument_reasons":[" "," "," "," "," "]},{
-"name":"invokeCallbacks",
+	"argument_reasons":["","","","",""]},
+"invokeCallbacks":{
 	"argument_names":["con","table","post"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"poptResetContext",
+	"argument_reasons":["","",""]},
+"poptResetContext":{
 	"argument_names":["con"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"poptGetNextOpt",
+	"argument_reasons":[""]},
+"poptGetNextOpt":{
 	"argument_names":["con"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"execCommand",
+	"argument_reasons":[""]},
+"execCommand":{
 	"argument_names":["con"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"handleAlias",
+	"argument_reasons":[""]},
+"handleAlias":{
 	"argument_names":["con","longName","shortName","nextCharArg"],
 	"argument_annotations":[0,2,0,0],
 	"args_array_receivers":[0,0,0,0],
-	"argument_reasons":[" ","Called strcmp, marked as null terminated in this position"," "," "]},{
-"name":"handleExec",
+	"argument_reasons":["","Called strcmp, marked as null terminated in this position","",""]},
+"handleExec":{
 	"argument_names":["con","longName","shortName"],
 	"argument_annotations":[0,2,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" ","Called strcmp, marked as null terminated in this position"," "]},{
-"name":"findOption",
+	"argument_reasons":["","Called strcmp, marked as null terminated in this position",""]},
+"findOption":{
 	"argument_names":["table","longName","shortName","callback","callbackData","singleDash"],
 	"argument_annotations":[0,2,0,0,0,0],
 	"args_array_receivers":[0,0,0,0,0,0],
-	"argument_reasons":[" ","Called strcmp, marked as null terminated in this position"," "," "," "," "]},{
-"name":"strtol",
+	"argument_reasons":["","Called strcmp, marked as null terminated in this position","","","",""]},
+"strtol":{
 	"argument_names":["","",""],
 	"argument_annotations":[2,0,1],
 	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":[" "," "," "]},{
-"name":"realloc",
+	"argument_reasons":["","",""]},
+"realloc":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"sprintf",
+	"argument_reasons":["",""]},
+"sprintf":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"poptGetOptArg",
+	"argument_reasons":["",""]},
+"poptGetOptArg":{
 	"argument_names":["con"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"poptGetArg",
+	"argument_reasons":[""]},
+"poptGetArg":{
 	"argument_names":["con"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"poptPeekArg",
+	"argument_reasons":[""]},
+"poptPeekArg":{
 	"argument_names":["con"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"poptGetArgs",
+	"argument_reasons":[""]},
+"poptGetArgs":{
 	"argument_names":["con"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"poptFreeContext",
+	"argument_reasons":[""]},
+"poptFreeContext":{
 	"argument_names":["con"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"poptAddAlias",
+	"argument_reasons":[""]},
+"poptAddAlias":{
 	"argument_names":["con","newAlias","flags"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"poptBadOption",
+	"argument_reasons":["","",""]},
+"poptBadOption":{
 	"argument_names":["con","flags"],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[0,0],
-	"argument_reasons":[" "," "]},{
-"name":"poptStrerror",
+	"argument_reasons":["",""]},
+"poptStrerror":{
 	"argument_names":["error"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"poptStuffArgs",
+	"argument_reasons":[""]},
+"poptStuffArgs":{
 	"argument_names":["con","argv"],
 	"argument_annotations":[0,2],
 	"args_array_receivers":[0,0],
-	"argument_reasons":[" ","Found a non-optional sentinel check in some loop of this function."]},{
-"name":"poptGetInvocationName",
+	"argument_reasons":["","Found a non-optional sentinel check in some loop of this function."]},
+"poptGetInvocationName":{
 	"argument_names":["con"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"strchr",
+	"argument_reasons":[""]},
+"strchr":{
 	"argument_names":["",""],
 	"argument_annotations":[2,1],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"execvp",
+	"argument_reasons":["",""]},
+"execvp":{
 	"argument_names":["",""],
 	"argument_annotations":[2,2],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"displayArgs",
+	"argument_reasons":["",""]},
+"displayArgs":{
 	"argument_names":["con","foo","key","arg","data"],
 	"argument_annotations":[0,0,0,0,0],
 	"args_array_receivers":[0,0,0,0,0],
-	"argument_reasons":[" "," "," "," "," "]},{
-"name":"poptPrintHelp",
+	"argument_reasons":["","","","",""]},
+"poptPrintHelp":{
 	"argument_names":["con","f","flags"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"maxArgWidth",
+	"argument_reasons":["","",""]},
+"maxArgWidth":{
 	"argument_names":["opt"],
 	"argument_annotations":[0],
 	"args_array_receivers":[0],
-	"argument_reasons":[" "]},{
-"name":"singleTableHelp",
+	"argument_reasons":[""]},
+"singleTableHelp":{
 	"argument_names":["f","table","left"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"singleTableUsage",
+	"argument_reasons":["","",""]},
+"singleTableUsage":{
 	"argument_names":["f","cursor","table"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"poptPrintUsage",
+	"argument_reasons":["","",""]},
+"poptPrintUsage":{
 	"argument_names":["con","f","flags"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"showShortOptions",
+	"argument_reasons":["","",""]},
+"showShortOptions":{
 	"argument_names":["opt","f","str"],
 	"argument_annotations":[0,0,2],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," ","Called strlen, marked as null terminated in this position"]},{
-"name":"poptSetOtherOptionHelp",
+	"argument_reasons":["","","Called strlen, marked as null terminated in this position"]},
+"poptSetOtherOptionHelp":{
 	"argument_names":["con","text"],
 	"argument_annotations":[0,2],
 	"args_array_receivers":[0,0],
-	"argument_reasons":[" "," "]},{
-"name":"singleOptionHelp",
+	"argument_reasons":["",""]},
+"singleOptionHelp":{
 	"argument_names":["f","maxLeftCol","opt"],
 	"argument_annotations":[0,0,0],
 	"args_array_receivers":[0,0,0],
-	"argument_reasons":[" "," "," "]},{
-"name":"strcat",
+	"argument_reasons":["","",""]},
+"strcat":{
 	"argument_names":["",""],
 	"argument_annotations":[0,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]},{
-"name":"poptParseArgvString",
+	"argument_reasons":["",""]},
+"poptParseArgvString":{
 	"argument_names":["s","argcPtr","argvPtr"],
 	"argument_annotations":[2,0,0],
 	"args_array_receivers":[1,0,0],
-	"argument_reasons":["Found a non-optional sentinel check in some loop of this function."," "," "]},{
-"name":"findProgramPath",
+	"argument_reasons":["Found a non-optional sentinel check in some loop of this function.","",""]},
+"findProgramPath":{
 	"argument_names":["argv0"],
 	"argument_annotations":[2],
 	"args_array_receivers":[1],
-	"argument_reasons":["Called strlen, marked as null terminated in this position"]},{
-"name":"access",
+	"argument_reasons":["Called strlen, marked as null terminated in this position"]},
+"access":{
 	"argument_names":["",""],
 	"argument_annotations":[2,0],
 	"args_array_receivers":[-1,-1],
-	"argument_reasons":[" "," "]}]}
+	"argument_reasons":["",""]}}}
