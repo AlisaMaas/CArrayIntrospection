@@ -18,7 +18,7 @@ if __name__ == '__main__':
 	outputLibraryFunctions = output['library_functions']
 	answerLibraryFunctions = answers['library_functions']
 	assert outputLibraryFunctions.keys() == answerLibraryFunctions.keys()
-	functionNames = outputLibraryFunctions()
+	functionNames = outputLibraryFunctions.keys()
 	numWrongAnswers = 0
 	numWrongDueToIIGlue = 0
 	numFalsePositives = 0
@@ -35,7 +35,6 @@ if __name__ == '__main__':
 	numTruePositives = 0
 	wronglyAnnotatedFunctions = set()
 	for functionName in functionNames:
-	for outputFunc, answerFunc in izip(outputLibraryFunctions, answerLibraryFunctions):
 		outputFunc = outputLibraryFunctions[functionName]
 		answerFunc = answerLibraryFunctions[functionName]
 		outputAnnotations = outputFunc['argument_annotations']
