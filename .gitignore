@@ -6,3 +6,4 @@
 .scons-options
 .sconsign.dblite
 config.log
+output.json

@@ -1,0 +1,4 @@
+Printing analysis 'Read iiglue analysis results and add them as metadata on corresponding LLVM entities':
+	array arguments:
+		peek::0
+		variadic::0
