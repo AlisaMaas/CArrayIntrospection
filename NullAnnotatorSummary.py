@@ -17,7 +17,15 @@ if __name__ == '__main__':
 	answers = json.load(answer_data)
 	outputLibraryFunctions = output['library_functions']
 	answerLibraryFunctions = answers['library_functions']
-	assert outputLibraryFunctions.keys() == answerLibraryFunctions.keys()
+
+	outputKeySet = set(outputLibraryFunctions.keys())
+	answerKeySet = set(answerLibraryFunctions.keys())
+	for key in outputKeySet - answerKeySet:
+		print 'output key not among answer keys:', key
+	for key in answerKeySet - outputKeySet:
+		print 'answer key not among output keys:', key
+	assert outputKeySet == answerKeySet
+		
 	functionNames = outputLibraryFunctions.keys()
 	numWrongAnswers = 0
 	numWrongDueToIIGlue = 0
