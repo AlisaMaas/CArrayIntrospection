@@ -19,7 +19,12 @@
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
+
+#if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) >= 3005
+#include <llvm/IR/InstIterator.h>
+#else  // LLVM 3.4 or earlier
 #include <llvm/Support/InstIterator.h>
+#endif	// LLVM 3.4 or earlier
 
 using namespace boost;
 using namespace boost::adaptors;
