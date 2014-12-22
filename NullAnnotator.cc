@@ -40,9 +40,9 @@ namespace {
 		// standard LLVM pass interface
 		NullAnnotator();
 		static char ID;
-		void getAnalysisUsage(AnalysisUsage &) const final;
-		bool runOnModule(Module &) override final;
-		void print(raw_ostream &, const Module *) const;
+		void getAnalysisUsage(AnalysisUsage &) const final override;
+		bool runOnModule(Module &) final override;
+		void print(raw_ostream &, const Module *) const final override;
 
 		// access to analysis results derived by this pass
 		bool annotate(const Argument &) const;

@@ -20,9 +20,9 @@ public:
 	// standard LLVM pass interface
 	FindSentinels();
 	static char ID;
-	void getAnalysisUsage(llvm::AnalysisUsage &) const final;
-	bool runOnModule(llvm::Module &) override final;
-	void print(llvm::raw_ostream &, const llvm::Module *) const;
+	void getAnalysisUsage(llvm::AnalysisUsage &) const final override;
+	bool runOnModule(llvm::Module &) final override;
+	void print(llvm::raw_ostream &, const llvm::Module *) const final override;
 
 	// access to analysis results derived by this pass
 	typedef std::unordered_map<const llvm::BasicBlock *, ArgumentToBlockSet> FunctionResults;
