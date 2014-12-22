@@ -79,12 +79,12 @@ inline bool IIGlueReader::isArray(const llvm::Argument &argument) const {
 
 inline IIGlueReader::ArrayArgumentsRange IIGlueReader::arrayArguments(const llvm::Function &function) const {
 	return { IsArray(*this), function.getArgumentList() };
-};
+}
 
 
 inline IIGlueReader::ArrayReceiversRange IIGlueReader::arrayReceivers() const {
 	return atLeastOneArrayArg | boost::adaptors::indirected;
-};
+}
 
 
 #endif // !INCLUDE_IIGLUE_READER_HH
