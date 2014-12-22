@@ -6,6 +6,10 @@ using namespace boost;
 using namespace llvm;
 
 
+BacktrackPhiNodes::~BacktrackPhiNodes() {
+}
+
+
 void BacktrackPhiNodes::backtrack(const Value &value) {
 	if (const Argument * const argument = dyn_cast<Argument>(&value))
 		visit(*argument);
