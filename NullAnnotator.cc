@@ -103,7 +103,7 @@ namespace {
 	class ArgumentReachesValue : public BacktrackPhiNodes {
 	public:
 		ArgumentReachesValue(const Argument &);
-		void visit(const Argument &) override;
+		void visit(const Argument &) final override;
 
 	private:
 		const Argument &goal;

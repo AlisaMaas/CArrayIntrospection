@@ -29,7 +29,7 @@ namespace {
 
 	class ArgumentsReachingValue : public BacktrackPhiNodes {
 	public:
-		void visit(const Argument &) override;
+		void visit(const Argument &) final override;
 		ArgumentSet result;
 	};
 }
