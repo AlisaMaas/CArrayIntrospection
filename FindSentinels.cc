@@ -7,7 +7,7 @@
 #include <boost/range/adaptor/indirected.hpp>
 #include <boost/range/adaptor/transformed.hpp>
 #include <boost/range/irange.hpp>
-#include <llvm/Analysis/LoopPass.h>
+#include <llvm/Analysis/LoopInfo.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/Debug.h>
 
