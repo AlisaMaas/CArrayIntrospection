@@ -25,7 +25,7 @@ protected:
 	virtual ~BacktrackPhiNodes();
 
 private:
-	std::unordered_set<const llvm::PHINode *> alreadySeen;
+	std::unordered_set<const llvm::Value *> alreadySeen;
 };
 
 
