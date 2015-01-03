@@ -19,7 +19,12 @@
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
+
+#if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) >= 3005
+#include <llvm/IR/InstIterator.h>
+#else  // LLVM 3.4 or earlier
 #include <llvm/Support/InstIterator.h>
+#endif	// LLVM 3.4 or earlier
 
 using namespace boost;
 using namespace boost::adaptors;
@@ -35,9 +40,9 @@ namespace {
 		// standard LLVM pass interface
 		NullAnnotator();
 		static char ID;
-		void getAnalysisUsage(AnalysisUsage &) const final;
-		bool runOnModule(Module &) override final;
-		void print(raw_ostream &, const Module *) const;
+		void getAnalysisUsage(AnalysisUsage &) const final override;
+		bool runOnModule(Module &) final override;
+		void print(raw_ostream &, const Module *) const final override;
 
 		// access to analysis results derived by this pass
 		bool annotate(const Argument &) const;
@@ -98,7 +103,7 @@ namespace {
 	class ArgumentReachesValue : public BacktrackPhiNodes {
 	public:
 		ArgumentReachesValue(const Argument &);
-		void visit(const Argument &) override;
+		void visit(const Argument &) final override;
 
 	private:
 		const Argument &goal;
