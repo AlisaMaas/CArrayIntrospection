@@ -1,0 +1,10 @@
+Printing analysis 'Promote Memory to Register' for function 'foo':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array':
+Analyzing function: foo
+	We found: 1 loops
+	Examining s in loop for.cond
+		There are 1 sentinel checks of this argument in this loop
+			We cannot bypass all sentinel checks for this argument in this loop.
+		Sentinel checks: 
+			for.cond

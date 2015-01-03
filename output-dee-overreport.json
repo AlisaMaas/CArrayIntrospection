@@ -1,0 +1,3996 @@
+ {"library_functions":{
+"dee_analyzer_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_once_init_enter":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_type_register_static_simple":{
+	"argument_names":["","","","","","",""],
+	"argument_annotations":[0,2,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1],
+	"argument_reasons":["","","","","","",""]},
+"g_intern_static_string":{
+	"argument_names":[""],
+	"argument_annotations":[2],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_analyzer_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_analyzer_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_once_init_leave":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"_dee_analyzer_term_filter_free":{
+	"argument_names":["filter"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_slice_free1":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"_dee_analyzer_term_filter_new":{
+	"argument_names":["filter_func","data","destroy"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_slice_alloc":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_analyzer_analyze":{
+	"argument_names":["self","data","terms_out","colkeys_out"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_type_check_instance_is_a":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_return_if_fail_warning":{
+	"argument_names":["","",""],
+	"argument_annotations":[2,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_analyzer_tokenize":{
+	"argument_names":["self","data","terms_out"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_analyzer_add_term_filter":{
+	"argument_names":["self","filter_func","filter_data","filter_destroy"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_analyzer_collate_key":{
+	"argument_names":["self","data"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_analyzer_collate_cmp":{
+	"argument_names":["self","key1","key2"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_analyzer_collate_cmp_func":{
+	"argument_names":["key1","key2","analyzer"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_analyzer_new":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_object_new":{
+	"argument_names":["",""],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_type_instance_get_private":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_type_class_peek_parent":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_type_check_class_cast":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_analyzer_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_analyzer_get_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_analyzer_set_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_analyzer_analyze_real":{
+	"argument_names":["self","data","terms_out","colkeys_out"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_analyzer_tokenize_real":{
+	"argument_names":["self","data","terms_out"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_analyzer_add_term_filter_real":{
+	"argument_names":["self","filter_func","filter_data","filter_destroy"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_analyzer_collate_key_real":{
+	"argument_names":["self","data"],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["","Called g_strdup, marked as null terminated in this position"]},
+"dee_analyzer_collate_cmp_real":{
+	"argument_names":["self","key1","key2"],
+	"argument_annotations":[0,2,2],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","Called strcmp, marked as null terminated in this position","Called strcmp, marked as null terminated in this position"]},
+"g_type_class_add_private":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"strcmp":{
+	"argument_names":["",""],
+	"argument_annotations":[2,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_strdup":{
+	"argument_names":[""],
+	"argument_annotations":[2],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_slist_append":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_free":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_object_unref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_log":{
+	"argument_names":["","",""],
+	"argument_annotations":[2,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_type_name":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_type_check_instance_cast":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_slist_free_full":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_file_resource_manager_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_file_resource_manager_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_file_resource_manager_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_file_resource_manager_resource_manager_iface_init":{
+	"argument_names":["iface"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_type_add_interface_static":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_file_resource_manager_new":{
+	"argument_names":["primary_path"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_file_resource_manager_add_search_path":{
+	"argument_names":["self","path"],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["","Called g_strdup, marked as null terminated in this position"]},
+"dee_file_resource_manager_get_primary_path":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_file_resource_manager_store":{
+	"argument_names":["self","resource","resource_name","error"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_file_resource_manager_load":{
+	"argument_names":["self","resource_name","error"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_build_filename":{
+	"argument_names":[""],
+	"argument_annotations":[2],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_file_error_quark":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_propagate_error":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_mapped_file_new":{
+	"argument_names":["","",""],
+	"argument_annotations":[2,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_mapped_file_get_contents":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_mapped_file_get_length":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_new_from_data":{
+	"argument_names":["","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"g_variant_type_checked_":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_mapped_file_unref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_get_size":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_malloc":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_store":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_file_set_contents":{
+	"argument_names":["","","",""],
+	"argument_annotations":[2,2,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_error_free":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_mkdir_with_parents":{
+	"argument_names":["",""],
+	"argument_annotations":[2,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_unref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_hash_table_new_full":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_direct_hash":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_direct_equal":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_file_resource_manager_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_file_resource_manager_get_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_file_resource_manager_set_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_param_spec_string":{
+	"argument_names":["","","","",""],
+	"argument_annotations":[2,2,2,2,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"g_object_class_install_property":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_value_dup_string":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_get_user_data_dir":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_value_set_string":{
+	"argument_names":["",""],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_hash_table_unref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"llvm.lifetime.start":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"llvm.lifetime.end":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_filter_model_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_model_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_model_model_iface_init":{
+	"argument_names":["iface"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_model_new":{
+	"argument_names":["orig_model","filter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_contains":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_hash_table_lookup":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_append_iter":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_sequence_append":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_hash_table_insert":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_signal_emit_by_name":{
+	"argument_names":["",""],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_prepend_iter":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_sequence_prepend":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_insert_iter":{
+	"argument_names":["self","iter","pos"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_filter_model_insert_iter_before":{
+	"argument_names":["self","iter","pos"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_sequence_insert_before":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_insert_iter_with_original_order":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_set_schema_full":{
+	"argument_names":["self","schema","n_columns"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_filter_model_get_n_rows":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_model_prepend_row":{
+	"argument_names":["self","row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_append_row":{
+	"argument_names":["self","row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_insert_row_before":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_filter_model_find_row_sorted":{
+	"argument_names":["self","row_spec","cmp_func","user_data","out_was_found"],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"dee_filter_model_remove":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_get_first_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_model_get_iter_at_row":{
+	"argument_names":["self","row"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_next":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_prev":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_is_first":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_filter_model_get_position":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_sequence_iter_get_position":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_model_is_empty":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_get_begin_iter":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_get":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_get_end_iter":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_iter_prev":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_iter_next":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_iter_is_end":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_get_iter_at_pos":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_hash_table_remove":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_sequence_remove":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_search":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"_dispatch_cmp_func":{
+	"argument_names":["iter","row_spec","data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_sequence_iter_is_begin":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_hash_table_size":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_hash_table_new":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_sequence_new":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_model_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_model_constructed":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_model_get_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_filter_model_set_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_param_spec_pointer":{
+	"argument_names":["","","",""],
+	"argument_annotations":[2,2,2,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_malloc0_n":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_value_get_pointer":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"llvm.memcpy.p0i8.p0i8.i64":{
+	"argument_names":["","","","",""],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"g_value_set_pointer":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_object_get":{
+	"argument_names":["",""],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_signal_connect_data":{
+	"argument_names":["","","","","",""],
+	"argument_annotations":[0,2,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"on_orig_model_row_added":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"on_orig_model_row_removed":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"on_orig_model_row_changed":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_hash_table_destroy":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_free":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_signal_handler_disconnect":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"llvm.memset.p0i8.i64":{
+	"argument_names":["","","","",""],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"dee_filter_notify":{
+	"argument_names":["filter","orig_iter","orig_model","filter_model"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_filter_map":{
+	"argument_names":["filter","orig_model","filter_model"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_filter_destroy":{
+	"argument_names":["filter"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_new":{
+	"argument_names":["map_func","map_notify","userdata","destroy","out_filter"],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"dee_filter_new_sort":{
+	"argument_names":["cmp_row","cmp_user_data","cmp_destroy","out_filter"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"_dee_filter_sort_map_func":{
+	"argument_names":["orig_model","filter_model","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"_dee_filter_sort_map_notify":{
+	"argument_names":["orig_model","orig_iter","filter_model","user_data"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"sort_filter_free":{
+	"argument_names":["filter"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_new_collator":{
+	"argument_names":["column","out_filter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"_cmp_collate_asc":{
+	"argument_names":["row1","row2","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_filter_new_collator_desc":{
+	"argument_names":["column","out_filter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"_cmp_collate_desc":{
+	"argument_names":["row1","row2","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_filter_new_for_key_column":{
+	"argument_names":["column","key","out_filter"],
+	"argument_annotations":[0,2,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","Called g_strdup, marked as null terminated in this position",""]},
+"_dee_filter_key_map_func":{
+	"argument_names":["orig_model","filter_model","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"_dee_filter_key_map_notify":{
+	"argument_names":["orig_model","orig_iter","filter_model","user_data"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"key_filter_free":{
+	"argument_names":["filter"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_new_for_any_column":{
+	"argument_names":["column","value","out_filter"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_variant_ref_sink":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"_dee_filter_value_map_func":{
+	"argument_names":["orig_model","filter_model","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"_dee_filter_value_map_notify":{
+	"argument_names":["orig_model","orig_iter","filter_model","user_data"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"value_filter_free":{
+	"argument_names":["filter"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_filter_new_regex":{
+	"argument_names":["column","regex","out_filter"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_regex_ref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"_dee_filter_regex_map_func":{
+	"argument_names":["orig_model","filter_model","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"_dee_filter_regex_map_notify":{
+	"argument_names":["orig_model","orig_iter","filter_model","user_data"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"regex_filter_free":{
+	"argument_names":["filter"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_regex_unref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_regex_match":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,2,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_variant_equal":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_strcmp0":{
+	"argument_names":["",""],
+	"argument_annotations":[2,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_utf8_collate":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_get_string":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_glist_result_set_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_glist_result_set_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_glist_result_set_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_glist_result_set_result_set_iface_init":{
+	"argument_names":["iface"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_glist_result_set_new":{
+	"argument_names":["rows","model","row_owner"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_object_ref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_glist_result_set_get_n_rows":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_glist_result_set_next":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_glist_result_set_has_next":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_glist_result_set_peek":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_glist_result_set_seek":{
+	"argument_names":["self","pos"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_glist_result_set_tell":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_glist_result_set_get_model":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_list_nth":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_list_length":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_glist_result_set_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_hash_index_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_hash_index_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_hash_index_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_hash_index_new":{
+	"argument_names":["model","analyzer","reader"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_str_hash":{
+	"argument_names":[""],
+	"argument_annotations":[2],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_str_equal":{
+	"argument_names":["",""],
+	"argument_annotations":[2,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_ptr_array_unref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_hash_index_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_hash_index_constructed":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_hash_index_lookup":{
+	"argument_names":["self","term","flags"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_hash_index_foreach":{
+	"argument_names":["self","start_term","func","userdata"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_hash_index_get_n_terms":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_hash_index_get_n_rows":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_hash_index_get_n_rows_for_term":{
+	"argument_names":["self","term"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_hash_index_get_supported_term_match_flags":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_hash_table_get_keys":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"on_row_added":{
+	"argument_names":["self","iter","model"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"on_row_removed":{
+	"argument_names":["self","iter","model"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"on_row_changed":{
+	"argument_names":["self","iter","model"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_ptr_array_sized_new":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_ptr_array_add":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_index_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_index_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_index_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_index_lookup":{
+	"argument_names":["self","term","flags"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_index_lookup_one":{
+	"argument_names":["self","term"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_index_foreach":{
+	"argument_names":["self","start_term","func","userdata"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_index_get_model":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_index_get_analyzer":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_index_get_reader":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_index_get_n_terms":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_index_get_n_rows":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_index_get_n_rows_for_term":{
+	"argument_names":["self","term"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_index_get_supported_term_match_flags":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_index_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_index_get_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_index_set_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_param_spec_object":{
+	"argument_names":["","","","",""],
+	"argument_annotations":[2,2,2,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"g_value_dup_object":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_value_set_object":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_model_default_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_type_interface_add_prerequisite":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_set_schema":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"llvm.va_start":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"llvm.va_end":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_model_set_schema_full":{
+	"argument_names":["self","column_schemas","num_columns"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_schema":{
+	"argument_names":["self","num_columns"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_type_interface_peek":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_get_column_schema":{
+	"argument_names":["self","column"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_get_n_columns":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_model_get_n_rows":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_model_build_row":{
+	"argument_names":["self","out_row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_build_row_valist":{
+	"argument_names":["self","out_row_members","args"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_append":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_model_append_row":{
+	"argument_names":["self","row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_prepend":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_model_prepend_row":{
+	"argument_names":["self","row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_insert":{
+	"argument_names":["self","pos"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_insert_row":{
+	"argument_names":["self","pos","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_insert_before":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_insert_row_before":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_insert_row_sorted":{
+	"argument_names":["self","row_members","cmp_func","user_data"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_model_insert_sorted":{
+	"argument_names":["self","cmp_func","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_find_row_sorted":{
+	"argument_names":["self","row_spec","cmp_func","user_data","out_was_found"],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"dee_model_find_sorted":{
+	"argument_names":["self","cmp_func","user_data","out_was_found"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_model_remove":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_clear":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_model_set":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_set_value":{
+	"argument_names":["self","iter","column","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_model_set_row":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_get_row":{
+	"argument_names":["self","iter","out_row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_value":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_bool":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_uchar":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_int32":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_uint32":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_int64":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_uint64":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_double":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_string":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_get_first_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_model_get_last_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_model_get_iter_at_row":{
+	"argument_names":["self","row"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_next":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_prev":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_is_first":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_is_last":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_get_position":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_register_tag":{
+	"argument_names":["self","tag_destroy"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_model_get_tag":{
+	"argument_names":["self","iter","tag"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_set_tag":{
+	"argument_names":["self","iter","tag","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_model_clear_tag":{
+	"argument_names":["self","iter","tag"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_variant_get_type":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_type_is_basic":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_type_equal":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_get":{
+	"argument_names":["",""],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_new":{
+	"argument_names":[""],
+	"argument_annotations":[2],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_new_va":{
+	"argument_names":["","",""],
+	"argument_annotations":[2,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_variant_type_string_is_valid":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_slist_prepend":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_slist_reverse":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_slist_free":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_strfreev":{
+	"argument_names":[""],
+	"argument_annotations":[2],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_signal_new":{
+	"argument_names":["","","","","","","","",""],
+	"argument_annotations":[2,0,0,0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1,1,1],
+	"argument_reasons":["","","","","","","","",""]},
+"g_cclosure_marshal_VOID__POINTER":{
+	"argument_names":["","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"dee_model_reader_read":{
+	"argument_names":["self","model","iter"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_reader_destroy":{
+	"argument_names":["reader"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_model_reader_new":{
+	"argument_names":["reader_func","userdata","destroy","out_reader"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_model_reader_new_for_string_column":{
+	"argument_names":["column","out_reader"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"_string_reader_func":{
+	"argument_names":["model","iter","userdata"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_reader_new_for_int32_column":{
+	"argument_names":["column","out_reader"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"_int32_reader_func":{
+	"argument_names":["model","iter","userdata"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_model_reader_new_for_uint32_column":{
+	"argument_names":["column","out_reader"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"_uint32_reader_func":{
+	"argument_names":["model","iter","userdata"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_strdup_printf":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"_dee_marshal_VOID__BOXED_BOXED_BOXED":{
+	"argument_names":["closure","return_value","n_param_values","param_values","invocation_hint","marshal_data"],
+	"argument_annotations":[0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"g_value_peek_pointer":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"_dee_marshal_VOID__BOXED_BOXED":{
+	"argument_names":["closure","return_value","n_param_values","param_values","invocation_hint","marshal_data"],
+	"argument_annotations":[0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"_dee_marshal_VOID__UINT64_UINT64":{
+	"argument_names":["closure","return_value","n_param_values","param_values","invocation_hint","marshal_data"],
+	"argument_annotations":[0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"_dee_marshal_VOID__STRING_STRING":{
+	"argument_names":["closure","return_value","n_param_values","param_values","invocation_hint","marshal_data"],
+	"argument_annotations":[0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"dee_peer_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_peer_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_init":{
+	"argument_names":["peer"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_new":{
+	"argument_names":["swarm_name"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_is_swarm_leader":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_get_swarm_leader":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_get_swarm_name":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_get_connections":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_list_peers":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_mutex_new":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_peer_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_set_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_peer_get_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_peer_constructed":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_real_get_swarm_leader":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_real_is_swarm_leader":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_real_get_connections":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_peer_real_list_peers":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_cclosure_marshal_VOID__STRING":{
+	"argument_names":["","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"g_cclosure_marshal_VOID__OBJECT":{
+	"argument_names":["","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"g_dbus_connection_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_mutex_lock":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_malloc_n":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_hash_table_iter_init":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_hash_table_iter_next":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_mutex_unlock":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_object_add_weak_pointer":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_bus_own_name":{
+	"argument_names":["","","","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1,1],
+	"argument_reasons":["","","","","","","",""]},
+"on_bus_acquired":{
+	"argument_names":["connection","name","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"on_leadership_acquired":{
+	"argument_names":["connection","name","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"on_leadership_lost":{
+	"argument_names":["connection","name","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_bus_watch_name":{
+	"argument_names":["","","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1],
+	"argument_reasons":["","","","","","",""]},
+"on_leadership_changed":{
+	"argument_names":["connection","name","name_owner","user_data"],
+	"argument_annotations":[0,0,2,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","Called g_strcmp0, marked as null terminated in this position",""]},
+"assume_leadership":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_object_notify":{
+	"argument_names":["",""],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"install_match_rule":{
+	"argument_names":["self","rule"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_dbus_connection_emit_signal":{
+	"argument_names":["","","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1],
+	"argument_reasons":["","","","","","",""]},
+"g_strdup_vprintf":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_dbus_connection_call":{
+	"argument_names":["","","","","","","","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0,0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1,1,1,1,1,1],
+	"argument_reasons":["","","","","","","","","","","",""]},
+"on_list_received":{
+	"argument_names":["source_object","res","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_dbus_connection_call_finish":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_variant_get_child_value":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_get_strv":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_signal_emit":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"emit_peer_found":{
+	"argument_names":["self","name"],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["","Called g_str_equal, marked as null terminated in this position"]},
+"g_dbus_connection_get_unique_name":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_connection_add_filter":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"gdbus_message_filter":{
+	"argument_names":["connection","msg","incoming","user_data"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_dbus_connection_signal_subscribe":{
+	"argument_names":["","","","","","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1,1,1,1],
+	"argument_reasons":["","","","","","","","","",""]},
+"on_dbus_peer_signal":{
+	"argument_names":["connection","sender_name","object_path","interface_name","signal_name","parameters","user_data"],
+	"argument_annotations":[0,2,0,0,2,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1],
+	"argument_reasons":["","Called g_strdup, marked as null terminated in this position","","","Called g_strcmp0, marked as null terminated in this position","",""]},
+"g_hash_table_lookup_extended":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_slist_foreach":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_source_remove":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_timeout_add":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"on_head_count_complete":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"emit_bye":{
+	"argument_names":["self","peer_address"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_dbus_message_get_body":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_message_get_sender":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_message_get_message_type":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"check_method":{
+	"argument_names":["msg","iface","member","path"],
+	"argument_annotations":[0,2,2,2],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","Called g_strcmp0, marked as null terminated in this position","Called g_strcmp0, marked as null terminated in this position","Called g_strcmp0, marked as null terminated in this position"]},
+"on_join_received":{
+	"argument_names":["self","peer_address"],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["","Called emit_peer_found, marked as null terminated in this position"]},
+"g_idle_add":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"transfer_to_mainloop":{
+	"argument_names":["args"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_message_new_method_reply":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_message_set_body":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_dbus_connection_send_message":{
+	"argument_names":["","","","",""],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"g_variant_builder_init":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_builder_open":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_builder_add":{
+	"argument_names":["",""],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_builder_close":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_builder_end":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_message_get_interface":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_message_get_member":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_message_get_path":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_value_get_string":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_strdelimit":{
+	"argument_names":["","",""],
+	"argument_annotations":[2,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_dbus_connection_remove_filter":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_dbus_connection_signal_unsubscribe":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_bus_unown_name":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_bus_unwatch_name":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_mutex_free":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_server_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_server_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_server_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_server_new":{
+	"argument_names":["swarm_name"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_server_new_for_address":{
+	"argument_names":["swarm_name","bus_address"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_server_get_client_address":{
+	"argument_names":["server"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_server_get_client_address":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_server_constructed":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_server_get_property":{
+	"argument_names":["object","property_id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_server_set_property":{
+	"argument_names":["object","property_id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_server_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_server_is_swarm_leader":{
+	"argument_names":["peer"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_server_get_swarm_leader":{
+	"argument_names":["peer"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_server_get_connections":{
+	"argument_names":["peer"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_server_list_peers":{
+	"argument_names":["peer"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_param_spec_boolean":{
+	"argument_names":["","","","",""],
+	"argument_annotations":[2,2,2,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"g_slist_length":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_slist_copy":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_server_get_guid":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"close_connection":{
+	"argument_names":["data","user_data"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_dbus_server_stop":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_signal_handlers_disconnect_matched":{
+	"argument_names":["","","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1],
+	"argument_reasons":["","","","","","",""]},
+"on_connection_closed":{
+	"argument_names":["connection","remote_peer_vanished","error","user_data"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_dbus_connection_close":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_slist_find":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_slist_delete_link":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_value_get_boolean":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_value_set_boolean":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_credentials_new":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_get_user_name":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_idle_add_full":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"initialize_server":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_generate_guid":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_dbus_server_new_sync":{
+	"argument_names":["","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"on_new_connection":{
+	"argument_names":["server","connection","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_dbus_server_start":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_connection_get_peer_credentials":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_credentials_is_same_user":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_client_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_client_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_client_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_client_new":{
+	"argument_names":["swarm_name"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_client_new_for_address":{
+	"argument_names":["swarm_name","bus_address"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_client_constructed":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_client_get_property":{
+	"argument_names":["object","property_id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_client_set_property":{
+	"argument_names":["object","property_id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_client_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_client_is_swarm_leader":{
+	"argument_names":["peer"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_client_get_swarm_leader":{
+	"argument_names":["peer"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_client_get_connections":{
+	"argument_names":["peer"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_client_list_peers":{
+	"argument_names":["peer"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_connection_get_guid":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_cancellable_cancel":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_cancellable_new":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_dbus_connection_new_for_address":{
+	"argument_names":["","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1],
+	"argument_reasons":["","","","","",""]},
+"connecting_finished":{
+	"argument_names":["object","res","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_dbus_connection_new_for_address_finish":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_error_matches":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_io_error_quark":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"connection_closed":{
+	"argument_names":["connection","remote_peer_vanished","error","client"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"emit_peer_found249":{
+	"argument_names":["user_data"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_proxy_model_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_init":{
+	"argument_names":["model"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_model_iface_init":{
+	"argument_names":["iface"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_set_schema_full":{
+	"argument_names":["self","schema","num_columns"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_get_schema":{
+	"argument_names":["self","num_columns"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_get_column_schema":{
+	"argument_names":["self","column"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_get_n_columns":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_get_n_rows":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_clear":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_prepend_row":{
+	"argument_names":["self","row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_append_row":{
+	"argument_names":["self","row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_insert_row":{
+	"argument_names":["self","pos","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_insert_row_before":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_remove":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_set_value":{
+	"argument_names":["self","iter","column","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_proxy_model_set_row":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_get_value":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_get_first_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_get_last_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_get_iter_at_row":{
+	"argument_names":["self","row"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_get_bool":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_get_uchar":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_get_int32":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_get_uint32":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_get_int64":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_get_uint64":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_get_double":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_get_string":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_next":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_prev":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_is_first":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_is_last":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_get_position":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_register_tag":{
+	"argument_names":["self","tag_destroy"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_get_tag":{
+	"argument_names":["self","iter","tag"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_proxy_model_set_tag":{
+	"argument_names":["self","iter","tag","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_proxy_model_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_constructed":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_set_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_proxy_model_get_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_proxy_model_get_seqnum":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_proxy_model_set_seqnum":{
+	"argument_names":["self","seqnum"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_proxy_model_inc_seqnum":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"on_back_end_row_added":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"on_back_end_row_removed":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"on_back_end_row_changed":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_resource_manager_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_resource_manager_default_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_resource_manager_store":{
+	"argument_names":["self","resource","resource_name","error"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_resource_manager_load":{
+	"argument_names":["self","resource_name","error"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_resource_manager_get_default":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_result_set_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_result_set_default_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_result_set_get_n_rows":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_result_set_next":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_result_set_has_next":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_result_set_peek":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_result_set_seek":{
+	"argument_names":["self","pos"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_result_set_tell":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_result_set_get_model":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_sequence_model_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_sequence_model_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_sequence_model_init":{
+	"argument_names":["model"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_sequence_model_model_iface_init":{
+	"argument_names":["iface"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_sequence_model_new":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_sequence_model_get_n_rows":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_sequence_model_prepend_row":{
+	"argument_names":["self","row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_sequence_model_append_row":{
+	"argument_names":["self","row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_sequence_model_insert_row_before":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_find_row_sorted":{
+	"argument_names":["self","row_spec","cmp_func","user_data","out_was_found"],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"dee_sequence_model_remove":{
+	"argument_names":["self","iter_"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_sequence_model_set_row":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_set_value":{
+	"argument_names":["self","iter","column","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_sequence_model_get_value":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_get_first_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_sequence_model_get_last_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_sequence_model_get_iter_at_row":{
+	"argument_names":["self","row"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_sequence_model_get_bool":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_get_uchar":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_get_int32":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_get_uint32":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_get_int64":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_get_uint64":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_get_double":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_get_string":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_next":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_sequence_model_prev":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_sequence_model_is_first":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_sequence_model_is_last":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_sequence_model_get_position":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_sequence_model_register_tag":{
+	"argument_names":["self","tag_destroy"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_sequence_model_get_tag":{
+	"argument_names":["self","iter","tag"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_sequence_model_set_tag":{
+	"argument_names":["self","iter","tag","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_sequence_model_find_tag":{
+	"argument_names":["self","iter","tag","out_row_tag","out_tag"],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"dee_sequence_model_peek_value":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_variant_get_double":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_get_uint64":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_get_int64":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_get_uint32":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_get_int32":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_get_byte":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_get_boolean":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_ref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_sequence_model_set_value_silently":{
+	"argument_names":["self","iter","column","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_sequence_model_free_row":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_slist_free_1":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_set":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_slice_alloc0":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_get_length":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_sequence_model_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_sequence_model_set_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_sequence_model_get_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_signal_lookup":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_serializable_default_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_register_parser":{
+	"argument_names":["type","vtype","parse_func"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_type_fundamental":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_type_copy":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_parse_external":{
+	"argument_names":["data"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_get_child":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,2],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_variant_get_variant":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_lookup":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,2,2],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_type_from_name":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_parse":{
+	"argument_names":["data","type"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_type_is_a":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_type_parent":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_externalize":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_serialize":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_new_string":{
+	"argument_names":[""],
+	"argument_annotations":[2],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_builder_add_value":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_new_variant":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_type_peek_string":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"init_parsers":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_type_class_ref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_type_class_unref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_serializable_model_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_init":{
+	"argument_names":["model"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_model_iface_init":{
+	"argument_names":["iface"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_serializable_iface_init":{
+	"argument_names":["iface"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_get_seqnum":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_set_seqnum":{
+	"argument_names":["self","seqnum"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_inc_seqnum":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_serialize":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_parse_serialized":{
+	"argument_names":["data"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_iter_next":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_iter_n_children":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_iter_loop":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_iter_free":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_new_strv":{
+	"argument_names":["",""],
+	"argument_annotations":[2,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_set_schema_full":{
+	"argument_names":["self","column_schemas","num_columns"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_get_schema":{
+	"argument_names":["self","n_columns"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_get_column_schema":{
+	"argument_names":["self","column"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_get_n_columns":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_get_n_rows":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_append_row":{
+	"argument_names":["self","row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_prepend_row":{
+	"argument_names":["self","row_members"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_insert_row":{
+	"argument_names":["self","pos","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_insert_row_before":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_insert_row_sorted":{
+	"argument_names":["self","row_members","cmp_func","user_data"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_serializable_model_find_row_sorted":{
+	"argument_names":["self","row_spec","cmp_func","user_data","out_was_found"],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"dee_serializable_model_remove":{
+	"argument_names":["self","iter_"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_clear":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_set_value":{
+	"argument_names":["self","iter","column","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_serializable_model_set_row":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_get_value":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_get_first_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_get_last_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_get_iter_at_row":{
+	"argument_names":["self","row"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_get_bool":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_get_uchar":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_get_int32":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_get_uint32":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_get_int64":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_get_uint64":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_get_double":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_get_string":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_next":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_prev":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_is_first":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_is_last":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_get_position":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_register_tag":{
+	"argument_names":["self","tag_destroy"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_get_tag":{
+	"argument_names":["self","iter","tag"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_serializable_model_set_tag":{
+	"argument_names":["self","iter","tag","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_serializable_model_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_set_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_serializable_model_get_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_serializable_model_get_seqnum_real":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_serializable_model_set_seqnum_real":{
+	"argument_names":["self","seqnum"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_serializable_model_inc_seqnum_real":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_shared_model_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_serializable_iface_init":{
+	"argument_names":["iface"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_model_iface_init":{
+	"argument_names":["iface"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_new":{
+	"argument_names":["name"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_new_with_back_end":{
+	"argument_names":["name","back_end"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_shared_model_new_for_peer":{
+	"argument_names":["peer"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_get_swarm_name":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_get_peer":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_is_leader":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_is_synchronized":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_flush_revision_queue":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"flush_revision_queue":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_connection_flush_sync":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_type_interface_peek_parent":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_clear":{
+	"argument_names":["model"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"enqueue_revision":{
+	"argument_names":["self","type","pos","seqnum","row"],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"flush_revision_queue_timeout_cb":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_serialize":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_parse_serialized":{
+	"argument_names":["data"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"commit_transaction":{
+	"argument_names":["self","sender_name","transaction"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_variant_iter_init":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_variant_get_type_string":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_variant_iter_next_value":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"invalidate_peer":{
+	"argument_names":["self","sender_name","except"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_variant_n_children":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_revision_free":{
+	"argument_names":["rev"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_quark_from_string":{
+	"argument_names":[""],
+	"argument_annotations":[2],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_array_new":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"on_self_row_added":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"on_self_row_removed":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"on_self_row_changed":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_shared_model_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_shared_model_set_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_shared_model_get_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_shared_model_constructed":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_strconcat":{
+	"argument_names":[""],
+	"argument_annotations":[2],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"on_leader_changed":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"on_connection_acquired":{
+	"argument_names":["self","connection","peer"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"on_connection_closed458":{
+	"argument_names":["self","connection","peer"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"iterate_connections":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_connection_unregister_object":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_array_remove_index":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"on_dbus_signal_received":{
+	"argument_names":["connection","sender_name","object_path","interface_name","signal_name","parameters","user_data"],
+	"argument_annotations":[0,2,0,0,2,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1],
+	"argument_reasons":["","Called g_strcmp0, marked as null terminated in this position","","","Called g_strcmp0, marked as null terminated in this position","",""]},
+"g_dbus_node_info_new_for_xml":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_dbus_node_info_lookup_interface":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_dbus_interface_info_ref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_node_info_unref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_dbus_connection_register_object":{
+	"argument_names":["","","","","","",""],
+	"argument_annotations":[0,0,0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1],
+	"argument_reasons":["","","","","","",""]},
+"g_array_append_vals":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"clone_leader":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"on_clone_received":{
+	"argument_names":["source_object","res","user_data"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_dbus_error_get_remote_error":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"reset_model":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"handle_dbus_method_call":{
+	"argument_names":["connection","sender","object_path","interface_name","method_name","parameters","invocation","user_data"],
+	"argument_annotations":[0,0,0,0,2,0,0,0],
+	"args_array_receivers":[1,1,1,1,1,1,1,1],
+	"argument_reasons":["","","","","Called g_strcmp0, marked as null terminated in this position","","",""]},
+"g_dbus_method_invocation_return_dbus_error":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_dbus_method_invocation_return_value":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_array_unref":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_term_list_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_term_list_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_term_list_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_term_list_get_term":{
+	"argument_names":["self","n"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_term_list_add_term":{
+	"argument_names":["self","term"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_term_list_num_terms":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_term_list_clear":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_term_list_clone":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_term_list_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_term_list_get_term_real":{
+	"argument_names":["self","n"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_term_list_add_term_real":{
+	"argument_names":["self","term"],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["","Called g_string_chunk_insert_const, marked as null terminated in this position"]},
+"dee_term_list_num_terms_real":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_term_list_clear_real":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_term_list_clone_real":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_string_chunk_new":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_object_set_data_full":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,2,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"g_string_chunk_free":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_ptr_array_remove_index_fast":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_string_chunk_insert_const":{
+	"argument_names":["",""],
+	"argument_annotations":[0,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_text_analyzer_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_text_analyzer_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_text_analyzer_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_text_analyzer_new":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_text_analyzer_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_text_analyzer_tokenize_real":{
+	"argument_names":["self","data","terms_out"],
+	"argument_annotations":[0,2,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","Called g_utf8_validate, marked as null terminated in this position",""]},
+"dee_text_analyzer_collate_key_real":{
+	"argument_names":["self","data"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_utf8_collate_key":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_utf8_validate":{
+	"argument_names":["","",""],
+	"argument_annotations":[2,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_ptr_array_new":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"g_ptr_array_set_free_func":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_utf8_get_char":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_unichar_isalnum":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_strndup":{
+	"argument_names":["",""],
+	"argument_annotations":[2,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_utf8_normalize":{
+	"argument_names":["","",""],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_utf8_strdown":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_transaction_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_transaction_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_init":{
+	"argument_names":["model"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_model_iface_init":{
+	"argument_names":["iface"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_new":{
+	"argument_names":["target"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_get_target":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_is_committed":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_commit":{
+	"argument_names":["self","error"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_set_error":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_transaction_error_quark":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"journal_segment_free":{
+	"argument_names":["segment"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_quark_from_static_string":{
+	"argument_names":[""],
+	"argument_annotations":[2],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_insert_row_before":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_transaction_remove":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_transaction_set_value":{
+	"argument_names":["self","iter","column","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_transaction_set_row":{
+	"argument_names":["self","iter","row_members"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_transaction_get_value":{
+	"argument_names":["self","iter","column"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_transaction_get_first_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_get_last_iter":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_next":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_transaction_prev":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_transaction_register_tag":{
+	"argument_names":["self","tag_destroy"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_transaction_get_tag":{
+	"argument_names":["self","iter","tag"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"dee_transaction_set_tag":{
+	"argument_names":["self","iter","tag","value"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_transaction_next_raw":{
+	"argument_names":["self","iter","out_iter_type"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_assertion_message_expr":{
+	"argument_names":["","","","",""],
+	"argument_annotations":[0,0,0,0,0],
+	"args_array_receivers":[1,1,1,1,1],
+	"argument_reasons":["","","","",""]},
+"journal_segment_append":{
+	"argument_names":["jseg","row_data"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_transaction_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_constructed":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_transaction_set_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_transaction_get_property":{
+	"argument_names":["object","id","value","pspec"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"on_target_modified":{
+	"argument_names":["self","iter"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_tree_index_get_type":{
+	"argument_names":[],
+	"argument_annotations":[],
+	"args_array_receivers":[],
+	"argument_reasons":[]},
+"dee_tree_index_class_intern_init":{
+	"argument_names":["klass"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_tree_index_init":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_tree_index_new":{
+	"argument_names":["model","analyzer","reader"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"term_destroy":{
+	"argument_names":["term"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_tree_index_finalize":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_tree_index_constructed":{
+	"argument_names":["object"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_tree_index_lookup":{
+	"argument_names":["self","term","flags"],
+	"argument_annotations":[0,2,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","Called g_str_has_prefix, marked as null terminated in this position",""]},
+"dee_tree_index_foreach":{
+	"argument_names":["self","start_term","func","userdata"],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"dee_tree_index_get_n_terms":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_tree_index_get_n_rows":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"dee_tree_index_get_n_rows_for_term":{
+	"argument_names":["self","term"],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"dee_tree_index_get_supported_term_match_flags":{
+	"argument_names":["self"],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"g_sequence_lookup":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]},
+"term_cmp":{
+	"argument_names":["term","other","analyzer"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_str_has_prefix":{
+	"argument_names":["",""],
+	"argument_annotations":[2,2],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_list_concat":{
+	"argument_names":["",""],
+	"argument_annotations":[0,0],
+	"args_array_receivers":[1,1],
+	"argument_reasons":["",""]},
+"g_list_free":{
+	"argument_names":[""],
+	"argument_annotations":[0],
+	"args_array_receivers":[1],
+	"argument_reasons":[""]},
+"on_row_added558":{
+	"argument_names":["self","iter","model"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"on_row_removed559":{
+	"argument_names":["self","iter","model"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"on_row_changed560":{
+	"argument_names":["self","iter","model"],
+	"argument_annotations":[0,0,0],
+	"args_array_receivers":[1,1,1],
+	"argument_reasons":["","",""]},
+"g_sequence_insert_sorted":{
+	"argument_names":["","","",""],
+	"argument_annotations":[0,0,0,0],
+	"args_array_receivers":[1,1,1,1],
+	"argument_reasons":["","","",""]}}}

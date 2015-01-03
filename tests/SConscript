@@ -7,16 +7,23 @@ Import('env')
 env.AppendUnique(CLANG_FLAGS='-Werror')
 
 
-def RunTests(self, **kwargs):
-    sources = Glob('*.c')
-    for source in sources:
-        bitcode = self.BitcodeSource(source)
+def RunTest(self, source, json=None, **kwargs):
+    source = File(source)
+    bitcode = self.BitcodeSource(source)
+    if not json:
         json = source.target_from_source('json/', '.json')
         self.IIGlueAnalyze(json, bitcode)
-        actual = source.target_from_source('actualsAndExpecteds/', '.actual')
-        self.RunPlugin(actual, (bitcode, json), **kwargs)
-        passed = self.Expect(actual)
-        Alias('test', passed)
+    actual = source.target_from_source('actualsAndExpecteds/', '.actual')
+    self.RunPlugin(actual, (bitcode, json), **kwargs)
+    passed = self.Expect(actual)
+    Alias('test', passed)
+
+env.AddMethod(RunTest)
+
+
+def RunTests(self, **kwargs):
+    for source in Glob('*.c'):
+        self.RunTest(source, **kwargs)
 
 env.AddMethod(RunTests)
 
@@ -26,7 +33,10 @@ env.AddMethod(RunTests)
 #  IIGlueReader tests
 #
 
-env.RunTests(PLUGIN_ARGS='-iiglue-reader')
+tenv = env.Clone(PLUGIN_ARGS='-iiglue-reader')
+tenv.RunTest('iiglue-reader-peek.c')
+tenv.RunTest('iiglue-reader-variadic.c')
+tenv.RunTest('iiglue-reader-multiple.c', json=('json/iiglue-reader-peek.json', 'json/iiglue-reader-variadic.json'))
 
 
 ########################################################################
