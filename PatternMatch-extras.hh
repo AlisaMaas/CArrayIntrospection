@@ -7,7 +7,13 @@
 #ifndef INCLUDE_PatternMatch_extras_hh
 #define INCLUDE_PatternMatch_extras_hh
 
-#include <llvm/Support/PatternMatch.h>
+#include <llvm/Config/llvm-config.h>
+
+#if LLVM_VERSION_MAJOR > 3 || (LLVM_VERSION_MAJOR == 3 && LLVM_VERSION_MINOR > 4)
+#  include <llvm/IR/PatternMatch.h>
+#else // LLVM 3.4 or earlier
+#  include <llvm/Support/PatternMatch.h>
+#endif // LLVM 3.4 or earlier
 
 
 namespace llvm {
