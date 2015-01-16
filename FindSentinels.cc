@@ -301,8 +301,9 @@ void FindSentinels::print(raw_ostream &sink, const Module *module) const {
 			const BasicBlock &header = *check.first;
 			const ArgumentToBlockSet &entry = check.second;
 			for (const Argument &arg : iiglue.arrayArguments(func)) {
-				sink << "\tExamining " << arg.getName() << " in loop " << header.getName() << '\n';
 				const pair<BlockSet, bool> &checks = entry.at(&arg);
+				if (checks.first.empty()) continue;
+				sink << "\tExamining " << arg.getName() << " in loop " << header.getName() << '\n';
 				sink << "\t\tThere are " << checks.first.size() << " sentinel checks of this argument in this loop\n";
 				sink << "\t\t\tWe can" << (checks.second ? "" : "not") << " bypass all sentinel checks for this argument in this loop.\n";
 				const auto names =
