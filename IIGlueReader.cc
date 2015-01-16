@@ -45,6 +45,10 @@ IIGlueReader::IIGlueReader()
 		errs() << "warning: neither \"-" << Overreport.ArgStr
 		       << "\" nor any \"-" << iiglueFileNames.ArgStr
 		       << "\" used on command line\n";
+	else if (Overreport && !iiglueFileNames.empty())
+		errs() << "warning: both \"-" << Overreport.ArgStr
+		       << "\" and \"-" << iiglueFileNames.ArgStr
+		       << "\" used on command line\n";
 }
 
 
