@@ -5,7 +5,5 @@ Pass::print not implemented for pass: 'Promote Memory to Register'!
 Printing analysis 'Promote Memory to Register' for function 'foo':
 Pass::print not implemented for pass: 'Promote Memory to Register'!
 Printing analysis 'Determine whether and how to annotate each function with the null-terminated annotation':
-find with argument 0 should not be annotated NULL_TERMINATED (0).
 find with argument 1 should be annotated NULL_TERMINATED (2).
-foo with argument 0 should not be annotated NULL_TERMINATED (0).
 foo with argument 1 should be annotated NULL_TERMINATED (2).
