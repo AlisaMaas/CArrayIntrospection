@@ -12,8 +12,12 @@ def pathIsExecutable(key, val, env):
     if not access(val, X_OK):
         raise SCons.Errors.UserError('Path for option %s is not executable: %s' % (key, val))
 
+def pathIsOptionalExecutable(key, val, env):
+    if val:
+        pathIsExecutable(key, val, env)
+
 variables = Variables(['.scons-options'], ARGUMENTS)
-variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsExecutable))
+variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
 
 default = WhereIs('llvm-config', (
     '/p/polyglot/public/bin',
