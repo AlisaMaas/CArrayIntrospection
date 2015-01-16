@@ -7,14 +7,17 @@ Import('env')
 env.AppendUnique(CLANG_FLAGS='-Werror')
 
 
-def RunTest(self, source, json=None, **kwargs):
+def RunTest(self, source, json=None, expected=None, **kwargs):
     source = File(source)
+    actual = source.target_from_source('actualsAndExpecteds/', '.actual')
     bitcode = self.BitcodeSource(source)
-    if not json:
+
+    if self['IIGLUE'] and not json:
         json = source.target_from_source('json/', '.json')
         self.IIGlueAnalyze(json, bitcode)
-    actual = source.target_from_source('actualsAndExpecteds/', '.actual')
-    self.RunPlugin(actual, (bitcode, json), **kwargs)
+
+    pluginSources = (bitcode, json) if json else bitcode
+    self.RunPlugin(actual, pluginSources, **kwargs)
     passed = self.Expect(actual)
     Alias('test', passed)
 
@@ -34,9 +37,11 @@ env.AddMethod(RunTests)
 #
 
 tenv = env.Clone(PLUGIN_ARGS='-iiglue-reader')
-tenv.RunTest('iiglue-reader-peek.c')
 tenv.RunTest('iiglue-reader-variadic.c')
 tenv.RunTest('iiglue-reader-multiple.c', json=('json/iiglue-reader-peek.json', 'json/iiglue-reader-variadic.json'))
+
+if env['IIGLUE']:
+    tenv.RunTest('iiglue-reader-peek.c')
 
 
 ########################################################################

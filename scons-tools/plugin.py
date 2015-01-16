@@ -15,9 +15,11 @@ def __run_plugin_emitter(target, source, env):
 
 def __run_plugin_source_args(target, source, env, for_signature):
     def generate():
+        overreport = True
         for input in source:
             extension = splitext(input.name)[1]
             if extension == '.json':
+                overreport = False
                 yield '-iiglue-read-file'
                 yield input
             elif extension == '.so':
@@ -25,6 +27,8 @@ def __run_plugin_source_args(target, source, env, for_signature):
                 yield './%s' % input
             else:
                 yield input
+        if overreport:
+            yield '-overreport'
     return list(generate())
 
 
