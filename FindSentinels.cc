@@ -1,3 +1,4 @@
+#define DEBUG_TYPE "find-sentinels" 
 #include "BacktrackPhiNodes.hh"
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"

@@ -1,3 +1,4 @@
+#define DEBUG_TYPE "null-annotator"
 #include "Answer.hh"
 #include "BacktrackPhiNodes.hh"
 #include "FindSentinels.hh"
