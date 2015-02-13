@@ -5,6 +5,5 @@
 .sconf_temp
 .scons-options
 .sconsign.dblite
-compile_commands.json
 config.log
 output.json
