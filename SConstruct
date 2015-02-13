@@ -12,12 +12,8 @@ def pathIsExecutable(key, val, env):
     if not access(val, X_OK):
         raise SCons.Errors.UserError('Path for option %s is not executable: %s' % (key, val))
 
-def pathIsOptionalExecutable(key, val, env):
-    if val:
-        pathIsExecutable(key, val, env)
-
 variables = Variables(['.scons-options'], ARGUMENTS)
-variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
+variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsExecutable))
 
 default = WhereIs('llvm-config', (
     '/p/polyglot/public/bin',
@@ -97,15 +93,10 @@ env = conf.Finish()
 
 penv = env.Clone(
     CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11'),
-    CPPPATH=('/unsup/boost-1.55.0/include', '/home/ajmaas/sra/llvm-3.5.1.src/lib/Transforms/llvm-sra/'),
+    CPPPATH='/unsup/boost-1.55.0/include',
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
 )
-
-sraFlags = [x for x in penv['CXXFLAGS'] if x[:2] != '-W']
-
-sraObject = penv.SharedObject('SymbolicRangeTest.cc', CXXFLAGS=(sraFlags, '-fpermissive'))
-
 
 penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
 penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
@@ -120,7 +111,6 @@ plugin, = penv.SharedLibrary('CArrayIntrospection', (
     'IIGlueReader.cc',
     'FindSentinels.cc',
     'NullAnnotator.cc',
-    sraObject,
 ))
 
 env['plugin'] = plugin

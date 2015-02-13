@@ -7,3 +7,7 @@ Analyzing function: print
 	We found: 0 loops
 Analyzing function: find
 	We found: 1 loops
+	Examining string in loop for.cond
+		There are 0 sentinel checks of this argument in this loop
+			We can bypass all sentinel checks for this argument in this loop.
+		Sentinel checks: 
