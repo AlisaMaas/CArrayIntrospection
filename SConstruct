@@ -120,32 +120,6 @@ Alias('plugin', plugin)
 
 ########################################################################
 #
-#  compilation database for use with various Clang LibTooling tools
-#
-
-
-import json
-
-def compilation_database(env, topdir):
-    for obj in plugin.sources:
-        src, = obj.sources
-        yield {
-            'directory': topdir,
-            'file': src.path,
-            'command': env.subst('$SHCXXCOM', target=obj, source=src),
-        }
-
-def stash_compile_commands(target, source, env):
-    sconstruct, topdir = source
-    target, = target
-    commands = list(compilation_database(env, topdir.read()))
-    json.dump(commands, open(str(target), 'w'), indent=2)
-
-penv.Command('compile_commands.json', ('SConstruct', Value(Dir('#').abspath)), stash_compile_commands)
-
-
-########################################################################
-#
 #  subdirectories
 #
 
