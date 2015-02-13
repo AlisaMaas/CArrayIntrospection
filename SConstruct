@@ -97,10 +97,15 @@ env = conf.Finish()
 
 penv = env.Clone(
     CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11'),
-    CPPPATH='/unsup/boost-1.55.0/include',
+    CPPPATH=('/unsup/boost-1.55.0/include', '/home/ajmaas/sra/llvm-3.5.1.src/lib/Transforms/llvm-sra/'),
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
 )
+
+sraFlags = [x for x in penv['CXXFLAGS'] if x[:2] != '-W']
+
+sraObject = penv.SharedObject('SymbolicRangeTest.cc', CXXFLAGS=(sraFlags, '-fpermissive'))
+
 
 penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
 penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
@@ -115,6 +120,7 @@ plugin, = penv.SharedLibrary('CArrayIntrospection', (
     'IIGlueReader.cc',
     'FindSentinels.cc',
     'NullAnnotator.cc',
+    sraObject,
 ))
 
 env['plugin'] = plugin
