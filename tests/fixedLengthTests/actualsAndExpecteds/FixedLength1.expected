@@ -1,0 +1,16 @@
+Printing analysis 'Promote Memory to Register' for function 'foo':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Canonicalize natural loops':
+Pass::print not implemented for pass: 'Canonicalize natural loops'!
+Printing analysis 'Induction Variable Simplification':
+Pass::print not implemented for pass: 'Induction Variable Simplification'!
+Printing analysis 'Loop Invariant Code Motion':
+Pass::print not implemented for pass: 'Loop Invariant Code Motion'!
+Printing analysis 'Simple constant propagation' for function 'foo':
+Pass::print not implemented for pass: 'Simple constant propagation'!
+Printing analysis 'Replace indexes using the induction variable with the constant upper bound of the loop, if it exists.':
+Printing analysis 'Simple constant propagation' for function 'foo':
+Pass::print not implemented for pass: 'Simple constant propagation'!
+Printing analysis 'Find loops that have a fixed number of iterations that also index into arrays.':
+Analyzing foo
+Argument array has max index 43

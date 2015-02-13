@@ -1,0 +1,6 @@
+Import('env')
+
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-loop-simplify', '-indvars', '-licm', '-constprop', 
+	'-boundify', '-constprop', '-find-length'))
+
+

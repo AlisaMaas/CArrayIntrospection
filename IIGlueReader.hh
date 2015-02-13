@@ -41,9 +41,9 @@ public:
 	// standard LLVM pass interface
 	IIGlueReader();
 	static char ID;
-	void getAnalysisUsage(llvm::AnalysisUsage &) const override final;
-	bool runOnModule(llvm::Module &) override final;
-	void print(llvm::raw_ostream &, const llvm::Module *) const;
+	void getAnalysisUsage(llvm::AnalysisUsage &) const final override;
+	bool runOnModule(llvm::Module &) final override;
+	void print(llvm::raw_ostream &, const llvm::Module *) const final override;
 
 	// convenience methods to access loaded iiglue annotations
 	typedef boost::filtered_range<IsArray, const llvm::Function::ArgumentListType> ArrayArgumentsRange;
@@ -79,12 +79,12 @@ inline bool IIGlueReader::isArray(const llvm::Argument &argument) const {
 
 inline IIGlueReader::ArrayArgumentsRange IIGlueReader::arrayArguments(const llvm::Function &function) const {
 	return { IsArray(*this), function.getArgumentList() };
-};
+}
 
 
 inline IIGlueReader::ArrayReceiversRange IIGlueReader::arrayReceivers() const {
 	return atLeastOneArrayArg | boost::adaptors::indirected;
-};
+}
 
 
 #endif // !INCLUDE_IIGLUE_READER_HH
