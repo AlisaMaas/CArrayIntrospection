@@ -1,10 +1,13 @@
+#define DEBUG_TYPE "find-sentinels" 
 #include "BacktrackPhiNodes.hh"
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
 #include "PatternMatch-extras.hh"
 
+#include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 #include <boost/range/adaptor/indirected.hpp>
+#include <boost/range/adaptor/map.hpp>
 #include <boost/range/adaptor/transformed.hpp>
 #include <boost/range/irange.hpp>
 #include <llvm/Analysis/LoopInfo.h>
@@ -13,6 +16,7 @@
 
 using namespace boost;
 using namespace boost::adaptors;
+using namespace boost::container;
 using namespace llvm;
 using namespace llvm::PatternMatch;
 using namespace std;
@@ -263,7 +267,7 @@ bool FindSentinels::runOnModule(Module &module) {
  **/
 class BasicBlockCompare { // simple comparison function
 public:
-	bool operator()(const BasicBlock *x, const BasicBlock *y) {
+	bool operator()(const BasicBlock *x, const BasicBlock *y) const {
 		return x->getName() < y->getName();
 	}
 };
@@ -288,20 +292,19 @@ void FindSentinels::print(raw_ostream &sink, const Module *module) const {
 			sink << "\tDetected no sentinel checks\n";
 			return;
 		}
-		unordered_map<const BasicBlock *, ArgumentToBlockSet> loopHeaderToSentinelChecks = allSentinelChecks.at(&func);
-		sink << "\tWe found: " << loopHeaderToSentinelChecks.size() << " loops\n";
-		set<const BasicBlock *, BasicBlockCompare> loopHeaderBlocks;
-		for (auto mapElements : loopHeaderToSentinelChecks) {
-			loopHeaderBlocks.insert(mapElements.first);
-		}
+		const FunctionResults &unorderedChecks = allSentinelChecks.at(&func);
+		sink << "\tWe found: " << unorderedChecks.size() << " loops\n";
 
 		// For each loop, print all sentinel checks and whether it is possible to go from loop entry to loop entry without
 		// passing a sentinel check.
-		for (const BasicBlock * const header : loopHeaderBlocks) {
-			const ArgumentToBlockSet &entry = loopHeaderToSentinelChecks[header];
+		const flat_map<const BasicBlock *, ArgumentToBlockSet, BasicBlockCompare> orderedChecks(unorderedChecks.begin(), unorderedChecks.end());
+		for (const auto &check : orderedChecks) {
+			const BasicBlock &header = *check.first;
+			const ArgumentToBlockSet &entry = check.second;
 			for (const Argument &arg : iiglue.arrayArguments(func)) {
-				sink << "\tExamining " << arg.getName() << " in loop " << header->getName() << '\n';
 				const pair<BlockSet, bool> &checks = entry.at(&arg);
+				if (checks.first.empty()) continue;
+				sink << "\tExamining " << arg.getName() << " in loop " << header.getName() << '\n';
 				sink << "\t\tThere are " << checks.first.size() << " sentinel checks of this argument in this loop\n";
 				sink << "\t\t\tWe can" << (checks.second ? "" : "not") << " bypass all sentinel checks for this argument in this loop.\n";
 				const auto names =
@@ -311,7 +314,7 @@ void FindSentinels::print(raw_ostream &sink, const Module *module) const {
 							return block.getName().str();
 						});
 				// print in sorted order for consistent output
-				boost::container::flat_set<string> ordered(names.begin(), names.end());
+				flat_set<string> ordered(names.begin(), names.end());
 				sink << "\t\tSentinel checks: \n";
 				for (const auto &sentinelCheck : ordered)
 					sink << "\t\t\t" << sentinelCheck << '\n';

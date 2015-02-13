@@ -26,7 +26,7 @@ namespace {
 
 	static cl::list<string>
 	iiglueFileNames("iiglue-read-file",
-			cl::OneOrMore,
+			cl::ZeroOrMore,
 			cl::value_desc("filename"),
 			cl::desc("Filename containing iiglue analysis results; use multiple times to read multiple files"));
 	static cl::opt<bool> Overreport ("overreport", cl::desc("Overreport iiglue output; report everything as an array."));
@@ -36,6 +36,19 @@ namespace {
 void IIGlueReader::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
+}
+
+
+IIGlueReader::IIGlueReader()
+	: ModulePass(ID) {
+	if (!Overreport && iiglueFileNames.empty())
+		errs() << "warning: neither \"-" << Overreport.ArgStr
+		       << "\" nor any \"-" << iiglueFileNames.ArgStr
+		       << "\" used on command line\n";
+	else if (Overreport && !iiglueFileNames.empty())
+		errs() << "warning: both \"-" << Overreport.ArgStr
+		       << "\" and \"-" << iiglueFileNames.ArgStr
+		       << "\" used on command line\n";
 }
 
 
