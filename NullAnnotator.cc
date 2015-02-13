@@ -1,4 +1,3 @@
-#define DEBUG_TYPE "null-annotator"
 #include "Answer.hh"
 #include "BacktrackPhiNodes.hh"
 #include "FindSentinels.hh"
@@ -379,10 +378,9 @@ bool NullAnnotator::runOnModule(Module &module) {
 void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
-		for (const Argument &arg : iiglue.arrayArguments(func))
-			if (annotate(arg))
-				sink << func.getName() << " with argument " << arg.getArgNo()
-				     << " should be annotated NULL_TERMINATED (" << (getAnswer(arg))
-				     << ").\n";
+		for (const Argument &arg : iiglue.arrayArguments(func)) {
+			sink << func.getName() << " with argument " << arg.getArgNo() << " should " << (annotate(arg) ? "" : "not ")
+			     << "be annotated NULL_TERMINATED (" << (getAnswer(arg)) << ").\n";
+		}
 	}
 }

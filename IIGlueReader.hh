@@ -67,6 +67,11 @@ inline bool IIGlueReader::IsArray::operator()(const llvm::Argument &argument) co
 }
 
 
+inline IIGlueReader::IIGlueReader()
+	: ModulePass(ID) {
+}
+
+
 inline bool IIGlueReader::isArray(const llvm::Argument &argument) const {
 	return arrays.count(&argument) != 0;
 }

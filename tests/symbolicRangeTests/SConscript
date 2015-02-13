@@ -1,4 +1,0 @@
-Import('env')
-
-env.RunTests(PLUGIN_ARGS=('-mem2reg', '-redef', '-sra', '-symbolic-range'))
-
