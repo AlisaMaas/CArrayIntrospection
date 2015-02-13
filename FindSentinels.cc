@@ -7,7 +7,7 @@
 #include <boost/range/adaptor/indirected.hpp>
 #include <boost/range/adaptor/transformed.hpp>
 #include <boost/range/irange.hpp>
-#include <llvm/Analysis/LoopInfo.h>
+#include <llvm/Analysis/LoopPass.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/Debug.h>
 
@@ -29,7 +29,7 @@ namespace {
 
 	class ArgumentsReachingValue : public BacktrackPhiNodes {
 	public:
-		void visit(const Argument &) final override;
+		void visit(const Argument &) override;
 		ArgumentSet result;
 	};
 }

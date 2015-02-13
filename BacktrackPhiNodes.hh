@@ -22,10 +22,9 @@ public:
 
 protected:
 	virtual void visit(const llvm::Argument &) = 0;
-	virtual ~BacktrackPhiNodes();
 
 private:
-	std::unordered_set<const llvm::Value *> alreadySeen;
+	std::unordered_set<const llvm::PHINode *> alreadySeen;
 };
 
 
