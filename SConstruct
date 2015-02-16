@@ -104,7 +104,7 @@ penv = env.Clone(
 
 sraFlags = [x for x in penv['CXXFLAGS'] if x[:2] != '-W']
 
-sraObject = penv.SharedObject('SymbolicRangeTest.cc', CXXFLAGS=(sraFlags, '-fpermissive'))
+sraObject = penv.SharedObject(['SymbolicRangeTest.cc', 'FindLengthChecks.cc'], CXXFLAGS=(sraFlags, '-fpermissive'))
 
 
 penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
