@@ -8,7 +8,8 @@ namespace llvm {
 	class Argument;
 }
 
-typedef std::map<llvm::Argument const*, int> ArgumentToMaxIndexMap;
+typedef std::map<llvm::Argument const*, long int> ArgumentToMaxIndexMap;
+typedef std::map<llvm::Argument const*, llvm::Argument const*> LengthArgumentMap;
 
 class FindLengthChecks : public llvm::ModulePass {
 public:
@@ -20,6 +21,7 @@ public:
 	void print(llvm::raw_ostream &, const llvm::Module *) const;
 private:
 	std::map<llvm::Function const*, ArgumentToMaxIndexMap> maxIndexes;
+	std::map<llvm::Function const*, LengthArgumentMap> lengthArguments;
 };
 
 

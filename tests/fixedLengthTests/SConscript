@@ -1,7 +1,4 @@
 Import('env')
 
-env.RunTests(PLUGIN_ARGS=('-instnamer', '-mem2reg', '-break-crit-edges', '-vssa', '-find-length'))
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-sra-annotator', 'fixed-length'))
 
-
-#SConscript(dirs=['range-analysis-fun', 'symbolicRangeFun'], exports='env')
-SConscript(dirs=['symbolicRangeFun'], exports='env')

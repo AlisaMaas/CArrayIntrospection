@@ -6,6 +6,7 @@
 #include <llvm/IR/Module.h>
 #include <SymbolicRangeAnalysis.h>
 
+
 using namespace boost;
 using namespace llvm;
 using namespace std;
@@ -13,17 +14,42 @@ using namespace std;
 struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor> {
 	const IIGlueReader *iiglue;
 	ArgumentToMaxIndexMap &maxIndexes;
-	set<const Argument *> notBounded;
+	LengthArgumentMap &lengthArguments;
+	set<const Argument *> notConstantBounded;
+    set<const Argument *> notParameterBounded;
 	const SymbolicRangeAnalysis &rangeAnalysis;
-	CheckGetElementPtrVisitor(const IIGlueReader *r, ArgumentToMaxIndexMap &map, const SymbolicRangeAnalysis &ra) 
-	: maxIndexes(map), rangeAnalysis(ra) {
+	BasicBlock *placeHolder;
+	CheckGetElementPtrVisitor(const IIGlueReader *r, ArgumentToMaxIndexMap &map, const SymbolicRangeAnalysis &ra, Module &m, LengthArgumentMap &lengths ) 
+	: maxIndexes(map), rangeAnalysis(ra), lengthArguments(lengths) {
+		placeHolder = BasicBlock::Create(m.getContext());
 		iiglue = r;
 	}
 	~CheckGetElementPtrVisitor() {
-		for (const Argument * arg : notBounded) {
+        delete placeHolder;
+		for (const Argument * arg : notConstantBounded) {
 	  		maxIndexes.erase(maxIndexes.find(arg));
 	  	}
+        for (const Argument * arg : notParameterBounded) {
+            lengthArguments.erase(lengthArguments.find(arg));        
+        }
+		
 	}
+    Value *stripSExtInst(Value *value) {
+        if (SExtInst * SEI = dyn_cast<SExtInst>(value)) {
+            value = SEI->getOperand(0);
+        }
+        return value;
+    }
+    Argument *getArgLength(Value *first, Value *second) {
+        Argument *arg = nullptr;
+        ConstantInt *c = nullptr;
+        if (arg = dyn_cast<Argument>(first)) {
+            if (!((c = dyn_cast<ConstantInt>(second)) && c->isMinusOne())) {
+                arg = nullptr;
+            }
+        }
+        return arg;
+    }
 	void visitGetElementPtrInst(GetElementPtrInst& gepi) {
 		errs() << "Top of visitor\n";
 		Value *pointer = gepi.getPointerOperand();
@@ -41,10 +67,8 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
 		errs() << "Got it!\n";
 		if (r.getUpper().isConstant()) { //check range-analysis
 			errs() << "Range not unknown!\n";
-			PyObject* o = PyObject_Repr(r.getUpper().getExpr());
-			char* s = PyString_AsString(o);
 			errs() << "[" << r.getLower() << "," << r.getUpper() << "]\n";
-			int index = atoi(s); //TODO: casting troubles?
+			long int index = r.getUpper().getInteger(); 
 			errs() << "index = " << index << "\n";
 			if (index > maxIndexes[arg]) {
 				errs() << "Yay range analysis! Adding to the map!\n";
@@ -53,44 +77,40 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
 		}
 		else {
 			errs() << "Not constant index\n";
-			gepi.dump();
+            notConstantBounded.insert(arg);
 			errs() << "Index in question = " << *gepi.idx_begin()->get() << "\n";
-			ConstantInt *constant;
-			if ((constant = dyn_cast<ConstantInt>(gepi.idx_begin()->get()))) {
-				errs() << "lol range-analysis and constants don't play nice?\n";
-				int index = constant->getSExtValue();
-				if(index > maxIndexes[arg]) {
-					maxIndexes[arg] = index;
-					errs() << "Adding to map\n";
-				}
-			}
-			else {
-			
-				notBounded.insert(arg);
+			errs() << "Is integer type? " << gepi.idx_begin()->get()->getType()->isIntegerTy() << "\n";
+			Value *symbolicIndexInst = rangeAnalysis.getRangeValuesFor(gepi.idx_begin()->get(), IRBuilder<>(placeHolder)).second;
+			errs() << "As reported by range analysis: " << *symbolicIndexInst << "\n";
+			if (BinaryOperator * op = dyn_cast<BinaryOperator>(symbolicIndexInst)) {
+				errs() << "Yay, it's a binary operator!\n";
+                if (op->getOpcode() == Instruction::Add) {
+                    errs() << "Yay it's an add!\n";
+                    Value *firstOperand = stripSExtInst(op->getOperand(0));
+                    Value *secondOperand = stripSExtInst(op->getOperand(1));
+                    bool matches = false;
+                    Argument *length = getArgLength(firstOperand, secondOperand);
+                    if (!length) length = getArgLength(secondOperand, firstOperand);
+                    if (length) {
+                        errs() << "Hey, look, an argument length! " << *length << "\n";
+                        const Argument *old = lengthArguments[arg];
+                        if (old == nullptr) {
+                            lengthArguments[arg] = length;
+                        }
+                        else if (old != length) {
+                            notParameterBounded.insert(arg);
+                        }
+                    }
+                    
+                }
 			}
 		}
 		errs() << "Bottom of visitor\n";
-		/*
-		else {
-			ConstantInt *constant;
-			if ((constant = dyn_cast<ConstantInt>(gepi.idx_begin()->get()))) {
-				int index = constant->getSExtValue();
-				if(index > maxIndexes[arg]) {
-					maxIndexes[arg] = index;
-					errs() << "Adding to map\n";
-				}
-			}
-		 
-			else {
-				errs() << "Not constant index\n";
-				notBounded.insert(arg);
-			}
-		}*/
 	}
 };
 
 static const RegisterPass<FindLengthChecks> registration("find-length",
-		"Find loops that have a fixed number of iterations that also index into arrays.",
+		"Find arrays with a statically known constant or parameter-bounded length.",
 		true, true);
 
 char FindLengthChecks::ID;
@@ -102,12 +122,9 @@ inline FindLengthChecks::FindLengthChecks()
 
 void FindLengthChecks::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
-	//usage.setPreservesAll();
-	//usage.addRequired<LoopInfo>();
+	usage.setPreservesAll();
 	usage.addRequired<IIGlueReader>();
 	usage.addRequired<SymbolicRangeAnalysis >();
-
-	//usage.addRequired<ScalarEvolution>();
 }
 
 
@@ -117,7 +134,7 @@ bool FindLengthChecks::runOnModule(Module &module) {
 	errs() << "Top of runOnModule()\n";
 	for (Function &func : module) {
 		errs() << "Analyzing " << func.getName() << "\n";
-		CheckGetElementPtrVisitor visitor(&iiglue, maxIndexes[&func], ra);
+		CheckGetElementPtrVisitor visitor(&iiglue, maxIndexes[&func], ra, module, lengthArguments[&func]);
 		for(BasicBlock &visitee :  func) {
 			errs() << "Visiting a new basic block...\n";
 			visitor.visit(visitee);
@@ -130,11 +147,14 @@ bool FindLengthChecks::runOnModule(Module &module) {
 void FindLengthChecks::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
-		const ArgumentToMaxIndexMap map = maxIndexes.at(&func);
+		const ArgumentToMaxIndexMap constantMap = maxIndexes.at(&func);
+        const LengthArgumentMap parameterLengthMap = lengthArguments.at(&func);
 		sink << "Analyzing " << func.getName() << "\n";
 		for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end())) {
-			if (map.count(&arg))
-				sink << "Argument " << arg.getName() << " has max index " << map.at(&arg) << '\n';
+			if (constantMap.count(&arg))
+				sink << "Argument " << arg.getName() << " has max index " << constantMap.at(&arg) << '\n';
+            else if (parameterLengthMap.count(&arg))
+				sink << "Argument " << arg.getName() << " has max index argument " << *parameterLengthMap.at(&arg) << '\n';
 			else if (iiglue.isArray(arg))
 				sink << "Argument " << arg.getName() << " has unknown max index.\n";
 		}
