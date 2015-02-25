@@ -1,5 +1,5 @@
 /**
-* This tests that variables indexed both by constants and by variables are not considered fixed length.
+* This tests that variables indexed both by constants and by variables are not considered fixed length or parameter length.
 **/
 int foo(int* array, int x){
 	int sum = 0;

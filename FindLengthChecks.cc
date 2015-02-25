@@ -25,13 +25,21 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
 		iiglue = r;
 	}
 	~CheckGetElementPtrVisitor() {
-        delete placeHolder;
+        errs() << "destructor\n";
 		for (const Argument * arg : notConstantBounded) {
-	  		maxIndexes.erase(maxIndexes.find(arg));
+            errs() << "Kicking out some constants\n";
+            errs() << "About to erase " << *arg << "\n";
+            if (maxIndexes.count(arg))
+	  		    maxIndexes.erase(maxIndexes.find(arg));
 	  	}
+        errs() << "Done with constants\n";
         for (const Argument * arg : notParameterBounded) {
-            lengthArguments.erase(lengthArguments.find(arg));        
+            if(lengthArguments.count(arg))
+                lengthArguments.erase(lengthArguments.find(arg));        
         }
+        errs() << "Basic block holds " << placeHolder->getInstList().size()<< " things\n";
+        delete placeHolder;
+        errs() << "Finished with the delete\n";
 		
 	}
     Value *stripSExtInst(Value *value) {
