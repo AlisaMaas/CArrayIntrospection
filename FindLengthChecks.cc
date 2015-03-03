@@ -1,3 +1,5 @@
+#define DEBUG_TYPE "find-length"
+#include "ArgumentsReachingValue.hh"
 #include "FindLengthChecks.hh"
 #include "IIGlueReader.hh"
 
@@ -29,13 +31,11 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
 		for (const Argument * arg : notConstantBounded) {
             errs() << "Kicking out some constants\n";
             errs() << "About to erase " << *arg << "\n";
-            if (maxIndexes.count(arg))
-	  		    maxIndexes.erase(maxIndexes.find(arg));
+	  		maxIndexes.erase(arg);
 	  	}
         errs() << "Done with constants\n";
         for (const Argument * arg : notParameterBounded) {
-            if(lengthArguments.count(arg))
-                lengthArguments.erase(lengthArguments.find(arg));        
+            lengthArguments.erase(arg);        
         }
         errs() << "Basic block holds " << placeHolder->getInstList().size()<< " things\n";
         delete placeHolder;
@@ -48,23 +48,67 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
         }
         return value;
     }
-    Argument *getArgLength(Value *first, Value *second) {
-        Argument *arg = nullptr;
-        ConstantInt *c = nullptr;
-        if (arg = dyn_cast<Argument>(first)) {
-            if (!((c = dyn_cast<ConstantInt>(second)) && c->isMinusOne())) {
-                arg = nullptr;
+    const Argument *getArgLength(Value *first, Value *second, const Argument *array) {
+        const ArgumentSet reaching = argumentsReachingValue(*first);
+        if (reaching.empty()) return nullptr;
+        else if (reaching.size() == 1) {
+            ConstantInt* c;
+            if ((c = dyn_cast<ConstantInt>(second)) && c->isMinusOne()) {
+                return *reaching.begin();
+            }
+            else return nullptr;
+        }
+        else {
+            notParameterBounded.insert(array);
+            return nullptr;
+        }
+    }
+    bool matchAddPattern(Value *value, Argument *arg) {
+        errs() << "Looking at " << *value << " in matchAddPattern\n";
+        value = stripSExtInst(value);
+        errs() << "Looking at stripped " << *value << " in matchAddPattern\n";
+        if (BinaryOperator * op = dyn_cast<BinaryOperator>(value)) {
+            errs() << "Binary Operation detected!\n";
+            if (op->getOpcode() == Instruction::Add) {
+                errs() << "Yay it's an add!\n";
+                Value *firstOperand = stripSExtInst(op->getOperand(0));
+                Value *secondOperand = stripSExtInst(op->getOperand(1));
+                errs() << "First operand: " << *firstOperand << "\n";
+                errs() << "Second operand: " << *secondOperand << "\n";
+                bool matches = false;
+                const Argument *length = getArgLength(firstOperand, secondOperand, arg);
+                if (!length) length = getArgLength(secondOperand, firstOperand, arg);
+                if (length) {
+                    errs() << "Hey, look, an argument length! " << *length << "\n";
+                    const Argument *old = lengthArguments[arg];
+                    if (old == nullptr) {
+                        lengthArguments[arg] = length;
+                        return true;
+                    }
+                    else if (old == length) {
+                        return true;
+                    }
+                    else {
+                        notParameterBounded.insert(arg);
+                    }
+                }
+                    
             }
         }
-        return arg;
+        return false;
     }
 	void visitGetElementPtrInst(GetElementPtrInst& gepi) {
 		errs() << "Top of visitor\n";
 		Value *pointer = gepi.getPointerOperand();
 		Argument *arg = dyn_cast<Argument>(pointer);
+		if (!arg) {
+			errs() << "Argument is null. Here's what we know about this pointer: " << *pointer << "\n";
+		}
 		errs() << "GEPI: " << gepi << "\n";
 		if (gepi.getNumIndices() != 1 || (arg? !(iiglue->isArray(*arg)) : true)) {
 			errs() << "Ignoring this one!\n";
+			errs() << "It has " << gepi.getNumIndices() << " indices.\n";
+			errs() << "Pointer is null? " << (arg? "no" : "yes") << "\n";
 			return; //in this case, we don't care.
 			//need to do some thinking about higher number of indices, and make sure to have a 
 			//consistent way of thinking about it.
@@ -72,10 +116,10 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
 		}
 		errs() << "About to get the range\n";
 		SAGERange r = rangeAnalysis.getState(gepi.idx_begin()->get());
+        errs() << "[" << r.getLower() << "," << r.getUpper() << "]\n";
 		errs() << "Got it!\n";
 		if (r.getUpper().isConstant()) { //check range-analysis
 			errs() << "Range not unknown!\n";
-			errs() << "[" << r.getLower() << "," << r.getUpper() << "]\n";
 			long int index = r.getUpper().getInteger(); 
 			errs() << "index = " << index << "\n";
 			if (index > maxIndexes[arg]) {
@@ -90,28 +134,17 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
 			errs() << "Is integer type? " << gepi.idx_begin()->get()->getType()->isIntegerTy() << "\n";
 			Value *symbolicIndexInst = rangeAnalysis.getRangeValuesFor(gepi.idx_begin()->get(), IRBuilder<>(placeHolder)).second;
 			errs() << "As reported by range analysis: " << *symbolicIndexInst << "\n";
-			if (BinaryOperator * op = dyn_cast<BinaryOperator>(symbolicIndexInst)) {
-				errs() << "Yay, it's a binary operator!\n";
-                if (op->getOpcode() == Instruction::Add) {
-                    errs() << "Yay it's an add!\n";
-                    Value *firstOperand = stripSExtInst(op->getOperand(0));
-                    Value *secondOperand = stripSExtInst(op->getOperand(1));
-                    bool matches = false;
-                    Argument *length = getArgLength(firstOperand, secondOperand);
-                    if (!length) length = getArgLength(secondOperand, firstOperand);
-                    if (length) {
-                        errs() << "Hey, look, an argument length! " << *length << "\n";
-                        const Argument *old = lengthArguments[arg];
-                        if (old == nullptr) {
-                            lengthArguments[arg] = length;
-                        }
-                        else if (old != length) {
-                            notParameterBounded.insert(arg);
-                        }
-                    }
-                    
+            bool foundMatch = false;
+            foundMatch = matchAddPattern(symbolicIndexInst, arg);
+            if (!foundMatch) {
+                if (SelectInst *op = dyn_cast<SelectInst>(symbolicIndexInst)) {
+                    errs() << "Select Instruction!" << *op << "\n";
+                    foundMatch = matchAddPattern(op->getTrueValue(), arg);
+                    if (!foundMatch) foundMatch = matchAddPattern(op->getFalseValue(), arg);
                 }
-			}
+            
+            }
+            if (!foundMatch) notParameterBounded.insert(arg);
 		}
 		errs() << "Bottom of visitor\n";
 	}

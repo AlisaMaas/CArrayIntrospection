@@ -20,6 +20,7 @@ variables = Variables(['.scons-options'], ARGUMENTS)
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
 
 default = WhereIs('llvm-config', (
+	'/home/ajmaas/sra/llvm-3.5.1.src/Release+Asserts/bin/',
     '/p/polyglot/public/bin',
     '/usr/bin',
 ))
@@ -97,7 +98,7 @@ env = conf.Finish()
 
 penv = env.Clone(
     CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11'),
-    CPPPATH=('/unsup/boost-1.55.0/include', '/home/ajmaas/sra/llvm-3.5.1.src/lib/Transforms/llvm-sra/', '/usr/include/python2.7/',),
+    CPPPATH=('/home/ajmaas/sra/llvm-3.5.1.src/Release+Asserts/lib','/unsup/boost-1.55.0/include', '/home/ajmaas/sra/llvm-3.5.1.src/lib/Transforms/llvm-sra/', '/usr/include/python2.7/',),
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
 )
