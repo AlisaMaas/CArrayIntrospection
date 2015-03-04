@@ -1,5 +1,6 @@
 #define DEBUG_TYPE "null-annotator"
 #include "Answer.hh"
+#include "ArgumentReachesValue.hh"
 #include "BacktrackPhiNodes.hh"
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
@@ -92,49 +93,6 @@ static bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults *check
 	return any_of(*checks | map_values,
 		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).first.empty(); });
 }
-
-
-////////////////////////////////////////////////////////////////////////
-//
-//  test whether a specific argument may flow into a specific value
-//  across zero or more phi nodes
-//
-
-namespace {
-	class ArgumentReachesValue : public BacktrackPhiNodes {
-	public:
-		ArgumentReachesValue(const Argument &);
-		void visit(const Argument &) final override;
-
-	private:
-		const Argument &goal;
-	};
-}
-
-
-inline ArgumentReachesValue::ArgumentReachesValue(const Argument &goal)
-	: goal(goal) {
-}
-
-
-void ArgumentReachesValue::visit(const Argument &reached) {
-	if (&reached == &goal)
-		throw this;
-}
-
-
-static bool argumentReachesValue(const Argument &goal, const Value &start) {
-	ArgumentReachesValue explorer(goal);
-	try {
-		explorer.backtrack(start);
-	} catch (const ArgumentReachesValue *) {
-		return true;
-	}
-	return false;
-}
-
-
-////////////////////////////////////////////////////////////////////////
 
 
 inline NullAnnotator::NullAnnotator()
