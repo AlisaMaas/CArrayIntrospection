@@ -161,6 +161,10 @@ void LengthAnnotator::dumpToFile(const string &filename, const IIGlueReader &iig
 
 		dumpArgumentDetails(out, argumentList, "argument_annotations",
 				    [&](const Argument &arg) {
+				    	if (annotate(arg).toString()[0] == 'p') {
+				    		errs() << "Capital U detected\n";
+				    		abort();
+				    	}
 					    return annotate(arg).toString(); //TODO: Fix
 				    }
 			);
@@ -210,6 +214,8 @@ bool LengthAnnotator::runOnModule(Module &module) {
 		if (results.second != nullptr) {
 			for (pair<const Argument *, const Argument *> fixedResult: *results.second) {
 				annotations[fixedResult.first] = LengthInfo(PARAMETER_LENGTH, fixedResult.second->getArgNo());
+				errs() << "FOUND PARAM_LENGTH!!!\n";
+				abort();
 			}
 		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
@@ -230,12 +236,12 @@ bool LengthAnnotator::runOnModule(Module &module) {
 				DEBUG(dbgs() << "\tConsidering " << arg.getArgNo() << "\n");
 				LengthInfo oldResult = annotate(arg);
 				DEBUG(dbgs() << "\tOld result: " << oldResult.toString() << '\n');
-				if (oldResult.type == INCONSISTENT) continue;
+				if (oldResult.type == INCONSISTENT) break;
 				bool nextArgumentPlease = false;
 				for (const CallInst &call : functionToCallSites[&func] | indirected) {
 					DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
-					DEBUG(dbgs() << "Call: " << call.getName() << "\n");
-					DEBUG(dbgs() << "getCalledFunction name: " << call.getCalledFunction() << "\n");
+					//DEBUG(dbgs() << "Call: " << call.getName() << "\n");
+					//DEBUG(dbgs() << "getCalledFunction name: " << call.getCalledFunction()->getName() << "\n");
 					const auto calledFunction = call.getCalledFunction();
 					if (calledFunction == nullptr)
 						continue;
@@ -261,7 +267,6 @@ bool LengthAnnotator::runOnModule(Module &module) {
 							annotations[&arg] = LengthInfo(INCONSISTENT, -1);
 							reasons[&arg] = "Result went from " + oldResult.toString() +
 							" to " + calleeResult.toString();
-							nextArgumentPlease = true;
 							changed = true;
 							break; //no point in looking through other calls if we've reached an inconsistent state.
 						}
@@ -270,7 +275,7 @@ bool LengthAnnotator::runOnModule(Module &module) {
 							DEBUG(dbgs() << "Saw FIXED_LENGTH\n");
 							if (oldResult.type == FIXED_LENGTH) {
 								DEBUG(dbgs() << "Merging two lengths\n");
-								if (oldResult.length <= calleeResult.length) {
+								if (oldResult.length < calleeResult.length) {
 									annotations[&arg] = calleeResult;
 									reasons[&arg] = "Called " + calledFunction->getName().str() + 
 									", marked as fixedLength(" + to_string(calleeResult.length) + ") in this position";
@@ -288,6 +293,7 @@ bool LengthAnnotator::runOnModule(Module &module) {
 							break;
 
 						case PARAMETER_LENGTH:
+							DEBUG(dbgs() << "Saw PARAMETER_LENGTH\n");
 							if (oldResult.type == NO_LENGTH_VALUE) {
 								annotations[&arg] = calleeResult;
 								auto a = next(func.getArgumentList().begin(), (int)calleeResult.length);
@@ -309,6 +315,8 @@ bool LengthAnnotator::runOnModule(Module &module) {
 							break;
 
 						case NO_LENGTH_VALUE:
+							DEBUG(dbgs() << "Saw NO_LENGTH_VALUE\n");
+
 							//this should just be safe to ignore, since we know nothing about the callee in this case.
 							break;
 

@@ -1,6 +1,7 @@
 #ifndef INCLUDE_LENGTH_INFO_HH
 #define INCLUDE_LENGTH_INFO_HH
 #include <string>
+#include <sstream>
 
 enum LengthType {
 	NO_LENGTH_VALUE,
@@ -28,10 +29,15 @@ class LengthInfo {
 			return "Impossible";
 		}
 		std::string toString() {
+			std::stringstream stream;
 			switch(type) {
 				case NO_LENGTH_VALUE: return "No length value";
-				case PARAMETER_LENGTH: return "Parameter length of " + length;
-				case FIXED_LENGTH: return "Fixed length of " + length;
+				case PARAMETER_LENGTH: 
+				stream << "Parameter length of " << length;
+				return stream.str();
+				case FIXED_LENGTH: 
+				stream << "Fixed length of " << length;
+				return stream.str();
 				case INCONSISTENT: return "Inconsistent length";
 			}
 			return "Impossible";

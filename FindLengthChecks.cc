@@ -6,7 +6,10 @@
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/IR/InstVisitor.h>
 #include <llvm/IR/Module.h>
+#include <llvm/Support/Debug.h>
 #include <SymbolicRangeAnalysis.h>
+#include <fstream>
+
 
 
 using namespace boost;
@@ -27,19 +30,19 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
 		iiglue = r;
 	}
 	~CheckGetElementPtrVisitor() {
-        errs() << "destructor\n";
+        DEBUG(dbgs() << "destructor\n");
 		for (const Argument * arg : notConstantBounded) {
-            errs() << "Kicking out some constants\n";
-            errs() << "About to erase " << *arg << "\n";
+            DEBUG(dbgs() << "Kicking out some constants\n");
+            DEBUG(dbgs() << "About to erase " << *arg << "\n");
 	  		maxIndexes.erase(arg);
 	  	}
-        errs() << "Done with constants\n";
+        DEBUG(dbgs() << "Done with constants\n");
         for (const Argument * arg : notParameterBounded) {
             lengthArguments.erase(arg);        
         }
-        errs() << "Basic block holds " << placeHolder->getInstList().size()<< " things\n";
+        DEBUG(dbgs() << "Basic block holds " << placeHolder->getInstList().size()<< " things\n");
         delete placeHolder;
-        errs() << "Finished with the delete\n";
+        DEBUG(dbgs() << "Finished with the delete\n");
 		
 	}
     Value *stripSExtInst(Value *value) {
@@ -64,22 +67,22 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
         }
     }
     bool matchAddPattern(Value *value, Argument *arg) {
-        errs() << "Looking at " << *value << " in matchAddPattern\n";
+        DEBUG(dbgs() << "Looking at " << *value << " in matchAddPattern\n");
         value = stripSExtInst(value);
-        errs() << "Looking at stripped " << *value << " in matchAddPattern\n";
+        DEBUG(dbgs() << "Looking at stripped " << *value << " in matchAddPattern\n");
         if (BinaryOperator * op = dyn_cast<BinaryOperator>(value)) {
-            errs() << "Binary Operation detected!\n";
+            DEBUG(dbgs() << "Binary Operation detected!\n");
             if (op->getOpcode() == Instruction::Add) {
-                errs() << "Yay it's an add!\n";
+                DEBUG(dbgs() << "Yay it's an add!\n");
                 Value *firstOperand = stripSExtInst(op->getOperand(0));
                 Value *secondOperand = stripSExtInst(op->getOperand(1));
-                errs() << "First operand: " << *firstOperand << "\n";
-                errs() << "Second operand: " << *secondOperand << "\n";
+                DEBUG(dbgs() << "First operand: " << *firstOperand << "\n");
+                DEBUG(dbgs() << "Second operand: " << *secondOperand << "\n");
                 bool matches = false;
                 const Argument *length = getArgLength(firstOperand, secondOperand, arg);
                 if (!length) length = getArgLength(secondOperand, firstOperand, arg);
                 if (length) {
-                    errs() << "Hey, look, an argument length! " << *length << "\n";
+                    DEBUG(dbgs() << "Hey, look, an argument length! " << *length << "\n");
                     const Argument *old = lengthArguments[arg];
                     if (old == nullptr) {
                         lengthArguments[arg] = length;
@@ -98,47 +101,58 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
         return false;
     }
 	void visitGetElementPtrInst(GetElementPtrInst& gepi) {
-		errs() << "Top of visitor\n";
+		DEBUG(dbgs() << "Top of visitor\n");
 		Value *pointer = gepi.getPointerOperand();
 		Argument *arg = dyn_cast<Argument>(pointer);
 		if (!arg) {
-			errs() << "Argument is null. Here's what we know about this pointer: " << *pointer << "\n";
+			DEBUG(dbgs() << "Argument is null. Here's what we know about this pointer: " << *pointer << "\n");
 		}
-		errs() << "GEPI: " << gepi << "\n";
+		
+		DEBUG(dbgs() << "GEPI: " << gepi << "\n");
 		if (gepi.getNumIndices() != 1 || (arg? !(iiglue->isArray(*arg)) : true)) {
-			errs() << "Ignoring this one!\n";
-			errs() << "It has " << gepi.getNumIndices() << " indices.\n";
-			errs() << "Pointer is null? " << (arg? "no" : "yes") << "\n";
+			DEBUG(dbgs() << "Ignoring this one!\n");
+			DEBUG(dbgs() << "It has " << gepi.getNumIndices() << " indices.\n");
+			DEBUG(dbgs() << "Pointer is null? " << (arg? "no" : "yes") << "\n");
 			return; //in this case, we don't care.
 			//need to do some thinking about higher number of indices, and make sure to have a 
 			//consistent way of thinking about it.
 			//should probably look at how it's usually documented.
 		}
-		errs() << "About to get the range\n";
+		if (gepi.getType() != gepi.getPointerOperandType()) { //possibly detecting the struct access pattern.
+			//errs() << "Types don't match. We have " << *gepi.getType() << " and " << *gepi.getPointerOperandType() << "\n";
+			return; //don't mark it as bad because it's possible that we've got an array of structs.
+		}
+		errs() << "GEPI: " << gepi << "\n";
+		DEBUG(dbgs() << "About to get the range\n");
 		SAGERange r = rangeAnalysis.getState(gepi.idx_begin()->get());
-        errs() << "[" << r.getLower() << "," << r.getUpper() << "]\n";
-		errs() << "Got it!\n";
+        DEBUG(dbgs() << "[" << r.getLower() << "," << r.getUpper() << "]\n");
+		DEBUG(dbgs() << "Got it!\n");
+		for (User * user : gepi.users()) {
+			if (BitCastInst::classof(user)) {
+				return; //in this case, we have no information, since they started casting.
+			}
+		}
 		if (r.getUpper().isConstant()) { //check range-analysis
-			errs() << "Range not unknown!\n";
+			DEBUG(dbgs() << "Range not unknown!\n");
 			long int index = r.getUpper().getInteger(); 
-			errs() << "index = " << index << "\n";
+			DEBUG(dbgs() << "index = " << index << "\n");
 			if (index > maxIndexes[arg]) {
-				errs() << "Yay range analysis! Adding to the map!\n";
+				DEBUG(dbgs() << "Yay range analysis! Adding to the map!\n");
 				maxIndexes[arg] = index;
 			}
 		}
 		else {
-			errs() << "Not constant index\n";
+			DEBUG(dbgs() << "Not constant index\n");
             notConstantBounded.insert(arg);
-			errs() << "Index in question = " << *gepi.idx_begin()->get() << "\n";
-			errs() << "Is integer type? " << gepi.idx_begin()->get()->getType()->isIntegerTy() << "\n";
+			DEBUG(dbgs() << "Index in question = " << *gepi.idx_begin()->get() << "\n");
+			DEBUG(dbgs() << "Is integer type? " << gepi.idx_begin()->get()->getType()->isIntegerTy() << "\n");
 			Value *symbolicIndexInst = rangeAnalysis.getRangeValuesFor(gepi.idx_begin()->get(), IRBuilder<>(placeHolder)).second;
-			errs() << "As reported by range analysis: " << *symbolicIndexInst << "\n";
+			DEBUG(dbgs() << "As reported by range analysis: " << *symbolicIndexInst << "\n");
             bool foundMatch = false;
             foundMatch = matchAddPattern(symbolicIndexInst, arg);
             if (!foundMatch) {
                 if (SelectInst *op = dyn_cast<SelectInst>(symbolicIndexInst)) {
-                    errs() << "Select Instruction!" << *op << "\n";
+                    DEBUG(dbgs() << "Select Instruction!" << *op << "\n");
                     foundMatch = matchAddPattern(op->getTrueValue(), arg);
                     if (!foundMatch) foundMatch = matchAddPattern(op->getFalseValue(), arg);
                 }
@@ -146,7 +160,7 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
             }
             if (!foundMatch) notParameterBounded.insert(arg);
 		}
-		errs() << "Bottom of visitor\n";
+		DEBUG(dbgs() << "Bottom of visitor\n");
 	}
 };
 
@@ -172,12 +186,12 @@ void FindLengthChecks::getAnalysisUsage(AnalysisUsage &usage) const {
 bool FindLengthChecks::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	const SymbolicRangeAnalysis &ra = getAnalysis<SymbolicRangeAnalysis>();
-	errs() << "Top of runOnModule()\n";
+	DEBUG(dbgs() << "Top of runOnModule()\n");
 	for (Function &func : module) {
-		errs() << "Analyzing " << func.getName() << "\n";
+		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
 		CheckGetElementPtrVisitor visitor(&iiglue, maxIndexes[&func], ra, module, lengthArguments[&func]);
 		for(BasicBlock &visitee :  func) {
-			errs() << "Visiting a new basic block...\n";
+			DEBUG(dbgs() << "Visiting a new basic block...\n");
 			visitor.visit(visitee);
 		}
 	}
