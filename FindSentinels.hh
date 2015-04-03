@@ -2,16 +2,14 @@
 #define INCLUDE_FIND_SENTINELS_HH
 
 #include <llvm/Pass.h>
-
 #include <unordered_map>
-#include <unordered_set>
+#include "FindSentinelHelper.hh"
 
 namespace llvm {
 	class Argument;
 }
 
 
-typedef std::unordered_set<const llvm::BasicBlock *> BlockSet;
 typedef std::unordered_map<const llvm::Argument *, std::pair<BlockSet, bool>> ArgumentToBlockSet;
 
 

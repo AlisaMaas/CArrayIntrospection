@@ -1,4 +1,4 @@
 Import('env')
 
-env.RunTests(PLUGIN_ARGS=('-mem2reg', '-null-annotator', '-output', 'output.json'))
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-null-annotator', '-debug-only=find-sentinels-helper', '-output', 'output.json'))
 #SConscript(dirs=['whole-program-tests'], exports='env')

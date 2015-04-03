@@ -1,6 +1,7 @@
 #define DEBUG_TYPE "find-length"
 #include "ArgumentsReachingValue.hh"
 #include "FindLengthChecks.hh"
+#include "FindSentinelHelper.hh"
 #include "IIGlueReader.hh"
 
 #include <llvm/Analysis/LoopPass.h>
