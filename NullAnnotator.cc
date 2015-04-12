@@ -1,9 +1,9 @@
 #define DEBUG_TYPE "null-annotator"
 #include "Answer.hh"
-#include "ArgumentReachesValue.hh"
 #include "BacktrackPhiNodes.hh"
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
+#include "NullAnnotatorHelper.hh"
 
 #include <boost/algorithm/cxx11/any_of.hpp>
 #include <boost/foreach.hpp>
@@ -51,12 +51,10 @@ namespace {
 
 	private:
 		// map from function name and argument number to whether or not that argument gets annotated
-		typedef unordered_map<const Argument *, Answer> AnnotationMap;
 		AnnotationMap annotations;
-		unordered_map<const Argument *, string> reasons;
+		unordered_map<const Value *, string> reasons;
 		typedef unordered_set<const CallInst *> CallInstSet;
 		unordered_map<const Function *, CallInstSet> functionToCallSites;
-		Answer getAnswer(const Argument &) const;
 		void dumpToFile(const string &filename, const IIGlueReader &, const Module &) const;
 		void populateFromFile(const string &filename, const Module &);
 	};
@@ -78,23 +76,6 @@ namespace {
 			cl::desc("Filename to write results to"));
 }
 
-
-static bool existsNonOptionalSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg) {
-	if (checks == nullptr)
-		return false;
-	return any_of(*checks | map_values,
-		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).second; });
-}
-
-
-static bool hasLoopWithSentinelCheck(const FindSentinels::FunctionResults *checks, const Argument &arg) {
-	if (checks == nullptr)
-		return false;
-	return any_of(*checks | map_values,
-		      [&](const ArgumentToBlockSet &entry) { return !entry.at(&arg).first.empty(); });
-}
-
-
 inline NullAnnotator::NullAnnotator()
 	: ModulePass(ID) {
 }
@@ -112,13 +93,6 @@ void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	usage.addRequired<IIGlueReader>();
 	usage.addRequired<FindSentinels>();
 }
-
-
-Answer NullAnnotator::getAnswer(const Argument &arg) const {
-	const AnnotationMap::const_iterator found = annotations.find(&arg);
-	return found == annotations.end() ? DONT_CARE : found->second;
-}
-
 
 void NullAnnotator::populateFromFile(const string &filename, const Module &module) {
 	ptree root;
@@ -182,7 +156,7 @@ void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglu
 
 		dumpArgumentDetails(out, argumentList, "argument_annotations",
 				    [&](const Argument &arg) {
-					    return getAnswer(arg);
+					    return getAnswer(arg, annotations);
 				    }
 			);
 		out << ",\n";
@@ -213,121 +187,22 @@ bool NullAnnotator::runOnModule(Module &module) {
 	}
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 
-	// collect calls in each function for repeated scanning later
-	for (const Function &func : iiglue.arrayReceivers()) {
-		const auto instructions =
-			make_iterator_range(inst_begin(func), inst_end(func))
-			| transformed([](const Instruction &inst) { return dyn_cast<CallInst>(&inst); })
-			| filtered(boost::lambda::_1);
-		functionToCallSites.emplace(&func, CallInstSet(instructions.begin(), instructions.end()));
-		DEBUG(dbgs() << "went through all the instructions and grabbed calls\n");
-		DEBUG(dbgs() << "We found " << functionToCallSites[&func].size() << " calls in " << func.getName() << '\n');
-	}
+	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
 
 	const FindSentinels &findSentinels = getAnalysis<FindSentinels>();
-	bool firstTime = true;
-	bool changed;
+	FunctionToValues toCheck;
+	unordered_map<const Function *, FunctionResults> allSentinelChecks;
 
-	do {
-		changed = false;
-		for (const Function &func : iiglue.arrayReceivers()) {
-			DEBUG(dbgs() << "About to get the map for this function\n");
-			const FindSentinels::FunctionResults * const functionChecks = findSentinels.getResultsForFunction(&func);
-			for (const Argument &arg : iiglue.arrayArguments(func)) {
-				DEBUG(dbgs() << "\tConsidering " << arg.getArgNo() << "\n");
-				Answer oldResult = getAnswer(arg);
-				DEBUG(dbgs() << "\tOld result: " << oldResult << '\n');
-				if (oldResult == NULL_TERMINATED)
-					continue;
-				if (firstTime) {
-					// process loops exactly once
-					if (existsNonOptionalSentinelCheck(functionChecks, arg)) {
-						DEBUG(dbgs() << "\tFound a non-optional sentinel check in some loop!\n");
-						annotations[&arg] = NULL_TERMINATED;
-						reasons[&arg] = "Found a non-optional sentinel check in some loop of this function.";
-						changed = true;
-						continue;
-					}
-				}
-				// if we haven't yet continued, process evidence from callees.
-				bool foundDontCare = false;
-				bool foundNonNullTerminated = false;
-				bool nextArgumentPlease = false;
-				for (const CallInst &call : functionToCallSites[&func] | indirected) {
-					DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
-					DEBUG(dbgs() << "Call: " << call.getName() << "\n");
-					DEBUG(dbgs() << "getCalledFunction name: " << call.getCalledFunction() << "\n");
-					const auto calledFunction = call.getCalledFunction();
-					if (calledFunction == nullptr)
-						continue;
-					const auto formals = calledFunction->getArgumentList().begin();
-					DEBUG(dbgs() << "Got formals\n");
-					for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
-						DEBUG(dbgs() << "Starting iteration\n");
-						const Value &actual = *call.getArgOperand(argNo);
-						if (!argumentReachesValue(arg, actual)) continue;
-						DEBUG(dbgs() << "Name of arg: " << arg.getName() << "\n");
-						DEBUG(dbgs() << "hey, it matches!\n");
-
-						auto parameter = next(formals, argNo);
-						if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
-							continue;
-						}
-						DEBUG(dbgs() << "About to enter the switch\n");
-						switch (getAnswer(*parameter)) {
-						case NULL_TERMINATED:
-							DEBUG(dbgs() << "Marking NULL_TERMINATED\n");
-							annotations[&arg] = NULL_TERMINATED;
-							reasons[&arg] = "Called " + calledFunction->getName().str() + ", marked as null terminated in this position";
-							changed = true;
-							nextArgumentPlease = true;
-							break;
-
-						case NON_NULL_TERMINATED:
-							// maybe set/check a flag for error reporting
-							foundNonNullTerminated = true;
-							break;
-
-						case DONT_CARE:
-							// maybe set/check a flag for error reporting
-							if (foundNonNullTerminated) {
-								DEBUG(dbgs() << "Found both DONT_CARE and NON_NULL_TERMINATED among callees.\n");
-							}
-							foundDontCare = true;
-							break;
-
-						default:
-							// should never happen!
-							abort();
-						}
-					}
-
-					if (nextArgumentPlease) {
-						break;
-					}
-				}
-				if (nextArgumentPlease) {
-					continue;
-				}
-				// if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
-				if (hasLoopWithSentinelCheck(functionChecks, arg)) {
-					if (oldResult != NON_NULL_TERMINATED) {
-						DEBUG(dbgs() << "Marking NOT_NULL_TERMINATED\n");
-						annotations[&arg] = NON_NULL_TERMINATED;
-						reasons[&arg] = "Has a loop with an optional sentinel check";
-						changed = true;
-						if (foundDontCare) {
-							DEBUG(dbgs() << "Marking NOT_NULL_TERMINATED even though other calls say DONT_CARE.\n");
-							// do error reporting stuff
-						}
-						continue;
-					}
-				}
-				// otherwise it stays as DONT_CARE for now.
-			}
+	for (const Function &func : iiglue.arrayReceivers()) {
+		allSentinelChecks[&func] = *findSentinels.getResultsForFunction(&func);
+		for (const Argument &arg : iiglue.arrayArguments(func)) {
+			toCheck[&func].insert(&arg);
 		}
-		firstTime = false;
-	} while (changed);
+	}
+
+	processLoops(module, toCheck, allSentinelChecks, annotations, reasons);
+	iterateOverModule(module, toCheck, allSentinelChecks, allCallSites, annotations, reasons);
+	
 	if (!outputFileName.empty())
 		dumpToFile(outputFileName, iiglue, module);
 	return false;
@@ -340,7 +215,7 @@ void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 		for (const Argument &arg : iiglue.arrayArguments(func))
 			if (annotate(arg))
 				sink << func.getName() << " with argument " << arg.getArgNo()
-				     << " should be annotated NULL_TERMINATED (" << (getAnswer(arg))
+				     << " should be annotated NULL_TERMINATED (" << (getAnswer(arg, annotations))
 				     << ").\n";
 	}
 }

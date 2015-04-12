@@ -9,30 +9,35 @@
 //
 
 namespace {
-	class ArgumentReachesValue : public BacktrackPhiNodes {
+	class ValueReachesValue : public BacktrackPhiNodes {
 	public:
-		ArgumentReachesValue(const llvm::Value &);
+		ValueReachesValue(const llvm::Value &);
 		void visit(const llvm::Value &) final override;
+		bool shouldVisit(const llvm::Value &) final override;
 	private:
 		const llvm::Value &goal;
 	};
 }
 
-inline ArgumentReachesValue::ArgumentReachesValue(const llvm::Value &goal)
+
+inline ValueReachesValue::ValueReachesValue(const llvm::Value &goal)
 	: goal(goal) {
 }
 
-
-void ArgumentReachesValue::visit(const llvm::Value &reached) {
+void ValueReachesValue::visit(const llvm::Value &reached) {
 	if (&reached == &goal)
 		throw this;
 }
 
-static bool argumentReachesValue(const llvm::Argument &goal, const llvm::Value &start) {
-	ArgumentReachesValue explorer(goal);
+bool ValueReachesValue::shouldVisit(const llvm::Value &) {
+	return true;
+}
+
+static bool valueReachesValue(const llvm::Value &goal, const llvm::Value &start) {
+	ValueReachesValue explorer(goal);
 	try {
 		explorer.backtrack(start);
-	} catch (const ArgumentReachesValue *) {
+	} catch (const ValueReachesValue *) {
 		return true;
 	}
 	return false;

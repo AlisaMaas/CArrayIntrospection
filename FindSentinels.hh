@@ -23,8 +23,8 @@ public:
 	void print(llvm::raw_ostream &, const llvm::Module *) const final override;
 
 	// access to analysis results derived by this pass
-	typedef std::unordered_map<const llvm::BasicBlock *, ArgumentToBlockSet> FunctionResults;
 	const FunctionResults *getResultsForFunction(const llvm::Function *) const;
+	const std::unordered_map<const llvm::Function*, FunctionResults> getAllResults() const;
 
 private:
 	std::unordered_map<const llvm::Function *, FunctionResults> allSentinelChecks;
@@ -33,11 +33,14 @@ private:
 
 ////////////////////////////////////////////////////////////////////////
 
-
-inline const FindSentinels::FunctionResults *FindSentinels::getResultsForFunction(const llvm::Function *func) const {
+//TODO: Pull up into super class if this isn't the only removable shared code.
+inline const FunctionResults *FindSentinels::getResultsForFunction(const llvm::Function *func) const {
 	const auto found = allSentinelChecks.find(func);
 	return found == allSentinelChecks.end() ? nullptr : &found->second;
 }
 
+inline const std::unordered_map<const llvm::Function *, FunctionResults>  FindSentinels::getAllResults() const {
+	return allSentinelChecks;
+}
 
 #endif // !INCLUDE_FIND_SENTINELS_HH

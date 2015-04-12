@@ -1,5 +1,6 @@
 #define DEBUG_TYPE "find-sentinels" 
 #include "BacktrackPhiNodes.hh"
+#include "ArgumentsReachingValue.hh"
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
 #include "PatternMatch-extras.hh"
@@ -20,35 +21,6 @@ using namespace boost::container;
 using namespace llvm;
 using namespace llvm::PatternMatch;
 using namespace std;
-
-
-////////////////////////////////////////////////////////////////////////
-//
-//  collect the set of all arguments that may flow to a given value
-//  across zero or more phi nodes
-//
-
-namespace {
-	typedef std::unordered_set<const llvm::Argument *> ArgumentSet;
-
-	class ArgumentsReachingValue : public BacktrackPhiNodes {
-	public:
-		void visit(const Argument &) final override;
-		ArgumentSet result;
-	};
-}
-
-
-void ArgumentsReachingValue::visit(const Argument &reached) {
-	result.insert(&reached);
-}
-
-
-static ArgumentSet argumentsReachingValue(const Value &start) {
-	ArgumentsReachingValue explorer;
-	explorer.backtrack(start);
-	return std::move(explorer.result);
-}
 
 static const RegisterPass<FindSentinels> registration("find-sentinels",
 		"Find each branch used to exit a loop when a sentinel value is found in an array",
@@ -74,7 +46,7 @@ bool FindSentinels::runOnModule(Module &module) {
 	for (Function &func : module) {
 		if ((func.isDeclaration())) continue;
 		const LoopInfo &LI = getAnalysis<LoopInfo>(func);
-		unordered_map<const BasicBlock *, ArgumentToBlockSet> &functionSentinelChecks = allSentinelChecks[&func];
+		unordered_map<const BasicBlock *, ValueToBlockSet> &functionSentinelChecks = allSentinelChecks[&func];
 #if 0
 		// bail out early if func has no array arguments
 		// up for discussion - seems to lead to some unintuitive results that I want to discuss before readding.
@@ -85,7 +57,7 @@ bool FindSentinels::runOnModule(Module &module) {
 #endif
 		for (const Loop * const loop : LI) {
 			ValueToBlockSet foundSentinelChecks = findSentinelChecks(loop);
-			ArgumentToBlockSet &sentinelChecks = functionSentinelChecks[loop->getHeader()];
+			ValueToBlockSet &sentinelChecks = functionSentinelChecks[loop->getHeader()];
 			for (auto pair : foundSentinelChecks) {
 				const ArgumentSet reaching = argumentsReachingValue(*pair.first);
 				if (reaching.empty()) continue;
@@ -145,10 +117,10 @@ void FindSentinels::print(raw_ostream &sink, const Module *module) const {
 
 		// For each loop, print all sentinel checks and whether it is possible to go from loop entry to loop entry without
 		// passing a sentinel check.
-		const flat_map<const BasicBlock *, ArgumentToBlockSet, BasicBlockCompare> orderedChecks(unorderedChecks.begin(), unorderedChecks.end());
+		const flat_map<const BasicBlock *, ValueToBlockSet, BasicBlockCompare> orderedChecks(unorderedChecks.begin(), unorderedChecks.end());
 		for (const auto &check : orderedChecks) {
 			const BasicBlock &header = *check.first;
-			const ArgumentToBlockSet &entry = check.second;
+			const ValueToBlockSet &entry = check.second;
 			for (const Argument &arg : iiglue.arrayArguments(func)) {
 				const pair<BlockSet, bool> &checks = entry.at(&arg);
 				if (checks.first.empty()) continue;
