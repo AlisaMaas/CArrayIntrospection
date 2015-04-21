@@ -162,9 +162,11 @@ bool processLoops(const Module &module, const FunctionToValueSets &checkNullTerm
 	DEBUG(dbgs() << "Top of processLoops\n");
 	bool changed = false;
 	for (const Function &func : module) {
+		if ((func.isDeclaration())) continue;
 		DEBUG(dbgs() << "Examining " << func.getName() << "\n");
 		FunctionResults functionChecks = allSentinelChecks.at(&func);
 		DEBUG(dbgs() << "Got the function checks\n");
+		if (!checkNullTerminated.count(&func)) continue;
 		for (const ValueSet *value : checkNullTerminated.at(&func)) {
 			DEBUG(dbgs() << "Got a valueset to look through.\n");
 			if (existsNonOptionalSentinelCheck(&functionChecks, *value)) {
@@ -205,8 +207,11 @@ bool iterateOverModule(const Module &module, const FunctionToValueSets &checkNul
 	do {
 		changed = false;
 		for (const Function &func : module) {
+			if ((func.isDeclaration())) continue;
+			assert(allSentinelChecks.count(&func));
 			DEBUG(dbgs() << "About to get the map for this function\n");
 			const FunctionResults &functionChecks = allSentinelChecks.at(&func);
+			if (!checkNullTerminated.count(&func)) continue;
 			for (const ValueSet *value : checkNullTerminated.at(&func)) {
 				DEBUG(dbgs() << "About to get an answer!\n");
 				Answer oldResult = getAnswer(*value, annotations);

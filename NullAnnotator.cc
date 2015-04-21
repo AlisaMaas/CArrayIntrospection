@@ -96,6 +96,7 @@ void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 }
 
 void NullAnnotator::populateFromFile(const string &filename, const Module &module) {
+	errs() << "Top of populateFromFile\n";
 	ptree root;
 	read_json(filename, root);
 	const ptree &libraryFunctions = root.get_child("library_functions");
@@ -119,6 +120,11 @@ void NullAnnotator::populateFromFile(const string &filename, const Module &modul
 		for (const auto &slot : boost::combine(arguments, arg_annotations)) {
 			const Argument &argument = slot.get<0>();
 			const Answer annotation = static_cast<Answer>(slot.get<1>().second.get_value<int>());
+			if (!argumentToValueSet.count(&argument)) {
+				ValueSet *values = new unordered_set<const Value*>();
+				values->insert(&argument);
+				argumentToValueSet[&argument] = values;
+			}
 			annotations[argumentToValueSet.at(&argument)] = annotation;
 		}
 	}
@@ -141,7 +147,7 @@ void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglu
 	ofstream out(filename);
 	out << "{\n\t\"library_functions\": {\n";
 	for (const Function &function : module) {
-
+		if (function.isDeclaration()) continue;
 		if (&function != module.begin())
 			out << ",\n";
 
@@ -183,6 +189,10 @@ void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglu
 
 
 bool NullAnnotator::runOnModule(Module &module) {
+	const FindSentinels &findSentinels = getAnalysis<FindSentinels>();
+	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
+	argumentToValueSet = findSentinels.getArgumentToValueSet();
+
 	for (const string &dependency : dependencyFileNames) {
 		populateFromFile(dependency, module);
 	}
@@ -190,20 +200,22 @@ bool NullAnnotator::runOnModule(Module &module) {
 
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
 
-	const FindSentinels &findSentinels = getAnalysis<FindSentinels>();
 	FunctionToValueSets toCheck;
 	unordered_map<const Function *, FunctionResults> allSentinelChecks;
-	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
-	argumentToValueSet = findSentinels.getArgumentToValueSet();
 	for (const Function &func : iiglue.arrayReceivers()) {
+		if ((func.isDeclaration())) continue;
+		errs() << "About to get the findSentinels results\n";
 		allSentinelChecks[&func] = *findSentinels.getResultsForFunction(&func);
 		DEBUG(dbgs() << "Collect up the valuesets for " << func.getName() << "\n");
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
 			if(argumentToValueSet.count(&arg)) {
+				DEBUG(dbgs() << "Already got a valueset\n");
 				toCheck[&func].insert(argumentToValueSet.at(&arg));
 			}
 			else {
+				DEBUG(dbgs() << "Make a new valueset\n");
 				unordered_set<const Value*> *values = new unordered_set<const Value*>();
+				assert(values != nullptr);
 				values->insert(&arg);
 				argumentToValueSet[&arg] = values;
 				toCheck[&func].insert(values);
@@ -226,6 +238,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
+		if (func.isDeclaration()) continue;
 		for (const Argument &arg : iiglue.arrayArguments(func))
 			if (annotate(arg))
 				sink << func.getName() << " with argument " << arg.getArgNo()

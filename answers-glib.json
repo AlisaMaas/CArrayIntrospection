@@ -5460,7 +5460,7 @@
 	"argument_annotations":[0],
 	"args_array_receivers":[0]},
 "g_variant_valist_new_nnp":{
-	"argument_annotations":[0,0],
+	"argument_annotations":[0,2],
 	"args_array_receivers":[0,0]},
 "g_variant_valist_skip":{
 	"argument_annotations":[0,0],
