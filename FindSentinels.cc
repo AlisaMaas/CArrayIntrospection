@@ -45,8 +45,9 @@ bool FindSentinels::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (Function &func : module) {
 		if ((func.isDeclaration())) continue;
+		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
 		const LoopInfo &LI = getAnalysis<LoopInfo>(func);
-		unordered_map<const BasicBlock *, ValueToBlockSet> &functionSentinelChecks = allSentinelChecks[&func];
+		FunctionResults &functionSentinelChecks = allSentinelChecks[&func];
 #if 0
 		// bail out early if func has no array arguments
 		// up for discussion - seems to lead to some unintuitive results that I want to discuss before readding.
@@ -55,9 +56,10 @@ bool FindSentinels::runOnModule(Module &module) {
 				}))
 			return false;
 #endif
+		ValueSet matched;
 		for (const Loop * const loop : LI) {
-			ValueToBlockSet foundSentinelChecks = findSentinelChecks(loop);
-			ValueToBlockSet &sentinelChecks = functionSentinelChecks[loop->getHeader()];
+			const ValueToBlockSet &foundSentinelChecks = findSentinelChecks(loop);
+			ValueSetToBlockSet &sentinelChecks = functionSentinelChecks[loop->getHeader()];
 			for (auto pair : foundSentinelChecks) {
 				const ArgumentSet reaching = argumentsReachingValue(*pair.first);
 				if (reaching.empty()) continue;
@@ -66,16 +68,31 @@ bool FindSentinels::runOnModule(Module &module) {
 				// but we don't handle it yet.
 				assert(reaching.size() == 1);
 				const Argument &formalArg = **reaching.begin();
-
 				if (!iiglue.isArray(formalArg)) continue;
-				sentinelChecks[&formalArg] = pair.second;
-				errs() << "Reporting that " << formalArg.getName() << " is " << pair.second.second << "\n";
+				if (!argumentToValueSet.count(&formalArg)) {
+					ValueSet *values = new unordered_set<const Value*>();
+					values->insert(&formalArg);
+					sentinelChecks[values] = pair.second;
+					argumentToValueSet[&formalArg] = values;
+					matched.insert(&formalArg);
+				}
+				else {
+					sentinelChecks[argumentToValueSet[&formalArg]] = pair.second;
+					matched.insert(&formalArg);
+				}
+				DEBUG(dbgs() << "Reporting that " << formalArg.getName() << " is " << pair.second.second << "\n");
 			}
+			DEBUG(dbgs() << "About to add all the missing arguments to the map\n");
 			for (const Argument &arg : iiglue.arrayArguments(func)) {
-				if (!sentinelChecks.count(&arg)) {
-					sentinelChecks[&arg].second = true;
+				if (!matched.count(&arg)) {
+					DEBUG(dbgs() << "Adding missing argument " << arg.getName() << "\n");
+					ValueSet *values = new unordered_set<const Value*>();
+					values->insert(&arg);
+					sentinelChecks[values].second = true;
+					argumentToValueSet[&arg] = values;
 				}
 			}
+			DEBUG(dbgs() << "Done with the missing arguments\n");
 		}
 	}
 	// read-only pass never changes anything
@@ -117,27 +134,32 @@ void FindSentinels::print(raw_ostream &sink, const Module *module) const {
 
 		// For each loop, print all sentinel checks and whether it is possible to go from loop entry to loop entry without
 		// passing a sentinel check.
-		const flat_map<const BasicBlock *, ValueToBlockSet, BasicBlockCompare> orderedChecks(unorderedChecks.begin(), unorderedChecks.end());
+		const flat_map<const BasicBlock *, ValueSetToBlockSet, BasicBlockCompare> orderedChecks(unorderedChecks.begin(), unorderedChecks.end());
 		for (const auto &check : orderedChecks) {
 			const BasicBlock &header = *check.first;
-			const ValueToBlockSet &entry = check.second;
+			const ValueSetToBlockSet &entry = check.second;
 			for (const Argument &arg : iiglue.arrayArguments(func)) {
-				const pair<BlockSet, bool> &checks = entry.at(&arg);
-				if (checks.first.empty()) continue;
-				sink << "\tExamining " << arg.getName() << " in loop " << header.getName() << '\n';
-				sink << "\t\tThere are " << checks.first.size() << " sentinel checks of this argument in this loop\n";
-				sink << "\t\t\tWe can" << (checks.second ? "" : "not") << " bypass all sentinel checks for this argument in this loop.\n";
-				const auto names =
-						checks.first
-						| indirected
-						| transformed([](const BasicBlock &block) {
-							return block.getName().str();
-						});
-				// print in sorted order for consistent output
-				flat_set<string> ordered(names.begin(), names.end());
-				sink << "\t\tSentinel checks: \n";
-				for (const auto &sentinelCheck : ordered)
-					sink << "\t\t\t" << sentinelCheck << '\n';
+				for (auto tuple : entry) {
+					if (tuple.first->count(&arg)) {
+						const pair<BlockSet, bool> &checks = tuple.second;
+						if (checks.first.empty()) continue;
+						sink << "\tExamining " << arg.getName() << " in loop " << header.getName() << '\n';
+						sink << "\t\tThere are " << checks.first.size() << " sentinel checks of this argument in this loop\n";
+						sink << "\t\t\tWe can" << (checks.second ? "" : "not") << " bypass all sentinel checks for this argument in this loop.\n";
+						const auto names =
+								checks.first
+								| indirected
+								| transformed([](const BasicBlock &block) {
+									return block.getName().str();
+								});
+						// print in sorted order for consistent output
+						flat_set<string> ordered(names.begin(), names.end());
+						sink << "\t\tSentinel checks: \n";
+						for (const auto &sentinelCheck : ordered)
+							sink << "\t\t\t" << sentinelCheck << '\n';
+						break;
+					}
+				}
 			}
 		}
 	}

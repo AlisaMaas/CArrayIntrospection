@@ -12,9 +12,12 @@
 **/
 
 typedef std::unordered_set<const llvm::BasicBlock *> BlockSet;
-typedef std::unordered_map<const llvm::Value *, std::pair<BlockSet, bool>> ValueToBlockSet;
-// access to analysis results derived by this pass
-typedef std::unordered_map<const llvm::BasicBlock *, ValueToBlockSet> FunctionResults;
+typedef std::unordered_set<const llvm::Value *> ValueSet;
+typedef std::unordered_map<const ValueSet*, std::pair<BlockSet, bool>> ValueSetToBlockSet;
+typedef std::unordered_map<const llvm::Value*, std::pair<BlockSet, bool>> ValueToBlockSet;
+
+// access to analysis results
+typedef std::unordered_map<const llvm::BasicBlock *, ValueSetToBlockSet> FunctionResults;
 
 /**
 * Collection of functions that can be abstracted out to find sentinel checks of a specific

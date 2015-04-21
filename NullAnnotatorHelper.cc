@@ -35,34 +35,52 @@ using namespace boost::algorithm;
 using namespace llvm;
 using namespace std;
 
-static bool existsNonOptionalSentinelCheck(const FunctionResults *checks, const Value &value) {
+static bool existsNonOptionalSentinelCheck(const FunctionResults *checks, const ValueSet &value) {
+	DEBUG(dbgs() << "top of existsNonOptionalSentinelCheck\n");
 	if (checks == nullptr)
 		return false;
 	return any_of(*checks | map_values,
-		      [&](const ValueToBlockSet &entry) { return !entry.at(&value).second; });
+		      [&](const ValueSetToBlockSet entry) {
+		      if (!entry.count(&value)) return false;
+		      DEBUG(dbgs() << "Inside the lambda\n");
+		      DEBUG(dbgs() << "Trying to look up " << (*value.begin())->getName() << ", looks like " << &value << "\n");
+		      for (auto tuple : entry) {
+		      	DEBUG(dbgs() << "Found " << tuple.first << "\n");
+		      }
+		      return !entry.at(&value).second; });
 }
 
-static bool hasLoopWithSentinelCheck(const FunctionResults *checks, const Value &val) {
+static bool hasLoopWithSentinelCheck(const FunctionResults *checks, const ValueSet &value) {
 	if (checks == nullptr)
 		return false;
 	return any_of(*checks | map_values,
-		      [&](const ValueToBlockSet &entry) { return !entry.at(&val).first.empty(); });
+		      [&](const ValueSetToBlockSet &entry) { 
+		      if (!entry.count(&value)) return false;
+		      return !entry.at(&value).first.empty(); });
 }
 
 
-bool annotate(const Value &value, AnnotationMap &annotations) {
+bool annotate(const ValueSet &value, AnnotationMap &annotations) {
 	const AnnotationMap::const_iterator found = annotations.find(&value);
 	return found != annotations.end() && found->second == NULL_TERMINATED;
 }
 
+Answer findAssociatedAnswer(const Value *value, AnnotationMap &annotations) {
+	for (auto mapping : annotations) {
+		if (mapping.first->count(value)) {
+			return mapping.second;
+		}
+	}
+	return DONT_CARE;
+}
 
-Answer getAnswer(const Value &value, const AnnotationMap &annotations) {
+Answer getAnswer(const ValueSet &value, const AnnotationMap &annotations) {
 	const AnnotationMap::const_iterator found = annotations.find(&value);
 	return found == annotations.end() ? DONT_CARE : found->second;
 }
 
-static pair<bool, bool> trackThroughCalls(CallInstSet &calls, const Value *value, AnnotationMap &annotations, 
-	unordered_map<const Value *, string> &reasons) {
+static pair<bool, bool> trackThroughCalls(CallInstSet &calls, const ValueSet &value, AnnotationMap &annotations, 
+	unordered_map<const ValueSet*, string> &reasons) {
 	// if we haven't yet continued, process evidence from callees.
 	bool foundNonNullTerminated = false;
 	bool nextPlease = false;
@@ -79,20 +97,20 @@ static pair<bool, bool> trackThroughCalls(CallInstSet &calls, const Value *value
 		for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
 			DEBUG(dbgs() << "Starting iteration\n");
 			const Value &actual = *call.getArgOperand(argNo);
-			if (!valueReachesValue(*value, actual)) continue;
-			DEBUG(dbgs() << "Name of arg: " << value->getName() << "\n");
-			DEBUG(dbgs() << "hey, it matches!\n");
+			if (!any_of(value,
+		      [&](const Value *entry) { return valueReachesValue(*entry, actual); })) continue;
+			DEBUG(dbgs() << "match found!\n");
 
 			auto parameter = next(formals, argNo);
 			if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
 				continue;
 			}
 			DEBUG(dbgs() << "About to enter the switch\n");
-			switch (getAnswer(*parameter, annotations)) {
+			switch (findAssociatedAnswer(parameter, annotations)) {
 			case NULL_TERMINATED:
 				DEBUG(dbgs() << "Marking NULL_TERMINATED\n");
-				annotations[value] = NULL_TERMINATED;
-				reasons[value] = "Called " + calledFunction->getName().str() + ", marked as null terminated in this position";
+				annotations[&value] = NULL_TERMINATED;
+				reasons[&value] = "Called " + calledFunction->getName().str() + ", marked as null terminated in this position";
 				changed = true;
 				nextPlease = true;
 				break;
@@ -138,13 +156,17 @@ unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &
 }
 
 //should be called only once per module.
-bool processLoops(const Module &module, const FunctionToValues &checkNullTerminated, 
+bool processLoops(const Module &module, const FunctionToValueSets &checkNullTerminated, 
 	std::unordered_map<const llvm::Function *, FunctionResults> const &allSentinelChecks,
-	AnnotationMap &annotations, unordered_map<const Value *, string> &reasons) {
+	AnnotationMap &annotations, unordered_map<const ValueSet *, string> &reasons) {
+	DEBUG(dbgs() << "Top of processLoops\n");
 	bool changed = false;
 	for (const Function &func : module) {
+		DEBUG(dbgs() << "Examining " << func.getName() << "\n");
 		FunctionResults functionChecks = allSentinelChecks.at(&func);
-		for (const Value *value : checkNullTerminated.at(&func)) {
+		DEBUG(dbgs() << "Got the function checks\n");
+		for (const ValueSet *value : checkNullTerminated.at(&func)) {
+			DEBUG(dbgs() << "Got a valueset to look through.\n");
 			if (existsNonOptionalSentinelCheck(&functionChecks, *value)) {
 				DEBUG(dbgs() << "\tFound a non-optional sentinel check in some loop!\n");
 				annotations[value] = NULL_TERMINATED;
@@ -152,8 +174,11 @@ bool processLoops(const Module &module, const FunctionToValues &checkNullTermina
 				changed = true;
 				continue;
 			}
+			DEBUG(dbgs() << "Done doing sentinel check things\n");
 		}
+		DEBUG(dbgs() << "Done looking through the valuesets.\n");
 	}
+	DEBUG(dbgs() << "Bottom of processLoops\n");
 	return changed;
 }
 
@@ -168,10 +193,10 @@ bool processLoops(const Module &module, const FunctionToValues &checkNullTermina
 * information is added from another pass.
 *
 **/
-bool iterateOverModule(const Module &module, const FunctionToValues &checkNullTerminated, 
+bool iterateOverModule(const Module &module, const FunctionToValueSets &checkNullTerminated, 
 	std::unordered_map<const llvm::Function *, FunctionResults> const &allSentinelChecks,
 	unordered_map<const Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
-	unordered_map<const Value *, string> &reasons) {
+	unordered_map<const ValueSet *, string> &reasons) {
 	
 	//assume pre-populated with dependencies, and processLoops has already been called.
 	bool globalChanged = false;
@@ -182,21 +207,24 @@ bool iterateOverModule(const Module &module, const FunctionToValues &checkNullTe
 		for (const Function &func : module) {
 			DEBUG(dbgs() << "About to get the map for this function\n");
 			const FunctionResults &functionChecks = allSentinelChecks.at(&func);
-			for (const Value *value : checkNullTerminated.at(&func)) {
-				DEBUG(dbgs() << "\tConsidering " << value->getName() << "\n");
+			for (const ValueSet *value : checkNullTerminated.at(&func)) {
+				DEBUG(dbgs() << "About to get an answer!\n");
 				Answer oldResult = getAnswer(*value, annotations);
-				DEBUG(dbgs() << "\tOld result: " << oldResult << '\n');
+				DEBUG(dbgs() << "Got the answer\n");
 				if (oldResult == NULL_TERMINATED)
 					continue;
 				// if we haven't yet continued, process evidence from callees.
 				bool nextPlease = false;
-				pair<bool, bool> callResponse = trackThroughCalls(functionToCallSites.at(&func), value, annotations, reasons);
+				DEBUG(dbgs() << "About to track through the calls\n");
+				pair<bool, bool> callResponse = trackThroughCalls(functionToCallSites.at(&func), *value, annotations, reasons);
+				DEBUG(dbgs() << "Finished going through the calls\n");
 				nextPlease = callResponse.first;
 				changed |= callResponse.second;
 				if (nextPlease) {
 					continue;
 				}
 				// if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
+				DEBUG(dbgs() << "Looking for a loop with a sentinel check\n");
 				if (hasLoopWithSentinelCheck(&functionChecks, *value)) {
 					if (oldResult != NON_NULL_TERMINATED) {
 						DEBUG(dbgs() << "Marking NOT_NULL_TERMINATED\n");
@@ -206,6 +234,7 @@ bool iterateOverModule(const Module &module, const FunctionToValues &checkNullTe
 						continue;
 					}
 				}
+				DEBUG(dbgs() << "Done finding sentinel checks\n");
 				// otherwise it stays as DONT_CARE for now.
 			}
 		}

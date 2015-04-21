@@ -52,7 +52,8 @@ namespace {
 	private:
 		// map from function name and argument number to whether or not that argument gets annotated
 		AnnotationMap annotations;
-		unordered_map<const Value *, string> reasons;
+		unordered_map<const Argument *, const ValueSet*> argumentToValueSet;
+		unordered_map<const ValueSet*, string> reasons;
 		typedef unordered_set<const CallInst *> CallInstSet;
 		unordered_map<const Function *, CallInstSet> functionToCallSites;
 		void dumpToFile(const string &filename, const IIGlueReader &, const Module &) const;
@@ -82,7 +83,7 @@ inline NullAnnotator::NullAnnotator()
 
 
 bool NullAnnotator::annotate(const Argument &arg) const {
-	const AnnotationMap::const_iterator found = annotations.find(&arg);
+	const AnnotationMap::const_iterator found = annotations.find(argumentToValueSet.at(&arg));
 	return found != annotations.end() && found->second == NULL_TERMINATED;
 }
 
@@ -118,7 +119,7 @@ void NullAnnotator::populateFromFile(const string &filename, const Module &modul
 		for (const auto &slot : boost::combine(arguments, arg_annotations)) {
 			const Argument &argument = slot.get<0>();
 			const Answer annotation = static_cast<Answer>(slot.get<1>().second.get_value<int>());
-			annotations[&argument] = annotation;
+			annotations[argumentToValueSet.at(&argument)] = annotation;
 		}
 	}
 }
@@ -156,7 +157,7 @@ void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglu
 
 		dumpArgumentDetails(out, argumentList, "argument_annotations",
 				    [&](const Argument &arg) {
-					    return getAnswer(arg, annotations);
+					    return getAnswer(*argumentToValueSet.at(&arg), annotations);
 				    }
 			);
 		out << ",\n";
@@ -170,7 +171,7 @@ void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglu
 
 		dumpArgumentDetails(out, argumentList, "argument_reasons",
 				    [&](const Argument &arg) {
-					    const auto reason = reasons.find(&arg);
+					    const auto reason = reasons.find(argumentToValueSet.at(&arg));
 					    return '\"' + (reason == reasons.end() ? "" : reason->second) + '\"';
 				    }
 			);
@@ -190,21 +191,34 @@ bool NullAnnotator::runOnModule(Module &module) {
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
 
 	const FindSentinels &findSentinels = getAnalysis<FindSentinels>();
-	FunctionToValues toCheck;
+	FunctionToValueSets toCheck;
 	unordered_map<const Function *, FunctionResults> allSentinelChecks;
-
+	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
+	argumentToValueSet = findSentinels.getArgumentToValueSet();
 	for (const Function &func : iiglue.arrayReceivers()) {
 		allSentinelChecks[&func] = *findSentinels.getResultsForFunction(&func);
+		DEBUG(dbgs() << "Collect up the valuesets for " << func.getName() << "\n");
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
-			toCheck[&func].insert(&arg);
+			if(argumentToValueSet.count(&arg)) {
+				toCheck[&func].insert(argumentToValueSet.at(&arg));
+			}
+			else {
+				unordered_set<const Value*> *values = new unordered_set<const Value*>();
+				values->insert(&arg);
+				argumentToValueSet[&arg] = values;
+				toCheck[&func].insert(values);
+			}
 		}
+		DEBUG(dbgs() << "Got 'em\n");
 	}
-
+	DEBUG(dbgs() << "Process loops\n");
 	processLoops(module, toCheck, allSentinelChecks, annotations, reasons);
+	DEBUG(dbgs() << "Iterate over the module\n");
 	iterateOverModule(module, toCheck, allSentinelChecks, allCallSites, annotations, reasons);
-	
+	DEBUG(dbgs() << "Dump to a file\n");
 	if (!outputFileName.empty())
 		dumpToFile(outputFileName, iiglue, module);
+	DEBUG(dbgs() << "Done!\n");
 	return false;
 }
 
@@ -215,7 +229,7 @@ void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 		for (const Argument &arg : iiglue.arrayArguments(func))
 			if (annotate(arg))
 				sink << func.getName() << " with argument " << arg.getArgNo()
-				     << " should be annotated NULL_TERMINATED (" << (getAnswer(arg, annotations))
+				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations))
 				     << ").\n";
 	}
 }

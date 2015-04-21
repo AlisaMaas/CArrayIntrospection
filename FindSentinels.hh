@@ -25,9 +25,11 @@ public:
 	// access to analysis results derived by this pass
 	const FunctionResults *getResultsForFunction(const llvm::Function *) const;
 	const std::unordered_map<const llvm::Function*, FunctionResults> getAllResults() const;
-
+	const ValueSet* getValueSet(const llvm::Argument &arg) const;
+	const std::unordered_map<const llvm::Argument*, const ValueSet*> getArgumentToValueSet() const;
 private:
 	std::unordered_map<const llvm::Function *, FunctionResults> allSentinelChecks;
+	std::unordered_map<const llvm::Argument *, const ValueSet*> argumentToValueSet;
 };
 
 
@@ -41,6 +43,14 @@ inline const FunctionResults *FindSentinels::getResultsForFunction(const llvm::F
 
 inline const std::unordered_map<const llvm::Function *, FunctionResults>  FindSentinels::getAllResults() const {
 	return allSentinelChecks;
+}
+
+inline const ValueSet* FindSentinels::getValueSet(const llvm::Argument &arg) const {
+	return argumentToValueSet.at(&arg);
+}
+
+inline const std::unordered_map<const llvm::Argument*, const ValueSet*> FindSentinels::getArgumentToValueSet() const {
+	return argumentToValueSet;
 }
 
 #endif // !INCLUDE_FIND_SENTINELS_HH
