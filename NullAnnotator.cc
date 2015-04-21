@@ -96,7 +96,7 @@ void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 }
 
 void NullAnnotator::populateFromFile(const string &filename, const Module &module) {
-	errs() << "Top of populateFromFile\n";
+	DEBUG(dbgs() << "Top of populateFromFile\n");
 	ptree root;
 	read_json(filename, root);
 	const ptree &libraryFunctions = root.get_child("library_functions");
@@ -204,7 +204,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 	unordered_map<const Function *, FunctionResults> allSentinelChecks;
 	for (const Function &func : iiglue.arrayReceivers()) {
 		if ((func.isDeclaration())) continue;
-		errs() << "About to get the findSentinels results\n";
+		DEBUG(dbgs() << "About to get the findSentinels results\n");
 		allSentinelChecks[&func] = *findSentinels.getResultsForFunction(&func);
 		DEBUG(dbgs() << "Collect up the valuesets for " << func.getName() << "\n");
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
