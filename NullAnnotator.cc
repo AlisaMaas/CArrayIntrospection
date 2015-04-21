@@ -1,36 +1,19 @@
 #define DEBUG_TYPE "null-annotator"
 #include "Answer.hh"
-#include "BacktrackPhiNodes.hh"
 #include "FindSentinels.hh"
 #include "IIGlueReader.hh"
 #include "NullAnnotatorHelper.hh"
 
-#include <boost/algorithm/cxx11/any_of.hpp>
-#include <boost/foreach.hpp>
-#include <boost/lambda/core.hpp>
 #include <boost/property_tree/json_parser.hpp>
-#include <boost/range/adaptor/filtered.hpp>
-#include <boost/range/adaptor/map.hpp>
-#include <boost/range/adaptor/transformed.hpp>
 #include <boost/range/combine.hpp>
-#include <boost/range/irange.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <fstream>
 #include <llvm/IR/Function.h>
-#include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
 
-#if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) >= 3005
-#include <llvm/IR/InstIterator.h>
-#else  // LLVM 3.4 or earlier
-#include <llvm/Support/InstIterator.h>
-#endif	// LLVM 3.4 or earlier
-
 using namespace boost;
 using namespace boost::adaptors;
-using namespace boost::algorithm;
 using namespace boost::property_tree;
 using namespace llvm;
 using namespace std;
