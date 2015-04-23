@@ -49,7 +49,7 @@ env.AddMethod(RunTests)
 #  subdirectories
 #
 
-SConscript(dirs=['sentinelCheckTests', 'lengthTests'], exports='env')
+SConscript(dirs=['structTests','sentinelCheckTests', 'lengthTests'], exports='env')
 #SConscript(dirs=['sentinelCheckTests','fixedLengthTests'], exports='env')
 
 # Local variables:

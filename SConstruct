@@ -125,6 +125,7 @@ plugin, = penv.SharedLibrary('CArrayIntrospection', (
     'LengthAnnotator.cc',
     'FindSentinelHelper.cc',
     'NullAnnotatorHelper.cc',
+    'FindStructElements.cc',
 ))
 
 env['plugin'] = plugin
