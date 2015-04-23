@@ -1,6 +1,6 @@
-#define DEBUG_TYPE "null-annotator"
+#define DEBUG_TYPE "null-argument-annotator"
 #include "Answer.hh"
-#include "FindSentinels.hh"
+#include "FindArraySentinels.hh"
 #include "IIGlueReader.hh"
 #include "NullAnnotatorHelper.hh"
 
@@ -20,10 +20,10 @@ using namespace std;
 
 
 namespace {
-	class NullAnnotator : public ModulePass {
+	class NullArgumentAnnotator : public ModulePass {
 	public:
 		// standard LLVM pass interface
-		NullAnnotator();
+		NullArgumentAnnotator();
 		static char ID;
 		void getAnalysisUsage(AnalysisUsage &) const final override;
 		bool runOnModule(Module &) final override;
@@ -44,8 +44,8 @@ namespace {
 	};
 
 
-	char NullAnnotator::ID;
-	static const RegisterPass<NullAnnotator> registration("null-annotator",
+	char NullArgumentAnnotator::ID;
+	static const RegisterPass<NullArgumentAnnotator> registration("null-argument-annotator",
 		"Determine whether and how to annotate each function with the null-terminated annotation",
 		true, true);
 	static cl::list<string>
@@ -60,25 +60,25 @@ namespace {
 			cl::desc("Filename to write results to"));
 }
 
-inline NullAnnotator::NullAnnotator()
+inline NullArgumentAnnotator::NullArgumentAnnotator()
 	: ModulePass(ID) {
 }
 
 
-bool NullAnnotator::annotate(const Argument &arg) const {
+bool NullArgumentAnnotator::annotate(const Argument &arg) const {
 	const AnnotationMap::const_iterator found = annotations.find(argumentToValueSet.at(&arg));
 	return found != annotations.end() && found->second == NULL_TERMINATED;
 }
 
 
-void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
+void NullArgumentAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
 	usage.addRequired<IIGlueReader>();
-	usage.addRequired<FindSentinels>();
+	usage.addRequired<FindArraySentinels>();
 }
 
-void NullAnnotator::populateFromFile(const string &filename, const Module &module) {
+void NullArgumentAnnotator::populateFromFile(const string &filename, const Module &module) {
 	DEBUG(dbgs() << "Top of populateFromFile\n");
 	ptree root;
 	read_json(filename, root);
@@ -126,7 +126,7 @@ void dumpArgumentDetails(ostream &out, const Function::ArgumentListType &argumen
 }
 
 
-void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
+void NullArgumentAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
 	ofstream out(filename);
 	out << "{\n\t\"library_functions\": {\n";
 	for (const Function &function : module) {
@@ -171,10 +171,10 @@ void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglu
 }
 
 
-bool NullAnnotator::runOnModule(Module &module) {
-	const FindSentinels &findSentinels = getAnalysis<FindSentinels>();
+bool NullArgumentAnnotator::runOnModule(Module &module) {
+	const FindArraySentinels &findArraySentinels = getAnalysis<FindArraySentinels>();
 	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
-	argumentToValueSet = findSentinels.getArgumentToValueSet();
+	argumentToValueSet = findArraySentinels.getArgumentToValueSet();
 
 	for (const string &dependency : dependencyFileNames) {
 		populateFromFile(dependency, module);
@@ -188,7 +188,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 	for (const Function &func : iiglue.arrayReceivers()) {
 		if ((func.isDeclaration())) continue;
 		DEBUG(dbgs() << "About to get the findSentinels results\n");
-		allSentinelChecks[&func] = *findSentinels.getResultsForFunction(&func);
+		allSentinelChecks[&func] = *findArraySentinels.getResultsForFunction(&func);
 		DEBUG(dbgs() << "Collect up the valuesets for " << func.getName() << "\n");
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
 			if(argumentToValueSet.count(&arg)) {
@@ -218,7 +218,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 }
 
 
-void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
+void NullArgumentAnnotator::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
 		if (func.isDeclaration()) continue;

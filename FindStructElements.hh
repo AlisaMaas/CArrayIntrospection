@@ -18,6 +18,7 @@ public:
 	void print(llvm::raw_ostream &, const llvm::Module *) const;
 	// access to analysis results derived by this pass
 	const StructElementToValueSet getStructElements() const;
+	const std::vector<llvm::StructType*> getAllStructs() const;
 private:
 	StructElementToValueSet structElementCollections;
 	std::vector<llvm::StructType*> orderedTypes;
@@ -27,6 +28,10 @@ private:
 
 inline const StructElementToValueSet FindStructElements::getStructElements() const {
 	return structElementCollections;
+}
+
+inline const std::vector<llvm::StructType*> FindStructElements::getAllStructs() const {
+	return orderedTypes;
 }
 
 #endif // !INCLUDE_FIND_STRUCT_ELEMENTS_HH

@@ -13,10 +13,10 @@ namespace llvm {
 typedef std::unordered_map<const llvm::Argument *, std::pair<BlockSet, bool>> ArgumentToBlockSet;
 
 
-class FindSentinels : public llvm::ModulePass {
+class FindArraySentinels : public llvm::ModulePass {
 public:
 	// standard LLVM pass interface
-	FindSentinels();
+	FindArraySentinels();
 	static char ID;
 	void getAnalysisUsage(llvm::AnalysisUsage &) const final override;
 	bool runOnModule(llvm::Module &) final override;
@@ -36,20 +36,20 @@ private:
 ////////////////////////////////////////////////////////////////////////
 
 //TODO: Pull up into super class if this isn't the only removable shared code.
-inline const FunctionResults *FindSentinels::getResultsForFunction(const llvm::Function *func) const {
+inline const FunctionResults *FindArraySentinels::getResultsForFunction(const llvm::Function *func) const {
 	const auto found = allSentinelChecks.find(func);
 	return found == allSentinelChecks.end() ? nullptr : &found->second;
 }
 
-inline const std::unordered_map<const llvm::Function *, FunctionResults>  FindSentinels::getAllResults() const {
+inline const std::unordered_map<const llvm::Function *, FunctionResults>  FindArraySentinels::getAllResults() const {
 	return allSentinelChecks;
 }
 
-inline const ValueSet* FindSentinels::getValueSet(const llvm::Argument &arg) const {
+inline const ValueSet* FindArraySentinels::getValueSet(const llvm::Argument &arg) const {
 	return argumentToValueSet.at(&arg);
 }
 
-inline const std::unordered_map<const llvm::Argument*, const ValueSet*> FindSentinels::getArgumentToValueSet() const {
+inline const std::unordered_map<const llvm::Argument*, const ValueSet*> FindArraySentinels::getArgumentToValueSet() const {
 	return argumentToValueSet;
 }
 

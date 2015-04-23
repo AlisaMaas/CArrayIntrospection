@@ -32,7 +32,7 @@ struct FindStructsGEPVisitor : public InstVisitor<FindStructsGEPVisitor> {
 			ConstantInt *constant = dyn_cast<ConstantInt>(location->get());
 			assert(constant != nullptr);
 			int index = constant->getSExtValue();
-			errs() << "Offset of " << index << "\n";
+			DEBUG(dbgs() << "Offset of " << index << "\n");
 			pair<StructType*, int> p(structTy, index);
 			structCollection[p].insert(&gepi);
 			if (find(orderedTypes.begin(), orderedTypes.end(), structTy) == orderedTypes.end()) {
@@ -87,18 +87,4 @@ void FindStructElements::print(raw_ostream &sink, const Module*) const {
 		}
 		
 	}
-	/*for (const Function &func : *module) {
-		const ArgumentToMaxIndexMap constantMap = maxIndexes.at(&func);
-        const LengthArgumentMap parameterLengthMap = lengthArguments.at(&func);
-		sink << "Analyzing " << func.getName() << "\n";
-		for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end())) {
-			if (constantMap.count(&arg))
-				sink << "Argument " << arg.getName() << " has max index " << constantMap.at(&arg) << '\n';
-            else if (parameterLengthMap.count(&arg))
-				sink << "Argument " << arg.getName() << " has max index argument " << *parameterLengthMap.at(&arg) << '\n';
-			else if (iiglue.isArray(arg))
-				sink << "Argument " << arg.getName() << " has unknown max index.\n";
-		}
-	}*/
-	
 }

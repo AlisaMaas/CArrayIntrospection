@@ -119,8 +119,8 @@ penv.AppendUnique(
 plugin, = penv.SharedLibrary('CArrayIntrospection', (
     'BacktrackPhiNodes.cc',
     'IIGlueReader.cc',
-    'FindSentinels.cc',
-    'NullAnnotator.cc',
+    'FindArraySentinels.cc',
+    'NullArgumentAnnotator.cc',
     sraObject,
     'LengthAnnotator.cc',
     'FindSentinelHelper.cc',

@@ -1,7 +1,7 @@
-#define DEBUG_TYPE "find-sentinels" 
+#define DEBUG_TYPE "find-array-sentinels" 
 #include "BacktrackPhiNodes.hh"
 #include "ArgumentsReachingValue.hh"
-#include "FindSentinels.hh"
+#include "FindArraySentinels.hh"
 #include "IIGlueReader.hh"
 #include "PatternMatch-extras.hh"
 
@@ -22,18 +22,18 @@ using namespace llvm;
 using namespace llvm::PatternMatch;
 using namespace std;
 
-static const RegisterPass<FindSentinels> registration("find-sentinels",
+static const RegisterPass<FindArraySentinels> registration("find-array-sentinels",
 		"Find each branch used to exit a loop when a sentinel value is found in an array",
 		true, true);
 
-char FindSentinels::ID;
+char FindArraySentinels::ID;
 
 
-inline FindSentinels::FindSentinels()
+inline FindArraySentinels::FindArraySentinels()
 	: ModulePass(ID) {
 }
 
-void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const {
+void FindArraySentinels::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
 	usage.addRequired<LoopInfo>();
@@ -41,7 +41,7 @@ void FindSentinels::getAnalysisUsage(AnalysisUsage &usage) const {
 }
 
 
-bool FindSentinels::runOnModule(Module &module) {
+bool FindArraySentinels::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (Function &func : module) {
 		if ((func.isDeclaration())) continue;
@@ -120,7 +120,7 @@ public:
  *	Sentinel checks:
  * For each sentinel check, the name of its basic block is printed.
  **/
-void FindSentinels::print(raw_ostream &sink, const Module *module) const {
+void FindArraySentinels::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
 		// print function name, how many loops found if any
