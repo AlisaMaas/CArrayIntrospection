@@ -1,3 +1,14 @@
 Import('env')
 
 env.RunTests(PLUGIN_ARGS=('-mem2reg', '-debug', '-find-struct-elements'))
+
+########################################################################
+#
+#  subdirectories
+#
+
+SConscript(dirs=['structFindSentinelCheckTests'], exports='env')
+
+# Local variables:
+# flycheck-flake8rc: "../scons-flake8.ini"
+# End:
