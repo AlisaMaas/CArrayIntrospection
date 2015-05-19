@@ -1,9 +1,11 @@
-#define DEBUG_TYPE "null-argument-annotator"
+#define DEBUG_TYPE "null-element-annotator"
 #include "Answer.hh"
-#include "IIGlueReader.hh"
+#include "FindStructElements.hh"
 #include "NullAnnotatorHelper.hh"
 
 #include <boost/property_tree/json_parser.hpp>
+#include <boost/range/adaptor/filtered.hpp>
+#include <boost/range/adaptor/indirected.hpp>
 #include <boost/range/combine.hpp>
 #include <fstream>
 #include <llvm/IR/Function.h>
@@ -34,32 +36,32 @@ namespace {
 		void print(raw_ostream &, const Module *) const final override;
 
 		// access to analysis results derived by this pass
-		bool annotate(const Argument &) const;
+		bool annotate(const StructElement &) const;
 		llvm::LoopInfo& runLoopInfo(llvm::Function &func);
 
 	private:
 		// map from function name and argument number to whether or not that argument gets annotated
 		AnnotationMap annotations;
-		unordered_map<const Argument *, const ValueSet*> argumentToValueSet;
+		StructElementToValueSet structElements;
 		unordered_map<const ValueSet*, string> reasons;
 		typedef unordered_set<const CallInst *> CallInstSet;
 		unordered_map<const Function *, CallInstSet> functionToCallSites;
-		void dumpToFile(const string &filename, const IIGlueReader &, const Module &) const;
-		void populateFromFile(const string &filename, const Module &);
+		//void dumpToFile(const string &filename, const IIGlueReader &, const Module &) const;
+		//void populateFromFile(const string &filename, const Module &);
 	};
 
 
 	char NullArgumentAnnotator::ID;
-	static const RegisterPass<NullArgumentAnnotator> registration("null-argument-annotator",
-		"Determine whether and how to annotate each function with the null-terminated annotation",
+	static const RegisterPass<NullArgumentAnnotator> registration("null-element-annotator",
+		"Determine whether and how to annotate each struct element with the null-terminated annotation",
 		true, true);
 	static cl::list<string>
-		dependencyFileNames("NAA-dependency",
+		dependencyFileNames("NEA-dependency",
 			cl::ZeroOrMore,
 			cl::value_desc("filename"),
-			cl::desc("Filename containing NullAnnotator results for dependencies; use multiple times to read multiple files"));
+			cl::desc("Filename containing NullElementAnnotator results for dependencies; use multiple times to read multiple files"));
 	static cl::opt<string>
-		outputFileName("NAA-output",
+		outputFileName("NEA-output",
 			cl::Optional,
 			cl::value_desc("filename"),
 			cl::desc("Filename to write results to"));
@@ -73,8 +75,8 @@ llvm::LoopInfo& NullArgumentAnnotator::runLoopInfo(llvm::Function &func) {
             return getAnalysis<llvm::LoopInfo>(func);
 }
 
-bool NullArgumentAnnotator::annotate(const Argument &arg) const {
-	const AnnotationMap::const_iterator found = annotations.find(argumentToValueSet.at(&arg));
+bool NullArgumentAnnotator::annotate(const StructElement &element) const {
+	const AnnotationMap::const_iterator found = annotations.find(structElements.at(element));
 	return found != annotations.end() && found->second == NULL_TERMINATED;
 }
 
@@ -82,11 +84,11 @@ bool NullArgumentAnnotator::annotate(const Argument &arg) const {
 void NullArgumentAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
-	usage.addRequired<IIGlueReader>();
+	usage.addRequired<FindStructElements>();
 	usage.addRequired<LoopInfo>();
 }
 
-void NullArgumentAnnotator::populateFromFile(const string &filename, const Module &module) {
+/*void NullArgumentAnnotator::populateFromFile(const string &filename, const Module &module) {
 	DEBUG(dbgs() << "Top of populateFromFile\n");
 	ptree root;
 	read_json(filename, root);
@@ -112,7 +114,7 @@ void NullArgumentAnnotator::populateFromFile(const string &filename, const Modul
 			const Argument &argument = slot.get<0>();
 			const Answer annotation = static_cast<Answer>(slot.get<1>().second.get_value<int>());
 			if (!argumentToValueSet.count(&argument)) {
-				ValueSet *values = new set<const Value*>();
+				ValueSet *values = new unordered_set<const Value*>();
 				values->insert(&argument);
 				argumentToValueSet[&argument] = values;
 			}
@@ -120,9 +122,9 @@ void NullArgumentAnnotator::populateFromFile(const string &filename, const Modul
 		}
 	}
 }
+*/
 
-
-template<typename Detail> static
+/*template<typename Detail> static
 void dumpArgumentDetails(ostream &out, const Function::ArgumentListType &argumentList, const char key[], const Detail &detail) {
 	out << "\t\t\t\"" << key << "\": [";
 	for (const Argument &argument : argumentList) {
@@ -176,17 +178,16 @@ void NullArgumentAnnotator::dumpToFile(const string &filename, const IIGlueReade
 		out << "\n\t\t}";
 	}
 	out << "\n\t}\n}\n";
-}
+}*/
 
 
 bool NullArgumentAnnotator::runOnModule(Module &module) {
-	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
 
-	for (const string &dependency : dependencyFileNames) {
-		populateFromFile(dependency, module);
-	}
-	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
-
+	//for (const string &dependency : dependencyFileNames) {
+	//	populateFromFile(dependency, module);
+	//}
+	const FindStructElements &findElements = getAnalysis<FindStructElements>();
+    structElements = findElements.getStructElements();
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
     FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
@@ -203,19 +204,8 @@ bool NullArgumentAnnotator::runOnModule(Module &module) {
 		    loopInfo.push_back(info);
 		}
 		functionLoopInfo[&func] = loopInfo;
-		for (const Argument &arg : iiglue.arrayArguments(func)) {
-			if(argumentToValueSet.count(&arg)) {
-				DEBUG(dbgs() << "Already got a valueset\n");
-				toCheck[&func].insert(argumentToValueSet.at(&arg));
-			}
-			else {
-				DEBUG(dbgs() << "Make a new valueset\n");
-				set<const Value*> *values = new set<const Value*>();
-				assert(values != nullptr);
-				values->insert(&arg);
-				argumentToValueSet[&arg] = values;
-				toCheck[&func].insert(values);
-			}
+		for (auto tuple :structElements) {
+            toCheck[&func].insert(tuple.second);
 		}
 		DEBUG(dbgs() << "Got 'em\n");
 	}
@@ -223,21 +213,20 @@ bool NullArgumentAnnotator::runOnModule(Module &module) {
 	//const map<Function*, LoopInfo> &functionToLoopInfo)
 	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo);
 	DEBUG(dbgs() << "Dump to a file\n");
-	if (!outputFileName.empty())
-		dumpToFile(outputFileName, iiglue, module);
+	//if (!outputFileName.empty())
+	//	dumpToFile(outputFileName, iiglue, module);
 	DEBUG(dbgs() << "Done!\n");
 	return false;
 }
 
 
 void NullArgumentAnnotator::print(raw_ostream &sink, const Module *module) const {
-	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
 		if (func.isDeclaration()) continue;
-		for (const Argument &arg : iiglue.arrayArguments(func))
-			if (annotate(arg))
-				sink << func.getName() << " with argument " << arg.getArgNo()
-				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations))
+		for (auto element : structElements)
+			if (annotate(element.first))
+				sink << func.getName() << " with " << str(&element.first)
+				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations))
 				     << ").\n";
 	}
 }

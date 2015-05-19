@@ -23,10 +23,10 @@ struct.bar:
 	element 3 accessed at z
 struct.foo:
 	element 0 accessed at a
+	element 0 accessed at a
 	element 0 accessed at a1
 	element 0 accessed at a
-	element 0 accessed at a
-	element 1 accessed at b2
-	element 1 accessed at b2
 	element 1 accessed at b
+	element 1 accessed at b2
+	element 1 accessed at b2
 	element 2 accessed at c

@@ -62,7 +62,7 @@ struct FindStructsGEPVisitor : public InstVisitor<FindStructsGEPVisitor> {
         StructElement* element = getStructElement(&gepi);
         if (!element) return;
         if (!structCollection.count(*element)) {
-            structCollection[*element] = new unordered_set<const Value*>();
+            structCollection[*element] = new set<const Value*>();
         }
         structCollection[*element]->insert(&gepi);
         if (find(orderedTypes.begin(), orderedTypes.end(), element->first) == orderedTypes.end()) {

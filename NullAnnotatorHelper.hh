@@ -12,7 +12,6 @@
 #include <unordered_map>
 
 typedef std::unordered_set<const llvm::CallInst *> CallInstSet;
-typedef std::unordered_set<const llvm::Value *> ValueSet;
 typedef std::unordered_map<const ValueSet*, Answer> AnnotationMap;
 typedef std::unordered_map<const llvm::Function*, std::unordered_set<const ValueSet*>> FunctionToValueSets;
 typedef std::unordered_map<llvm::Function*, std::vector<LoopInformation>> FunctionToLoopInformation;

@@ -13,7 +13,7 @@
 **/
 
 typedef std::unordered_set<const llvm::BasicBlock *> BlockSet;
-typedef std::unordered_set<const llvm::Value *> ValueSet;
+typedef std::set<const llvm::Value *> ValueSet;
 typedef std::unordered_map<const ValueSet*, std::pair<BlockSet, bool>> ValueSetToBlockSet;
 typedef std::pair<BlockSet, bool> ValueReport;
 typedef std::pair<llvm::BasicBlock*, std::pair<std::vector<llvm::BasicBlock*>, llvm::SmallVector<llvm::BasicBlock *, 4>>> LoopInformation;
