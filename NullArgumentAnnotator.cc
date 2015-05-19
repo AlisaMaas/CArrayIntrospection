@@ -1,6 +1,5 @@
 #define DEBUG_TYPE "null-argument-annotator"
 #include "Answer.hh"
-#include "FindArraySentinels.hh"
 #include "IIGlueReader.hh"
 #include "NullAnnotatorHelper.hh"
 
@@ -9,8 +8,13 @@
 #include <fstream>
 #include <llvm/IR/Function.h>
 #include <llvm/IR/Module.h>
+#include <llvm/Pass.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
+
+#include <map>
+#include <unordered_map>
+
 
 using namespace boost;
 using namespace boost::adaptors;
@@ -31,6 +35,7 @@ namespace {
 
 		// access to analysis results derived by this pass
 		bool annotate(const Argument &) const;
+		llvm::LoopInfo& runLoopInfo(llvm::Function &func);
 
 	private:
 		// map from function name and argument number to whether or not that argument gets annotated
@@ -64,6 +69,9 @@ inline NullArgumentAnnotator::NullArgumentAnnotator()
 	: ModulePass(ID) {
 }
 
+llvm::LoopInfo& NullArgumentAnnotator::runLoopInfo(llvm::Function &func) {
+            return getAnalysis<llvm::LoopInfo>(func);
+}
 
 bool NullArgumentAnnotator::annotate(const Argument &arg) const {
 	const AnnotationMap::const_iterator found = annotations.find(argumentToValueSet.at(&arg));
@@ -75,7 +83,7 @@ void NullArgumentAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
 	usage.addRequired<IIGlueReader>();
-	usage.addRequired<FindArraySentinels>();
+	usage.addRequired<LoopInfo>();
 }
 
 void NullArgumentAnnotator::populateFromFile(const string &filename, const Module &module) {
@@ -172,9 +180,7 @@ void NullArgumentAnnotator::dumpToFile(const string &filename, const IIGlueReade
 
 
 bool NullArgumentAnnotator::runOnModule(Module &module) {
-	const FindArraySentinels &findArraySentinels = getAnalysis<FindArraySentinels>();
 	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
-	argumentToValueSet = findArraySentinels.getArgumentToValueSet();
 
 	for (const string &dependency : dependencyFileNames) {
 		populateFromFile(dependency, module);
@@ -182,14 +188,21 @@ bool NullArgumentAnnotator::runOnModule(Module &module) {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
-
+    FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
-	unordered_map<const Function *, FunctionResults> allSentinelChecks;
-	for (const Function &func : iiglue.arrayReceivers()) {
+	for (Function &func : module) {
 		if ((func.isDeclaration())) continue;
-		DEBUG(dbgs() << "About to get the findSentinels results\n");
-		allSentinelChecks[&func] = *findArraySentinels.getResultsForFunction(&func);
-		DEBUG(dbgs() << "Collect up the valuesets for " << func.getName() << "\n");
+		vector<LoopInformation> loopInfo;
+		LoopInfo &LI = getAnalysis<LoopInfo>(func);
+		for(const Loop *loop : LI) {
+		    LoopInformation info;
+		    SmallVector<BasicBlock *, 4> exitingBlocks;
+		    loop->getExitingBlocks(info.second.second);
+		    info.second.first = loop->getBlocks();
+	        info.first = loop->getHeader();
+		    loopInfo.push_back(info);
+		}
+		functionLoopInfo[&func] = loopInfo;
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
 			if(argumentToValueSet.count(&arg)) {
 				DEBUG(dbgs() << "Already got a valueset\n");
@@ -206,10 +219,9 @@ bool NullArgumentAnnotator::runOnModule(Module &module) {
 		}
 		DEBUG(dbgs() << "Got 'em\n");
 	}
-	DEBUG(dbgs() << "Process loops\n");
-	processLoops(module, toCheck, allSentinelChecks, annotations, reasons);
 	DEBUG(dbgs() << "Iterate over the module\n");
-	iterateOverModule(module, toCheck, allSentinelChecks, allCallSites, annotations, reasons);
+	//const map<Function*, LoopInfo> &functionToLoopInfo)
+	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo);
 	DEBUG(dbgs() << "Dump to a file\n");
 	if (!outputFileName.empty())
 		dumpToFile(outputFileName, iiglue, module);

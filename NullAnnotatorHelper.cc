@@ -22,6 +22,7 @@
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
+#include <set>
 
 #if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) >= 3005
 #include <llvm/IR/InstIterator.h>
@@ -35,30 +36,29 @@ using namespace boost::algorithm;
 using namespace llvm;
 using namespace std;
 
-static bool existsNonOptionalSentinelCheck(const FunctionResults *checks, const ValueSet &value) {
-	DEBUG(dbgs() << "top of existsNonOptionalSentinelCheck\n");
-	if (checks == nullptr)
-		return false;
-	return any_of(*checks | map_values,
-		      [&](const ValueSetToBlockSet entry) {
-		      if (!entry.count(&value)) return false;
-		      DEBUG(dbgs() << "Inside the lambda\n");
-		      DEBUG(dbgs() << "Trying to look up " << (*value.begin())->getName() << ", looks like " << &value << "\n");
-		      for (auto tuple : entry) {
-		      	DEBUG(dbgs() << "Found " << tuple.first << "\n");
-		      }
-		      return !entry.at(&value).second; });
+Answer mergeAnswers(Answer first, Answer second) {
+    switch(first) {
+        case DONT_CARE:
+            return second;
+        case NON_NULL_TERMINATED:
+            return first;
+        case NULL_TERMINATED:
+            switch(second) {
+                case DONT_CARE:
+                    return first;
+                case NON_NULL_TERMINATED:
+                    return second;
+                case NULL_TERMINATED:
+                    return first;
+                default:
+                    abort();
+                    return DONT_CARE;
+            }
+        default:
+            abort();
+            return DONT_CARE;
+    }
 }
-
-static bool hasLoopWithSentinelCheck(const FunctionResults *checks, const ValueSet &value) {
-	if (checks == nullptr)
-		return false;
-	return any_of(*checks | map_values,
-		      [&](const ValueSetToBlockSet &entry) { 
-		      if (!entry.count(&value)) return false;
-		      return !entry.at(&value).first.empty(); });
-}
-
 
 bool annotate(const ValueSet &value, AnnotationMap &annotations) {
 	const AnnotationMap::const_iterator found = annotations.find(&value);
@@ -79,12 +79,11 @@ Answer getAnswer(const ValueSet &value, const AnnotationMap &annotations) {
 	return found == annotations.end() ? DONT_CARE : found->second;
 }
 
-static pair<bool, bool> trackThroughCalls(CallInstSet &calls, const ValueSet &value, AnnotationMap &annotations, 
-	unordered_map<const ValueSet*, string> &reasons) {
+static pair<Answer, bool> trackThroughCalls(CallInstSet &calls, const Value *value, AnnotationMap &annotations) {
 	// if we haven't yet continued, process evidence from callees.
 	bool foundNonNullTerminated = false;
 	bool nextPlease = false;
-	bool changed = false;
+	Answer answer = DONT_CARE;
 	for (const CallInst &call : calls | indirected) {
 		DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
 		DEBUG(dbgs() << "Call: " << call.getName() << "\n");
@@ -97,8 +96,7 @@ static pair<bool, bool> trackThroughCalls(CallInstSet &calls, const ValueSet &va
 		for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
 			DEBUG(dbgs() << "Starting iteration\n");
 			const Value &actual = *call.getArgOperand(argNo);
-			if (!any_of(value,
-		      [&](const Value *entry) { return valueReachesValue(*entry, actual); })) continue;
+			if (!valueReachesValue(*value, actual)) continue;
 			DEBUG(dbgs() << "match found!\n");
 
 			auto parameter = next(formals, argNo);
@@ -108,10 +106,7 @@ static pair<bool, bool> trackThroughCalls(CallInstSet &calls, const ValueSet &va
 			DEBUG(dbgs() << "About to enter the switch\n");
 			switch (findAssociatedAnswer(parameter, annotations)) {
 			case NULL_TERMINATED:
-				DEBUG(dbgs() << "Marking NULL_TERMINATED\n");
-				annotations[&value] = NULL_TERMINATED;
-				reasons[&value] = "Called " + calledFunction->getName().str() + ", marked as null terminated in this position";
-				changed = true;
+				answer = NULL_TERMINATED;
 				nextPlease = true;
 				break;
 
@@ -137,7 +132,7 @@ static pair<bool, bool> trackThroughCalls(CallInstSet &calls, const ValueSet &va
 			break;
 		}
 	}
-	return pair<bool, bool>(nextPlease, changed);
+	return pair<Answer, bool>(answer, nextPlease);
 }
 
 unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &module) {
@@ -155,50 +150,36 @@ unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &
 	return functionToCallSites;
 }
 
-//should be called only once per module.
-bool processLoops(const Module &module, const FunctionToValueSets &checkNullTerminated, 
-	std::unordered_map<const llvm::Function *, FunctionResults> const &allSentinelChecks,
-	AnnotationMap &annotations, unordered_map<const ValueSet *, string> &reasons) {
-	DEBUG(dbgs() << "Top of processLoops\n");
-	bool changed = false;
-	for (const Function &func : module) {
-		if ((func.isDeclaration())) continue;
-		DEBUG(dbgs() << "Examining " << func.getName() << "\n");
-		FunctionResults functionChecks = allSentinelChecks.at(&func);
-		DEBUG(dbgs() << "Got the function checks\n");
-		if (!checkNullTerminated.count(&func)) continue;
-		for (const ValueSet *value : checkNullTerminated.at(&func)) {
-			DEBUG(dbgs() << "Got a valueset to look through.\n");
-			if (existsNonOptionalSentinelCheck(&functionChecks, *value)) {
-				DEBUG(dbgs() << "\tFound a non-optional sentinel check in some loop!\n");
-				annotations[value] = NULL_TERMINATED;
-				reasons[value] = "Found a non-optional sentinel check in some loop of this function.";
-				changed = true;
-				continue;
-			}
-			DEBUG(dbgs() << "Done doing sentinel check things\n");
+//needs to be called per function.
+static pair<bool, bool> processLoops(vector<LoopInformation> &LI, const Value* toCheck) {
+	pair<bool, bool> result(false, false);
+	DEBUG(dbgs() << "Getting to look through loops now!\n");
+	for (const LoopInformation loop: LI) {
+	    DEBUG(dbgs() << "Got a loop!\n");
+		ValueReport response = findSentinelChecks(loop, toCheck);
+		if (response.second) { //found an optional sentinel check in some loop for toCheck
+		    result.first = true;
 		}
-		DEBUG(dbgs() << "Done looking through the valuesets.\n");
+		else { //found a non-optional sentinel check in some loop for toCheck.
+		    result.second = true;
+		}
 	}
-	DEBUG(dbgs() << "Bottom of processLoops\n");
-	return changed;
+	return result;
 }
 
 /**
 *
 * Preconditions: any dependencies for the file have already been read in and added
-* to the annotation map, sentinel checks are filled in from previous analysis results,
-* processLoops has already been called. 
+* to the annotation map. 
 *
 * Postcondition: All possible null terminated information about the given values
 * has been propagated - no more information can be obtained by iterating unless more
 * information is added from another pass.
 *
 **/
-bool iterateOverModule(const Module &module, const FunctionToValueSets &checkNullTerminated, 
-	std::unordered_map<const llvm::Function *, FunctionResults> const &allSentinelChecks,
+bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTerminated, 
 	unordered_map<const Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
-	unordered_map<const ValueSet *, string> &reasons) {
+	FunctionToLoopInformation &info) {
 	
 	//assume pre-populated with dependencies, and processLoops has already been called.
 	bool globalChanged = false;
@@ -206,41 +187,38 @@ bool iterateOverModule(const Module &module, const FunctionToValueSets &checkNul
 
 	do {
 		changed = false;
-		for (const Function &func : module) {
+		for (Function &func : module) {
+		    DEBUG(dbgs() << "Working on " << func.getName() << "\n");
 			if ((func.isDeclaration())) continue;
-			assert(allSentinelChecks.count(&func));
-			DEBUG(dbgs() << "About to get the map for this function\n");
-			const FunctionResults &functionChecks = allSentinelChecks.at(&func);
 			if (!checkNullTerminated.count(&func)) continue;
-			for (const ValueSet *value : checkNullTerminated.at(&func)) {
-				DEBUG(dbgs() << "About to get an answer!\n");
-				Answer oldResult = getAnswer(*value, annotations);
-				DEBUG(dbgs() << "Got the answer\n");
-				if (oldResult == NULL_TERMINATED)
-					continue;
-				// if we haven't yet continued, process evidence from callees.
-				bool nextPlease = false;
-				DEBUG(dbgs() << "About to track through the calls\n");
-				pair<bool, bool> callResponse = trackThroughCalls(functionToCallSites.at(&func), *value, annotations, reasons);
-				DEBUG(dbgs() << "Finished going through the calls\n");
-				nextPlease = callResponse.first;
-				changed |= callResponse.second;
-				if (nextPlease) {
-					continue;
+			for (const ValueSet *valueSet : checkNullTerminated.at(&func)) {
+			    Answer oldAnswer = getAnswer(*valueSet, annotations);
+			    Answer answer = oldAnswer;
+			    for (const Value * value : *valueSet) {
+			        //go through the loops.
+			        pair<bool, bool> result = processLoops(info.at(&func), value);
+			        Answer valueAnswer = result.second? NULL_TERMINATED : DONT_CARE;
+                    // if we haven't yet continued, process evidence from callees.
+                    DEBUG(dbgs() << "About to track through the calls\n");
+                    pair<Answer, bool> callResponse = trackThroughCalls(functionToCallSites.at(&func), value, annotations);
+                    DEBUG(dbgs() << "Finished going through the calls\n");
+                    DEBUG(dbgs() << "Done finding sentinel checks\n");
+                    DEBUG(dbgs() << "Result so far is " << valueAnswer << " \n");
+                    // otherwise it stays as DONT_CARE for now.
+                    valueAnswer = mergeAnswers(valueAnswer, callResponse.first);
+                    DEBUG(dbgs() << "After merging, result is " << valueAnswer << "\n");
+                    if (valueAnswer == DONT_CARE) {
+                        if (result.second) { //exists an optional sentinel check, and there's no evidence it is null terminated.
+                            valueAnswer = NON_NULL_TERMINATED;
+                        }
+                    }
+                    DEBUG(dbgs() << "After looking for optional loops, result is " << valueAnswer << "\n");
+                    answer = mergeAnswers(valueAnswer, answer);
+                    DEBUG(dbgs() << "After merging, result is " << answer << "\n");
+
 				}
-				// if we haven't yet marked NULL_TERMINATED, might be NON_NULL_TERMINATED
-				DEBUG(dbgs() << "Looking for a loop with a sentinel check\n");
-				if (hasLoopWithSentinelCheck(&functionChecks, *value)) {
-					if (oldResult != NON_NULL_TERMINATED) {
-						DEBUG(dbgs() << "Marking NOT_NULL_TERMINATED\n");
-						annotations[value] = NON_NULL_TERMINATED;
-						reasons[value] = "Has a loop with an optional sentinel check";
-						changed = true;
-						continue;
-					}
-				}
-				DEBUG(dbgs() << "Done finding sentinel checks\n");
-				// otherwise it stays as DONT_CARE for now.
+				changed |= answer != oldAnswer;
+				annotations[valueSet] = answer;
 			}
 		}
 		globalChanged |= changed;

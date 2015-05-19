@@ -50,7 +50,7 @@ env.AddMethod(RunTests)
 #
 
 SConscript(dirs=['structTests','argumentSentinelCheckTests', 'lengthTests'], exports='env')
-#SConscript(dirs=['sentinelCheckTests','fixedLengthTests'], exports='env')
+#SConscript(dirs=['sentinelCheckTests', 'lengthTests'], exports='env')
 
 # Local variables:
 # flycheck-flake8rc: "../scons-flake8.ini"

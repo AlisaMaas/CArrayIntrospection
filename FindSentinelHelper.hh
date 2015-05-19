@@ -5,6 +5,7 @@
 #include <llvm/IR/BasicBlock.h>
 #include <unordered_set>
 #include <unordered_map>
+#include <set>
 
 
 /**
@@ -14,7 +15,9 @@
 typedef std::unordered_set<const llvm::BasicBlock *> BlockSet;
 typedef std::unordered_set<const llvm::Value *> ValueSet;
 typedef std::unordered_map<const ValueSet*, std::pair<BlockSet, bool>> ValueSetToBlockSet;
-typedef std::unordered_map<const llvm::Value*, std::pair<BlockSet, bool>> ValueToBlockSet;
+typedef std::pair<BlockSet, bool> ValueReport;
+typedef std::pair<llvm::BasicBlock*, std::pair<std::vector<llvm::BasicBlock*>, llvm::SmallVector<llvm::BasicBlock *, 4>>> LoopInformation;
+
 
 // access to analysis results
 typedef std::unordered_map<const llvm::BasicBlock *, ValueSetToBlockSet> FunctionResults;
@@ -30,6 +33,6 @@ typedef std::unordered_map<const llvm::BasicBlock *, ValueSetToBlockSet> Functio
 * all sentinel checks.
 **/
 bool DFSCheckSentinelOptional(const llvm::Loop &loop, BlockSet &foundSoFar);
-ValueToBlockSet findSentinelChecks(const llvm::Loop * const loop);
+ValueReport findSentinelChecks(const LoopInformation &loop, const llvm::Value * const goal);
 
 #endif // !INCLUDE_FIND_SENTINEL_HELPER_HH

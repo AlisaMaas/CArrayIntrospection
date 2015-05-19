@@ -22,6 +22,14 @@ void BacktrackPhiNodes::backtrack(const Value &value) {
 		for (const Use &operand : operands)
 			backtrack(*operand);
 	}
+	
+	else if (const  LoadInst * const load = dyn_cast<LoadInst>(&value)) {
+	    backtrack(*load->getPointerOperand());
+	}
+	
+	else if (const StoreInst * const store = dyn_cast<StoreInst>(&value)) {
+	    backtrack(*store->getPointerOperand());
+	}
 }
 
 bool BacktrackPhiNodes::shouldVisit(const llvm::Value &value) {

@@ -79,7 +79,7 @@ if __name__ == '__main__':
 				if outputIIGlueAnnotations[j] == 0:
 					numWrongDueToIIGlue += 1
 				if outputAnnotations[j] == 2:
-					print "%s because %s" % (mismatch(), outputFunc['argument_reasons'][j])
+					#print "%s because %s" % (mismatch(), outputFunc['argument_reasons'][j])
 					numFalsePositives += 1
 					if answerIIGlueAnnotations[j] == 1:
 						numFalsePositiveArrays += 1
