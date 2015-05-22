@@ -56,6 +56,10 @@ bool DFSCheckSentinelOptional(const LoopInformation &loop, BlockSet &foundSoFar)
 	return reachableNontrivially(loop, foundSoFar, loopEntry, loopEntry);
 }
 
+/*static Value* stripLoadsAndStores(Value *value) {
+    
+}*/
+
 /**
 * Find all sentinel checks for goal in loop,
 * and determine whether they are together 
@@ -152,12 +156,20 @@ ValueReport findSentinelChecks(const LoopInformation &loop, const Value * const 
 			if (std::find(blocks.begin(), blocks.end(), sentinelDestination) != blocks.end()) {
 				DEBUG(dbgs() << "dest still in loop!\n\n\n\n");
 				DEBUG(dbgs() << (predicate == CmpInst::ICMP_EQ) << "\n\n\n");
+				for (const BasicBlock *b : blocks) {
+				    b->dump();
+				}
 				continue;
 			}
 			if (!valueReachesValue(*goal, *pointer)) {
                 DEBUG(dbgs() << "Sentinel check of incorrect value.\n");
-                DEBUG(dbgs() << "goal: ");
+                DEBUG(dbgs() << "goal: " );
+                goal->dump();
                 DEBUG(dbgs() << "pointer: ");
+                pointer->dump();
+                for (const BasicBlock *b : blocks) {
+				    b->dump();
+				}
 			    continue;
 			}
 			// all tests pass; this is a possible sentinel check!

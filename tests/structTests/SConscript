@@ -7,7 +7,7 @@ env.RunTests(PLUGIN_ARGS=('-mem2reg', '-debug', '-find-struct-elements'))
 #  subdirectories
 #
 
-#SConscript(dirs=['structFindSentinelCheckTests'], exports='env')
+SConscript(dirs=['interproceduralTests'], exports='env')
 
 # Local variables:
 # flycheck-flake8rc: "../scons-flake8.ini"

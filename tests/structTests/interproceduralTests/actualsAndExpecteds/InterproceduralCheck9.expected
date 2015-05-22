@@ -1,0 +1,7 @@
+Printing analysis 'Promote Memory to Register' for function 'print':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'find':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'foo':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Determine whether and how to annotate each struct element with the null-terminated annotation':

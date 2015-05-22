@@ -220,13 +220,10 @@ bool NullArgumentAnnotator::runOnModule(Module &module) {
 }
 
 
-void NullArgumentAnnotator::print(raw_ostream &sink, const Module *module) const {
-	for (const Function &func : *module) {
-		if (func.isDeclaration()) continue;
+void NullArgumentAnnotator::print(raw_ostream &sink, const Module *) const {
 		for (auto element : structElements)
 			if (annotate(element.first))
-				sink << func.getName() << " with " << str(&element.first)
+				sink << str(&element.first)
 				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations))
 				     << ").\n";
-	}
 }
