@@ -60,12 +60,12 @@ Answer mergeAnswers(Answer first, Answer second) {
     }
 }
 
-bool annotate(const ValueSet &value, AnnotationMap &annotations) {
+bool annotate(const ValueSet &value, const AnnotationMap &annotations) {
 	const AnnotationMap::const_iterator found = annotations.find(&value);
 	return found != annotations.end() && found->second == NULL_TERMINATED;
 }
 
-Answer findAssociatedAnswer(const Value *value, AnnotationMap &annotations) {
+Answer findAssociatedAnswer(const Value *value, const AnnotationMap &annotations) {
 	for (auto mapping : annotations) {
 		if (mapping.first->count(value)) {
 			return mapping.second;

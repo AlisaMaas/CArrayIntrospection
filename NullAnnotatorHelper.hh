@@ -16,6 +16,7 @@ typedef std::unordered_map<const ValueSet*, Answer> AnnotationMap;
 typedef std::unordered_map<const llvm::Function*, std::unordered_set<const ValueSet*>> FunctionToValueSets;
 typedef std::unordered_map<llvm::Function*, std::vector<LoopInformation>> FunctionToLoopInformation;
 
+Answer findAssociatedAnswer(const llvm::Value *value, const AnnotationMap &annotations);
 bool annotate(const llvm::Value &, AnnotationMap &annotations);
 std::unordered_map<const llvm::Function *, CallInstSet> collectFunctionCalls(const llvm::Module &);
 bool iterateOverModule(llvm::Module &module, const FunctionToValueSets &checkNullTerminated, 

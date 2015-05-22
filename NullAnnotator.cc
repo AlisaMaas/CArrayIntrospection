@@ -1,19 +1,10 @@
-#define DEBUG_TYPE "null-argument-annotator"
-#include "Answer.hh"
-#include "IIGlueReader.hh"
+#define DEBUG_TYPE "null-annotator"
 #include "NullAnnotatorHelper.hh"
+#include "NullAnnotator.hh"
 
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/range/combine.hpp>
 #include <fstream>
-#include <llvm/IR/Function.h>
-#include <llvm/IR/Module.h>
-#include <llvm/Pass.h>
-#include <llvm/Support/CommandLine.h>
-#include <llvm/Support/Debug.h>
-
-#include <map>
-#include <unordered_map>
 
 
 using namespace boost;
@@ -23,70 +14,32 @@ using namespace llvm;
 using namespace std;
 
 
-namespace {
-	class NullArgumentAnnotator : public ModulePass {
-	public:
-		// standard LLVM pass interface
-		NullArgumentAnnotator();
-		static char ID;
-		void getAnalysisUsage(AnalysisUsage &) const final override;
-		bool runOnModule(Module &) final override;
-		void print(raw_ostream &, const Module *) const final override;
-
-		// access to analysis results derived by this pass
-		bool annotate(const Argument &) const;
-		llvm::LoopInfo& runLoopInfo(llvm::Function &func);
-
-	private:
-		// map from function name and argument number to whether or not that argument gets annotated
-		AnnotationMap annotations;
-		unordered_map<const Argument *, const ValueSet*> argumentToValueSet;
-		unordered_map<const ValueSet*, string> reasons;
-		typedef unordered_set<const CallInst *> CallInstSet;
-		unordered_map<const Function *, CallInstSet> functionToCallSites;
-		void dumpToFile(const string &filename, const IIGlueReader &, const Module &) const;
-		void populateFromFile(const string &filename, const Module &);
-	};
-
-
-	char NullArgumentAnnotator::ID;
-	static const RegisterPass<NullArgumentAnnotator> registration("null-argument-annotator",
-		"Determine whether and how to annotate each function with the null-terminated annotation",
-		true, true);
-	static cl::list<string>
-		dependencyFileNames("NAA-dependency",
-			cl::ZeroOrMore,
-			cl::value_desc("filename"),
-			cl::desc("Filename containing NullAnnotator results for dependencies; use multiple times to read multiple files"));
-	static cl::opt<string>
-		outputFileName("NAA-output",
-			cl::Optional,
-			cl::value_desc("filename"),
-			cl::desc("Filename to write results to"));
-}
-
-inline NullArgumentAnnotator::NullArgumentAnnotator()
+inline NullAnnotator::NullAnnotator()
 	: ModulePass(ID) {
 }
 
-llvm::LoopInfo& NullArgumentAnnotator::runLoopInfo(llvm::Function &func) {
+llvm::LoopInfo& NullAnnotator::runLoopInfo(llvm::Function &func) {
             return getAnalysis<llvm::LoopInfo>(func);
 }
 
-bool NullArgumentAnnotator::annotate(const Argument &arg) const {
-	const AnnotationMap::const_iterator found = annotations.find(argumentToValueSet.at(&arg));
+bool NullAnnotator::annotate(const Value &value) const {
+	return findAssociatedAnswer(&value, annotations) == NULL_TERMINATED;
+}
+
+bool NullAnnotator::annotate(const StructElement &element) const {
+	const AnnotationMap::const_iterator found = annotations.find(structElements.at(element));
 	return found != annotations.end() && found->second == NULL_TERMINATED;
 }
 
-
-void NullArgumentAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
+void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
 	usage.addRequired<IIGlueReader>();
+	usage.addRequired<FindStructElements>();
 	usage.addRequired<LoopInfo>();
 }
 
-void NullArgumentAnnotator::populateFromFile(const string &filename, const Module &module) {
+void NullAnnotator::populateFromFile(const string &filename, const Module &module) {
 	DEBUG(dbgs() << "Top of populateFromFile\n");
 	ptree root;
 	read_json(filename, root);
@@ -134,7 +87,7 @@ void dumpArgumentDetails(ostream &out, const Function::ArgumentListType &argumen
 }
 
 
-void NullArgumentAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
+void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
 	ofstream out(filename);
 	out << "{\n\t\"library_functions\": {\n";
 	for (const Function &function : module) {
@@ -179,14 +132,15 @@ void NullArgumentAnnotator::dumpToFile(const string &filename, const IIGlueReade
 }
 
 
-bool NullArgumentAnnotator::runOnModule(Module &module) {
+bool NullAnnotator::runOnModule(Module &module) {
 	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
-
+    
 	for (const string &dependency : dependencyFileNames) {
 		populateFromFile(dependency, module);
 	}
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
-
+    const FindStructElements &findElements = getAnalysis<FindStructElements>();
+    structElements = findElements.getStructElements();
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
     FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
@@ -203,6 +157,9 @@ bool NullArgumentAnnotator::runOnModule(Module &module) {
 		    loopInfo.push_back(info);
 		}
 		functionLoopInfo[&func] = loopInfo;
+		for (auto tuple : structElements) {
+            toCheck[&func].insert(tuple.second);
+		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
 			if(argumentToValueSet.count(&arg)) {
 				DEBUG(dbgs() << "Already got a valueset\n");
@@ -230,7 +187,7 @@ bool NullArgumentAnnotator::runOnModule(Module &module) {
 }
 
 
-void NullArgumentAnnotator::print(raw_ostream &sink, const Module *module) const {
+void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
 		if (func.isDeclaration()) continue;
@@ -240,4 +197,9 @@ void NullArgumentAnnotator::print(raw_ostream &sink, const Module *module) const
 				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations))
 				     << ").\n";
 	}
+        for (auto element : structElements)
+            if (annotate(element.first))
+                sink << str(&element.first)
+                     << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations))
+                     << ").\n";
 }
