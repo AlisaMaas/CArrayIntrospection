@@ -19,6 +19,7 @@
 #include <fstream>
 #include <llvm/IR/Function.h>
 #include <llvm/IR/Instructions.h>
+#include <llvm/IR/InstVisitor.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
@@ -65,6 +66,18 @@ bool annotate(const ValueSet &value, const AnnotationMap &annotations) {
 	return found != annotations.end() && found->second == NULL_TERMINATED;
 }
 
+const ValueSet* findAssociatedValueSet(const Value *value, const FunctionToValueSets &toCheck) {
+    for (auto tuple : toCheck) {
+        for (const ValueSet *valueSet : tuple.second) {
+            if (valueSet->count(value)) {
+                return valueSet;
+            }
+        }
+    }
+    return nullptr;
+
+}
+
 Answer findAssociatedAnswer(const Value *value, const AnnotationMap &annotations) {
 	for (auto mapping : annotations) {
 		if (mapping.first->count(value)) {
@@ -78,6 +91,31 @@ Answer getAnswer(const ValueSet &value, const AnnotationMap &annotations) {
 	const AnnotationMap::const_iterator found = annotations.find(&value);
 	return found == annotations.end() ? DONT_CARE : found->second;
 }
+
+struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
+    AnnotationMap &annotations;
+    const FunctionToValueSets &toCheck;
+    bool changed;
+    ProcessStoresGEPVisitor(AnnotationMap &a, const FunctionToValueSets &v) : annotations(a), toCheck(v){
+        changed = false;
+    }
+
+    void visitStoreInst(StoreInst& store) {
+        DEBUG(dbgs() << "Top of store instruction visitor\n");
+        Value* pointer = store.getPointerOperand();
+        Value* value = store.getValueOperand();
+        const ValueSet *valueSet = findAssociatedValueSet(value, toCheck);
+        if (valueSet) {
+            Answer old = annotations[valueSet];
+            annotations[valueSet] = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
+            if (old != annotations[valueSet]) {
+                errs() << "Updating answer!\n";  
+            }
+            changed |= (old != annotations[valueSet]);
+        }
+    }
+};
+
 
 static pair<Answer, bool> trackThroughCalls(CallInstSet &calls, const Value *value, AnnotationMap &annotations) {
 	// if we haven't yet continued, process evidence from callees.
@@ -184,44 +222,61 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 	//assume pre-populated with dependencies, and processLoops has already been called.
 	bool globalChanged = false;
 	bool changed;
-
+    bool firstTime = true;
 	do {
-		changed = false;
-		for (Function &func : module) {
-		    DEBUG(dbgs() << "Working on " << func.getName() << "\n");
-			if ((func.isDeclaration())) continue;
-			if (!checkNullTerminated.count(&func)) continue;
-			for (const ValueSet *valueSet : checkNullTerminated.at(&func)) {
-			    Answer oldAnswer = getAnswer(*valueSet, annotations);
-			    Answer answer = oldAnswer;
-			    for (const Value * value : *valueSet) {
-			        //go through the loops.
-			        pair<bool, bool> result = processLoops(info.at(&func), value);
-			        Answer valueAnswer = result.second? NULL_TERMINATED : DONT_CARE;
-                    // if we haven't yet continued, process evidence from callees.
-                    DEBUG(dbgs() << "About to track through the calls\n");
-                    pair<Answer, bool> callResponse = trackThroughCalls(functionToCallSites.at(&func), value, annotations);
-                    DEBUG(dbgs() << "Finished going through the calls\n");
-                    DEBUG(dbgs() << "Done finding sentinel checks\n");
-                    DEBUG(dbgs() << "Result so far is " << valueAnswer << " \n");
-                    // otherwise it stays as DONT_CARE for now.
-                    valueAnswer = mergeAnswers(valueAnswer, callResponse.first);
-                    DEBUG(dbgs() << "After merging, result is " << valueAnswer << "\n");
-                    if (valueAnswer == DONT_CARE) {
-                        if (result.second) { //exists an optional sentinel check, and there's no evidence it is null terminated.
-                            valueAnswer = NON_NULL_TERMINATED;
+	    do {
+            changed = false;
+            for (Function &func : module) {
+                DEBUG(dbgs() << "Working on " << func.getName() << "\n");
+                if ((func.isDeclaration())) continue;
+                if (!checkNullTerminated.count(&func)) continue;
+                for (const ValueSet *valueSet : checkNullTerminated.at(&func)) {
+                    Answer oldAnswer = getAnswer(*valueSet, annotations);
+                    Answer answer = oldAnswer;
+                    for (const Value * value : *valueSet) {
+                        //go through the loops.
+                        Answer valueAnswer = DONT_CARE;
+                        //bool existsOptionalCheck = false;
+                        if (firstTime) {
+                            pair<bool, bool> result = processLoops(info.at(&func), value);
+                            valueAnswer = result.second? NULL_TERMINATED : DONT_CARE;
+                            //existsOptionalCheck = result.first;
                         }
+                        // if we haven't yet continued, process evidence from callees.
+                        DEBUG(dbgs() << "About to track through the calls\n");
+                        pair<Answer, bool> callResponse = trackThroughCalls(functionToCallSites.at(&func), value, annotations);
+                        DEBUG(dbgs() << "Finished going through the calls\n");
+                        DEBUG(dbgs() << "Done finding sentinel checks\n");
+                        DEBUG(dbgs() << "Result so far is " << valueAnswer << " \n");
+                        // otherwise it stays as DONT_CARE for now.
+                        valueAnswer = mergeAnswers(valueAnswer, callResponse.first);
+                        DEBUG(dbgs() << "After merging, result is " << valueAnswer << "\n");
+                        /*if (firstTime && valueAnswer == DONT_CARE) {
+                            if (existsOptionalCheck) { //exists an optional sentinel check, and there's no evidence it is null terminated.
+                                valueAnswer = NON_NULL_TERMINATED;
+                            }
+                        }*/
+                        DEBUG(dbgs() << "After looking for optional loops, result is " << valueAnswer << "\n");
+                        answer = mergeAnswers(valueAnswer, answer);
+                        DEBUG(dbgs() << "After merging, result is " << answer << "\n");
                     }
-                    DEBUG(dbgs() << "After looking for optional loops, result is " << valueAnswer << "\n");
-                    answer = mergeAnswers(valueAnswer, answer);
-                    DEBUG(dbgs() << "After merging, result is " << answer << "\n");
-
-				}
-				changed |= answer != oldAnswer;
-				annotations[valueSet] = answer;
-			}
-		}
-		globalChanged |= changed;
+                    changed |= answer != oldAnswer;
+                    annotations[valueSet] = answer;
+                }
+            }
+            firstTime = false;
+            globalChanged |= changed;
+        } while (changed);       
+		errs() << "About to go get some stores\n";
+		for (Function &func : module) {
+            DEBUG(dbgs() << "pushing information through stores.\n");
+            ProcessStoresGEPVisitor visitor(annotations, checkNullTerminated);
+            for(BasicBlock &visitee :  func) {
+                visitor.visit(visitee);
+            }
+            changed |= visitor.changed;
+        }
+        errs() << "Done with an iteration!\n";
 	} while (changed);
 	return globalChanged;
 }
