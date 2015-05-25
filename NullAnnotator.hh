@@ -57,6 +57,8 @@ namespace {
 			llvm::cl::Optional,
 			llvm::cl::value_desc("filename"),
 			llvm::cl::desc("Filename to write results to"));
+	static llvm::cl::opt<bool> Fast ("fast", 
+	        llvm::cl::desc("Skip struct results for faster computation."));
 }
 
 #endif // !INCLUDE_NULL_ANNOTATOR_HH

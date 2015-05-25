@@ -157,8 +157,10 @@ bool NullAnnotator::runOnModule(Module &module) {
 		    loopInfo.push_back(info);
 		}
 		functionLoopInfo[&func] = loopInfo;
-		for (auto tuple : structElements) {
-            toCheck[&func].insert(tuple.second);
+		if (!Fast) {
+            for (auto tuple : structElements) {
+                toCheck[&func].insert(tuple.second);
+            }
 		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
 			if(argumentToValueSet.count(&arg)) {
@@ -178,7 +180,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 	}
 	DEBUG(dbgs() << "Iterate over the module\n");
 	//const map<Function*, LoopInfo> &functionToLoopInfo)
-	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo);
+	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo, Fast);
 	DEBUG(dbgs() << "Dump to a file\n");
 	if (!outputFileName.empty())
 		dumpToFile(outputFileName, iiglue, module);

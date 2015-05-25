@@ -223,7 +223,7 @@ static pair<bool, bool> processLoops(vector<LoopInformation> &LI, const Value* t
 **/
 bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTerminated, 
 	unordered_map<const Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
-	FunctionToLoopInformation &info) {
+	FunctionToLoopInformation &info, bool fast) {
 	
 	//assume pre-populated with dependencies, and processLoops has already been called.
 	bool globalChanged = false;
@@ -274,13 +274,15 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
             globalChanged |= changed;
         } while (changed);       
 		errs() << "About to go get some stores\n";
-		for (Function &func : module) {
-            DEBUG(dbgs() << "pushing information through stores.\n");
-            ProcessStoresGEPVisitor visitor(annotations, checkNullTerminated);
-            for(BasicBlock &visitee :  func) {
-                visitor.visit(visitee);
+		if (!fast) {
+            for (Function &func : module) {
+                DEBUG(dbgs() << "pushing information through stores.\n");
+                ProcessStoresGEPVisitor visitor(annotations, checkNullTerminated);
+                for(BasicBlock &visitee :  func) {
+                    visitor.visit(visitee);
+                }
+                changed |= visitor.changed;
             }
-            changed |= visitor.changed;
         }
         errs() << "Done with an iteration!\n";
 	} while (changed);

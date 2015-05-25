@@ -21,7 +21,7 @@ bool annotate(const llvm::Value &, AnnotationMap &annotations);
 std::unordered_map<const llvm::Function *, CallInstSet> collectFunctionCalls(const llvm::Module &);
 bool iterateOverModule(llvm::Module &module, const FunctionToValueSets &checkNullTerminated, 
 	std::unordered_map<const llvm::Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
-	FunctionToLoopInformation &info);
+	FunctionToLoopInformation &info, bool fast=false);
 Answer getAnswer(const ValueSet &, const AnnotationMap &annotations);
 
 #endif // !INCLUDE_NULL_ANNOTATOR_HELPER_HH
