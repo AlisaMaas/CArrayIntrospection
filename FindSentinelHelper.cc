@@ -158,7 +158,7 @@ ValueReport findSentinelChecks(const LoopInformation &loop, const Value * const 
 				DEBUG(dbgs() << (predicate == CmpInst::ICMP_EQ) << "\n\n\n");
 				continue;
 			}
-			if (!valueReachesValue(*goal, *pointer)) {
+			if (!valueReachesValue(*goal, *pointer, true)) {
                 DEBUG(dbgs() << "Sentinel check of incorrect value.\n");
 			    continue;
 			}

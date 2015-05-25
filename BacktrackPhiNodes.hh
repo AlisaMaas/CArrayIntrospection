@@ -18,7 +18,7 @@ namespace llvm {
 
 class BacktrackPhiNodes {
 public:
-	void backtrack(const llvm::Value &);
+	void backtrack(const llvm::Value &, bool skipLoads=false);
 
 protected:
 	virtual void visit(const llvm::Value &) = 0;

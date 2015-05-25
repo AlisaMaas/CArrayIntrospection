@@ -10,7 +10,7 @@ BacktrackPhiNodes::~BacktrackPhiNodes() {
 }
 
 
-void BacktrackPhiNodes::backtrack(const Value &value) {
+void BacktrackPhiNodes::backtrack(const Value &value, bool skipLoads) {
 	if (!alreadySeen.insert(&value).second)
 		return;
 
@@ -22,14 +22,14 @@ void BacktrackPhiNodes::backtrack(const Value &value) {
 		for (const Use &operand : operands)
 			backtrack(*operand);
 	}
-	
-	if (const  LoadInst * const load = dyn_cast<LoadInst>(&value)) {
-	    backtrack(*load->getPointerOperand());
+	if (skipLoads) {
+        if (const  LoadInst * const load = dyn_cast<LoadInst>(&value)) {
+            backtrack(*load->getPointerOperand());
+        }
 	}
-	
-	else if (const StoreInst * const store = dyn_cast<StoreInst>(&value)) {
+	/*else if (const StoreInst * const store = dyn_cast<StoreInst>(&value)) {
 	    backtrack(*store->getPointerOperand());
-	}
+	}*/
 }
 
 bool BacktrackPhiNodes::shouldVisit(const llvm::Value &value) {

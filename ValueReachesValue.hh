@@ -33,10 +33,10 @@ bool ValueReachesValue::shouldVisit(const llvm::Value &) {
 	return true;
 }
 
-static bool valueReachesValue(const llvm::Value &goal, const llvm::Value &start) {
+static bool valueReachesValue(const llvm::Value &goal, const llvm::Value &start, bool skipLoads=false) {
 	ValueReachesValue explorer(goal);
 	try {
-		explorer.backtrack(start);
+		explorer.backtrack(start, skipLoads);
 	} catch (const ValueReachesValue *) {
 		return true;
 	}
