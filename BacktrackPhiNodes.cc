@@ -22,7 +22,8 @@ void BacktrackPhiNodes::backtrack(const Value &value, bool skipLoads) {
 		for (const Use &operand : operands)
 			backtrack(*operand);
 	}
-	if (skipLoads) {
+	(void)skipLoads;
+	if (false) {
         if (const  LoadInst * const load = dyn_cast<LoadInst>(&value)) {
             backtrack(*load->getPointerOperand());
         }

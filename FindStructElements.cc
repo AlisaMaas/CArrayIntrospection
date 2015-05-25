@@ -19,14 +19,14 @@ string str(const StructElement *element) {
 }
 
 StructElement* getStructElement(const llvm::Value *value) {
-    const LoadInst *load;
-    while ((load = dyn_cast<LoadInst>(value))) {
+    //const LoadInst *load;
+    /*while ((load = dyn_cast<LoadInst>(value))) {
         value = load->getPointerOperand();
     }
     const StoreInst *store;
      while ((store = dyn_cast<StoreInst>(value))) {
         value = store->getPointerOperand();
-    }
+    }*/
     const llvm::GetElementPtrInst *gepi;
     if ((gepi = llvm::dyn_cast<llvm::GetElementPtrInst>(value))) {
         llvm::Type *pointer = gepi->getPointerOperandType()->getPointerElementType();

@@ -69,7 +69,7 @@ bool DFSCheckSentinelOptional(const LoopInformation &loop, BlockSet &foundSoFar)
 * to the sentinel checks and their optionality.
 **/
 
-ValueReport findSentinelChecks(const LoopInformation &loop, const Value * const goal) {
+ValueReport findSentinelChecks(const LoopInformation &loop, const Value * goal) {
     DEBUG(dbgs() << "Looking at " << goal->getName() << " from " << loop.first->getParent()->getName() << "\n");
 	ValueReport sentinelChecks;
 	const SmallVector<BasicBlock *, 4> exitingBlocks = loop.second.second;
@@ -157,6 +157,10 @@ ValueReport findSentinelChecks(const LoopInformation &loop, const Value * const 
 				DEBUG(dbgs() << "dest still in loop!\n\n\n\n");
 				DEBUG(dbgs() << (predicate == CmpInst::ICMP_EQ) << "\n\n\n");
 				continue;
+			}
+			if (LoadInst *load = dyn_cast<LoadInst>(pointer)) {
+			    if (dyn_cast<GetElementPtrInst>(load->getPointerOperand()))
+			        pointer = load->getPointerOperand();
 			}
 			if (!valueReachesValue(*goal, *pointer, true)) {
                 DEBUG(dbgs() << "Sentinel check of incorrect value.\n");

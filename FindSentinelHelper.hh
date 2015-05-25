@@ -33,6 +33,6 @@ typedef std::unordered_map<const llvm::BasicBlock *, ValueSetToBlockSet> Functio
 * all sentinel checks.
 **/
 bool DFSCheckSentinelOptional(const llvm::Loop &loop, BlockSet &foundSoFar);
-ValueReport findSentinelChecks(const LoopInformation &loop, const llvm::Value * const goal);
+ValueReport findSentinelChecks(const LoopInformation &loop, const llvm::Value * goal);
 
 #endif // !INCLUDE_FIND_SENTINEL_HELPER_HH

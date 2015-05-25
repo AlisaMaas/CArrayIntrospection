@@ -104,8 +104,11 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
         DEBUG(dbgs() << "Top of store instruction visitor\n");
         Value* pointer = store.getPointerOperand();
         Value* value = store.getValueOperand();
+        pointer->dump();
+        value->dump();
         const ValueSet *valueSet = findAssociatedValueSet(value, toCheck);
         if (valueSet) {
+            errs() << "Let's go valueset!\n";
             Answer old = annotations[valueSet];
             annotations[valueSet] = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
             if (old != annotations[valueSet]) {
@@ -133,10 +136,13 @@ static pair<Answer, bool> trackThroughCalls(CallInstSet &calls, const Value *val
 		DEBUG(dbgs() << "Got formals\n");
 		for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
 			DEBUG(dbgs() << "Starting iteration\n");
-			const Value &actual = *call.getArgOperand(argNo);
-			if (!valueReachesValue(*value, actual)) continue;
+			const Value *actual = call.getArgOperand(argNo);
+			if (const LoadInst *load = dyn_cast<LoadInst>(actual)) {
+			    if (dyn_cast<GetElementPtrInst>(load->getPointerOperand()))
+			        actual = load->getPointerOperand();
+			}
+			if (!valueReachesValue(*value, *actual)) continue;
 			DEBUG(dbgs() << "match found!\n");
-
 			auto parameter = next(formals, argNo);
 			if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
 				continue;
