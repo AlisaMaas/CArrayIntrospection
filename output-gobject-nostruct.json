@@ -1,0 +1,4768 @@
+{
+	"library_functions": {
+		"_g_atomic_array_init": {
+			"argument_names": ["array"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"_g_atomic_array_copy": {
+			"argument_names": ["array", "header_size", "additional_element_size"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"_g_atomic_array_update": {
+			"argument_names": ["array", "new_data"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_binding_flags_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_binding_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_binding_class_intern_init": {
+			"argument_names": ["klass"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_binding_init": {
+			"argument_names": ["binding"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_binding_get_flags": {
+			"argument_names": ["binding"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_binding_get_source": {
+			"argument_names": ["binding"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_binding_get_target": {
+			"argument_names": ["binding"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_binding_get_source_property": {
+			"argument_names": ["binding"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_binding_get_target_property": {
+			"argument_names": ["binding"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_bind_property_full": {
+			"argument_names": ["source", "source_property", "target", "target_property", "flags", "transform_to", "transform_from", "user_data", "notify"],
+			"argument_annotations": [0, 2, 0, 2, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to g_object_class_find_property passing source_property", "", " found a call to g_strcmp0 passing target_property", "", "", "", "", ""]
+		},
+		"on_source_notify": {
+			"argument_names": ["gobject", "pspec", "binding"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_object_bind_property": {
+			"argument_names": ["source", "source_property", "target", "target_property", "flags"],
+			"argument_annotations": [0, 2, 0, 2, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to g_object_bind_property_full passing source_property", "", " found a call to g_object_bind_property_full passing target_property", ""]
+		},
+		"g_object_bind_property_with_closures": {
+			"argument_names": ["source", "source_property", "target", "target_property", "flags", "transform_to", "transform_from"],
+			"argument_annotations": [0, 2, 0, 2, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to g_object_bind_property_full passing source_property", "", " found a call to g_object_bind_property_full passing target_property", "", "", ""]
+		},
+		"bind_with_closures_transform_to": {
+			"argument_names": ["binding", "source", "target", "data"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"bind_with_closures_transform_from": {
+			"argument_names": ["binding", "source", "target", "data"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"bind_with_closures_free_func": {
+			"argument_names": ["data"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_binding_constructed": {
+			"argument_names": ["gobject"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_binding_set_property": {
+			"argument_names": ["gobject", "prop_id", "value", "pspec"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_binding_get_property": {
+			"argument_names": ["gobject", "prop_id", "value", "pspec"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_binding_finalize": {
+			"argument_names": ["gobject"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"weak_unbind": {
+			"argument_names": ["user_data", "where_the_object_was"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"default_transform_to": {
+			"argument_names": ["binding", "value_a", "value_b", "user_data"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"default_transform_from": {
+			"argument_names": ["binding", "value_a", "value_b", "user_data"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"on_target_notify": {
+			"argument_names": ["gobject", "pspec", "binding"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"default_invert_boolean_transform": {
+			"argument_names": ["value_a", "value_b"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"default_transform": {
+			"argument_names": ["value_a", "value_b"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"_g_boxed_type_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_closure_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_boxed_type_register_static": {
+			"argument_names": ["name", "boxed_copy", "boxed_free"],
+			"argument_annotations": [2, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": [" found a call to g_type_register_static passing name", "", ""]
+		},
+		"g_value_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"value_copy": {
+			"argument_names": ["src_value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_free": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_array_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_date_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"gdate_copy": {
+			"argument_names": ["date"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_gstring_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"gstring_copy": {
+			"argument_names": ["src_gstring"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"gstring_free": {
+			"argument_names": ["gstring"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_hash_table_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_array_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_ptr_array_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_byte_array_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_bytes_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_regex_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_match_info_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_variant_type_get_gtype": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_variant_builder_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_error_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_date_time_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_time_zone_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_key_file_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_main_loop_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_main_context_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_source_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_strv_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_variant_get_gtype": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"boxed_proxy_value_init": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"boxed_proxy_value_free": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"boxed_proxy_value_copy": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"boxed_proxy_value_peek_pointer": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"boxed_proxy_collect_value": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"boxed_proxy_lcopy_value": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_boxed_copy": {
+			"argument_names": ["boxed_type", "src_boxed"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_boxed_free": {
+			"argument_names": ["boxed_type", "boxed"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_boxed": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_dup_boxed": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_boxed": {
+			"argument_names": ["value", "boxed"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_set_static_boxed": {
+			"argument_names": ["value", "boxed"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_set_boxed_take_ownership": {
+			"argument_names": ["value", "boxed"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_take_boxed": {
+			"argument_names": ["value", "boxed"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_closure_new_simple": {
+			"argument_names": ["sizeof_closure", "data"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_closure_set_meta_marshal": {
+			"argument_names": ["closure", "marshal_data", "meta_marshal"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_closure_add_marshal_guards": {
+			"argument_names": ["closure", "pre_marshal_data", "pre_marshal_notify", "post_marshal_data", "post_marshal_notify"],
+			"argument_annotations": [0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", ""]
+		},
+		"g_closure_add_finalize_notifier": {
+			"argument_names": ["closure", "notify_data", "notify_func"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_closure_add_invalidate_notifier": {
+			"argument_names": ["closure", "notify_data", "notify_func"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_closure_ref": {
+			"argument_names": ["closure"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_closure_invalidate": {
+			"argument_names": ["closure"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"closure_invoke_notifiers": {
+			"argument_names": ["closure", "notify_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_closure_unref": {
+			"argument_names": ["closure"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_closure_sink": {
+			"argument_names": ["closure"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_closure_remove_invalidate_notifier": {
+			"argument_names": ["closure", "notify_data", "notify_func"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_closure_remove_finalize_notifier": {
+			"argument_names": ["closure", "notify_data", "notify_func"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_closure_invoke": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint"],
+			"argument_annotations": [0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", ""]
+		},
+		"_g_closure_supports_invoke_va": {
+			"argument_names": ["closure"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"_g_closure_invoke_va": {
+			"argument_names": ["closure", "return_value", "instance", "args", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_closure_set_marshal": {
+			"argument_names": ["closure", "marshal"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"_g_closure_set_va_marshal": {
+			"argument_names": ["closure", "marshal"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_cclosure_new": {
+			"argument_names": ["callback_func", "user_data", "destroy_data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_cclosure_new_swap": {
+			"argument_names": ["callback_func", "user_data", "destroy_data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"_g_closure_is_void": {
+			"argument_names": ["closure", "instance"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_iface_meta_marshal": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_type_class_meta_marshal": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_signal_type_cclosure_new": {
+			"argument_names": ["itype", "struct_offset"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_closure_set_meta_va_marshal": {
+			"argument_names": ["closure", "va_meta_marshal"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_iface_meta_marshalv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_type_class_meta_marshalv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_generic": {
+			"argument_names": ["closure", "return_gvalue", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"value_to_ffi_type": {
+			"argument_names": ["gvalue", "value", "enum_tmpval", "tmpval_used"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_from_ffi_type": {
+			"argument_names": ["gvalue", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_cclosure_marshal_generic_va": {
+			"argument_names": ["closure", "return_value", "instance", "args_list", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"_g_enum_types_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"value_flags_enum_init": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_flags_enum_copy_value": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_flags_enum_collect_value": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_flags_enum_lcopy_value": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_enum_register_static": {
+			"argument_names": ["name", "const_static_values"],
+			"argument_annotations": [2, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": [" found a call to g_type_register_static passing name", ""]
+		},
+		"g_enum_class_init": {
+			"argument_names": ["class", "class_data"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_flags_register_static": {
+			"argument_names": ["name", "const_static_values"],
+			"argument_annotations": [2, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": [" found a call to g_type_register_static passing name", ""]
+		},
+		"g_flags_class_init": {
+			"argument_names": ["class", "class_data"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_enum_complete_type_info": {
+			"argument_names": ["g_enum_type", "info", "const_values"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_flags_complete_type_info": {
+			"argument_names": ["g_flags_type", "info", "const_values"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_enum_get_value_by_name": {
+			"argument_names": ["enum_class", "name"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to strcmp passing name"]
+		},
+		"g_flags_get_value_by_name": {
+			"argument_names": ["flags_class", "name"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to strcmp passing name"]
+		},
+		"g_enum_get_value_by_nick": {
+			"argument_names": ["enum_class", "nick"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to strcmp passing nick"]
+		},
+		"g_flags_get_value_by_nick": {
+			"argument_names": ["flags_class", "nick"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to strcmp passing nick"]
+		},
+		"g_enum_get_value": {
+			"argument_names": ["enum_class", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_flags_get_first_value": {
+			"argument_names": ["flags_class", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_set_enum": {
+			"argument_names": ["value", "v_enum"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_enum": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_flags": {
+			"argument_names": ["value", "v_flags"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_flags": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_cclosure_marshal_VOID__VOID": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__VOIDv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__BOOLEAN": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__BOOLEANv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__CHAR": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__CHARv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__UCHAR": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__UCHARv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__INT": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__INTv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__UINT": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__UINTv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__LONG": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__LONGv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__ULONG": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__ULONGv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__ENUM": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__ENUMv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__FLAGS": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__FLAGSv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__FLOAT": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__FLOATv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__DOUBLE": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__DOUBLEv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__STRING": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__STRINGv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__PARAM": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__PARAMv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__BOXED": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__BOXEDv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__POINTER": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__POINTERv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__OBJECT": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__OBJECTv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__VARIANT": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__VARIANTv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__UINT_POINTER": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_VOID__UINT_POINTERv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_BOOLEAN__FLAGS": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_BOOLEAN__FLAGSv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_STRING__OBJECT_POINTER": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_STRING__OBJECT_POINTERv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_BOOLEAN__BOXED_BOXED": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_cclosure_marshal_BOOLEAN__BOXED_BOXEDv": {
+			"argument_names": ["closure", "return_value", "instance", "args", "marshal_data", "n_params", "param_types"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"_g_object_type_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_object_base_class_init": {
+			"argument_names": ["class"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_base_class_finalize": {
+			"argument_names": ["class"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_do_class_init": {
+			"argument_names": ["class"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_init": {
+			"argument_names": ["object", "class"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_object_init": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_object_free_value": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_object_copy_value": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_object_peek_pointer": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_object_collect_value": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_value_object_lcopy_value": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_value_object_transform_value": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_class_install_property": {
+			"argument_names": ["class", "property_id", "pspec"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_object_class_install_properties": {
+			"argument_names": ["oclass", "n_pspecs", "pspecs"],
+			"argument_annotations": [0, 0, 2],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", "found a non optional sentinel check for pspecs in g_object_class_install_properties"]
+		},
+		"g_object_interface_install_property": {
+			"argument_names": ["g_iface", "pspec"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_class_find_property": {
+			"argument_names": ["class", "property_name"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to g_param_spec_pool_lookup passing property_name"]
+		},
+		"g_object_interface_find_property": {
+			"argument_names": ["g_iface", "property_name"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to g_param_spec_pool_lookup passing property_name"]
+		},
+		"g_object_class_override_property": {
+			"argument_names": ["oclass", "property_id", "name"],
+			"argument_annotations": [0, 0, 2],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", " found a call to g_param_spec_override passing name"]
+		},
+		"g_object_class_list_properties": {
+			"argument_names": ["class", "n_properties_p"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_interface_list_properties": {
+			"argument_names": ["g_iface", "n_properties_p"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_run_dispose": {
+			"argument_names": ["object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_ref": {
+			"argument_names": ["_object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_unref": {
+			"argument_names": ["_object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_freeze_notify": {
+			"argument_names": ["object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_notify_queue_freeze": {
+			"argument_names": ["object", "conditional"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_notify": {
+			"argument_names": ["object", "property_name"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to g_param_spec_pool_lookup passing property_name"]
+		},
+		"g_object_notify_by_pspec": {
+			"argument_names": ["object", "pspec"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_thaw_notify": {
+			"argument_names": ["object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_notify_queue_thaw": {
+			"argument_names": ["object", "nqueue"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_object_new": {
+			"argument_names": ["object_type", "first_property_name"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_newv": {
+			"argument_names": ["object_type", "n_parameters", "parameters"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_object_new_valist": {
+			"argument_names": ["object_type", "first_property_name", "var_args"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_object_constructor": {
+			"argument_names": ["type", "n_construct_properties", "construct_params"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_object_constructed": {
+			"argument_names": ["object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"object_set_property": {
+			"argument_names": ["object", "pspec", "value", "nqueue"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_object_set_valist": {
+			"argument_names": ["object", "first_property_name", "var_args"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_object_get_valist": {
+			"argument_names": ["object", "first_property_name", "var_args"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_object_set": {
+			"argument_names": ["_object", "first_property_name"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_get": {
+			"argument_names": ["_object", "first_property_name"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_set_property": {
+			"argument_names": ["object", "property_name", "value"],
+			"argument_annotations": [0, 2, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", " found a call to g_param_spec_pool_lookup passing property_name", ""]
+		},
+		"g_object_get_property": {
+			"argument_names": ["object", "property_name", "value"],
+			"argument_annotations": [0, 2, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", " found a call to g_param_spec_pool_lookup passing property_name", ""]
+		},
+		"g_object_connect": {
+			"argument_names": ["_object", "signal_spec"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_signal_connect_object": {
+			"argument_names": ["instance", "detailed_signal", "c_handler", "gobject", "connect_flags"],
+			"argument_annotations": [0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", ""]
+		},
+		"g_object_disconnect": {
+			"argument_names": ["_object", "signal_spec"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_weak_ref": {
+			"argument_names": ["object", "notify", "data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"weak_refs_notify": {
+			"argument_names": ["data"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_weak_unref": {
+			"argument_names": ["object", "notify", "data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_object_add_weak_pointer": {
+			"argument_names": ["object", "weak_pointer_location"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_remove_weak_pointer": {
+			"argument_names": ["object", "weak_pointer_location"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_is_floating": {
+			"argument_names": ["_object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_ref_sink": {
+			"argument_names": ["_object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_force_floating": {
+			"argument_names": ["object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_add_toggle_ref": {
+			"argument_names": ["object", "notify", "data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_object_remove_toggle_ref": {
+			"argument_names": ["object", "notify", "data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_clear_object": {
+			"argument_names": ["object_ptr"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_get_qdata": {
+			"argument_names": ["object", "quark"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_set_qdata": {
+			"argument_names": ["object", "quark", "data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_object_dup_qdata": {
+			"argument_names": ["object", "quark", "dup_func", "user_data"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_object_replace_qdata": {
+			"argument_names": ["object", "quark", "oldval", "newval", "destroy", "old_destroy"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_object_set_qdata_full": {
+			"argument_names": ["object", "quark", "data", "destroy"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_object_steal_qdata": {
+			"argument_names": ["object", "quark"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_get_data": {
+			"argument_names": ["object", "key"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to g_datalist_get_data passing key"]
+		},
+		"g_object_set_data": {
+			"argument_names": ["object", "key", "data"],
+			"argument_annotations": [0, 2, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", " found a call to g_quark_from_string passing key", ""]
+		},
+		"g_object_dup_data": {
+			"argument_names": ["object", "key", "dup_func", "user_data"],
+			"argument_annotations": [0, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to g_quark_from_string passing key", "", ""]
+		},
+		"g_object_replace_data": {
+			"argument_names": ["object", "key", "oldval", "newval", "destroy", "old_destroy"],
+			"argument_annotations": [0, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to g_quark_from_string passing key", "", "", "", ""]
+		},
+		"g_object_set_data_full": {
+			"argument_names": ["object", "key", "data", "destroy"],
+			"argument_annotations": [0, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to g_quark_from_string passing key", "", ""]
+		},
+		"g_object_steal_data": {
+			"argument_names": ["object", "key"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_set_object": {
+			"argument_names": ["value", "v_object"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_set_object_take_ownership": {
+			"argument_names": ["value", "v_object"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_take_object": {
+			"argument_names": ["value", "v_object"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_object": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_dup_object": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_cclosure_new_object_swap": {
+			"argument_names": ["callback_func", "object"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_cclosure_new_object": {
+			"argument_names": ["callback_func", "object"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_watch_closure": {
+			"argument_names": ["object", "closure"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"object_remove_closure": {
+			"argument_names": ["data", "closure"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"destroy_closure_array": {
+			"argument_names": ["data"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_closure_new_object": {
+			"argument_names": ["sizeof_closure", "object"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_compat_control": {
+			"argument_names": ["what", "data"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_initially_unowned_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_initially_unowned_class_intern_init": {
+			"argument_names": ["klass"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_initially_unowned_init": {
+			"argument_names": ["object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_weak_ref_init": {
+			"argument_names": ["weak_ref", "object"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_weak_ref_set": {
+			"argument_names": ["weak_ref", "object"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_weak_ref_clear": {
+			"argument_names": ["weak_ref"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_weak_ref_get": {
+			"argument_names": ["weak_ref"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"object_floating_flag_handler": {
+			"argument_names": ["object", "job"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_notify_queue_add": {
+			"argument_names": ["nqueue", "pspec"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_object_notify_queue_free": {
+			"argument_names": ["data"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_do_set_property": {
+			"argument_names": ["object", "property_id", "value", "pspec"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_object_do_get_property": {
+			"argument_names": ["object", "property_id", "value", "pspec"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_object_real_dispose": {
+			"argument_names": ["object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_finalize": {
+			"argument_names": ["object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_object_dispatch_properties_changed": {
+			"argument_names": ["object", "n_pspecs", "pspecs"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"object_interface_check_properties": {
+			"argument_names": ["func_data", "g_iface"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"_g_param_type_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"value_param_init": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_param_free_value": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_param_copy_value": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_param_peek_pointer": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_param_collect_value": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_param_lcopy_value": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_param_spec_class_base_init": {
+			"argument_names": ["class"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_class_base_finalize": {
+			"argument_names": ["class"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_class_init": {
+			"argument_names": ["class", "class_data"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_param_spec_init": {
+			"argument_names": ["pspec", "class"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_param_transform_value": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_param_spec_ref": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_unref": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_sink": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_ref_sink": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_get_name": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_get_nick": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_get_redirect_target": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_get_blurb": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_internal": {
+			"argument_names": ["param_type", "name", "nick", "blurb", "flags"],
+			"argument_annotations": [0, 2, 2, 2, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to g_strdup passing name", " found a call to g_strdup passing nick", " found a call to g_strdup passing blurb", ""]
+		},
+		"g_param_spec_get_qdata": {
+			"argument_names": ["pspec", "quark"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_param_spec_set_qdata": {
+			"argument_names": ["pspec", "quark", "data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_param_spec_set_qdata_full": {
+			"argument_names": ["pspec", "quark", "data", "destroy"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_param_spec_steal_qdata": {
+			"argument_names": ["pspec", "quark"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_param_value_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_param_value_defaults": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_param_value_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_param_value_convert": {
+			"argument_names": ["pspec", "src_value", "dest_value", "strict_validation"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_param_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_param_spec_pool_new": {
+			"argument_names": ["type_prefixing"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_spec_pool_hash": {
+			"argument_names": ["key_spec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_spec_pool_equals": {
+			"argument_names": ["key_spec_1", "key_spec_2"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_param_spec_pool_insert": {
+			"argument_names": ["pool", "pspec", "owner_type"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_param_spec_pool_remove": {
+			"argument_names": ["pool", "pspec"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_param_spec_pool_lookup": {
+			"argument_names": ["pool", "param_name", "owner_type", "walk_ancestors"],
+			"argument_annotations": [0, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to strchr passing param_name", "", ""]
+		},
+		"param_spec_ht_lookup": {
+			"argument_names": ["hash_table", "param_name", "owner_type", "walk_ancestors"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_param_spec_pool_list_owned": {
+			"argument_names": ["pool", "owner_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"pool_list": {
+			"argument_names": ["key", "value", "user_data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_param_spec_pool_list": {
+			"argument_names": ["pool", "owner_type", "n_pspecs_p"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"pool_depth_list_for_interface": {
+			"argument_names": ["key", "value", "user_data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"pool_depth_list": {
+			"argument_names": ["key", "value", "user_data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"pspec_compare_id": {
+			"argument_names": ["a", "b"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_param_type_register_static": {
+			"argument_names": ["name", "pspec_info"],
+			"argument_annotations": [2, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": [" found a call to g_type_register_static passing name", ""]
+		},
+		"param_spec_generic_class_init": {
+			"argument_names": ["g_class", "class_data"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"default_value_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"default_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_value_set_param": {
+			"argument_names": ["value", "param"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_set_param_take_ownership": {
+			"argument_names": ["value", "param"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_take_param": {
+			"argument_names": ["value", "param"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_param": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_dup_param": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_param_spec_finalize": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"_g_param_spec_types_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"param_char_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_char_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_char_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_int_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_uchar_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_uchar_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_uchar_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_uint_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_boolean_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_boolean_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_int_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_int_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_int_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_uint_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_uint_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_uint_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_long_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_long_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_long_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_long_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_ulong_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_ulong_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_ulong_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_ulong_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_int64_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_int64_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_int64_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_int64_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_uint64_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_uint64_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_uint64_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_uint64_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_unichar_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_unichar_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_unichar_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_unichar_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_enum_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_enum_finalize": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_enum_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_enum_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_flags_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_flags_finalize": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_flags_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_flags_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_float_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_float_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_float_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_float_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_double_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_double_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_double_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_double_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_string_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_string_finalize": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_string_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_string_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_string_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_param_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_param_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_param_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_pointer_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_boxed_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_boxed_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_boxed_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_boxed_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_pointer_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_pointer_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_pointer_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_value_array_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_value_array_finalize": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_value_array_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_value_array_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_value_array_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_object_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_object_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_object_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_object_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_override_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_override_finalize": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_override_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_override_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_override_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_gtype_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_gtype_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_gtype_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_gtype_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"param_variant_init": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_variant_finalize": {
+			"argument_names": ["pspec"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"param_variant_set_default": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_variant_validate": {
+			"argument_names": ["pspec", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"param_variant_values_cmp": {
+			"argument_names": ["pspec", "value1", "value2"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_param_spec_char": {
+			"argument_names": ["name", "nick", "blurb", "minimum", "maximum", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", "", ""]
+		},
+		"g_param_spec_uchar": {
+			"argument_names": ["name", "nick", "blurb", "minimum", "maximum", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", "", ""]
+		},
+		"g_param_spec_boolean": {
+			"argument_names": ["name", "nick", "blurb", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", ""]
+		},
+		"g_param_spec_int": {
+			"argument_names": ["name", "nick", "blurb", "minimum", "maximum", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", "", ""]
+		},
+		"g_param_spec_uint": {
+			"argument_names": ["name", "nick", "blurb", "minimum", "maximum", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", "", ""]
+		},
+		"g_param_spec_long": {
+			"argument_names": ["name", "nick", "blurb", "minimum", "maximum", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", "", ""]
+		},
+		"g_param_spec_ulong": {
+			"argument_names": ["name", "nick", "blurb", "minimum", "maximum", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", "", ""]
+		},
+		"g_param_spec_int64": {
+			"argument_names": ["name", "nick", "blurb", "minimum", "maximum", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", "", ""]
+		},
+		"g_param_spec_uint64": {
+			"argument_names": ["name", "nick", "blurb", "minimum", "maximum", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", "", ""]
+		},
+		"g_param_spec_unichar": {
+			"argument_names": ["name", "nick", "blurb", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", ""]
+		},
+		"g_param_spec_enum": {
+			"argument_names": ["name", "nick", "blurb", "enum_type", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", ""]
+		},
+		"g_param_spec_flags": {
+			"argument_names": ["name", "nick", "blurb", "flags_type", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", ""]
+		},
+		"g_param_spec_float": {
+			"argument_names": ["name", "nick", "blurb", "minimum", "maximum", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", "", ""]
+		},
+		"g_param_spec_double": {
+			"argument_names": ["name", "nick", "blurb", "minimum", "maximum", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", "", ""]
+		},
+		"g_param_spec_string": {
+			"argument_names": ["name", "nick", "blurb", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 2, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", " found a call to g_strdup passing default_value", ""]
+		},
+		"g_param_spec_param": {
+			"argument_names": ["name", "nick", "blurb", "param_type", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", ""]
+		},
+		"g_param_spec_boxed": {
+			"argument_names": ["name", "nick", "blurb", "boxed_type", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", ""]
+		},
+		"g_param_spec_pointer": {
+			"argument_names": ["name", "nick", "blurb", "flags"],
+			"argument_annotations": [2, 2, 2, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", ""]
+		},
+		"g_param_spec_gtype": {
+			"argument_names": ["name", "nick", "blurb", "is_a_type", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", ""]
+		},
+		"g_param_spec_value_array": {
+			"argument_names": ["name", "nick", "blurb", "element_spec", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", ""]
+		},
+		"g_param_spec_object": {
+			"argument_names": ["name", "nick", "blurb", "object_type", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", ""]
+		},
+		"g_param_spec_override": {
+			"argument_names": ["name", "overridden"],
+			"argument_annotations": [2, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", ""]
+		},
+		"g_param_spec_variant": {
+			"argument_names": ["name", "nick", "blurb", "type", "default_value", "flags"],
+			"argument_annotations": [2, 2, 2, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_param_spec_internal passing name", " found a call to g_param_spec_internal passing nick", " found a call to g_param_spec_internal passing blurb", "", "", ""]
+		},
+		"_g_signal_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"_g_signals_destroy": {
+			"argument_names": ["itype"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_signal_stop_emission": {
+			"argument_names": ["instance", "signal_id", "detail"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_signal_add_emission_hook": {
+			"argument_names": ["signal_id", "detail", "hook_func", "hook_data", "data_destroy"],
+			"argument_annotations": [0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", ""]
+		},
+		"signal_finalize_hook": {
+			"argument_names": ["hook_list", "hook"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_signal_remove_emission_hook": {
+			"argument_names": ["signal_id", "hook_id"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_signal_parse_name": {
+			"argument_names": ["detailed_signal", "itype", "signal_id_p", "detail_p", "force_detail_quark"],
+			"argument_annotations": [2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to signal_parse_name passing detailed_signal", "", "", "", ""]
+		},
+		"signal_parse_name": {
+			"argument_names": ["name", "itype", "detail_p", "force_quark"],
+			"argument_annotations": [2, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": [" found a call to strchr passing name", "", "", ""]
+		},
+		"g_signal_stop_emission_by_name": {
+			"argument_names": ["instance", "detailed_signal"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to signal_parse_name passing detailed_signal"]
+		},
+		"g_signal_lookup": {
+			"argument_names": ["name", "itype"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"signal_id_lookup": {
+			"argument_names": ["quark", "itype"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_signal_list_ids": {
+			"argument_names": ["itype", "n_ids"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_signal_name": {
+			"argument_names": ["signal_id"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_signal_query": {
+			"argument_names": ["signal_id", "query"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_signal_new": {
+			"argument_names": ["signal_name", "itype", "signal_flags", "class_offset", "accumulator", "accu_data", "c_marshaller", "return_type", "n_params"],
+			"argument_annotations": [2, 0, 0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_signal_newv passing signal_name", "", "", "", "", "", "", "", ""]
+		},
+		"g_signal_new_valist": {
+			"argument_names": ["signal_name", "itype", "signal_flags", "class_closure", "accumulator", "accu_data", "c_marshaller", "return_type", "n_params", "args"],
+			"argument_annotations": [2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_signal_newv passing signal_name", "", "", "", "", "", "", "", "", ""]
+		},
+		"g_signal_new_class_handler": {
+			"argument_names": ["signal_name", "itype", "signal_flags", "class_handler", "accumulator", "accu_data", "c_marshaller", "return_type", "n_params"],
+			"argument_annotations": [2, 0, 0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_signal_newv passing signal_name", "", "", "", "", "", "", "", ""]
+		},
+		"g_signal_newv": {
+			"argument_names": ["signal_name", "itype", "signal_flags", "class_closure", "accumulator", "accu_data", "c_marshaller", "return_type", "n_params", "param_types"],
+			"argument_annotations": [2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_strdup passing signal_name", "", "", "", "", "", "", "", "", ""]
+		},
+		"signal_add_class_closure": {
+			"argument_names": ["node", "itype", "closure"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_signal_set_va_marshaller": {
+			"argument_names": ["signal_id", "instance_type", "va_marshaller"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_signal_override_class_closure": {
+			"argument_names": ["signal_id", "instance_type", "class_closure"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_signal_override_class_handler": {
+			"argument_names": ["signal_name", "instance_type", "class_handler"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_signal_chain_from_overridden": {
+			"argument_names": ["instance_and_params", "return_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_signal_chain_from_overridden_handler": {
+			"argument_names": ["instance"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_signal_get_invocation_hint": {
+			"argument_names": ["instance"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_signal_connect_closure_by_id": {
+			"argument_names": ["instance", "signal_id", "detail", "closure", "after"],
+			"argument_annotations": [0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", ""]
+		},
+		"handler_insert": {
+			"argument_names": ["signal_id", "instance", "handler"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_signal_connect_closure": {
+			"argument_names": ["instance", "detailed_signal", "closure", "after"],
+			"argument_annotations": [0, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to signal_parse_name passing detailed_signal", "", ""]
+		},
+		"g_signal_connect_data": {
+			"argument_names": ["instance", "detailed_signal", "c_handler", "data", "destroy_data", "connect_flags"],
+			"argument_annotations": [0, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to signal_parse_name passing detailed_signal", "", "", "", ""]
+		},
+		"g_signal_handler_block": {
+			"argument_names": ["instance", "handler_id"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_signal_handler_unblock": {
+			"argument_names": ["instance", "handler_id"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_signal_handler_disconnect": {
+			"argument_names": ["instance", "handler_id"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"handler_unref_R": {
+			"argument_names": ["signal_id", "instance", "handler"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_signal_handler_is_connected": {
+			"argument_names": ["instance", "handler_id"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_signal_handlers_destroy": {
+			"argument_names": ["instance"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_signal_handler_find": {
+			"argument_names": ["instance", "mask", "signal_id", "detail", "closure", "func", "data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"handlers_find": {
+			"argument_names": ["instance", "mask", "signal_id", "detail", "closure", "func", "data", "one_and_only"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", "", ""]
+		},
+		"g_signal_handlers_block_matched": {
+			"argument_names": ["instance", "mask", "signal_id", "detail", "closure", "func", "data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_signal_handlers_unblock_matched": {
+			"argument_names": ["instance", "mask", "signal_id", "detail", "closure", "func", "data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_signal_handlers_disconnect_matched": {
+			"argument_names": ["instance", "mask", "signal_id", "detail", "closure", "func", "data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", "", ""]
+		},
+		"g_signal_has_handler_pending": {
+			"argument_names": ["instance", "signal_id", "detail", "may_be_blocked"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_signal_emitv": {
+			"argument_names": ["instance_and_params", "signal_id", "detail", "return_value"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"signal_emit_unlocked_R": {
+			"argument_names": ["node", "detail", "instance", "emission_return", "instance_and_params"],
+			"argument_annotations": [0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", ""]
+		},
+		"g_signal_emit_valist": {
+			"argument_names": ["instance", "signal_id", "detail", "var_args"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_signal_emit": {
+			"argument_names": ["instance", "signal_id", "detail"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_signal_emit_by_name": {
+			"argument_names": ["instance", "detailed_signal"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to signal_parse_name passing detailed_signal"]
+		},
+		"g_signal_accumulator_true_handled": {
+			"argument_names": ["ihint", "return_accu", "handler_return", "dummy"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_signal_accumulator_first_wins": {
+			"argument_names": ["ihint", "return_accu", "handler_return", "dummy"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"handler_lists_cmp": {
+			"argument_names": ["node1", "node2"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"class_closures_cmp": {
+			"argument_names": ["node1", "node2"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_bsearch_array_grow": {
+			"argument_names": ["barray", "bconfig", "index_"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"signal_key_cmp": {
+			"argument_names": ["node1", "node2"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_io_channel_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_io_condition_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_source_set_closure": {
+			"argument_names": ["source", "closure"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"source_closure_marshal_BOOLEAN__VOID": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"g_source_set_dummy_callback": {
+			"argument_names": ["source"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"dummy_closure_marshal": {
+			"argument_names": ["closure", "return_value", "n_param_values", "param_values", "invocation_hint", "marshal_data"],
+			"argument_annotations": [0, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", "", ""]
+		},
+		"closure_callback_get": {
+			"argument_names": ["cb_data", "source", "func", "data"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"io_watch_closure_callback": {
+			"argument_names": ["channel", "condition", "data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"source_closure_callback": {
+			"argument_names": ["data"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_interface_add_prerequisite": {
+			"argument_names": ["interface_type", "prerequisite_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_fundamental": {
+			"argument_names": ["type_id"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_is_a": {
+			"argument_names": ["type", "iface_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"type_iface_add_prerequisite_W": {
+			"argument_names": ["iface", "prerequisite_node"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_interface_prerequisites": {
+			"argument_names": ["interface_type", "n_prerequisites"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_create_instance": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_test_flags": {
+			"argument_names": ["type", "flags"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_class_ref": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_free_instance": {
+			"argument_names": ["instance"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_class_unref": {
+			"argument_names": ["g_class"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_add_class_cache_func": {
+			"argument_names": ["cache_data", "cache_func"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_remove_class_cache_func": {
+			"argument_names": ["cache_data", "cache_func"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_add_interface_check": {
+			"argument_names": ["check_data", "check_func"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_remove_interface_check": {
+			"argument_names": ["check_data", "check_func"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_register_fundamental": {
+			"argument_names": ["type_id", "type_name", "info", "finfo", "flags"],
+			"argument_annotations": [0, 2, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to type_node_fundamental_new_W passing type_name", "", "", ""]
+		},
+		"check_type_name_I": {
+			"argument_names": ["type_name"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"type_node_fundamental_new_W": {
+			"argument_names": ["ftype", "name", "type_flags"],
+			"argument_annotations": [0, 2, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", " found a call to type_node_any_new_W passing name", ""]
+		},
+		"type_add_flags_W": {
+			"argument_names": ["node", "flags"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"check_type_info_I": {
+			"argument_names": ["pnode", "ftype", "type_name", "info"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"type_data_make_W": {
+			"argument_names": ["node", "info", "value_table"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"check_value_table_I": {
+			"argument_names": ["type_name", "value_table"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_register_static_simple": {
+			"argument_names": ["parent_type", "type_name", "class_size", "class_init", "instance_size", "instance_init", "flags"],
+			"argument_annotations": [0, 2, 0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to g_type_register_static passing type_name", "", "", "", "", ""]
+		},
+		"g_type_register_static": {
+			"argument_names": ["parent_type", "type_name", "info", "flags"],
+			"argument_annotations": [0, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to type_node_new_W passing type_name", "", ""]
+		},
+		"check_derivation_I": {
+			"argument_names": ["parent_type", "type_name"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"type_data_ref_Wm": {
+			"argument_names": ["node"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"type_node_new_W": {
+			"argument_names": ["pnode", "name", "plugin"],
+			"argument_annotations": [0, 2, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", " found a call to type_node_any_new_W passing name", ""]
+		},
+		"g_type_register_dynamic": {
+			"argument_names": ["parent_type", "type_name", "plugin", "flags"],
+			"argument_annotations": [0, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to type_node_new_W passing type_name", "", ""]
+		},
+		"check_plugin_U": {
+			"argument_names": ["plugin", "need_complete_type_info", "need_complete_interface_info", "type_name"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_type_add_interface_static": {
+			"argument_names": ["instance_type", "interface_type", "info"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_type_parent": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"check_add_interface_L": {
+			"argument_names": ["instance_type", "iface_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"type_add_interface_Wm": {
+			"argument_names": ["node", "iface", "info", "plugin"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_type_add_interface_dynamic": {
+			"argument_names": ["instance_type", "interface_type", "plugin"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"type_data_unref_U": {
+			"argument_names": ["node", "uncached"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_class_unref_uncached": {
+			"argument_names": ["g_class"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_class_peek": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_class_peek_static": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_class_peek_parent": {
+			"argument_names": ["g_class"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_interface_peek": {
+			"argument_names": ["instance_class", "iface_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_interface_peek_parent": {
+			"argument_names": ["g_iface"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_default_interface_ref": {
+			"argument_names": ["g_type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"type_iface_ensure_dflt_vtable_Wm": {
+			"argument_names": ["iface"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_default_interface_peek": {
+			"argument_names": ["g_type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_default_interface_unref": {
+			"argument_names": ["g_iface"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_name": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_qname": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_from_name": {
+			"argument_names": ["name"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_depth": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_next_base": {
+			"argument_names": ["type", "base_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_children": {
+			"argument_names": ["type", "n_children"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_interfaces": {
+			"argument_names": ["type", "n_interfaces"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_get_qdata": {
+			"argument_names": ["type", "quark"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_set_qdata": {
+			"argument_names": ["type", "quark", "data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_type_query": {
+			"argument_names": ["type", "query"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_get_plugin": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_interface_get_plugin": {
+			"argument_names": ["instance_type", "interface_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_fundamental_next": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_type_check_instance_is_a": {
+			"argument_names": ["type_instance", "iface_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_check_class_is_a": {
+			"argument_names": ["type_class", "is_a_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_check_instance_cast": {
+			"argument_names": ["type_instance", "iface_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_check_class_cast": {
+			"argument_names": ["type_class", "is_a_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_check_instance": {
+			"argument_names": ["type_instance"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_check_is_value_type": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"type_check_is_value_type_U": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_check_value": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_check_value_holds": {
+			"argument_names": ["value", "type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_value_table_peek": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_name_from_instance": {
+			"argument_names": ["instance"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_name_from_class": {
+			"argument_names": ["g_class"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"_g_type_boxed_copy": {
+			"argument_names": ["type", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"_g_type_boxed_free": {
+			"argument_names": ["type", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"_g_type_boxed_init": {
+			"argument_names": ["type", "copy_func", "free_func"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_type_init_with_debug_flags": {
+			"argument_names": ["debug_flags"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_ensure": {
+			"argument_names": ["type"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_type_class_add_private": {
+			"argument_names": ["g_class", "private_size"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_instance_get_private": {
+			"argument_names": ["instance", "private_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_add_class_private": {
+			"argument_names": ["class_type", "private_size"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_type_class_get_private": {
+			"argument_names": ["klass", "private_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"instance_real_class_cmp": {
+			"argument_names": ["p1", "p2"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"type_node_check_conformities_UorL": {
+			"argument_names": ["node", "iface_node", "support_interfaces", "support_prerequisites", "have_lock"],
+			"argument_annotations": [0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", ""]
+		},
+		"type_iface_vtable_finalize_Wm": {
+			"argument_names": ["iface", "node", "vtable"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"type_iface_retrieve_holder_info_Wm": {
+			"argument_names": ["iface", "instance_type", "need_info"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"type_iface_vtable_base_init_Wm": {
+			"argument_names": ["iface", "node"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"type_iface_vtable_iface_init_Wm": {
+			"argument_names": ["iface", "node"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"type_node_add_iface_entry_W": {
+			"argument_names": ["node", "iface_type", "parent_entry"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"iface_node_set_offset_L": {
+			"argument_names": ["iface_node", "offset", "index"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"find_conforming_child_type_L": {
+			"argument_names": ["pnode", "iface"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"type_node_any_new_W": {
+			"argument_names": ["pnode", "ftype", "name", "plugin", "type_flags"],
+			"argument_annotations": [0, 0, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", " found a call to g_quark_from_string passing name", "", ""]
+		},
+		"g_type_module_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_type_module_class_init": {
+			"argument_names": ["class"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_module_iface_init": {
+			"argument_names": ["iface"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_module_set_name": {
+			"argument_names": ["module", "name"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to g_strdup passing name"]
+		},
+		"g_type_module_use": {
+			"argument_names": ["module"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_module_unuse": {
+			"argument_names": ["module"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_module_register_type": {
+			"argument_names": ["module", "parent_type", "type_name", "type_info", "flags"],
+			"argument_annotations": [0, 0, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", " found a call to g_type_register_dynamic passing type_name", "", ""]
+		},
+		"g_type_module_add_interface": {
+			"argument_names": ["module", "instance_type", "interface_type", "interface_info"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_type_module_register_enum": {
+			"argument_names": ["module", "name", "const_static_values"],
+			"argument_annotations": [0, 2, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", " found a call to g_type_module_register_type passing name", ""]
+		},
+		"g_type_module_register_flags": {
+			"argument_names": ["module", "name", "const_static_values"],
+			"argument_annotations": [0, 2, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", " found a call to g_type_module_register_type passing name", ""]
+		},
+		"g_type_module_use_plugin": {
+			"argument_names": ["plugin"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_module_complete_type_info": {
+			"argument_names": ["plugin", "g_type", "info", "value_table"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_type_module_complete_interface_info": {
+			"argument_names": ["plugin", "instance_type", "interface_type", "info"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_type_module_dispose": {
+			"argument_names": ["object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_module_finalize": {
+			"argument_names": ["object"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_plugin_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_type_plugin_use": {
+			"argument_names": ["plugin"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_plugin_unuse": {
+			"argument_names": ["plugin"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_type_plugin_complete_type_info": {
+			"argument_names": ["plugin", "g_type", "info", "value_table"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_type_plugin_complete_interface_info": {
+			"argument_names": ["plugin", "instance_type", "interface_type", "info"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"_g_value_c_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_value_init": {
+			"argument_names": ["value", "g_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_copy": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_type_compatible": {
+			"argument_names": ["src_type", "dest_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_reset": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_unset": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_fits_pointer": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_peek_pointer": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_instance": {
+			"argument_names": ["value", "instance"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_register_transform_func": {
+			"argument_names": ["src_type", "dest_type", "transform_func"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_value_type_transformable": {
+			"argument_names": ["src_type", "dest_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"transform_func_lookup": {
+			"argument_names": ["src_type", "dest_type"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_transform": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"transform_entries_cmp": {
+			"argument_names": ["bsearch_node1", "bsearch_node2"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_array_get_nth": {
+			"argument_names": ["value_array", "index"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_array_new": {
+			"argument_names": ["n_prealloced"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_array_free": {
+			"argument_names": ["value_array"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_array_copy": {
+			"argument_names": ["value_array"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_array_prepend": {
+			"argument_names": ["value_array", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_array_insert": {
+			"argument_names": ["value_array", "index", "value"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"g_value_array_append": {
+			"argument_names": ["value_array", "value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_array_remove": {
+			"argument_names": ["value_array", "index"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_array_sort": {
+			"argument_names": ["value_array", "compare_func"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_array_sort_with_data": {
+			"argument_names": ["value_array", "compare_func", "user_data"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"_g_value_transforms_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"value_transform_memcpy_data0": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_u8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_bool": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_uint": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_long": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_ulong": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_int64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_uint64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_float": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_double": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_s8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_bool": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_int": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_long": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_ulong": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_int64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_uint64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_float": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_double": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int_s8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_bool_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint_u8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_s8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_u8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_bool": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_int": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_uint": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_ulong": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_int64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_uint64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_float": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_double": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_long_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_s8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_u8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_bool": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_int": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_uint": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_long": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_int64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_uint64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_float": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_double": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_ulong_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_s8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_u8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_bool": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_int": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_uint": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_long": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_ulong": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_uint64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_float": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_double": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_int64_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_s8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_u8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_bool": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_int": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_uint": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_long": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_ulong": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_int64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_float": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_double": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_uint64_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_enum_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_flags_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_float_s8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_float_u8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_float_int": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_float_uint": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_float_long": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_float_ulong": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_float_int64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_float_uint64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_float_double": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_float_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_double_s8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_double_u8": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_double_int": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_double_uint": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_double_long": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_double_ulong": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_double_int64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_double_uint64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_double_float": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_double_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_transform_string_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"_g_value_types_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"value_init_long0": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_copy_long0": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_collect_int": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_lcopy_char": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_lcopy_boolean": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_lcopy_int": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_collect_long": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_lcopy_long": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_init_int64": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_copy_int64": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_collect_int64": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_lcopy_int64": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_init_float": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_copy_float": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_collect_float": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_lcopy_float": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_init_double": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_copy_double": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_collect_double": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_lcopy_double": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_init_string": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_free_string": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_copy_string": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_peek_pointer0": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_collect_string": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_lcopy_string": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_init_pointer": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_copy_pointer": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_collect_pointer": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_lcopy_pointer": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_free_variant": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"value_copy_variant": {
+			"argument_names": ["src_value", "dest_value"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"value_collect_variant": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"value_lcopy_variant": {
+			"argument_names": ["value", "n_collect_values", "collect_values", "collect_flags"],
+			"argument_annotations": [0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", "", "", ""]
+		},
+		"g_value_set_char": {
+			"argument_names": ["value", "v_char"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_char": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_schar": {
+			"argument_names": ["value", "v_char"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_schar": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_uchar": {
+			"argument_names": ["value", "v_uchar"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_uchar": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_boolean": {
+			"argument_names": ["value", "v_boolean"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_boolean": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_int": {
+			"argument_names": ["value", "v_int"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_int": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_uint": {
+			"argument_names": ["value", "v_uint"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_uint": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_long": {
+			"argument_names": ["value", "v_long"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_long": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_ulong": {
+			"argument_names": ["value", "v_ulong"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_ulong": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_int64": {
+			"argument_names": ["value", "v_int64"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_int64": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_uint64": {
+			"argument_names": ["value", "v_uint64"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_uint64": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_float": {
+			"argument_names": ["value", "v_float"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_float": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_double": {
+			"argument_names": ["value", "v_double"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_double": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_string": {
+			"argument_names": ["value", "v_string"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to g_strdup passing v_string"]
+		},
+		"g_value_set_static_string": {
+			"argument_names": ["value", "v_string"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_set_string_take_ownership": {
+			"argument_names": ["value", "v_string"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_take_string": {
+			"argument_names": ["value", "v_string"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_string": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_dup_string": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_pointer": {
+			"argument_names": ["value", "v_pointer"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_pointer": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_gtype_get_type": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"g_pointer_type_register_static": {
+			"argument_names": ["name"],
+			"argument_annotations": [2],
+			"args_array_receivers": [1],
+			"argument_reasons": [" found a call to g_type_register_static passing name"]
+		},
+		"g_value_set_gtype": {
+			"argument_names": ["value", "v_gtype"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_gtype": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_set_variant": {
+			"argument_names": ["value", "variant"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_take_variant": {
+			"argument_names": ["value", "variant"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"g_value_get_variant": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_value_dup_variant": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"g_strdup_value_contents": {
+			"argument_names": ["value"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		}
+	}
+}

@@ -1,0 +1,556 @@
+{
+	"library_functions": {
+		"add_search_dir": {
+			"argument_names": ["path"],
+			"argument_annotations": [2],
+			"args_array_receivers": [1],
+			"argument_reasons": [" found a call to g_strdup passing path"]
+		},
+		"add_search_dirs": {
+			"argument_names": ["path", "separator"],
+			"argument_annotations": [2, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": [" found a call to g_strsplit passing path", " found a call to g_strsplit passing separator"]
+		},
+		"name_ends_in_uninstalled": {
+			"argument_names": ["str"],
+			"argument_annotations": [2],
+			"args_array_receivers": [1],
+			"argument_reasons": [" found a call to strlen passing str"]
+		},
+		"package_init": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"scan_dir": {
+			"argument_names": ["dirname"],
+			"argument_annotations": [2],
+			"args_array_receivers": [1],
+			"argument_reasons": [" found a call to strlen passing dirname"]
+		},
+		"get_package": {
+			"argument_names": ["name"],
+			"argument_annotations": [2],
+			"args_array_receivers": [1],
+			"argument_reasons": [" found a call to internal_get_package passing name"]
+		},
+		"internal_get_package": {
+			"argument_names": ["name", "warn"],
+			"argument_annotations": [2, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": [" found a call to strlen passing name", ""]
+		},
+		"get_package_quiet": {
+			"argument_names": ["name"],
+			"argument_annotations": [2],
+			"args_array_receivers": [1],
+			"argument_reasons": [" found a call to internal_get_package passing name"]
+		},
+		"package_get_l_libs": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"packages_get_l_libs": {
+			"argument_names": ["pkgs"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"package_get_L_libs": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"get_merged": {
+			"argument_names": ["pkg", "func", "include_private"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"get_L_libs": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"packages_get_L_libs": {
+			"argument_names": ["pkgs"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"get_multi_merged": {
+			"argument_names": ["pkgs", "func", "include_private"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"package_get_other_libs": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"get_other_libs": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"packages_get_other_libs": {
+			"argument_names": ["pkgs"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"packages_get_all_libs": {
+			"argument_names": ["pkgs"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"package_get_I_cflags": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"get_I_cflags": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"packages_get_I_cflags": {
+			"argument_names": ["pkgs"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"package_get_other_cflags": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"get_other_cflags": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"packages_get_other_cflags": {
+			"argument_names": ["pkgs"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"package_get_cflags": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"packages_get_all_cflags": {
+			"argument_names": ["pkgs"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"define_global_variable": {
+			"argument_names": ["varname", "varval"],
+			"argument_annotations": [2, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": [" found a call to g_strdup passing varname", " found a call to g_strdup passing varval"]
+		},
+		"package_get_var": {
+			"argument_names": ["pkg", "var"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to strcmp passing var"]
+		},
+		"packages_get_var": {
+			"argument_names": ["pkgs", "varname"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to package_get_var passing varname"]
+		},
+		"compare_versions": {
+			"argument_names": ["a", "b"],
+			"argument_annotations": [2, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": [" found a call to rpmvercmp passing a", " found a call to rpmvercmp passing b"]
+		},
+		"rpmvercmp": {
+			"argument_names": ["a", "b"],
+			"argument_annotations": [2, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": [" found a call to strcpy passing a", " found a call to strlen passing b"]
+		},
+		"version_test": {
+			"argument_names": ["comparison", "a", "b"],
+			"argument_annotations": [0, 2, 2],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", " found a call to rpmvercmp passing a", " found a call to rpmvercmp passing b"]
+		},
+		"comparison_to_str": {
+			"argument_names": ["comparison"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"print_package_list": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"max_len_foreach": {
+			"argument_names": ["key", "value", "data"],
+			"argument_annotations": [2, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": [" found a call to strlen passing key", "", ""]
+		},
+		"packages_foreach": {
+			"argument_names": ["key", "value", "data"],
+			"argument_annotations": [2, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": [" found a call to internal_get_package passing key", "", ""]
+		},
+		"enable_private_libs": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"disable_private_libs": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"enable_requires": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"disable_requires": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"enable_requires_private": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"disable_requires_private": {
+			"argument_names": [],
+			"argument_annotations": [],
+			"args_array_receivers": [],
+			"argument_reasons": []
+		},
+		"string_list_strip_duplicates": {
+			"argument_names": ["list"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"string_list_to_string": {
+			"argument_names": ["list"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"recursive_fill_list": {
+			"argument_names": ["pkg", "func", "listp"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"get_requires_private": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"get_requires": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"pathposcmp": {
+			"argument_names": ["a", "b"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"string_list_strip_duplicates_from_back": {
+			"argument_names": ["list"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"parse_module_list": {
+			"argument_names": ["pkg", "str", "path"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"parse_package_file": {
+			"argument_names": ["path", "ignore_requires", "ignore_private_libs", "ignore_requires_private"],
+			"argument_annotations": [2, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": [" found a call to g_path_get_dirname passing path", "", "", ""]
+		},
+		"trim_string": {
+			"argument_names": ["str"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"trim_and_sub": {
+			"argument_names": ["pkg", "str", "path"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"strdup_escape_shell": {
+			"argument_names": ["s"],
+			"argument_annotations": [2],
+			"args_array_receivers": [1],
+			"argument_reasons": [" found a call to strlen passing s"]
+		},
+		"_do_parse_libs": {
+			"argument_names": ["pkg", "argc", "argv"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"debug_spew": {
+			"argument_names": ["format"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"verbose_error": {
+			"argument_names": ["format"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"print_hashtable_key": {
+			"argument_names": ["key", "value", "user_data"],
+			"argument_annotations": [2, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": [" found a call to puts passing key", "", ""]
+		},
+		"main": {
+			"argument_names": ["argc", "argv"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"popt_callback": {
+			"argument_names": ["con", "reason", "opt", "arg", "data"],
+			"argument_annotations": [0, 0, 0, 2, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", " found a call to g_strdup passing arg", ""]
+		},
+		"pkg_uninstalled": {
+			"argument_names": ["pkg"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"poptSetExecPath": {
+			"argument_names": ["con", "path", "allowAbsolute"],
+			"argument_annotations": [0, 2, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", " found a call to __strdup passing path", ""]
+		},
+		"poptGetContext": {
+			"argument_names": ["name", "argc", "argv", "options", "flags"],
+			"argument_annotations": [2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": [" found a call to strlen passing name", "", "", "", ""]
+		},
+		"invokeCallbacks": {
+			"argument_names": ["con", "table", "post"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"poptResetContext": {
+			"argument_names": ["con"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"poptGetNextOpt": {
+			"argument_names": ["con"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"execCommand": {
+			"argument_names": ["con"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"handleAlias": {
+			"argument_names": ["con", "longName", "shortName", "nextCharArg"],
+			"argument_annotations": [0, 2, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to strcmp passing longName", "", ""]
+		},
+		"handleExec": {
+			"argument_names": ["con", "longName", "shortName"],
+			"argument_annotations": [0, 2, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", " found a call to strcmp passing longName", ""]
+		},
+		"findOption": {
+			"argument_names": ["table", "longName", "shortName", "callback", "callbackData", "singleDash"],
+			"argument_annotations": [0, 2, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1, 1],
+			"argument_reasons": ["", " found a call to strcmp passing longName", "", "", "", ""]
+		},
+		"poptGetOptArg": {
+			"argument_names": ["con"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"poptGetArg": {
+			"argument_names": ["con"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"poptPeekArg": {
+			"argument_names": ["con"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"poptGetArgs": {
+			"argument_names": ["con"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"poptFreeContext": {
+			"argument_names": ["con"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"poptAddAlias": {
+			"argument_names": ["con", "newAlias", "flags"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"poptBadOption": {
+			"argument_names": ["con", "flags"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"poptStrerror": {
+			"argument_names": ["error"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"poptStuffArgs": {
+			"argument_names": ["con", "argv"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", "found a non optional sentinel check for argv in poptStuffArgs"]
+		},
+		"poptGetInvocationName": {
+			"argument_names": ["con"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"displayArgs": {
+			"argument_names": ["con", "foo", "key", "arg", "data"],
+			"argument_annotations": [0, 0, 0, 0, 0],
+			"args_array_receivers": [1, 1, 1, 1, 1],
+			"argument_reasons": ["", "", "", "", ""]
+		},
+		"poptPrintHelp": {
+			"argument_names": ["con", "f", "flags"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"maxArgWidth": {
+			"argument_names": ["opt"],
+			"argument_annotations": [0],
+			"args_array_receivers": [1],
+			"argument_reasons": [""]
+		},
+		"singleTableHelp": {
+			"argument_names": ["f", "table", "left"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"singleTableUsage": {
+			"argument_names": ["f", "cursor", "table"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"poptPrintUsage": {
+			"argument_names": ["con", "f", "flags"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"showShortOptions": {
+			"argument_names": ["opt", "f", "str"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"poptSetOtherOptionHelp": {
+			"argument_names": ["con", "text"],
+			"argument_annotations": [0, 2],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", " found a call to __strdup passing text"]
+		},
+		"singleOptionHelp": {
+			"argument_names": ["f", "maxLeftCol", "opt"],
+			"argument_annotations": [0, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": ["", "", ""]
+		},
+		"poptParseArgvString": {
+			"argument_names": ["s", "argcPtr", "argvPtr"],
+			"argument_annotations": [2, 0, 0],
+			"args_array_receivers": [1, 1, 1],
+			"argument_reasons": [" found a call to strlen passing s", "", ""]
+		},
+		"findProgramPath": {
+			"argument_names": ["argv0"],
+			"argument_annotations": [2],
+			"args_array_receivers": [1],
+			"argument_reasons": [" found a call to strchr passing argv0"]
+		}
+	}
+}
