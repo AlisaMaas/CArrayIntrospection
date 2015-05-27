@@ -20,6 +20,7 @@ variables = Variables(['.scons-options'], ARGUMENTS)
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
 
 default = WhereIs('llvm-config', (
+	'/home/ajmaas/sra/llvm-3.5.1.src/Release+Asserts/bin/',
     '/p/polyglot/public/bin',
     '/usr/bin',
 ))
@@ -96,11 +97,16 @@ env = conf.Finish()
 #
 
 penv = env.Clone(
-    CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11'),
-    CPPPATH='/unsup/boost-1.55.0/include',
+    CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11', '-fPIC'),
+    CPPPATH=('/home/ajmaas/sra/llvm-3.5.1.src/Release+Asserts/lib','/unsup/boost-1.55.0/include', '/home/ajmaas/sra/llvm-3.5.1.src/lib/Transforms/llvm-sra/', '/usr/include/python2.7/',),
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
 )
+
+sraFlags = [x for x in penv['CXXFLAGS'] if x[:2] != '-W']
+
+sraObject = penv.SharedObject(['SymbolicRangeTest.cc', 'FindLengthChecks.cc'], CXXFLAGS=(sraFlags, '-fpermissive'))
+
 
 penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
 penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
@@ -113,8 +119,12 @@ penv.AppendUnique(
 plugin, = penv.SharedLibrary('CArrayIntrospection', (
     'BacktrackPhiNodes.cc',
     'IIGlueReader.cc',
-    'FindSentinels.cc',
+    'NullAnnotatorHelper.cc',
     'NullAnnotator.cc',
+    sraObject,
+    'LengthAnnotator.cc',
+    'FindSentinelHelper.cc',
+    'FindStructElements.cc',
 ))
 
 env['plugin'] = plugin

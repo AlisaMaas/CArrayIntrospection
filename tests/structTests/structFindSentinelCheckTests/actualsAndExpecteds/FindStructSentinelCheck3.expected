@@ -1,0 +1,106 @@
+Printing analysis 'Promote Memory to Register' for function 'print':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'bar':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'foo':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'baz':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'find':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array':
+Analyzing function: print
+	We found: 0 loops
+Analyzing function: bar
+	We found: 1 loops
+	Examining struct struct.foo[0] in loop for.cond
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body
+Analyzing function: foo
+	We found: 1 loops
+	Examining struct struct.foo[0] in loop for.cond
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body
+Analyzing function: baz
+	We found: 1 loops
+	Examining struct struct.foo[0] in loop for.cond
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body
+Analyzing function: find
+	We found: 14 loops
+	Examining struct struct.foo[0] in loop for.cond
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body
+	Examining struct struct.foo[0] in loop for.cond100
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body103
+	Examining struct struct.foo[0] in loop for.cond116
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body119
+	Examining struct struct.foo[0] in loop for.cond132
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body135
+	Examining struct struct.foo[0] in loop for.cond148
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body151
+	Examining struct struct.foo[0] in loop for.cond164
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body167
+	Examining struct struct.foo[0] in loop for.cond180
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body183
+	Examining struct struct.foo[0] in loop for.cond196
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body199
+	Examining struct struct.foo[0] in loop for.cond20
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body23
+	Examining struct struct.foo[0] in loop for.cond36
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body39
+	Examining struct struct.foo[0] in loop for.cond4
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body7
+	Examining struct struct.foo[0] in loop for.cond52
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body55
+	Examining struct struct.foo[0] in loop for.cond68
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body71
+	Examining struct struct.foo[0] in loop for.cond84
+		There are 1 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body87

@@ -1,0 +1,7 @@
+Printing analysis 'Promote Memory to Register' for function 'accessFoo':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Organize GEP instructions referring to struct element accesses by struct element.':
+struct.foo:
+	element 0 accessed at a
+	element 1 accessed at b
+	element 2 accessed at c

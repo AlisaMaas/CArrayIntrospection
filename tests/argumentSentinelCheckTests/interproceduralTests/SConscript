@@ -1,0 +1,4 @@
+Import('env')
+
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-null-annotator', '-debug', '-null-annotator-output', 'output.json'))
+#SConscript(dirs=['whole-program-tests'], exports='env')

@@ -1,0 +1,21 @@
+Printing analysis 'Promote Memory to Register' for function 'print':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'find':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'e':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'd':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'c':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'b':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'a':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Determine whether and how to annotate each function with the null-terminated annotation':
+find with argument 0 should be annotated NULL_TERMINATED (2)  because found a non optional sentinel check for string in find
+e with argument 0 should be annotated NULL_TERMINATED (2)  because  found a call to find passing string
+d with argument 0 should be annotated NULL_TERMINATED (2)  because  found a call to e passing string
+c with argument 0 should be annotated NULL_TERMINATED (2)  because  found a call to d passing string
+b with argument 0 should be annotated NULL_TERMINATED (2)  because  found a call to c passing string
+a with argument 0 should be annotated NULL_TERMINATED (2)  because  found a call to b passing string
