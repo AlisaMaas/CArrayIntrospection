@@ -11,25 +11,22 @@
 namespace {
 	class ArgumentReachesValue : public BacktrackPhiNodes {
 	public:
-		ArgumentReachesValue(const llvm::Argument &);
-		void visit(const llvm::Argument &) final override;
-
+		ArgumentReachesValue(const llvm::Value &);
+		void visit(const llvm::Value &) final override;
 	private:
-		const llvm::Argument &goal;
+		const llvm::Value &goal;
 	};
 }
 
-
-inline ArgumentReachesValue::ArgumentReachesValue(const llvm::Argument &goal)
+inline ArgumentReachesValue::ArgumentReachesValue(const llvm::Value &goal)
 	: goal(goal) {
 }
 
 
-void ArgumentReachesValue::visit(const llvm::Argument &reached) {
+void ArgumentReachesValue::visit(const llvm::Value &reached) {
 	if (&reached == &goal)
 		throw this;
 }
-
 
 static bool argumentReachesValue(const llvm::Argument &goal, const llvm::Value &start) {
 	ArgumentReachesValue explorer(goal);

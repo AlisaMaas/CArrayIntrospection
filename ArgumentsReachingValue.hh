@@ -1,5 +1,7 @@
 #ifndef INCLUDE_ARGUMENTS_REACHING_VALUE_HH
 #define INCLUDE_ARGUMENTS_REACHING_VALUE_HH
+
+#include <llvm/Support/Casting.h>
 #include <unordered_set>
 #include "BacktrackPhiNodes.hh"
 
@@ -19,15 +21,14 @@ namespace {
 
 	class ArgumentsReachingValue : public BacktrackPhiNodes {
 	public:
-		void visit(const llvm::Argument &) final override;
+		void visit(const llvm::Value &) final override;
 		ArgumentSet result;
 		static ArgumentSet argumentsReachingValue(const llvm::Value &start);
 	};
 
-	inline void ArgumentsReachingValue::visit(const llvm::Argument &reached) {
-		result.insert(&reached);
+	inline void ArgumentsReachingValue::visit(const llvm::Value &reached) {
+		result.insert(llvm::dyn_cast<llvm::Argument>(&reached));
 	}
-
 
 	inline static ArgumentSet argumentsReachingValue(const llvm::Value &start) {
 		ArgumentsReachingValue explorer;

@@ -1,0 +1,35 @@
+Printing analysis 'Promote Memory to Register' for function 'printc':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'find':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'findArrayAccesses':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'findIndirectArrayAccesses':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Find each branch used to exit a loop when a sentinel value is found in an array':
+Analyzing function: printc
+	We found: 0 loops
+Analyzing function: find
+	We found: 1 loops
+	Examining struct struct.foo[0] in loop for.cond
+		There are 2 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body
+			if.end
+Analyzing function: findArrayAccesses
+	We found: 1 loops
+	Examining struct struct.foo[0] in loop for.cond
+		There are 2 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body
+			if.end
+Analyzing function: findIndirectArrayAccesses
+	We found: 1 loops
+	Examining struct struct.foo[0] in loop for.cond
+		There are 2 sentinel checks of this element in this loop
+			We cannot bypass all sentinel checks for this element in this loop.
+		Sentinel checks: 
+			for.body
+			if.end

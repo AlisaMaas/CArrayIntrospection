@@ -97,7 +97,7 @@ env = conf.Finish()
 #
 
 penv = env.Clone(
-    CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11'),
+    CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11', '-fPIC'),
     CPPPATH=('/home/ajmaas/sra/llvm-3.5.1.src/Release+Asserts/lib','/unsup/boost-1.55.0/include', '/home/ajmaas/sra/llvm-3.5.1.src/lib/Transforms/llvm-sra/', '/usr/include/python2.7/',),
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
@@ -119,11 +119,12 @@ penv.AppendUnique(
 plugin, = penv.SharedLibrary('CArrayIntrospection', (
     'BacktrackPhiNodes.cc',
     'IIGlueReader.cc',
-    'FindSentinels.cc',
+    'NullAnnotatorHelper.cc',
     'NullAnnotator.cc',
     sraObject,
     'LengthAnnotator.cc',
-    'NoPointerArithmetic.cc',
+    'FindSentinelHelper.cc',
+    'FindStructElements.cc',
 ))
 
 env['plugin'] = plugin

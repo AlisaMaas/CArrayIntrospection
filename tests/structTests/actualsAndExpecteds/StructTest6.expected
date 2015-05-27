@@ -1,0 +1,32 @@
+Printing analysis 'Promote Memory to Register' for function 'accessBar':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'accessFoo':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'accessBoth':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'accessArrays':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'accessArrayStructElements':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Organize GEP instructions referring to struct element accesses by struct element.':
+struct.bar:
+	element 0 accessed at first
+	element 0 accessed at first
+	element 1 accessed at x
+	element 1 accessed at x
+	element 1 accessed at x
+	element 2 accessed at y
+	element 2 accessed at y
+	element 2 accessed at y
+	element 3 accessed at z
+	element 3 accessed at z
+	element 3 accessed at z
+struct.foo:
+	element 0 accessed at a
+	element 0 accessed at a
+	element 0 accessed at a1
+	element 0 accessed at a
+	element 1 accessed at b
+	element 1 accessed at b2
+	element 1 accessed at b2
+	element 2 accessed at c

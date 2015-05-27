@@ -1,0 +1,16 @@
+{
+	"library_functions": {
+		"find": {
+			"argument_names": ["f", "dest"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		},
+		"setString": {
+			"argument_names": ["f", "string"],
+			"argument_annotations": [0, 0],
+			"args_array_receivers": [1, 1],
+			"argument_reasons": ["", ""]
+		}
+	}
+}

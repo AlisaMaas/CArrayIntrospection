@@ -24,7 +24,7 @@ if __name__ == '__main__':
 		print 'output key not among answer keys:', key
 	for key in answerKeySet - outputKeySet:
 		print 'answer key not among output keys:', key
-	assert outputKeySet == answerKeySet
+	#assert outputKeySet == answerKeySet
 		
 	functionNames = outputLibraryFunctions.keys()
 	numWrongAnswers = 0
@@ -94,6 +94,7 @@ if __name__ == '__main__':
 				if answerIIGlueAnnotations[j] == 1:
 					numWrongArrays += 1
 					numFalsePositiveArrays += 1
+				print "%s because %s" % (mismatch(), outputFunc['argument_reasons'][j])
 				numWrongAnswers += 1
 				numFalsePositives += 1
 				falsePositives += mismatch()

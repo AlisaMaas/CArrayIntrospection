@@ -1,0 +1,14 @@
+Import('env')
+
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-debug', '-find-struct-elements', '--fast=false'))
+
+########################################################################
+#
+#  subdirectories
+#
+
+SConscript(dirs=['interproceduralTests'], exports='env')
+
+# Local variables:
+# flycheck-flake8rc: "../scons-flake8.ini"
+# End:
