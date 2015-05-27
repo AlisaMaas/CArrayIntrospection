@@ -5,5 +5,5 @@ Pass::print not implemented for pass: 'Promote Memory to Register'!
 Printing analysis 'Promote Memory to Register' for function 'find':
 Pass::print not implemented for pass: 'Promote Memory to Register'!
 Printing analysis 'Determine whether and how to annotate each function with the null-terminated annotation':
-foo with argument 0 should be annotated NULL_TERMINATED (2).
-find with argument 0 should be annotated NULL_TERMINATED (2).
+foo with argument 0 should be annotated NULL_TERMINATED (2)  because  found a call to find passing string
+find with argument 0 should be annotated NULL_TERMINATED (2)  because found a non optional sentinel check for string in find

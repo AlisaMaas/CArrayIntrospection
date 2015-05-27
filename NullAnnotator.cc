@@ -121,7 +121,7 @@ void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglu
 
 		dumpArgumentDetails(out, argumentList, "argument_reasons",
 				    [&](const Argument &arg) {
-					    const auto reason = reasons.find(argumentToValueSet.at(&arg));
+					    const auto reason = reasons.find(*argumentToValueSet.at(&arg));
 					    return '\"' + (reason == reasons.end() ? "" : reason->second) + '\"';
 				    }
 			);
@@ -180,7 +180,7 @@ bool NullAnnotator::runOnModule(Module &module) {
 	}
 	DEBUG(dbgs() << "Iterate over the module\n");
 	//const map<Function*, LoopInfo> &functionToLoopInfo)
-	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo, Fast);
+	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo, reasons, Fast);
 	DEBUG(dbgs() << "Dump to a file\n");
 	if (!outputFileName.empty())
 		dumpToFile(outputFileName, iiglue, module);
@@ -197,11 +197,11 @@ void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 			if (annotate(arg))
 				sink << func.getName() << " with argument " << arg.getArgNo()
 				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations))
-				     << ").\n";
+				     << ")  because " << reasons.at(*argumentToValueSet.at(&arg)) << "\n";
 	}
         for (auto element : structElements)
             if (annotate(element.first))
                 sink << str(&element.first)
                      << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations))
-                     << ").\n";
+                     << ") because " << reasons.at(*element.second) << ".\n";
 }
