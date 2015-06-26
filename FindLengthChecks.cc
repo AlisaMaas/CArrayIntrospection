@@ -47,7 +47,7 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
 		
 	}
     Value *stripSExtInst(Value *value) {
-        if (SExtInst * SEI = dyn_cast<SExtInst>(value)) {
+        while (SExtInst * SEI = dyn_cast<SExtInst>(value)) {
             value = SEI->getOperand(0);
         }
         return value;

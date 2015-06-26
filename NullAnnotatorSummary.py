@@ -129,6 +129,8 @@ if __name__ == '__main__':
 		print "Percent wrong answers due to IIGlue of all errors: %.1f%%" % (100. * numWrongDueToIIGlue / numWrongAnswers)
 	print "Number of false positives:", numFalsePositives
 	print "Number of true positives:", numTruePositives
+	print "Number of false negatives:", (numWrongAnswers-numFalsePositives)
+	print "Number of true negatives:", (numArguments-numWrongAnswers-numTruePositives)
 	if numFalsePositives > 0:
 		print "Percent false positives total: %.1f%%" % (100. * numFalsePositives / numArguments)
 		print "Percent false positives of array arguments: %.1f%%" % (100. * numFalsePositiveArrays / numArrayArguments)

@@ -89,20 +89,43 @@ namespace {
 								errs() << "With " << *replacement << "\n";
 								node->replaceAllUsesWith(gep);
 							}
-							else if (GetElementPtrInst *gep = dyn_cast<GetElementPtrInst>(node->getIncomingValue(other))){
+							else if (GetElementPtrInst *gepi = dyn_cast<GetElementPtrInst>(node->getIncomingValue(other))){
 								errs() << "Found a gep!\n";
-								if (gep->getPointerOperand() != node) {
+								if (gepi->getPointerOperand() != node) {
 									errs() << "Not matching pattern because the gep didn't have the pointer in it.\n";
-									errs() << *gep << "\n";
+									errs() << *gepi << "\n";
 									continue;
 								}
 								else if (gepi->getNumIndices() != 1) {
 									errs() << "Not matching pattern because there is more than one index.\n";
-									errs() << *gep << "\n";
+									errs() << *gepi << "\n";
 									continue;
 								}
 								else {
-									
+								    errs() << *(*gepi->idx_begin())->getType() << "\n";
+                                    node->getParent()->getTerminator()->dump();
+
+								    modified = true;
+								    IntegerType* tInt = Type::getInt32Ty(context);
+								    errs() << *tInt << "\n";
+								    PHINode *addPHI = PHINode::Create(tInt, 2, "", node);
+								    errs() << "hii\n";
+								    node->getParent()->getTerminator()->dump();
+
+								    BinaryOperator *add = BinaryOperator::Create(Instruction::Add, addPHI, *gepi->idx_begin(), "", gepi);
+								    
+								    errs() << "Add \n";
+								    add->dump();
+								    node->getParent()->getTerminator()->dump();
+
+								    addPHI->addIncoming(ConstantInt::get(tInt, 0), node->getIncomingBlock(argument));
+								    addPHI->addIncoming(add, node->getIncomingBlock(other));
+								    errs() << "AddPHI: \n";
+								    addPHI->dump();
+								    GetElementPtrInst *replacement = GetElementPtrInst::Create(&arg, ArrayRef<Value*>(addPHI), "", node->getParent()->getFirstInsertionPt());
+								    errs() << "Replacing " << *node << "\n";
+								    errs() << "With " << *replacement << "\n";
+								    node->replaceAllUsesWith(replacement);
 								}
 								//pointer should be node, 
 								//index can be k
@@ -119,7 +142,11 @@ namespace {
 				}
 			}
 		}
-	
+	    for (const Function &func : module) {
+	        for (const BasicBlock &block : func) {
+	            block.dump();
+	        }
+	    }
 	
 		return modified;
 	}

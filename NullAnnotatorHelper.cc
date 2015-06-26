@@ -118,7 +118,7 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
                 reason << " from ";
                 reason << value->getName().str();
                 reasons[*valueSet] = reason.str();
-                errs() << "Updating answer!\n";  
+                DEBUG(dbgs() << "Updating answer!\n");  
             }
             changed |= (old != annotations[valueSet]);
         }
@@ -291,7 +291,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
             firstTime = false;
             globalChanged |= changed;
         } while (changed);       
-		errs() << "About to go get some stores\n";
+		DEBUG(dbgs() << "About to go get some stores\n");
 		if (!fast) {
             for (Function &func : module) {
                 DEBUG(dbgs() << "pushing information through stores.\n");
@@ -302,7 +302,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                 changed |= visitor.changed;
             }
         }
-        errs() << "Done with an iteration!\n";
+        DEBUG(dbgs() << "Done with an iteration!\n");
 	} while (changed);
 	return globalChanged;
 }

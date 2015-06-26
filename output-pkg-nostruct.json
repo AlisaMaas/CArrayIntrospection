@@ -544,7 +544,7 @@
 			"argument_names": ["s", "argcPtr", "argvPtr"],
 			"argument_annotations": [2, 0, 0],
 			"args_array_receivers": [1, 1, 1],
-			"argument_reasons": [" found a call to strcpy passing s", "", ""]
+			"argument_reasons": [" found a call to strlen passing s", "", ""]
 		},
 		"findProgramPath": {
 			"argument_names": ["argv0"],

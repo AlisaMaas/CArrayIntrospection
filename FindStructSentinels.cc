@@ -73,7 +73,7 @@ bool FindStructSentinels::runOnModule(Module &module) {
                     sentinelChecks[elementToValueSet[element]].second &= pair.second.second;
                 }
                 matched.insert(element);
-                errs() << "Reporting that " << element.first->getName() << " at " <<  element.second << " is " << pair.second.second << "\n";
+                DEBUG(dbgs() << "Reporting that " << element.first->getName() << " at " <<  element.second << " is " << pair.second.second << "\n");
             }
             DEBUG(dbgs() << "About to add all the missing elements to the map\n");
             for (auto &tuple : elementToValueSet) {

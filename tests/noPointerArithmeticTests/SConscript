@@ -1,4 +1,4 @@
 Import('env')
 
-env.RunTests(PLUGIN_ARGS=('-mem2reg', '-sra-annotator', '-no-pointer-arithmetic'))
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-no-pointer-arithmetic'))
 
