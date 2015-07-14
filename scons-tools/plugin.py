@@ -59,4 +59,4 @@ def generate(env):
 
 
 def exists(env):
-    return true
+    return True
