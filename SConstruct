@@ -37,7 +37,7 @@ def pathIsSRA(key, val, env):
 
 variables = Variables(['.scons-options'], ARGUMENTS)
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
-variables.Add(PathVariable('LLVM_SRA', 'Path to root of llvm-sra build tree', '/p/polyglot/public/tools/llvm-sra/llvm-sra', pathIsSRA))
+variables.Add(PathVariable('LLVM_SRA', 'Path to root of llvm-sra build tree', '/p/polyglot/public/tools/llvm-sra', pathIsSRA))
 
 
 ########################################################################
