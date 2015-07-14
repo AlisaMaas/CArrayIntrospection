@@ -112,7 +112,7 @@ env = conf.Finish()
 #
 
 penv = env.Clone(
-    CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11', '-fPIC'),
+    CXXFLAGS=('-std=c++11', '-fPIC'),
     CPPPATH=(
         '$LLVM_SRA/llvm-3.5.1.src/lib/Transforms/llvm-sra',
         '/unsup/boost-1.55.0/include',
@@ -122,28 +122,27 @@ penv = env.Clone(
     LIBS=('LLVM-$llvm_version',),
 )
 
-sraFlags = [x for x in penv['CXXFLAGS'] if x[:2] != '-W']
-
-sraObject = penv.SharedObject(['SymbolicRangeTest.cc', 'FindLengthChecks.cc'], CXXFLAGS=(sraFlags, '-fpermissive'))
-
+sraEnv = penv.Clone()
+sraEnv.AppendUnique(CXXFLAGS=('-fpermissive'))
+sraObjects = sraEnv.SharedObject(['SymbolicRangeTest.cc', 'FindLengthChecks.cc'])
 
 penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
 penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
 penv.AppendUnique(
-    CCFLAGS=(
-        '-fexceptions',
-        '-frtti',
-    ), delete_existing=True)
+    CCFLAGS=('-fexceptions', '-frtti'),
+    CXXFLAGS=('-Wall', '-Wextra', '-Werror'),
+    delete_existing=True
+)
 
 plugin, = penv.SharedLibrary('CArrayIntrospection', (
     'BacktrackPhiNodes.cc',
     'IIGlueReader.cc',
     'NullAnnotatorHelper.cc',
     'NullAnnotator.cc',
-    sraObject,
     'LengthAnnotator.cc',
     'FindSentinelHelper.cc',
     'FindStructElements.cc',
+    sraObjects,
 ))
 
 env['plugin'] = plugin
