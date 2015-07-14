@@ -33,11 +33,19 @@ def __run_plugin_source_args(target, source, env, for_signature):
 
 
 __run_plugin_builder = Builder(
-    action='env HOME=/home/ajmaas/ LD_LIBRARY_PATH=/home/ajmaas/sra/llvm-3.5.1.src/Release+Asserts/lib ' +
-    'PATH=/home/ajmaas/sra/llvm-3.5.1.src/Release+Asserts/bin:/usr/bin ' + 
-    '/home/ajmaas/sra/llvm-3.5.1.src/lib/Transforms/llvm-sra/SAGE/bin/sage-opt -analyze ' + 
-    '-load Python.so -load SAGE.so -load SRA.so ' + 
-    '$_RUN_PLUGIN_SOURCE_ARGS $PLUGIN_ARGS -o $TARGET',
+    action=[[
+        'env',
+        'LD_LIBRARY_PATH=$LLVM_SRA/llvm-3.5.1.src/Release+Asserts/lib',
+        'PATH=$LLVM_SRA/llvm-3.5.1.src/Release+Asserts/bin:/usr/bin',
+        '$LLVM_SRA/llvm-3.5.1.src/lib/Transforms/llvm-sra/SAGE/bin/sage-opt',
+        '-load', 'Python.so',
+        '-load', 'SAGE.so',
+        '-load', 'SRA.so',
+        '-analyze',
+        '$_RUN_PLUGIN_SOURCE_ARGS',
+        '$PLUGIN_ARGS',
+        '-o', '$TARGET'
+    ]],
     emitter=__run_plugin_emitter,
     suffix='.actual',
 )

@@ -1,8 +1,9 @@
 ########################################################################
 #
-#  path to Tristan Ravitch's iiglue analyzer
+#  configurable paths to various supporting tools
+#
 
-from os import access, environ, X_OK
+from os import access, environ, R_OK, X_OK
 from SCons.Script import *
 
 def pathIsExecutable(key, val, env):
@@ -16,15 +17,28 @@ def pathIsOptionalExecutable(key, val, env):
     if val:
         pathIsExecutable(key, val, env)
 
+def pathIsSRA(key, val, env):
+    problems = []
+    def check(perms, diagnostic, subpath):
+        node = File(subpath, val)
+        if not access(node.path, perms):
+            problems.append('%s: %s' % (diagnostic, node))
+
+    # check a representative sample of what we will need from
+    # llvm-sra, but don't bother checking absolutely everything
+    check(X_OK, 'not executable', 'make')
+    check(X_OK, 'not executable', 'llvm-3.5.1.src/Release+Asserts/bin/llvm-config')
+    check(R_OK, 'missing or unreadable', 'llvm-3.5.1.src/lib/Transforms/llvm-sra/SymbolicRangeAnalysis.h')
+    check(R_OK, 'missing or unreadable', 'llvm-3.5.1.src/Release+Asserts/lib/SRA.so')
+
+    if problems:
+        problems = '\n\t'.join(problems)
+        raise SCons.Errors.UserError('Invalid path for option %s:\n\t%s\n' % (key, problems))
+
 variables = Variables(['.scons-options'], ARGUMENTS)
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
+variables.Add(PathVariable('LLVM_SRA', 'Path to root of llvm-sra build tree', '/p/polyglot/public/tools/llvm-sra/llvm-sra', pathIsSRA))
 
-default = WhereIs('llvm-config', (
-	'/home/ajmaas/sra/llvm-3.5.1.src/Release+Asserts/bin/',
-    '/p/polyglot/public/bin',
-    '/usr/bin',
-))
-variables.Add(PathVariable('LLVM_CONFIG', 'Path to llvm-config executable', default, pathIsExecutable))
 
 ########################################################################
 #
@@ -32,6 +46,7 @@ variables.Add(PathVariable('LLVM_CONFIG', 'Path to llvm-config executable', defa
 #
 
 env = Environment(
+    LLVM_CONFIG='$LLVM_SRA/llvm-3.5.1.src/Release+Asserts/bin/llvm-config',
     tools=(
         'default',              # load first, so others can override
         'bitcode',
@@ -98,7 +113,11 @@ env = conf.Finish()
 
 penv = env.Clone(
     CXXFLAGS=('-Wall', '-Wextra', '-Werror', '-std=c++11', '-fPIC'),
-    CPPPATH=('/home/ajmaas/sra/llvm-3.5.1.src/Release+Asserts/lib','/unsup/boost-1.55.0/include', '/home/ajmaas/sra/llvm-3.5.1.src/lib/Transforms/llvm-sra/', '/usr/include/python2.7/',),
+    CPPPATH=(
+        '$LLVM_SRA/llvm-3.5.1.src/lib/Transforms/llvm-sra',
+        '/unsup/boost-1.55.0/include',
+        '/usr/include/python2.7',
+    ),
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
 )
