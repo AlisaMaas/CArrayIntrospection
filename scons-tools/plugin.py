@@ -37,6 +37,7 @@ __run_plugin_builder = Builder(
         'env',
         'LD_LIBRARY_PATH=$LLVM_SRA/llvm-3.5.1.src/Release+Asserts/lib',
         'PATH=$LLVM_SRA/llvm-3.5.1.src/Release+Asserts/bin:/usr/bin',
+        'SHELL=/bin/sh',
         '$LLVM_SRA/llvm-3.5.1.src/lib/Transforms/llvm-sra/SAGE/bin/sage-opt',
         '-load', 'Python.so',
         '-load', 'SAGE.so',
