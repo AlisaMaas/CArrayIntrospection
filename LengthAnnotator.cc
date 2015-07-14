@@ -254,7 +254,7 @@ bool LengthAnnotator::runOnModule(Module &module) {
 						DEBUG(dbgs() << "Name of arg: " << arg.getName() << "\n");
 						DEBUG(dbgs() << "hey, it matches!\n");
 
-						auto parameter = next(formals, argNo);
+						auto parameter = std::next(formals, argNo);
 						if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
 							continue;
 						}
@@ -296,7 +296,7 @@ bool LengthAnnotator::runOnModule(Module &module) {
 							DEBUG(dbgs() << "Saw PARAMETER_LENGTH\n");
 							if (oldResult.type == NO_LENGTH_VALUE) {
 								annotations[&arg] = calleeResult;
-								auto a = next(func.getArgumentList().begin(), (int)calleeResult.length);
+								auto a = std::next(func.getArgumentList().begin(), calleeResult.length);
 								reasons[&arg] = "Called " + calledFunction->getName().str() + 
 								", marked as parameter length of " + to_string(calleeResult.length) + " or " +
 								a->getName().str() + " in this position";

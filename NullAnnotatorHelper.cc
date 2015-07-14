@@ -150,7 +150,7 @@ static pair<pair<Answer, bool>, string> trackThroughCalls(CallInstSet &calls, co
 			}
 			if (!valueReachesValue(*value, *actual)) continue;
 			DEBUG(dbgs() << "match found!\n");
-			auto parameter = next(formals, argNo);
+			auto parameter = std::next(formals, argNo);
 			if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
 				continue;
 			}
