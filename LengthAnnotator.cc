@@ -161,10 +161,10 @@ void LengthAnnotator::dumpToFile(const string &filename, const IIGlueReader &iig
 
 		dumpArgumentDetails(out, argumentList, "argument_annotations",
 				    [&](const Argument &arg) {
-				    	if (annotate(arg).toString()[0] == 'p') {
-				    		errs() << "Capital U detected\n";
-				    		abort();
-				    	}
+					if (annotate(arg).toString()[0] == 'p') {
+						errs() << "Capital U detected\n";
+						abort();
+					}
 					    return annotate(arg).toString(); //TODO: Fix
 				    }
 			);
@@ -261,7 +261,7 @@ bool LengthAnnotator::runOnModule(Module &module) {
 						DEBUG(dbgs() << "About to enter the switch\n");
 						LengthInfo calleeResult = annotate(*parameter); //TODO: Copy by reference??
 						if(oldResult.type != calleeResult.type && oldResult.type != NO_LENGTH_VALUE &&
-						calleeResult.type != NO_LENGTH_VALUE) { 
+						calleeResult.type != NO_LENGTH_VALUE) {
 							//type is now inconsistent, needs reporting
 							errs() << "Error: result went from " << oldResult.toString() << " to " << calleeResult.toString() << "\n";
 							annotations[&arg] = LengthInfo(INCONSISTENT, -1);
@@ -277,7 +277,7 @@ bool LengthAnnotator::runOnModule(Module &module) {
 								DEBUG(dbgs() << "Merging two lengths\n");
 								if (oldResult.length < calleeResult.length) {
 									annotations[&arg] = calleeResult;
-									reasons[&arg] = "Called " + calledFunction->getName().str() + 
+									reasons[&arg] = "Called " + calledFunction->getName().str() +
 									", marked as fixedLength(" + to_string(calleeResult.length) + ") in this position";
 									changed = true;
 								}
@@ -285,7 +285,7 @@ bool LengthAnnotator::runOnModule(Module &module) {
 							else { //must be NO_LENGTH_VALUE because of the check before the switch
 								assert(oldResult.type == NO_LENGTH_VALUE);
 								annotations[&arg] = calleeResult;
-								reasons[&arg] = "Called " + calledFunction->getName().str() + 
+								reasons[&arg] = "Called " + calledFunction->getName().str() +
 								", marked as fixedLength(" + to_string(calleeResult.length) + ") in this position";
 								changed = true;
 							}
@@ -297,7 +297,7 @@ bool LengthAnnotator::runOnModule(Module &module) {
 							if (oldResult.type == NO_LENGTH_VALUE) {
 								annotations[&arg] = calleeResult;
 								auto a = std::next(func.getArgumentList().begin(), calleeResult.length);
-								reasons[&arg] = "Called " + calledFunction->getName().str() + 
+								reasons[&arg] = "Called " + calledFunction->getName().str() +
 								", marked as parameter length of " + to_string(calleeResult.length) + " or " +
 								a->getName().str() + " in this position";
 								changed = true;
@@ -311,7 +311,7 @@ bool LengthAnnotator::runOnModule(Module &module) {
 								 nextArgumentPlease = true; //can skip because now that it's inconsistent, it can't become
 								 //consistent again.
 
-							}			
+							}
 							break;
 
 						case NO_LENGTH_VALUE:

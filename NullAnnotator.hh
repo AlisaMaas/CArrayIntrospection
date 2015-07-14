@@ -42,7 +42,7 @@ namespace {
 		void dumpToFile(const std::string &filename, const IIGlueReader &, const llvm::Module &) const;
 		void populateFromFile(const std::string &filename, const llvm::Module &);
 	};
-	
+
 	char NullAnnotator::ID;
 	static const llvm::RegisterPass<NullAnnotator> registration("null-annotator",
 		"Determine whether and how to annotate each function with the null-terminated annotation",
@@ -57,8 +57,8 @@ namespace {
 			llvm::cl::Optional,
 			llvm::cl::value_desc("filename"),
 			llvm::cl::desc("Filename to write results to"));
-	static llvm::cl::opt<bool> Fast ("fast", 
-	        llvm::cl::desc("Skip struct results for faster computation."));
+	static llvm::cl::opt<bool> Fast ("fast",
+		llvm::cl::desc("Skip struct results for faster computation."));
 }
 
 #endif // !INCLUDE_NULL_ANNOTATOR_HH
