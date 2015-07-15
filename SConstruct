@@ -144,6 +144,7 @@ plugin, = penv.SharedLibrary(
         'NullAnnotatorHelper.cc',
         'SymbolicRangeTest.cc',
     ),
+    LIBS=penv.File('$LLVM_SRA/lib/SRA.so'),
 )
 
 env['plugin'] = plugin
