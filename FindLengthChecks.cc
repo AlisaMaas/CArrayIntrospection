@@ -26,7 +26,7 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
 	const SymbolicRangeAnalysis &rangeAnalysis;
 	BasicBlock *placeHolder;
 	CheckGetElementPtrVisitor(const IIGlueReader *r, ArgumentToMaxIndexMap &map, const SymbolicRangeAnalysis &ra, Module &m, LengthArgumentMap &lengths ) 
-	: maxIndexes(map), rangeAnalysis(ra), lengthArguments(lengths) {
+	: maxIndexes(map), lengthArguments(lengths), rangeAnalysis(ra) {
 		placeHolder = BasicBlock::Create(m.getContext());
 		iiglue = r;
 	}
