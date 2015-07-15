@@ -35,9 +35,15 @@ def pathIsSRA(key, val, env):
         problems = '\n\t'.join(problems)
         raise SCons.Errors.UserError('Invalid path for option %s:\n\t%s\n' % (key, problems))
 
+llvmConfigDefault = WhereIs('llvm-config', (
+    '/p/polyglot/public/tools/llvm-3.5.0/install/bin',
+    '/usr/bin',
+)) or '/usr/bin/llvm-config'
+
 variables = Variables(['.scons-options'], ARGUMENTS)
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
 variables.Add(PathVariable('LLVM_SRA', 'Path to root of llvm-sra build tree', '/p/polyglot/public/tools/llvm-sra', pathIsSRA))
+variables.Add(PathVariable('LLVM_CONFIG', 'Path to llvm-config executable', llvmConfigDefault, pathIsExecutable))
 
 
 ########################################################################
@@ -46,7 +52,6 @@ variables.Add(PathVariable('LLVM_SRA', 'Path to root of llvm-sra build tree', '/
 #
 
 env = Environment(
-    LLVM_CONFIG='$LLVM_SRA/llvm-3.5.1.src/Release+Asserts/bin/llvm-config',
     tools=(
         'default',              # load first, so others can override
         'bitcode',
