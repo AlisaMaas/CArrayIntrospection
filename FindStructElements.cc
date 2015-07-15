@@ -1,5 +1,6 @@
 #define DEBUG_TYPE "find-struct-elements"
 #include "FindStructElements.hh"
+#include "NameCompare.hh"
 
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/InstVisitor.h>
@@ -108,11 +109,13 @@ void FindStructElements::print(raw_ostream &sink, const Module* ) const {
         sink << structTy->getName() << ":\n";
         for (unsigned i = 0; i < structTy->getNumElements(); i++) {
             pair<StructType*, int> p(structTy, i);
-            if (structElementCollections.count(p)) {
-                for (const Value *inst : *structElementCollections.at(p)) {
-                        sink << "\telement " << i << " accessed at " << inst->getName() << "\n";
-                }
-            }
+	    const auto found {structElementCollections.find(p)};
+	    if (found != structElementCollections.end()) {
+		    const ValueSet &values {*found->second};
+		    const std::multiset<const llvm::Value *, NameCompare> sortedValues {begin(values), end(values)};
+		    for (const auto inst : sortedValues)
+			    sink << "\telement " << i << " accessed at " << inst->getName() << "\n";
+	    }
         }
         
     }
