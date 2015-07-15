@@ -119,7 +119,6 @@ penv = env.Clone(
     CPPPATH=(
         '$LLVM_SRA/include',
         '/unsup/boost-1.55.0/include',
-        '/usr/include/python2.7',
     ),
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
