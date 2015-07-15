@@ -100,16 +100,6 @@ bool FindArraySentinels::runOnModule(Module &module) {
 }
 
 /**
- * Compare two BasicBlock*'s using their names.
- **/
-class BasicBlockCompare { // simple comparison function
-public:
-	bool operator()(const BasicBlock *x, const BasicBlock *y) const {
-		return x->getName() < y->getName();
-	}
-};
-
-/**
  * Print helper method. The output looks like the following:
  * Analyzing function: functionName
  * EITHER:	Detected no sentinel checks (end of output)

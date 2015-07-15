@@ -4,6 +4,7 @@
 #include "FindStructElements.hh"
 #include "FindStructSentinels.hh"
 #include "IIGlueReader.hh"
+#include "NameCompare.hh"
 #include "PatternMatch-extras.hh"
 
 #include <boost/container/flat_map.hpp>
@@ -91,16 +92,6 @@ bool FindStructSentinels::runOnModule(Module &module) {
 }
 
 /**
- * Compare two BasicBlock*'s using their names.
- **/
-class BasicBlockCompare { // simple comparison function
-public:
-    bool operator()(const BasicBlock *x, const BasicBlock *y) const {
-        return x->getName() < y->getName();
-    }
-};
-
-/**
  * Print helper method. The output looks like the following:
  * Analyzing function: functionName
  * EITHER:    Detected no sentinel checks (end of output)
@@ -124,7 +115,7 @@ void FindStructSentinels::print(raw_ostream &sink, const Module *module) const {
 
         // For each loop, print all sentinel checks and whether it is possible to go from loop entry to loop entry without
         // passing a sentinel check.
-        const flat_map<const BasicBlock *, ValueSetToBlockSet, BasicBlockCompare> orderedChecks(unorderedChecks.begin(), unorderedChecks.end());
+        const flat_map<const BasicBlock *, ValueSetToBlockSet, NameCompare> orderedChecks(unorderedChecks.begin(), unorderedChecks.end());
         for (const auto &check : orderedChecks) {
             const BasicBlock &header = *check.first;
             const ValueSetToBlockSet &entry = check.second;

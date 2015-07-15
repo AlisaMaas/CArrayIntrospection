@@ -140,6 +140,7 @@ plugin, = penv.SharedLibrary(
         'FindStructElements.cc',
         'IIGlueReader.cc',
         'LengthAnnotator.cc',
+        'NameCompare.cc',
         'NullAnnotator.cc',
         'NullAnnotatorHelper.cc',
         'SymbolicRangeTest.cc',
