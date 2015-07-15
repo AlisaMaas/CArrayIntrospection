@@ -79,7 +79,6 @@ struct CheckGetElementPtrVisitor : public InstVisitor<CheckGetElementPtrVisitor>
                 Value *secondOperand = stripSExtInst(op->getOperand(1));
                 DEBUG(dbgs() << "First operand: " << *firstOperand << "\n");
                 DEBUG(dbgs() << "Second operand: " << *secondOperand << "\n");
-                bool matches = false;
                 const Argument *length = getArgLength(firstOperand, secondOperand, arg);
                 if (!length) length = getArgLength(secondOperand, firstOperand, arg);
                 if (length) {
