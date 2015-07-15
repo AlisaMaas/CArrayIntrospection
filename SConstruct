@@ -26,10 +26,9 @@ def pathIsSRA(key, val, env):
 
     # check a representative sample of what we will need from
     # llvm-sra, but don't bother checking absolutely everything
-    check(X_OK, 'not executable', 'make')
-    check(X_OK, 'not executable', 'llvm-3.5.1.src/Release+Asserts/bin/llvm-config')
-    check(R_OK, 'missing or unreadable', 'llvm-3.5.1.src/lib/Transforms/llvm-sra/SymbolicRangeAnalysis.h')
-    check(R_OK, 'missing or unreadable', 'llvm-3.5.1.src/Release+Asserts/lib/SRA.so')
+    check(X_OK, 'not executable', 'bin/sage-opt')
+    check(R_OK, 'missing or unreadable', 'lib/SRA.so')
+    check(R_OK, 'missing or unreadable', 'Runtime/llvmsage/__init__.py')
 
     if problems:
         problems = '\n\t'.join(problems)
@@ -42,8 +41,8 @@ llvmConfigDefault = WhereIs('llvm-config', (
 
 variables = Variables(['.scons-options'], ARGUMENTS)
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
-variables.Add(PathVariable('LLVM_SRA', 'Path to root of llvm-sra build tree', '/p/polyglot/public/tools/llvm-sra', pathIsSRA))
 variables.Add(PathVariable('LLVM_CONFIG', 'Path to llvm-config executable', llvmConfigDefault, pathIsExecutable))
+variables.Add(PathVariable('LLVM_SRA', 'Path to llvm-sra installation', '/p/polyglot/public/tools/llvm-sra/install', pathIsSRA))
 
 
 ########################################################################
@@ -117,38 +116,36 @@ env = conf.Finish()
 #
 
 penv = env.Clone(
-    CXXFLAGS=('-std=c++11', '-fPIC'),
     CPPPATH=(
-        '$LLVM_SRA/llvm-3.5.1.src/lib/Transforms/llvm-sra',
+        '$LLVM_SRA/include',
         '/unsup/boost-1.55.0/include',
         '/usr/include/python2.7',
     ),
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
 )
-
-sraEnv = penv.Clone()
-sraEnv.AppendUnique(CXXFLAGS=('-fpermissive'))
-sraObjects = sraEnv.SharedObject(['SymbolicRangeTest.cc', 'FindLengthChecks.cc'])
-
-penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
 penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
 penv.AppendUnique(
     CCFLAGS=('-fexceptions', '-frtti'),
     CXXFLAGS=('-Wall', '-Wextra', '-Werror'),
     delete_existing=True
 )
+penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
 
-plugin, = penv.SharedLibrary('CArrayIntrospection', (
-    'BacktrackPhiNodes.cc',
-    'IIGlueReader.cc',
-    'NullAnnotatorHelper.cc',
-    'NullAnnotator.cc',
-    'LengthAnnotator.cc',
-    'FindSentinelHelper.cc',
-    'FindStructElements.cc',
-    sraObjects,
-))
+plugin, = penv.SharedLibrary(
+    'CArrayIntrospection',
+    (
+        'BacktrackPhiNodes.cc',
+        'FindLengthChecks.cc',
+        'FindSentinelHelper.cc',
+        'FindStructElements.cc',
+        'IIGlueReader.cc',
+        'LengthAnnotator.cc',
+        'NullAnnotator.cc',
+        'NullAnnotatorHelper.cc',
+        'SymbolicRangeTest.cc',
+    ),
+)
 
 env['plugin'] = plugin
 

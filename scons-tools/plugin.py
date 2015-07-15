@@ -34,14 +34,10 @@ def __run_plugin_source_args(target, source, env, for_signature):
 
 __run_plugin_builder = Builder(
     action=[[
-        'env',
-        'LD_LIBRARY_PATH=$LLVM_SRA/llvm-3.5.1.src/Release+Asserts/lib',
-        'PATH=$LLVM_SRA/llvm-3.5.1.src/Release+Asserts/bin:/usr/bin',
-        'SHELL=/bin/sh',
-        '$LLVM_SRA/llvm-3.5.1.src/lib/Transforms/llvm-sra/SAGE/bin/sage-opt',
         '-load', 'Python.so',
         '-load', 'SAGE.so',
         '-load', 'SRA.so',
+        '$LLVM_SRA/bin/sage-opt',
         '-analyze',
         '$_RUN_PLUGIN_SOURCE_ARGS',
         '$PLUGIN_ARGS',
