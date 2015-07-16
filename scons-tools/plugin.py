@@ -1,4 +1,4 @@
-from SCons.Script import Builder
+from SCons.Script import Builder, File
 from SCons.Util import splitext
 
 
@@ -10,6 +10,7 @@ from SCons.Util import splitext
 
 def __run_plugin_emitter(target, source, env):
     source.insert(0, '$plugin')
+    env.Depends(target, '#SRA/SAGE/bin/sage')
     return target, source
 
 
@@ -34,7 +35,7 @@ def __run_plugin_source_args(target, source, env, for_signature):
 
 __run_plugin_builder = Builder(
     action=[[
-        '$LLVM_SRA/bin/sage-opt',
+        File('#SRA/SAGE/bin/sage-opt'),
         '-analyze',
         '$_RUN_PLUGIN_SOURCE_ARGS',
         '$PLUGIN_ARGS',

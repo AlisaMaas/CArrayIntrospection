@@ -34,15 +34,20 @@ def pathIsSRA(key, val, env):
         problems = '\n\t'.join(problems)
         raise SCons.Errors.UserError('Invalid path for option %s:\n\t%s\n' % (key, problems))
 
+variables = Variables(['.scons-options'], ARGUMENTS)
+variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
+
 llvmConfigDefault = WhereIs('llvm-config', (
     '/p/polyglot/public/tools/llvm-3.5.0/install/bin',
     '/usr/bin',
 )) or '/usr/bin/llvm-config'
-
-variables = Variables(['.scons-options'], ARGUMENTS)
-variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
 variables.Add(PathVariable('LLVM_CONFIG', 'Path to llvm-config executable', llvmConfigDefault, pathIsExecutable))
-variables.Add(PathVariable('LLVM_SRA', 'Path to llvm-sra installation', '/p/polyglot/public/tools/llvm-sra/install', pathIsSRA))
+
+sageDefault = WhereIs('sage', (
+    '/p/polyglot/public/tools/sage-6.4.1/install/bin',
+    '/usr/bin',
+)) or '/usr/bin/sage'
+variables.Add(PathVariable('SAGE', 'Path to sage executable', sageDefault, pathIsExecutable))
 
 
 ########################################################################
@@ -58,6 +63,7 @@ env = Environment(
         'expect',
         'iiglue',
         'plugin',
+        'textfile',
     ),
     toolpath=(
         'scons-tools',
@@ -93,6 +99,7 @@ def llvm_bindir(context):
     succeeded, output = context.TryAction('$LLVM_CONFIG --bindir >$TARGET')
     if succeeded:
         output = output.rstrip()
+        context.env['LLVM_BINDIR'] = output
         context.env.PrependENVPath('PATH', output)
         context.Result(output)
         return output
@@ -117,11 +124,11 @@ env = conf.Finish()
 
 penv = env.Clone(
     CPPPATH=(
-        '$LLVM_SRA/include',
         '/unsup/boost-1.55.0/include',
     ),
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
+    SHLIBPREFIX=None,
 )
 penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
 penv.AppendUnique(
@@ -130,6 +137,53 @@ penv.AppendUnique(
     delete_existing=True
 )
 penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
+
+
+########################################################################
+#
+#  specific plugins
+#
+
+python_plugin = penv.SharedLibrary(
+    'SRA/SAGE/Python/Python',
+    Glob('SRA/SAGE/Python/*.cpp'),
+    CCFLAGS=(
+        '$CCFLAGS',
+        '-Wno-cast-qual',
+    ),
+    parse_flags='!python-config --libs',
+)
+
+sage_plugin = penv.SharedLibrary(
+    'SRA/SAGE/SAGE',
+    Glob('SRA/SAGE/*.cpp'),
+    CCFLAGS=(
+        '$CCFLAGS',
+        '-Wno-unused-parameter',
+    ),
+    LIBS=python_plugin,
+)
+
+sra_plugin = penv.SharedLibrary(
+    'SRA/SRA',
+    Glob('SRA/*.cpp'),
+    CCFLAGS=(
+        '$CCFLAGS',
+        '-Wno-maybe-uninitialized',
+        '-Wno-unused-parameter',
+    ),
+    LIBS=sage_plugin,
+)
+
+sage_script = penv.Substfile(
+    'sage.in',
+    SUBSTFILEPREFIX='SRA/SAGE/bin/',
+    SUBST_DICT={
+        '@LLVM_BINDIR@': '$LLVM_BINDIR',
+        '@SAGE@': '$SAGE',
+    },
+)
+AddPostAction(sage_script, Chmod('$TARGET', 0750))
 
 plugin, = penv.SharedLibrary(
     'CArrayIntrospection',
@@ -145,7 +199,7 @@ plugin, = penv.SharedLibrary(
         'NullAnnotatorHelper.cc',
         'SymbolicRangeTest.cc',
     ),
-    LIBS=penv.File('$LLVM_SRA/lib/SRA.so'),
+    LIBS=sra_plugin,
 )
 
 env['plugin'] = plugin

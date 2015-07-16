@@ -1,0 +1,3 @@
+[submodule "SRA"]
+	path = SRA
+	url = ../../liblit/llvm-sra.git

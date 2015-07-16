@@ -1,0 +1,3 @@
+#!/bin/sh -e
+
+SHELL=/bin/sh PATH="@LLVM_BINDIR@:$PATH" exec '@SAGE@' "$@"
