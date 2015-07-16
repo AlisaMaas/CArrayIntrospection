@@ -38,13 +38,13 @@ variables = Variables(['.scons-options'], ARGUMENTS)
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
 
 llvmConfigDefault = WhereIs('llvm-config', (
-    '/p/polyglot/public/tools/llvm-3.5.0/install/bin',
+    '/p/polyglot/public/bin',
     '/usr/bin',
 )) or '/usr/bin/llvm-config'
 variables.Add(PathVariable('LLVM_CONFIG', 'Path to llvm-config executable', llvmConfigDefault, pathIsExecutable))
 
 sageDefault = WhereIs('sage', (
-    '/p/polyglot/public/tools/sage-6.4.1/install/bin',
+    '/p/polyglot/public/bin',
     '/usr/bin',
 )) or '/usr/bin/sage'
 variables.Add(PathVariable('SAGE', 'Path to sage executable', sageDefault, pathIsExecutable))
