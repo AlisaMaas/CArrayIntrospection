@@ -9,8 +9,10 @@ from SCons.Util import splitext
 
 
 def __run_plugin_emitter(target, source, env):
-    source.insert(0, '$plugin')
-    env.Depends(target, '#SRA/SAGE/bin/sage')
+    env.Depends(target, (
+        '#run',
+        '$plugin',
+    ))
     return target, source
 
 
@@ -35,7 +37,7 @@ def __run_plugin_source_args(target, source, env, for_signature):
 
 __run_plugin_builder = Builder(
     action=[[
-        File('#SRA/SAGE/bin/sage-opt'),
+        './run',
         '-analyze',
         '$_RUN_PLUGIN_SOURCE_ARGS',
         '$PLUGIN_ARGS',

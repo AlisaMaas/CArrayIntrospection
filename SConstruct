@@ -175,15 +175,14 @@ sra_plugin = penv.SharedLibrary(
     LIBS=sage_plugin,
 )
 
-sage_script = penv.Substfile(
-    'sage.in',
-    SUBSTFILEPREFIX='SRA/SAGE/bin/',
+run_script = penv.Substfile(
+    'run.in',
     SUBST_DICT={
         '@LLVM_BINDIR@': '$LLVM_BINDIR',
         '@SAGE@': '$SAGE',
     },
 )
-AddPostAction(sage_script, Chmod('$TARGET', 0750))
+AddPostAction(run_script, Chmod('$TARGET', 0750))
 
 plugin, = penv.SharedLibrary(
     'CArrayIntrospection',
