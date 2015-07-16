@@ -136,7 +136,7 @@ penv.AppendUnique(
     CXXFLAGS=('-Wall', '-Wextra', '-Werror'),
     delete_existing=True
 )
-penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
+penv.PrependENVPath('PATH', '/s/gcc-5.1.0/bin')
 
 
 ########################################################################
