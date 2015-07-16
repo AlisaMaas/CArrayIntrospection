@@ -1,6 +1,5 @@
 #!/bin/sh -e
 
 top="$(dirname "$0")"
-export PYTHONPATH="$PYTHONPATH:$top/SRA/SAGE/Runtime"
 export SHELL=/bin/sh
-exec '@SAGE@' -sh -c "@LLVM_BINDIR@/opt -load '$top/CArrayIntrospection.so' $*"
+exec '@SAGE@' -sh -c "env PYTHONPATH=\$PYTHONPATH:'$top/SRA/SAGE/Runtime' '@LLVM_BINDIR@/opt' -load '$top/CArrayIntrospection.so' $*"
