@@ -12,6 +12,7 @@ def __run_plugin_emitter(target, source, env):
     env.Depends(target, (
         '#run',
         '$plugin',
+        '$SAGE',
     ))
     return target, source
 
