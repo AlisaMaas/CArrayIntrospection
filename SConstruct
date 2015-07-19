@@ -170,6 +170,7 @@ sra_plugin = penv.SharedLibrary(
     CCFLAGS=(
         '$CCFLAGS',
         '-Wno-maybe-uninitialized',
+        '-Wno-unknown-warning-option',
         '-Wno-unused-parameter',
     ),
     LIBS=sage_plugin,
