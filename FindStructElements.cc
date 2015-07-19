@@ -2,8 +2,12 @@
 #include "FindStructElements.hh"
 #include "NameCompare.hh"
 
-#include <llvm/IR/DerivedTypes.h>
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <llvm/IR/InstVisitor.h>
+#pragma GCC diagnostic pop
+
+#include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/Debug.h>
 #include <fstream>

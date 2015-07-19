@@ -5,8 +5,12 @@
 #include "IIGlueReader.hh"
 #include "SRA/SymbolicRangeAnalysis.h"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/IR/InstVisitor.h>
+#pragma GCC diagnostic pop
+
 #include <llvm/IR/Module.h>
 #include <llvm/Support/Debug.h>
 #include <fstream>

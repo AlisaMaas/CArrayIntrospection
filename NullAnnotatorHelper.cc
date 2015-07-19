@@ -6,6 +6,11 @@
 #include "NullAnnotatorHelper.hh"
 #include "ValueReachesValue.hh"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#include <llvm/IR/InstVisitor.h>
+#pragma GCC diagnostic pop
+
 #include <boost/algorithm/cxx11/any_of.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lambda/core.hpp>
@@ -19,7 +24,6 @@
 #include <fstream>
 #include <llvm/IR/Function.h>
 #include <llvm/IR/Instructions.h>
-#include <llvm/IR/InstVisitor.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
