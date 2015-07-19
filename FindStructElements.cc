@@ -113,7 +113,7 @@ void FindStructElements::print(raw_ostream &sink, const Module* ) const {
         sink << structTy->getName() << ":\n";
         for (unsigned i = 0; i < structTy->getNumElements(); i++) {
             pair<StructType*, int> p(structTy, i);
-	    const auto found {structElementCollections.find(p)};
+	    const auto found(structElementCollections.find(p));
 	    if (found != structElementCollections.end()) {
 		    const ValueSet &values {*found->second};
 		    const std::multiset<const llvm::Value *, NameCompare> sortedValues {begin(values), end(values)};
