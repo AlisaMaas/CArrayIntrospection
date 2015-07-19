@@ -19,7 +19,7 @@ public:
 	static char ID;
 	void getAnalysisUsage(llvm::AnalysisUsage &) const final;
 	bool runOnModule(llvm::Module &) override final;
-	void print(llvm::raw_ostream &, const llvm::Module *) const;
+	void print(llvm::raw_ostream &, const llvm::Module *) const override;
 	// access to analysis results derived by this pass
 	const FunctionLengthResults getResultsForFunction(const llvm::Function *) const;
 private:

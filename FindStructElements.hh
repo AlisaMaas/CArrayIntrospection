@@ -16,7 +16,7 @@ public:
     static char ID;
     void getAnalysisUsage(llvm::AnalysisUsage &) const final;
     bool runOnModule(llvm::Module &) override final;
-    void print(llvm::raw_ostream &, const llvm::Module *) const;
+    void print(llvm::raw_ostream &, const llvm::Module *) const override;
     // access to analysis results derived by this pass
     const StructElementToValueSet getStructElements() const;
     const std::vector<llvm::StructType*> getAllStructs() const;
