@@ -39,7 +39,9 @@ def __run_plugin_source_args(target, source, env, for_signature):
 __run_plugin_builder = Builder(
     action=[[
         './run',
+        '-debug',
         '-analyze',
+        '-mem2reg',
         '$_RUN_PLUGIN_SOURCE_ARGS',
         '$PLUGIN_ARGS',
         '-o', '$TARGET'

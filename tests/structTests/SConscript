@@ -1,6 +1,6 @@
 Import('env')
 
-env.RunTests(PLUGIN_ARGS=('-mem2reg', '-debug', '-find-struct-elements', '--fast=false'))
+env.RunTests('-find-struct-elements', '--fast=false')
 
 ########################################################################
 #

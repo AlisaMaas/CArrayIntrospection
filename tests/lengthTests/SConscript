@@ -1,4 +1,4 @@
 Import('env')
 
-env.RunTests(PLUGIN_ARGS=('-mem2reg', '-sra-annotator', '-find-length'))
+env.RunTests('-sra-annotator', '-find-length')
 

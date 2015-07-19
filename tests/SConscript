@@ -7,26 +7,28 @@ Import('env')
 env.AppendUnique(CLANG_FLAGS='-Werror')
 
 
-def RunTest(self, source, json=None, expected=None, **kwargs):
+def RunTest(self, source, pluginArgs, **kwargs):
     source = File(source)
     actual = source.target_from_source('actualsAndExpecteds/', '.actual')
     bitcode = self.BitcodeSource(source)
 
-    if self['IIGLUE'] and not json:
+    if self['IIGLUE']:
         json = source.target_from_source('json/', '.json')
         self.IIGlueAnalyze(json, bitcode)
+        pluginSources = (json, bitcode)
+    else:
+        pluginSources = bitcode
 
-    pluginSources = (bitcode, json) if json else bitcode
-    self.RunPlugin(actual, pluginSources, **kwargs)
+    self.RunPlugin(actual, pluginSources, PLUGIN_ARGS=pluginArgs, **kwargs)
     passed = self.Expect(actual)
     Alias('test', passed)
 
 env.AddMethod(RunTest)
 
 
-def RunTests(self, **kwargs):
+def RunTests(self, *pluginArgs):
     for source in Glob('*.c'):
-        self.RunTest(source, **kwargs)
+        self.RunTest(source, pluginArgs)
 
 env.AddMethod(RunTests)
 
