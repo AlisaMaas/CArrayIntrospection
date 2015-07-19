@@ -209,9 +209,10 @@ Alias('plugin', plugin)
 
 ########################################################################
 #
-#  compilation database for use with various Clang LibTooling tools
+#  IDE support files
 #
 
+# compilation database for use with various Clang LibTooling tools
 
 import json
 
@@ -231,6 +232,26 @@ def stash_compile_commands(target, source, env):
     json.dump(commands, open(str(target), 'w'), indent=2)
 
 penv.Command('compile_commands.json', ('SConstruct', Value(Dir('#').abspath)), stash_compile_commands)
+
+
+# Emacs flychecker configuration
+
+from itertools import imap
+
+def elispString(text):
+    return '"%s"' % text.replace('"', '\\"')
+
+def elispStringList(texts):
+    return '(%s)' % ' '.join(imap(elispString, texts))
+
+config = penv.Substfile(
+    '.dir-locals.el.in',
+    SUBST_DICT={
+        '@CPPDEFINES@': elispStringList(penv['CPPDEFINES']),
+        '@CPPPATH@': elispStringList(penv['CPPPATH']),
+        '@CXX@': elispString(penv.WhereIs('$CXX')),
+    },
+)
 
 
 ########################################################################

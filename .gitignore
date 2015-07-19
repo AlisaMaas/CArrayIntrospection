@@ -2,6 +2,7 @@
 *.os
 *.so
 *~
+.dir-locals.el
 .sconf_temp
 .scons-options
 .sconsign.dblite

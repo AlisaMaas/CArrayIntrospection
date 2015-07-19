@@ -1,0 +1,11 @@
+((c++-mode
+  (c-file-style . "Linux")
+  (flycheck-c/c++-gcc-executable . @CXX@)
+  (flycheck-disabled-checkers c/c++-clang)
+  (flycheck-gcc-definitions . @CPPDEFINES@)
+  (flycheck-gcc-include-path . @CPPPATH@)
+  (flycheck-gcc-language-standard . "c++11")))
+
+;; Local variables:
+;; flycheck-disabled-checkers: (emacs-lisp)
+;; End:
