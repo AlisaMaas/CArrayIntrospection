@@ -124,7 +124,7 @@ env = conf.Finish()
 
 penv = env.Clone(
     CPPPATH=(
-        '/unsup/boost-1.55.0/common/include',
+        '/unsup/boost/include',
     ),
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
