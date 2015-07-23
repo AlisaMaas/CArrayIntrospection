@@ -9,7 +9,8 @@ from os import access, R_OK, X_OK
 
 def pathIsExecutable(key, val, env):
     found = env.WhereIs(val)
-    if found: val = found
+    if found:
+        val = found
     PathVariable.PathIsFile(key, val, env)
     if not access(val, X_OK):
         raise SCons.Errors.UserError('Path for option %s is not executable: %s' % (key, val))
@@ -112,9 +113,9 @@ def llvm_bindir(context):
 
 
 conf = Configure(env, custom_tests={
-        'LLVMVersion': llvm_version,
-        'LLVMBinDir': llvm_bindir,
-        })
+    'LLVMVersion': llvm_version,
+    'LLVMBinDir': llvm_bindir,
+})
 
 conf.LLVMVersion()
 conf.LLVMBinDir()

@@ -20,7 +20,7 @@ def __bitcode_builder(stage, suffix):
         src_suffix=['c'] + cxx_suffixes,
         suffix=suffix,
         source_scanner=CScanner,
-        )
+    )
 
 
 ########################################################################
@@ -39,8 +39,8 @@ def generate(env):
         BUILDERS={
             'BitcodeBinary': __bitcode_builder('-c', 'bc'),
             'BitcodeSource': __bitcode_builder('-S', 'll'),
-            },
-        )
+        },
+    )
 
 
 def exists(env):
