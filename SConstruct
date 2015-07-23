@@ -6,6 +6,7 @@
 from os import access, environ, R_OK, X_OK
 from SCons.Script import *
 
+
 def pathIsExecutable(key, val, env):
     found = env.WhereIs(val)
     if found: val = found
@@ -13,12 +14,15 @@ def pathIsExecutable(key, val, env):
     if not access(val, X_OK):
         raise SCons.Errors.UserError('Path for option %s is not executable: %s' % (key, val))
 
+
 def pathIsOptionalExecutable(key, val, env):
     if val:
         pathIsExecutable(key, val, env)
 
+
 def pathIsSRA(key, val, env):
     problems = []
+
     def check(perms, diagnostic, subpath):
         node = File(subpath, val)
         if not access(node.path, perms):
@@ -94,6 +98,7 @@ def llvm_version(context):
         context.Result('failed')
         context.env.Exit(1)
 
+
 def llvm_bindir(context):
     context.Message('checking LLVM executables ... ')
     succeeded, output = context.TryAction('$LLVM_CONFIG --bindir >$TARGET')
@@ -106,6 +111,7 @@ def llvm_bindir(context):
     else:
         context.Result('failed')
         context.env.Exit(1)
+
 
 conf = Configure(env, custom_tests={
         'LLVMVersion': llvm_version,
@@ -216,6 +222,7 @@ Alias('plugin', plugin)
 
 import json
 
+
 def compilation_database(env, topdir):
     for obj in plugin.sources:
         src, = obj.sources
@@ -225,11 +232,13 @@ def compilation_database(env, topdir):
             'command': env.subst('$SHCXXCOM', target=obj, source=src),
         }
 
+
 def stash_compile_commands(target, source, env):
     sconstruct, topdir = source
     target, = target
     commands = list(compilation_database(env, topdir.read()))
     json.dump(commands, open(str(target), 'w'), indent=2)
+
 
 penv.Command('compile_commands.json', ('SConstruct', Value(Dir('#').abspath)), stash_compile_commands)
 
@@ -238,8 +247,10 @@ penv.Command('compile_commands.json', ('SConstruct', Value(Dir('#').abspath)), s
 
 from itertools import imap
 
+
 def elispString(text):
     return '"%s"' % text.replace('"', '\\"')
+
 
 def elispStringList(texts):
     return '(%s)' % ' '.join(imap(elispString, texts))
