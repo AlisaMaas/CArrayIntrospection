@@ -1,5 +1,5 @@
 Import('env')
 
-#env.RunTests('-find-array-sentinels')
+# env.RunTests('-find-array-sentinels')
 
 SConscript(dirs='interproceduralTests', exports='env')

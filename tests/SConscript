@@ -38,12 +38,12 @@ env.AddMethod(RunTests)
 #  IIGlueReader tests
 #
 
-#tenv = env.Clone(PLUGIN_ARGS='-iiglue-reader')
-#tenv.RunTest('iiglue-reader-variadic.c')
-#tenv.RunTest('iiglue-reader-multiple.c', json=('json/iiglue-reader-peek.json', 'json/iiglue-reader-variadic.json'))
+# tenv = env.Clone(PLUGIN_ARGS='-iiglue-reader')
+# tenv.RunTest('iiglue-reader-variadic.c')
+# tenv.RunTest('iiglue-reader-multiple.c', json=('json/iiglue-reader-peek.json', 'json/iiglue-reader-variadic.json'))
 
-#if env['IIGLUE']:
-#    tenv.RunTest('iiglue-reader-peek.c')
+# if env['IIGLUE']:
+#     tenv.RunTest('iiglue-reader-peek.c')
 
 
 ########################################################################
@@ -52,8 +52,8 @@ env.AddMethod(RunTests)
 #
 
 SConscript(dirs=['structTests','argumentSentinelCheckTests', 'lengthTests', 'generic'], exports='env')
-#SConscript(dirs=['sentinelCheckTests', 'lengthTests'], exports='env')
 
 # Local variables:
 # flycheck-flake8rc: "../scons-flake8.ini"
 # End:
+# SConscript(dirs=['sentinelCheckTests', 'lengthTests'], exports='env')

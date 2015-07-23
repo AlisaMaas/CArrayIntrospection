@@ -1,4 +1,4 @@
 Import('env')
 
 env.RunTests('-null-annotator', '-null-annotator-output', 'output.json')
-#SConscript(dirs=['whole-program-tests'], exports='env')
+# SConscript(dirs=['whole-program-tests'], exports='env')
