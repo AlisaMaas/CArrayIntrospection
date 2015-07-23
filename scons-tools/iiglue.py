@@ -1,4 +1,5 @@
 from itertools import imap
+from SCons.Script import Builder, Scanner
 
 
 ########################################################################

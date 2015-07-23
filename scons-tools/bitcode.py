@@ -1,4 +1,4 @@
-from SCons.Script import *
+from SCons.Script import Builder, CScanner
 
 
 ########################################################################
