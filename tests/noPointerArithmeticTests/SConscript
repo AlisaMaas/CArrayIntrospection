@@ -1,4 +1,3 @@
 Import('env')
 
 env.RunTests('-sra-annotator', '-no-pointer-arithmetic')
-
