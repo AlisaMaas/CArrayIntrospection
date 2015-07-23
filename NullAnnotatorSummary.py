@@ -10,8 +10,8 @@ inferable as null-terminated because they are passed into a function as a vararg
 When I have a way to reason about varargs parameters, hopefully this will be resolved.
 '''
 if __name__ == '__main__':
-    output_data=open(sys.argv[1])
-    answer_data=open(sys.argv[2])
+    output_data = open(sys.argv[1])
+    answer_data = open(sys.argv[2])
     output = json.load(output_data)
     answers = json.load(answer_data)
     outputLibraryFunctions = output['library_functions']
