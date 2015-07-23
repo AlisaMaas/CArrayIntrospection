@@ -4,8 +4,8 @@ import json
 import sys
 '''
 Script to compute statistics about the output from NullAnnotator. Note that as of right now,
-the answers.json file doesn't contain information about varargs, which is another source of 
-false negatives, and also doesn't always annotate as null-terminated things which are only 
+the answers.json file doesn't contain information about varargs, which is another source of
+false negatives, and also doesn't always annotate as null-terminated things which are only
 inferable as null-terminated because they are passed into a function as a varargs parameter.
 When I have a way to reason about varargs parameters, hopefully this will be resolved.
 '''
