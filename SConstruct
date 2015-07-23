@@ -3,8 +3,8 @@
 #  configurable paths to various supporting tools
 #
 
-from os import access, environ, R_OK, X_OK
 from SCons.Script import *
+from os import access, R_OK, X_OK
 
 
 def pathIsExecutable(key, val, env):
@@ -83,8 +83,6 @@ variables.Save('.scons-options', env)
 #
 #  LLVM configuration
 #
-
-from distutils.version import StrictVersion
 
 def llvm_version(context):
     context.Message('checking LLVM version ... ')

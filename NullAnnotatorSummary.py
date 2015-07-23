@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import json
-from pprint import pprint
 import sys
 '''
 Script to compute statistics about the output from NullAnnotator. Note that as of right now,

@@ -1,4 +1,4 @@
-from SCons.Script import Builder, File
+from SCons.Script import Builder
 from SCons.Util import splitext
 
 
