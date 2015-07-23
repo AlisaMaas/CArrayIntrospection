@@ -50,7 +50,7 @@ if __name__ == '__main__':
         answerIIGlueAnnotations = answerFunc['args_array_receivers']
         if len(answerIIGlueAnnotations) > 0 and answerIIGlueAnnotations[0] == -1:
             continue
-        for j in range (0, len(outputAnnotations)):
+        for j in range(0, len(outputAnnotations)):
             if answerIIGlueAnnotations[j] == -1:
                 continue; #skip anything that was a dependency, don't count it either way.
             if answerAnnotations[j] == 4 or answerFunc['args_array_receivers'][j] == 4:
