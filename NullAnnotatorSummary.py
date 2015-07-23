@@ -24,7 +24,7 @@ if __name__ == '__main__':
     for key in answerKeySet - outputKeySet:
         print 'answer key not among output keys:', key
     #assert outputKeySet == answerKeySet
-        
+
     functionNames = outputLibraryFunctions.keys()
     numWrongAnswers = 0
     numWrongDueToIIGlue = 0
@@ -114,7 +114,7 @@ if __name__ == '__main__':
                 numWrongAnswers += 1
                 numFalseNegsPassedToVararg += 1
                 falseNegatives += mismatch()
-                
+
     print "Total number of functions:", len(outputLibraryFunctions)
     print "Total number of arguments:", numArguments
     print "Total number of array arguments:", numArrayArguments
