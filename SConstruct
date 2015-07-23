@@ -3,7 +3,6 @@
 #  configurable paths to various supporting tools
 #
 
-from SCons.Script import *
 from os import access, R_OK, X_OK
 
 
