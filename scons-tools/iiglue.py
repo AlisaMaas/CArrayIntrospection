@@ -1,5 +1,4 @@
 from itertools import imap
-from SCons.Script import *
 
 
 ########################################################################
@@ -46,4 +45,4 @@ def generate(env):
 
 
 def exists(env):
-    return true
+    return True
