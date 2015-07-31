@@ -1,881 +1,2257 @@
-{"library_functions":{
-"add_search_dir":{
-	"argument_names":["path"],
-	"argument_annotations":[2],
-	"args_array_receivers":[0],
-	"argument_reasons":["Called g_strdup, marked as null terminated in this position"]},
-"g_slist_append":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"g_strdup":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[1],
-	"argument_reasons":[""]},
-"add_search_dirs":{
-	"argument_names":["path","separator"],
-	"argument_annotations":[2,2],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["Called g_strsplit, marked as null terminated in this position","Called g_strsplit, marked as null terminated in this position"]},
-"g_strsplit":{
-	"argument_names":["","",""],
-	"argument_annotations":[2,2,0],
-	"args_array_receivers":[-1,-1,0],
-	"argument_reasons":["","",""]},
-"g_strfreev":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"name_ends_in_uninstalled":{
-	"argument_names":["str"],
-	"argument_annotations":[2],
-	"args_array_receivers":[1],
-	"argument_reasons":["Called strlen, marked as null terminated in this position"]},
-"strlen":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"strcmp":{
-	"argument_names":["",""],
-	"argument_annotations":[2,2],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"package_init":{
-	"argument_names":[],
-	"argument_annotations":[],
-	"args_array_receivers":[],
-	"argument_reasons":[]},
-"g_hash_table_new":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"g_str_hash":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_str_equal":{
-	"argument_names":["",""],
-	"argument_annotations":[2,2],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"g_slist_foreach":{
-	"argument_names":["","",""],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":["","",""]},
-"scan_dir":{
-	"argument_names":["dirname"],
-	"argument_annotations":[2],
-	"args_array_receivers":[0],
-	"argument_reasons":["Called g_strdup, marked as null terminated in this position"]},
-"get_package":{
-	"argument_names":["name"],
-	"argument_annotations":[2],
-	"args_array_receivers":[1],
-	"argument_reasons":["Called internal_get_package, marked as null terminated in this position"]},
-"internal_get_package":{
-	"argument_names":["name","warn"],
-	"argument_annotations":[2,0],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["Called g_strndup, marked as null terminated in this position",""]},
-"get_package_quiet":{
-	"argument_names":["name"],
-	"argument_annotations":[2],
-	"args_array_receivers":[1],
-	"argument_reasons":["Called internal_get_package, marked as null terminated in this position"]},
-"package_get_l_libs":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"packages_get_l_libs":{
-	"argument_names":["pkgs"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"package_get_L_libs":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"get_merged":{
-	"argument_names":["pkg","func","include_private"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"get_L_libs":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"packages_get_L_libs":{
-	"argument_names":["pkgs"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"get_multi_merged":{
-	"argument_names":["pkgs","func","include_private"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"package_get_other_libs":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"get_other_libs":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"packages_get_other_libs":{
-	"argument_names":["pkgs"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"packages_get_all_libs":{
-	"argument_names":["pkgs"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"g_string_new":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_string_append":{
-	"argument_names":["",""],
-	"argument_annotations":[0,2],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"g_free":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_string_free":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"package_get_I_cflags":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"get_I_cflags":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"packages_get_I_cflags":{
-	"argument_names":["pkgs"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"package_get_other_cflags":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"get_other_cflags":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"packages_get_other_cflags":{
-	"argument_names":["pkgs"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"package_get_cflags":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"g_assertion_message":{
-	"argument_names":["","","","",""],
-	"argument_annotations":[0,0,0,0,0],
-	"args_array_receivers":[-1,-1,-1,-1,-1],
-	"argument_reasons":["","","","",""]},
-"packages_get_all_cflags":{
-	"argument_names":["pkgs"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"define_global_variable":{
-	"argument_names":["varname","varval"],
-	"argument_annotations":[2,2],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["Called g_strdup, marked as null terminated in this position","Called g_strdup, marked as null terminated in this position"]},
-"g_hash_table_lookup":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"exit":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_hash_table_insert":{
-	"argument_names":["","",""],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":["","",""]},
-"package_get_var":{
-	"argument_names":["pkg","var"],
-	"argument_annotations":[0,2],
-	"args_array_receivers":[0,1],
-	"argument_reasons":["","Called strcmp, marked as null terminated in this position"]},
-"packages_get_var":{
-	"argument_names":["pkgs","varname"],
-	"argument_annotations":[0,2],
-	"args_array_receivers":[0,1],
-	"argument_reasons":["","Called package_get_var, marked as null terminated in this position"]},
-"compare_versions":{
-	"argument_names":["a","b"],
-	"argument_annotations":[2,2],
-	"args_array_receivers":[1,1],
-	"argument_reasons":["Called rpmvercmp, marked as null terminated in this position","Called rpmvercmp, marked as null terminated in this position"]},
-"rpmvercmp":{
-	"argument_names":["a","b"],
-	"argument_annotations":[2,2],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["Called strcpy, marked as null terminated in this position","Called strcmp, marked as null terminated in this position"]},
-"version_test":{
-	"argument_names":["comparison","a","b"],
-	"argument_annotations":[0,2,2],
-	"args_array_receivers":[0,1,1],
-	"argument_reasons":["","Called rpmvercmp, marked as null terminated in this position","Called rpmvercmp, marked as null terminated in this position"]},
-"comparison_to_str":{
-	"argument_names":["comparison"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"print_package_list":{
-	"argument_names":[],
-	"argument_annotations":[],
-	"args_array_receivers":[],
-	"argument_reasons":[]},
-"g_hash_table_foreach":{
-	"argument_names":["","",""],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"max_len_foreach":{
-	"argument_names":["key","value","data"],
-	"argument_annotations":[2,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["Called strlen, marked as null terminated in this position","",""]},
-"packages_foreach":{
-	"argument_names":["key","value","data"],
-	"argument_annotations":[2,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["Called internal_get_package, marked as null terminated in this position","",""]},
-"enable_private_libs":{
-	"argument_names":[],
-	"argument_annotations":[],
-	"args_array_receivers":[],
-	"argument_reasons":[]},
-"disable_private_libs":{
-	"argument_names":[],
-	"argument_annotations":[],
-	"args_array_receivers":[],
-	"argument_reasons":[]},
-"enable_requires":{
-	"argument_names":[],
-	"argument_annotations":[],
-	"args_array_receivers":[],
-	"argument_reasons":[]},
-"disable_requires":{
-	"argument_names":[],
-	"argument_annotations":[],
-	"args_array_receivers":[],
-	"argument_reasons":[]},
-"enable_requires_private":{
-	"argument_names":[],
-	"argument_annotations":[],
-	"args_array_receivers":[],
-	"argument_reasons":[]},
-"disable_requires_private":{
-	"argument_names":[],
-	"argument_annotations":[],
-	"args_array_receivers":[],
-	"argument_reasons":[]},
-"g_strnfill":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"printf":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"strcpy":{
-	"argument_names":["",""],
-	"argument_annotations":[2,2],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"__ctype_b_loc":{
-	"argument_names":[],
-	"argument_annotations":[],
-	"args_array_receivers":[],
-	"argument_reasons":[]},
-"g_string_insert_c":{
-	"argument_names":["","",""],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":["","",""]},
-"string_list_strip_duplicates":{
-	"argument_names":["list"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"g_slist_free":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"string_list_to_string":{
-	"argument_names":["list"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"g_slist_prepend":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"g_slist_reverse":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_hash_table_destroy":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"recursive_fill_list":{
-	"argument_names":["pkg","func","listp"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"get_requires_private":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"get_requires":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"g_slist_copy":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"g_slist_concat":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["",""]},
-"g_slist_sort":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["",""]},
-"pathposcmp":{
-	"argument_names":["a","b"],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["",""]},
-"string_list_strip_duplicates_from_back":{
-	"argument_names":["list"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"g_strconcat":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"strstr":{
-	"argument_names":["",""],
-	"argument_annotations":[2,2],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"g_assertion_message_expr":{
-	"argument_names":["","","","",""],
-	"argument_annotations":[0,0,0,0,0],
-	"args_array_receivers":[-1,-1,-1,-1,-1],
-	"argument_reasons":["","","","",""]},
-"g_strndup":{
-	"argument_names":["",""],
-	"argument_annotations":[2,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"g_getenv":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"strncmp":{
-	"argument_names":["","",""],
-	"argument_annotations":[2,2,1],
-	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":["","",""]},
-"g_slist_remove":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"opendir":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_strerror":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"__errno_location":{
-	"argument_names":[],
-	"argument_annotations":[],
-	"args_array_receivers":[],
-	"argument_reasons":[]},
-"readdir":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_malloc":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"strncpy":{
-	"argument_names":["","",""],
-	"argument_annotations":[0,2,1],
-	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":["","",""]},
-"g_file_test":{
-	"argument_names":["",""],
-	"argument_annotations":[2,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"closedir":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_malloc0_n":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"fwrite":{
-	"argument_names":["","","",""],
-	"argument_annotations":[0,0,0,0],
-	"args_array_receivers":[-1,-1,-1,-1],
-	"argument_reasons":["","","",""]},
-"llvm.lifetime.start":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"llvm.lifetime.end":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"parse_module_list":{
-	"argument_names":["pkg","str","path"], 
-	"argument_annotations":[0,2,2],
-	"args_array_receivers":[0,1,0],
-	"argument_reasons":["","Found a non-optional sentinel check in some loop of this function.",""]},
-"parse_package_file":{
-	"argument_names":["path","ignore_requires","ignore_private_libs","ignore_requires_private"],
-	"argument_annotations":[2,0,0,0],
-	"args_array_receivers":[1,0,0,0],
-	"argument_reasons":["Called g_path_get_dirname, marked as null terminated in this position","","",""]},
-"fopen":{
-	"argument_names":["",""],
-	"argument_annotations":[2,2],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"strerror":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_path_get_dirname":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_string_truncate":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"fclose":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"trim_string":{
-	"argument_names":["str"],
-	"argument_annotations":[2],
-	"args_array_receivers":[0],
-	"argument_reasons":["Found a non-optional sentinel check in some loop of this function."]},
-"trim_and_sub":{
-	"argument_names":["pkg","str","path"], 
-	"argument_annotations":[0,2,2],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","Called trim_string, marked as null terminated in this position",""]},
-"strdup_escape_shell":{
-	"argument_names":["s"],
-	"argument_annotations":[2],
-	"args_array_receivers":[0],
-	"argument_reasons":["Found a non-optional sentinel check in some loop of this function."]},
-"g_realloc":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"_do_parse_libs":{
-	"argument_names":["pkg","argc","argv"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"g_return_if_fail_warning":{
-	"argument_names":["","",""],
-	"argument_annotations":[2,0,0],
-	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":["","",""]},
-"_IO_getc":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"ungetc":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["",""]},
-"debug_spew":{
-	"argument_names":["format"],
-	"argument_annotations":[2],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"llvm.va_start":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_strdup_vprintf":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"llvm.va_end":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"fputs":{
-	"argument_names":["",""],
-	"argument_annotations":[2,1],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"fflush":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"verbose_error":{ 
-	"argument_names":["format"],
-	"argument_annotations":[2],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"print_hashtable_key":{ 
-	"argument_names":["key","value","user_data"],
-	"argument_annotations":[2,0,0],
-	"args_array_receivers":[1,0,0],
-	"argument_reasons":["","",""]},
-"main":{
-	"argument_names":["argc","argv"],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["",""]},
-"popt_callback":{
-	"argument_names":["con","reason","opt","arg","data"],
-	"argument_annotations":[0,0,0,2,0],
-	"args_array_receivers":[0,0,0,0,0],
-	"argument_reasons":["","","","Called g_strdup, marked as null terminated in this position",""]},
-"llvm.memcpy.p0i8.p0i8.i64":{
-	"argument_names":["","","","",""],
-	"argument_annotations":[0,0,0,0,0],
-	"args_array_receivers":[-1,-1,-1,-1,-1],
-	"argument_reasons":["","","","",""]},
-"getenv":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"fprintf":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"g_strchomp":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"g_strchug":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"pkg_uninstalled":{
-	"argument_names":["pkg"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"g_slist_find":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"puts":{
-	"argument_names":[""],
-	"argument_annotations":[2],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"putchar":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"fputc":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["",""]},
-"poptSetExecPath":{ 
-	"argument_names":["con","path","allowAbsolute"],
-	"argument_annotations":[0,2,0],
-	"args_array_receivers":[0,1,0],
-	"argument_reasons":["","",""]},
-"free":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"__strdup":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"poptGetContext":{
-	"argument_names":["name","argc","argv","options","flags"],
-	"argument_annotations":[2,0,0,0,0],
-	"args_array_receivers":[1,0,0,0,0],
-	"argument_reasons":["Called strlen, marked as null terminated in this position","","","",""]},
-"malloc":{
-	"argument_names":[""],
-	"argument_annotations":[0],
-	"args_array_receivers":[-1],
-	"argument_reasons":[""]},
-"llvm.memset.p0i8.i64":{
-	"argument_names":["","","","",""],
-	"argument_annotations":[0,0,0,0,0],
-	"args_array_receivers":[-1,-1,-1,-1,-1],
-	"argument_reasons":["","","","",""]},
-"invokeCallbacks":{
-	"argument_names":["con","table","post"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"poptResetContext":{
-	"argument_names":["con"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"poptGetNextOpt":{
-	"argument_names":["con"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"execCommand":{
-	"argument_names":["con"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"handleAlias":{
-	"argument_names":["con","longName","shortName","nextCharArg"],
-	"argument_annotations":[0,2,0,0],
-	"args_array_receivers":[0,0,0,0],
-	"argument_reasons":["","Called strcmp, marked as null terminated in this position","",""]},
-"handleExec":{
-	"argument_names":["con","longName","shortName"],
-	"argument_annotations":[0,2,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","Called strcmp, marked as null terminated in this position",""]},
-"findOption":{
-	"argument_names":["table","longName","shortName","callback","callbackData","singleDash"],
-	"argument_annotations":[0,2,0,0,0,0],
-	"args_array_receivers":[0,0,0,0,0,0],
-	"argument_reasons":["","Called strcmp, marked as null terminated in this position","","","",""]},
-"strtol":{
-	"argument_names":["","",""],
-	"argument_annotations":[2,0,1],
-	"args_array_receivers":[-1,-1,-1],
-	"argument_reasons":["","",""]},
-"realloc":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"sprintf":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"poptGetOptArg":{
-	"argument_names":["con"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"poptGetArg":{
-	"argument_names":["con"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"poptPeekArg":{
-	"argument_names":["con"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"poptGetArgs":{
-	"argument_names":["con"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"poptFreeContext":{
-	"argument_names":["con"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"poptAddAlias":{
-	"argument_names":["con","newAlias","flags"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"poptBadOption":{
-	"argument_names":["con","flags"],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["",""]},
-"poptStrerror":{
-	"argument_names":["error"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"poptStuffArgs":{
-	"argument_names":["con","argv"],
-	"argument_annotations":[0,2],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["","Found a non-optional sentinel check in some loop of this function."]},
-"poptGetInvocationName":{
-	"argument_names":["con"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"strchr":{
-	"argument_names":["",""],
-	"argument_annotations":[2,1],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"execvp":{
-	"argument_names":["",""],
-	"argument_annotations":[2,2],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"displayArgs":{
-	"argument_names":["con","foo","key","arg","data"],
-	"argument_annotations":[0,0,0,0,0],
-	"args_array_receivers":[0,0,0,0,0],
-	"argument_reasons":["","","","",""]},
-"poptPrintHelp":{
-	"argument_names":["con","f","flags"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"maxArgWidth":{
-	"argument_names":["opt"],
-	"argument_annotations":[0],
-	"args_array_receivers":[0],
-	"argument_reasons":[""]},
-"singleTableHelp":{
-	"argument_names":["f","table","left"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"singleTableUsage":{
-	"argument_names":["f","cursor","table"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"poptPrintUsage":{
-	"argument_names":["con","f","flags"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"showShortOptions":{
-	"argument_names":["opt","f","str"],
-	"argument_annotations":[0,0,2],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","","Called strlen, marked as null terminated in this position"]},
-"poptSetOtherOptionHelp":{
-	"argument_names":["con","text"],
-	"argument_annotations":[0,2],
-	"args_array_receivers":[0,0],
-	"argument_reasons":["",""]},
-"singleOptionHelp":{
-	"argument_names":["f","maxLeftCol","opt"],
-	"argument_annotations":[0,0,0],
-	"args_array_receivers":[0,0,0],
-	"argument_reasons":["","",""]},
-"strcat":{
-	"argument_names":["",""],
-	"argument_annotations":[0,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]},
-"poptParseArgvString":{
-	"argument_names":["s","argcPtr","argvPtr"],
-	"argument_annotations":[2,0,0],
-	"args_array_receivers":[1,0,0],
-	"argument_reasons":["Found a non-optional sentinel check in some loop of this function.","",""]},
-"findProgramPath":{
-	"argument_names":["argv0"],
-	"argument_annotations":[2],
-	"args_array_receivers":[1],
-	"argument_reasons":["Called strlen, marked as null terminated in this position"]},
-"access":{
-	"argument_names":["",""],
-	"argument_annotations":[2,0],
-	"args_array_receivers":[-1,-1],
-	"argument_reasons":["",""]}}}
+{
+    "library_functions": [
+        {
+            "arguments": [],
+            "function_name": "g_str_hash",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "a",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "b",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "pathposcmp"
+        },
+        {
+            "arguments": [],
+            "function_name": "fclose",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "longName",
+                    "argument_reason": "Called strcmp, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "shortName",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "nextCharArg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "handleAlias"
+        },
+        {
+            "arguments": [],
+            "function_name": "llvm.va_end",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_hash_table_new",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkgs",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "packages_get_L_libs"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_slist_append",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkgs",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "packages_get_other_cflags"
+        },
+        {
+            "arguments": [],
+            "function_name": "fflush",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "strtol",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "fputc"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_slist_remove",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_getenv",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "fwrite",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "a",
+                    "argument_reason": "Called strcpy, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "b",
+                    "argument_reason": "Called strcmp, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "rpmvercmp"
+        },
+        {
+            "arguments": [],
+            "function_name": "fputs",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "opt",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "f",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "str",
+                    "argument_reason": "Called strlen, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "showShortOptions"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "comparison",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "comparison_to_str"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "foo",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "key",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "arg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "data",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "displayArgs"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "comparison",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "a",
+                    "argument_reason": "Called rpmvercmp, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "b",
+                    "argument_reason": "Called rpmvercmp, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "version_test"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_return_if_fail_warning",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "enable_private_libs"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_strchomp",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_free",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "name",
+                    "argument_reason": "Called internal_get_package, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "get_package_quiet"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_strdup_vprintf",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "llvm.lifetime.end",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptGetInvocationName"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "f",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "table",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "left",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "singleTableHelp"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_string_truncate",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "pkg_uninstalled"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "list",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "string_list_strip_duplicates_from_back"
+        },
+        {
+            "arguments": [],
+            "function_name": "enable_requires_private"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_assertion_message",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "package_get_cflags"
+        },
+        {
+            "arguments": [],
+            "function_name": "strstr",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "opt",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "maxArgWidth"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_malloc",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_slist_prepend",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_string_append",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "opendir",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkgs",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "packages_get_other_libs"
+        },
+        {
+            "arguments": [],
+            "function_name": "strcmp",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "argv0",
+                    "argument_reason": "Called strlen, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "findProgramPath"
+        },
+        {
+            "arguments": [],
+            "function_name": "strncmp",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "str",
+                    "argument_reason": "Called strlen, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "name_ends_in_uninstalled"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "dirname",
+                    "argument_reason": "Called g_strdup, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "scan_dir"
+        },
+        {
+            "arguments": [],
+            "function_name": "llvm.va_start",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "argv",
+                    "argument_reason": "Found a non-optional sentinel check in some loop of this function.",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "poptStuffArgs"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkgs",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "varname",
+                    "argument_reason": "Called package_get_var, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "packages_get_var"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "s",
+                    "argument_reason": "Found a non-optional sentinel check in some loop of this function.",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "strdup_escape_shell"
+        },
+        {
+            "arguments": [],
+            "function_name": "strcat",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "readdir",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "name",
+                    "argument_reason": "Called internal_get_package, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "get_package"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "path",
+                    "argument_reason": "Called g_path_get_dirname, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "ignore_requires",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "ignore_private_libs",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "ignore_requires_private",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "parse_package_file"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "get_other_libs"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_strconcat",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkgs",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "packages_get_all_cflags"
+        },
+        {
+            "arguments": [],
+            "function_name": "access",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_str_equal",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "list",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "string_list_strip_duplicates"
+        },
+        {
+            "arguments": [],
+            "function_name": "exit",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "sprintf",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "__ctype_b_loc"
+        },
+        {
+            "arguments": [],
+            "function_name": "disable_requires_private"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "package_get_other_cflags"
+        },
+        {
+            "arguments": [],
+            "function_name": "__strdup",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_hash_table_destroy",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_realloc",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_string_new",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptGetArgs"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_assertion_message_expr",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "flags",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptBadOption"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_strchug",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "free",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "key",
+                    "argument_reason": "Called internal_get_package, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "value",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "data",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "packages_foreach"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "g_strdup"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "newAlias",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "flags",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptAddAlias"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_file_test",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptPeekArg"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "get_other_cflags"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "putchar"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "str",
+                    "argument_reason": "Called trim_string, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "path",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "trim_and_sub"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "list",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "string_list_to_string"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "f",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "cursor",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "table",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "singleTableUsage"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_slist_foreach",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "strcpy",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "var",
+                    "argument_reason": "Called strcmp, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "package_get_var"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "str",
+                    "argument_reason": "Found a non-optional sentinel check in some loop of this function.",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "trim_string"
+        },
+        {
+            "arguments": [],
+            "function_name": "print_package_list"
+        },
+        {
+            "arguments": [],
+            "function_name": "disable_requires"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_string_insert_c",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "format",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "debug_spew"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "get_L_libs"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "name",
+                    "argument_reason": "Called g_strndup, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "warn",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "internal_get_package"
+        },
+        {
+            "arguments": [],
+            "function_name": "realloc",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "malloc",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_hash_table_lookup",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkgs",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "packages_get_I_cflags"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptGetOptArg"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "g_slist_concat"
+        },
+        {
+            "arguments": [],
+            "function_name": "printf",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "table",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "longName",
+                    "argument_reason": "Called strcmp, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "shortName",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "callback",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "callbackData",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "singleDash",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "findOption"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "func",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "listp",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "recursive_fill_list"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "str",
+                    "argument_reason": "Found a non-optional sentinel check in some loop of this function.",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "path",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "parse_module_list"
+        },
+        {
+            "arguments": [],
+            "function_name": "fopen",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "strncpy",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "path",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "allowAbsolute",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptSetExecPath"
+        },
+        {
+            "arguments": [],
+            "function_name": "package_init"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "puts"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "format",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "verbose_error"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "key",
+                    "argument_reason": "Called strlen, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "value",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "data",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "max_len_foreach"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptResetContext"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_string_free",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptGetArg"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "error",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptStrerror"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "get_requires_private"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "argc",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "argv",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "symbolic": 1
+                }
+            ],
+            "function_name": "_do_parse_libs"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "get_requires"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "f",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "maxLeftCol",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "opt",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "singleOptionHelp"
+        },
+        {
+            "arguments": [],
+            "function_name": "getenv",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "disable_private_libs"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptFreeContext"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "package_get_I_cflags"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "get_I_cflags"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_strerror",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "argc",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "argv",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "main"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "_IO_getc"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "name",
+                    "argument_reason": "Called strlen, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "argc",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "argv",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "options",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "flags",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptGetContext"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "package_get_L_libs"
+        },
+        {
+            "arguments": [],
+            "function_name": "enable_requires"
+        },
+        {
+            "arguments": [],
+            "function_name": "__errno_location"
+        },
+        {
+            "arguments": [],
+            "function_name": "strerror",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "g_hash_table_foreach"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_strndup",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "f",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "flags",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptPrintUsage"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "ungetc"
+        },
+        {
+            "arguments": [],
+            "function_name": "execvp",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "package_get_other_libs"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "path",
+                    "argument_reason": "Called g_strdup, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "add_search_dir"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_strfreev",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkgs",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "packages_get_all_libs"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkgs",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "func",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "include_private",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "get_multi_merged"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_slist_free",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "g_slist_sort"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "reason",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "opt",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "arg",
+                    "argument_reason": "Called g_strdup, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "data",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "popt_callback"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "g_slist_copy"
+        },
+        {
+            "arguments": [],
+            "function_name": "fprintf",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "strlen",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_slist_reverse",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "a",
+                    "argument_reason": "Called rpmvercmp, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "b",
+                    "argument_reason": "Called rpmvercmp, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "compare_versions"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "key",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "value",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "user_data",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "print_hashtable_key"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_malloc0_n",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "g_strnfill",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "f",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "flags",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptPrintHelp"
+        },
+        {
+            "arguments": [],
+            "function_name": "strchr",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [],
+            "function_name": "llvm.memcpy.p0i8.p0i8.i64",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "longName",
+                    "argument_reason": "Called strcmp, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "shortName",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "handleExec"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_strsplit",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "package_get_l_libs"
+        },
+        {
+            "arguments": [],
+            "function_name": "llvm.memset.p0i8.i64",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "table",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "post",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "invokeCallbacks"
+        },
+        {
+            "arguments": [],
+            "function_name": "closedir",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "varname",
+                    "argument_reason": "Called g_strdup, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "varval",
+                    "argument_reason": "Called g_strdup, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "define_global_variable"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 1,
+                    "argument_name": "s",
+                    "argument_reason": "Found a non-optional sentinel check in some loop of this function.",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "argcPtr",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "argvPtr",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptParseArgvString"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_slist_find",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "path",
+                    "argument_reason": "Called g_strsplit, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "separator",
+                    "argument_reason": "Called g_strsplit, marked as null terminated in this position",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "add_search_dirs"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_hash_table_insert",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poptGetNextOpt"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "execCommand"
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkg",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "func",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "include_private",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "get_merged"
+        },
+        {
+            "arguments": [],
+            "function_name": "llvm.lifetime.start",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "pkgs",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "packages_get_l_libs"
+        },
+        {
+            "arguments": [],
+            "function_name": "g_path_get_dirname",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "con",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "text",
+                    "argument_reason": "",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "poptSetOtherOptionHelp"
+        }
+    ]
+}
