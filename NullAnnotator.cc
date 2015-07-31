@@ -34,9 +34,11 @@ bool NullAnnotator::annotate(const StructElement &element) const {
 void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
-	usage.addRequired<IIGlueReader>();
+	usage.addRequired<FindLengthChecks>();
 	usage.addRequired<FindStructElements>();
+	usage.addRequired<IIGlueReader>();
 	usage.addRequired<LoopInfo>();
+	
 }
 
 void NullAnnotator::populateFromFile(const string &filename, const Module &module) {

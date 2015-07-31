@@ -1,5 +1,42 @@
 Printing analysis 'Promote Memory to Register' for function 'foo':
 Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Replace pointer arithmetic with GEP instructions':
+
+entry:
+  %cmp = icmp sgt i32 %x, 3
+  br i1 %cmp, label %if.then, label %if.else
+
+if.then:                                          ; preds = %entry
+  br label %if.end
+
+if.else:                                          ; preds = %entry
+  br label %if.end
+
+if.end:                                           ; preds = %if.else, %if.then
+  %index.0 = phi i32 [ 8, %if.then ], [ 2, %if.else ]
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %if.end
+  %sum.0 = phi i32 [ 0, %if.end ], [ %add, %for.inc ]
+  %i.0 = phi i32 [ 0, %if.end ], [ %inc, %for.inc ]
+  %cmp1 = icmp slt i32 %i.0, %index.0
+  br i1 %cmp1, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %idxprom = sext i32 %i.0 to i64
+  %arrayidx = getelementptr inbounds i32* %array, i64 %idxprom
+  %0 = load i32* %arrayidx, align 4
+  %add = add nsw i32 %sum.0, %0
+  br label %for.inc
+
+for.inc:                                          ; preds = %for.body
+  %inc = add nsw i32 %i.0, 1
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  ret i32 %sum.0
+Printing analysis 'Integer live-range splitting' for function 'foo':
+Pass::print not implemented for pass: 'Integer live-range splitting'!
 Printing analysis 'Symbolic range analysis annotator (metadata)':
 Pass::print not implemented for pass: 'Symbolic range analysis annotator (metadata)'!
 Printing analysis 'Find arrays with a statically known constant or parameter-bounded length.':

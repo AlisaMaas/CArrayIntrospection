@@ -1,6 +1,13 @@
 Printing analysis 'Promote Memory to Register' for function 'print':
 Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'bar':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Promote Memory to Register' for function 'foo':
+Pass::print not implemented for pass: 'Promote Memory to Register'!
 Printing analysis 'Replace pointer arithmetic with GEP instructions':
+
+entry:
+  ret void
 
 entry:
   br label %for.cond
@@ -14,8 +21,7 @@ for.body:                                         ; preds = %for.cond
   %idxprom = sext i32 %i.0 to i64
   %arrayidx = getelementptr inbounds i8* %x, i64 %idxprom
   %0 = load i8* %arrayidx, align 1
-  %conv = sext i8 %0 to i32
-  %call = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32 %conv)
+  call void @print(i8 signext %0)
   br label %for.inc
 
 for.inc:                                          ; preds = %for.body
@@ -23,14 +29,22 @@ for.inc:                                          ; preds = %for.body
   br label %for.cond
 
 for.end:                                          ; preds = %for.cond
-  ret void
+  ret i32 1
+
+entry:
+  %call = call i32 @bar(i8* %x, i32 %y)
+  ret i32 %call
 Printing analysis 'Integer live-range splitting' for function 'print':
+Pass::print not implemented for pass: 'Integer live-range splitting'!
+Printing analysis 'Integer live-range splitting' for function 'bar':
+Pass::print not implemented for pass: 'Integer live-range splitting'!
+Printing analysis 'Integer live-range splitting' for function 'foo':
 Pass::print not implemented for pass: 'Integer live-range splitting'!
 Printing analysis 'Symbolic range analysis annotator (metadata)':
 Pass::print not implemented for pass: 'Symbolic range analysis annotator (metadata)'!
-Printing analysis 'Find arrays with a statically known constant or parameter-bounded length.':
-Analyzing print
-Argument x has max index argument i32 %y
-Argument y has unknown max index.
-Analyzing printf
-Argument  has unknown max index.
+Printing analysis 'Determine whether and how to annotate each function with length information.':
+print with argument 0 should be annotated No length value.
+bar with argument 0 should be annotated Parameter length of 1.
+bar with argument 1 should be annotated No length value.
+foo with argument 0 should be annotated Parameter length of 1.
+foo with argument 1 should be annotated No length value.

@@ -1,5 +1,6 @@
 #define DEBUG_TYPE "length-annotator"
 #include "ArgumentReachesValue.hh"
+#include "ValueReachesValue.hh"
 #include "BacktrackPhiNodes.hh"
 #include "FindLengthChecks.hh"
 #include "IIGlueReader.hh"
@@ -215,7 +216,7 @@ bool LengthAnnotator::runOnModule(Module &module) {
 			for (pair<const Argument *, const Argument *> fixedResult: *results.second) {
 				annotations[fixedResult.first] = LengthInfo(PARAMETER_LENGTH, fixedResult.second->getArgNo());
 				errs() << "FOUND PARAM_LENGTH!!!\n";
-				abort();
+
 			}
 		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
@@ -301,17 +302,30 @@ bool LengthAnnotator::runOnModule(Module &module) {
 								", marked as parameter length of " + to_string(calleeResult.length) + " or " +
 								a->getName().str() + " in this position";
 								changed = true;
+								break;
 							}
-							else if (oldResult.length != calleeResult.length) {
-								//inconsistent because it looks like we have two length parameters.
-								annotations[&arg] = LengthInfo(INCONSISTENT, -1);
-								reasons[&arg] = "Result went from " + oldResult.toString() +
-								 " to " + calleeResult.toString();
-								 changed = true;
-								 nextArgumentPlease = true; //can skip because now that it's inconsistent, it can't become
-								 //consistent again.
-
-							}			
+							else if (oldResult.type == PARAMETER_LENGTH) {
+							    const Value &actualLengthArg = *call.getArgOperand(calleeResult.length);
+							    const Argument *formalLengthArg = nullptr;
+							    long int i = 0;
+							    for (const Argument &formalLengthArgCandidate : func.getArgumentList()) {
+							        if (i == oldResult.length) {
+							            formalLengthArg = &formalLengthArgCandidate;
+							            break;
+							        }
+							        i++;
+							    }
+                                if (formalLengthArg != nullptr &&
+                                    valueReachesValue(*formalLengthArg, actualLengthArg)) 
+                                    break;
+							}
+							//if we get here, the state is inconsistent
+                            annotations[&arg] = LengthInfo(INCONSISTENT, -1);
+                            reasons[&arg] = "Result went from " + oldResult.toString() +
+                             " to " + calleeResult.toString();
+                             changed = true;
+                             nextArgumentPlease = true; //can skip because now that it's inconsistent, it can't become
+                             //consistent again.			
 							break;
 
 						case NO_LENGTH_VALUE:
@@ -319,7 +333,15 @@ bool LengthAnnotator::runOnModule(Module &module) {
 
 							//this should just be safe to ignore, since we know nothing about the callee in this case.
 							break;
-
+                        case INCONSISTENT:
+                            DEBUG(dbgs() << "Length made inconsistent!\n");
+                            annotations[&arg] = LengthInfo(INCONSISTENT, -1);
+                            reasons[&arg] = "Result went from " + oldResult.toString() +
+                             " to " + calleeResult.toString();
+                             changed = true;
+                             nextArgumentPlease = true; //can skip because now that it's inconsistent, it can't become
+                             //consistent again.
+                             break;
 						default:
 							// should never happen!
 							abort();

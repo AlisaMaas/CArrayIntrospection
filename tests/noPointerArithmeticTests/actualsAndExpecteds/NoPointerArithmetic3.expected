@@ -3,14 +3,14 @@ Pass::print not implemented for pass: 'Promote Memory to Register'!
 Printing analysis 'Replace pointer arithmetic with GEP instructions':
 
 entry:
+  %idx.ext = sext i32 %y to i64
+  %add.ptr = getelementptr inbounds i32* %x, i64 %idx.ext
   br label %for.cond
 
 for.cond:                                         ; preds = %for.inc, %entry
   %0 = phi i32 [ 0, %entry ], [ %3, %for.inc ]
-  %i.0 = phi i32 [ 0, %entry ], [ %inc, %for.inc ]
-  %y.addr.0 = phi i32 [ %y, %entry ], [ %dec, %for.inc ]
   %1 = getelementptr i32* %x, i32 %0
-  %cmp = icmp sgt i32 %y.addr.0, 0
+  %cmp = icmp ne i32* %1, %add.ptr
   br i1 %cmp, label %for.body, label %for.end
 
 for.body:                                         ; preds = %for.cond
@@ -27,13 +27,11 @@ if.end:                                           ; preds = %for.body
 for.inc:                                          ; preds = %if.end
   %3 = add nsw i32 %0, 1
   %incdec.ptr = getelementptr inbounds i32* %1, i32 1
-  %dec = add nsw i32 %y.addr.0, -1
-  %inc = add nsw i32 %i.0, 1
   br label %for.cond
 
 for.end:                                          ; preds = %for.cond
   br label %return
 
 return:                                           ; preds = %for.end, %if.then
-  %retval.0 = phi i32 [ %i.0, %if.then ], [ -1, %for.end ]
+  %retval.0 = phi i32 [ %me, %if.then ], [ -1, %for.end ]
   ret i32 %retval.0

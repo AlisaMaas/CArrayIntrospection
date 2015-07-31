@@ -6,16 +6,15 @@ entry:
   br label %for.cond
 
 for.cond:                                         ; preds = %for.inc, %entry
-  %0 = phi i32 [ 0, %entry ], [ %3, %for.inc ]
   %i.0 = phi i32 [ 0, %entry ], [ %inc, %for.inc ]
-  %y.addr.0 = phi i32 [ %y, %entry ], [ %dec, %for.inc ]
-  %1 = getelementptr i32* %x, i32 %0
-  %cmp = icmp sgt i32 %y.addr.0, 0
+  %cmp = icmp slt i32 %i.0, %y
   br i1 %cmp, label %for.body, label %for.end
 
 for.body:                                         ; preds = %for.cond
-  %2 = load i32* %1, align 4
-  %cmp1 = icmp eq i32 %2, %me
+  %idxprom = sext i32 %i.0 to i64
+  %arrayidx = getelementptr inbounds i32* %x, i64 %idxprom
+  %0 = load i32* %arrayidx, align 4
+  %cmp1 = icmp eq i32 %0, %me
   br i1 %cmp1, label %if.then, label %if.end
 
 if.then:                                          ; preds = %for.body
@@ -25,9 +24,6 @@ if.end:                                           ; preds = %for.body
   br label %for.inc
 
 for.inc:                                          ; preds = %if.end
-  %3 = add nsw i32 %0, 1
-  %incdec.ptr = getelementptr inbounds i32* %1, i32 1
-  %dec = add nsw i32 %y.addr.0, -1
   %inc = add nsw i32 %i.0, 1
   br label %for.cond
 

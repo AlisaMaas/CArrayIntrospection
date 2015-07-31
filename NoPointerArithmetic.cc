@@ -33,7 +33,6 @@ namespace {
 
 	bool NoPointerArithmetic::runOnModule(Module &module) {
 		bool modified = false;
-		LLVMContext &context = module.getContext();
 		for (Function &func : module) {
 			for(Argument &arg : func.getArgumentList()) {
 				if (arg.getType()->isPointerTy()) {
@@ -46,13 +45,13 @@ namespace {
 							}
 							int argument = 0;
 							int other = 1;
-							Value *toAdd = nullptr;
-							BinaryOperator *oldAdd = nullptr;
+							/*Value *toAdd = nullptr;
+							BinaryOperator *oldAdd = nullptr;*/
 							if (node->getIncomingValue(0) != &arg) {
 								argument = 1;
 								other = 0;
 							}
-							if (BinaryOperator *binOp = dyn_cast<BinaryOperator>(node->getIncomingValue(other))) {
+							/*if (BinaryOperator *binOp = dyn_cast<BinaryOperator>(node->getIncomingValue(other))) {
 								if (!binOp->getOpcode() != Instruction::Add) {
 									errs() << "Not matching pattern because the non-argument was not an add\n";
 									errs() << *node << "\n";
@@ -89,8 +88,9 @@ namespace {
 								errs() << "With " << *replacement << "\n";
 								node->replaceAllUsesWith(gep);
 							}
-							else if (GetElementPtrInst *gepi = dyn_cast<GetElementPtrInst>(node->getIncomingValue(other))){
+							else*/ if (GetElementPtrInst *gepi = dyn_cast<GetElementPtrInst>(node->getIncomingValue(other))){
 								errs() << "Found a gep!\n";
+								gepi->dump();
 								if (gepi->getPointerOperand() != node) {
 									errs() << "Not matching pattern because the gep didn't have the pointer in it.\n";
 									errs() << *gepi << "\n";
@@ -106,13 +106,11 @@ namespace {
                                     node->getParent()->getTerminator()->dump();
 
 								    modified = true;
-								    IntegerType* tInt = Type::getInt32Ty(context);
+								    Type* tInt = (*gepi->idx_begin())->getType();
 								    errs() << *tInt << "\n";
-								    PHINode *addPHI = PHINode::Create(tInt, 2, "", node);
-								    errs() << "hii\n";
+								    PHINode *addPHI = PHINode::Create(tInt, 2, "", node->getParent()->begin());
 								    node->getParent()->getTerminator()->dump();
-
-								    BinaryOperator *add = BinaryOperator::Create(Instruction::Add, addPHI, *gepi->idx_begin(), "", gepi);
+								    BinaryOperator *add = BinaryOperator::CreateNSW(Instruction::Add, addPHI, *gepi->idx_begin(), "", gepi);
 								    
 								    errs() << "Add \n";
 								    add->dump();
@@ -126,6 +124,7 @@ namespace {
 								    errs() << "Replacing " << *node << "\n";
 								    errs() << "With " << *replacement << "\n";
 								    node->replaceAllUsesWith(replacement);
+								    node->eraseFromParent();
 								}
 								//pointer should be node, 
 								//index can be k
@@ -151,7 +150,11 @@ namespace {
 		return modified;
 	}
 
-	void NoPointerArithmetic::print(raw_ostream &, const Module *) const {
-	
+	void NoPointerArithmetic::print(raw_ostream &out, const Module *module) const {
+	    for (const Function &func : *module) {
+	        for (const BasicBlock &block : func) {
+	            out << block;
+	        }
+	    }
 	}
 }

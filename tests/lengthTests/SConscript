@@ -1,4 +1,14 @@
 Import('env')
 
-env.RunTests(PLUGIN_ARGS=('-mem2reg', '-sra-annotator', '-find-length'))
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-no-pointer-arithmetic', '-redef', '-sra-annotator', '-find-length'))
 
+########################################################################
+#
+#  subdirectories
+#
+
+SConscript(dirs=['interprocedural'], exports='env')
+
+# Local variables:
+# flycheck-flake8rc: "../scons-flake8.ini"
+# End:

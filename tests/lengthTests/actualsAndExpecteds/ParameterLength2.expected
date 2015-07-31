@@ -1,5 +1,51 @@
 Printing analysis 'Promote Memory to Register' for function 'foo':
 Pass::print not implemented for pass: 'Promote Memory to Register'!
+Printing analysis 'Replace pointer arithmetic with GEP instructions':
+
+entry:
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %entry
+  %sum.0 = phi i32 [ 0, %entry ], [ %add, %for.inc ]
+  %i.0 = phi i32 [ 0, %entry ], [ %inc, %for.inc ]
+  %cmp = icmp sgt i32 %x, %i.0
+  br i1 %cmp, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %idxprom = sext i32 %i.0 to i64
+  %arrayidx = getelementptr inbounds i32* %array, i64 %idxprom
+  %0 = load i32* %arrayidx, align 4
+  %add = add nsw i32 %sum.0, %0
+  br label %for.inc
+
+for.inc:                                          ; preds = %for.body
+  %inc = add nsw i32 %i.0, 1
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  br label %for.cond2
+
+for.cond2:                                        ; preds = %for.inc8, %for.end
+  %sum.1 = phi i32 [ %sum.0, %for.end ], [ %add7, %for.inc8 ]
+  %i1.0 = phi i32 [ 0, %for.end ], [ %inc9, %for.inc8 ]
+  %cmp3 = icmp sgt i32 %y, %i1.0
+  br i1 %cmp3, label %for.body4, label %for.end10
+
+for.body4:                                        ; preds = %for.cond2
+  %idxprom5 = sext i32 %i1.0 to i64
+  %arrayidx6 = getelementptr inbounds i32* %array, i64 %idxprom5
+  %1 = load i32* %arrayidx6, align 4
+  %add7 = add nsw i32 %sum.1, %1
+  br label %for.inc8
+
+for.inc8:                                         ; preds = %for.body4
+  %inc9 = add nsw i32 %i1.0, 1
+  br label %for.cond2
+
+for.end10:                                        ; preds = %for.cond2
+  ret i32 %sum.1
+Printing analysis 'Integer live-range splitting' for function 'foo':
+Pass::print not implemented for pass: 'Integer live-range splitting'!
 Printing analysis 'Symbolic range analysis annotator (metadata)':
 Pass::print not implemented for pass: 'Symbolic range analysis annotator (metadata)'!
 Printing analysis 'Find arrays with a statically known constant or parameter-bounded length.':
