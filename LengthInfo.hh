@@ -7,7 +7,8 @@ enum LengthType {
 	NO_LENGTH_VALUE,
 	PARAMETER_LENGTH,
 	FIXED_LENGTH,
-	INCONSISTENT
+	INCONSISTENT,
+	SENTINEL_TERMINATED
 };
 
 class LengthInfo {
@@ -25,6 +26,7 @@ class LengthInfo {
 				case PARAMETER_LENGTH: return "Param";
 				case FIXED_LENGTH: return "Fixed";
 				case INCONSISTENT: return "Bad  ";
+				case SENTINEL_TERMINATED: return "Sentinel";
 			}
 			return "Impossible";
 		}
@@ -39,6 +41,9 @@ class LengthInfo {
 				stream << "Fixed length of " << length;
 				return stream.str();
 				case INCONSISTENT: return "Inconsistent length";
+				case SENTINEL_TERMINATED: 
+				stream << "Sentinel-terminated by " << length;
+				return stream.str();
 			}
 			return "Impossible";
 		}

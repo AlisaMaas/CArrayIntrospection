@@ -1,5 +1,5 @@
 #define DEBUG_TYPE "null-annotator-helper"
-#include "Answer.hh"
+#include "LengthInfo.hh"
 #include "BacktrackPhiNodes.hh"
 #include "FindSentinelHelper.hh"
 #include "IIGlueReader.hh"
@@ -38,33 +38,84 @@ using namespace boost::algorithm;
 using namespace llvm;
 using namespace std;
 
-Answer mergeAnswers(Answer first, Answer second) {
-    switch(first) {
-        case DONT_CARE:
+LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
+    switch(first.type) {
+        case NO_LENGTH_VALUE:
             return second;
-        case NON_NULL_TERMINATED:
+        case INCONSISTENT:
             return first;
-        case NULL_TERMINATED:
-            switch(second) {
-                case DONT_CARE:
-                    return first;
-                case NON_NULL_TERMINATED:
+        case FIXED_LENGTH:
+            switch(second.type) {
+             case FIXED_LENGTH:
+                if (first.length < second.length) {
                     return second;
-                case NULL_TERMINATED:
+                }
+                else {
                     return first;
-                default:
-                    abort();
-                    return DONT_CARE;
+                }
+            
+            case NO_LENGTH_VALUE:
+                return first;
+            default:
+                return second;
             }
-        default:
-            abort();
-            return DONT_CARE;
+        case SENTINEL_TERMINATED:
+            switch(second.type) {
+                case NO_LENGTH_VALUE:
+                case FIXED_LENGTH:
+                case SENTINEL_TERMINATED:
+                    return first;
+                case INCONSISTENT:
+                case PARAMETER_LENGTH:
+                    return second; //parameter-length beats sentinel-terminated
+            }
+        case PARAMETER_LENGTH:
+            switch(second.type) {
+                case NO_LENGTH_VALUE:
+                case FIXED_LENGTH:
+                case SENTINEL_TERMINATED:
+                    return first;
+                case PARAMETER_LENGTH:
+                    if (first.length == second.length) {
+                        return first;
+                    }
+                    else {
+                        return LengthInfo(INCONSISTENT, -1);
+                    }
+                case INCONSISTENT:
+                    return second;
+            }
     }
+    abort();
+    return LengthInfo();
 }
 
-bool annotate(const ValueSet &value, const AnnotationMap &annotations) {
+pair<int, int> annotate(const LengthInfo &info) {
+    switch (info.type) {
+	    case NO_LENGTH_VALUE:
+	        return pair<int, int>(0,-1);
+	    case INCONSISTENT:
+	        return pair<int, int>(1, -1);
+	    case SENTINEL_TERMINATED:
+	        return pair<int, int>(2, info.length);
+	    case PARAMETER_LENGTH:
+	        return pair<int, int>(6, info.length);
+	    case FIXED_LENGTH:
+	        return pair<int, int>(7, info.length);
+	    default:
+	        abort();
+	        return pair<int, int>(-1, -1);
+	}
+}
+
+pair<int, int> annotate(const ValueSet &value, const AnnotationMap &annotations) {
 	const AnnotationMap::const_iterator found = annotations.find(&value);
-	return found != annotations.end() && found->second == NULL_TERMINATED;
+	if(found != annotations.end()) {
+	    return annotate(found->second);
+	}
+	else {
+	    return pair<int, int>(0, -1);
+	}
 }
 
 const ValueSet* findAssociatedValueSet(const Value *value, const FunctionToValueSets &toCheck) {
@@ -79,18 +130,18 @@ const ValueSet* findAssociatedValueSet(const Value *value, const FunctionToValue
 
 }
 
-Answer findAssociatedAnswer(const Value *value, const AnnotationMap &annotations) {
+LengthInfo findAssociatedAnswer(const Value *value, const AnnotationMap &annotations) {
 	for (auto mapping : annotations) {
 		if (mapping.first->count(value)) {
 			return mapping.second;
 		}
 	}
-	return DONT_CARE;
+	return LengthInfo();
 }
 
-Answer getAnswer(const ValueSet &value, const AnnotationMap &annotations) {
+LengthInfo getAnswer(const ValueSet &value, const AnnotationMap &annotations) {
 	const AnnotationMap::const_iterator found = annotations.find(&value);
-	return found == annotations.end() ? DONT_CARE : found->second;
+	return found == annotations.end() ? LengthInfo() : found->second;
 }
 
 struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
@@ -109,9 +160,9 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
         Value* value = store.getValueOperand();
         const ValueSet *valueSet = findAssociatedValueSet(value, toCheck);
         if (valueSet) {
-            Answer old = annotations[valueSet];
+            LengthInfo old = annotations[valueSet];
             annotations[valueSet] = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
-            if (old != annotations[valueSet]) {
+            if (old.type != annotations[valueSet].type || old.length != annotations[valueSet].length) {
                 std::stringstream reason;
                 reason << " pushed information from a store to ";
                 reason << pointer->getName().str();
@@ -120,18 +171,18 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
                 reasons[*valueSet] = reason.str();
                 DEBUG(dbgs() << "Updating answer!\n");  
             }
-            changed |= (old != annotations[valueSet]);
+            changed |= (old.type != annotations[valueSet].type || old.length != annotations[valueSet].length);
         }
     }
 };
 
 
-static pair<pair<Answer, bool>, string> trackThroughCalls(CallInstSet &calls, const Value *value, AnnotationMap &annotations) {
+static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls, const Value *value, AnnotationMap &annotations) {
 	// if we haven't yet continued, process evidence from callees.
-	bool foundNonNullTerminated = false;
+	//bool foundNonNullTerminated = false;
 	bool nextPlease = false;
 	std::stringstream reason;
-	Answer answer = DONT_CARE;
+	LengthInfo answer;
 	for (const CallInst &call : calls | indirected) {
 		DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
 		DEBUG(dbgs() << "Call: " << call.getName() << "\n");
@@ -155,24 +206,29 @@ static pair<pair<Answer, bool>, string> trackThroughCalls(CallInstSet &calls, co
 				continue;
 			}
 			DEBUG(dbgs() << "About to enter the switch\n");
-			switch (findAssociatedAnswer(parameter, annotations)) {
-			case NULL_TERMINATED:
-				answer = NULL_TERMINATED;
+			LengthInfo formalAnswer = findAssociatedAnswer(parameter, annotations);
+			switch (formalAnswer.type) {
+
+	        case NO_LENGTH_VALUE:
+	            break;
+	        case INCONSISTENT:
+	            answer = formalAnswer; //if treated inconsistently in a call, it's inconsistent
+	            break;
+	        case FIXED_LENGTH:
+	            answer = formalAnswer;
+	            reason << " found a call to " << call.getCalledFunction()->getName().str();
+	            reason << " with fixed length of " << formalAnswer.length << " passing " << value->getName().str();
+	            break;
+	        case PARAMETER_LENGTH:
+	            answer = formalAnswer;
+	            reason << "found a call to " << call.getCalledFunction()->getName().str();
+	            reason << " with parameter length of " << formalAnswer.length << " passing " << value->getName().str();
+	            break;
+			case SENTINEL_TERMINATED:
+				answer = formalAnswer;
 				reason << " found a call to " << call.getCalledFunction()->getName().str();
 				reason << " passing " << value->getName().str();
 				nextPlease = true;
-				break;
-
-			case NON_NULL_TERMINATED:
-				// maybe set/check a flag for error reporting
-				foundNonNullTerminated = true;
-				break;
-
-			case DONT_CARE:
-				// maybe set/check a flag for error reporting
-				if (foundNonNullTerminated) {
-					DEBUG(dbgs() << "Found both DONT_CARE and NON_NULL_TERMINATED among callees.\n");
-				}
 				break;
 
 			default:
@@ -185,8 +241,8 @@ static pair<pair<Answer, bool>, string> trackThroughCalls(CallInstSet &calls, co
 			break;
 		}
 	}
-	pair<Answer, bool> partOne(answer, nextPlease);
-	return pair<pair<Answer, bool>, string> (partOne, reason.str());
+	pair<LengthInfo, bool> partOne(answer, nextPlease);
+	return pair<pair<LengthInfo, bool>, string> (partOne, reason.str());
 }
 
 unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &module) {
@@ -205,6 +261,7 @@ unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &
 }
 
 //needs to be called per function.
+//TODO: rename for consistency - this is just for finding sentinel checks in the loop
 static pair<bool, bool> processLoops(vector<LoopInformation> &LI, const Value* toCheck) {
 	pair<bool, bool> result(false, false);
 	DEBUG(dbgs() << "Getting to look through loops now!\n");
@@ -247,44 +304,47 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                 if ((func.isDeclaration())) continue;
                 if (!checkNullTerminated.count(&func)) continue;
                 for (const ValueSet *valueSet : checkNullTerminated.at(&func)) {
-                    Answer oldAnswer = getAnswer(*valueSet, annotations);
-                    Answer answer = oldAnswer;
+                    LengthInfo oldAnswer = getAnswer(*valueSet, annotations);
+                    LengthInfo answer = oldAnswer;
                     for (const Value * value : *valueSet) {
                         //go through the loops.
-                        Answer valueAnswer = DONT_CARE;
+                        LengthInfo valueAnswer;
                         //bool existsOptionalCheck = false;
                         if (firstTime) {
                             pair<bool, bool> result = processLoops(info.at(&func), value);
-                            valueAnswer = result.second? NULL_TERMINATED : DONT_CARE;
-                            if (valueAnswer == NULL_TERMINATED) {
+                            valueAnswer = result.second? LengthInfo(SENTINEL_TERMINATED, 0) : LengthInfo();
+                            if (valueAnswer.type == SENTINEL_TERMINATED) {
                                 std::stringstream reason;
                                 reason << "found a non optional sentinel check for " << value->getName().str() << " in " << func.getName().str();
                                 reasons[*valueSet] = reason.str();
                             }
+                            //TODO: could do stuff here if we find an optional sentinel check, but it seems unwarranted.
+                            //The thing we would do is make it inconsistent. But right now this doesn't give us any false positives
+                            //So we don't bother.
                             //existsOptionalCheck = result.first;
                         }
                         // if we haven't yet continued, process evidence from callees.
                         DEBUG(dbgs() << "About to track through the calls\n");
-                        pair<pair<Answer, bool>, string> callResponse = trackThroughCalls(functionToCallSites.at(&func), value, annotations);
+                        pair<pair<LengthInfo, bool>, string> callResponse = trackThroughCalls(functionToCallSites.at(&func), value, annotations);
                         if (!callResponse.second.empty()) {
                             reasons[*valueSet] = callResponse.second;
                         }
                         DEBUG(dbgs() << "Finished going through the calls\n");
                         DEBUG(dbgs() << "Done finding sentinel checks\n");
-                        DEBUG(dbgs() << "Result so far is " << valueAnswer << " \n");
+                        DEBUG(dbgs() << "Result so far is " << valueAnswer.toString() << " \n");
                         // otherwise it stays as DONT_CARE for now.
                         valueAnswer = mergeAnswers(valueAnswer, callResponse.first.first);
-                        DEBUG(dbgs() << "After merging, result is " << valueAnswer << "\n");
+                        DEBUG(dbgs() << "After merging, result is " << valueAnswer.toString() << "\n");
                         /*if (firstTime && valueAnswer == DONT_CARE) {
                             if (existsOptionalCheck) { //exists an optional sentinel check, and there's no evidence it is null terminated.
                                 valueAnswer = NON_NULL_TERMINATED;
                             }
                         }*/
-                        DEBUG(dbgs() << "After looking for optional loops, result is " << valueAnswer << "\n");
+                        //DEBUG(dbgs() << "After looking for optional loops, result is " << valueAnswer << "\n");
                         answer = mergeAnswers(valueAnswer, answer);
-                        DEBUG(dbgs() << "After merging, result is " << answer << "\n");
+                        DEBUG(dbgs() << "After merging, result is " << answer.toString() << "\n");
                     }
-                    changed |= answer != oldAnswer;
+                    changed |= (answer.type != oldAnswer.type || answer.length != oldAnswer.length);
                     annotations[valueSet] = answer;
                 }
             }

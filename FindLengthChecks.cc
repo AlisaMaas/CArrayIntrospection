@@ -7,7 +7,9 @@
 #include <llvm/Analysis/LoopPass.h>
 #include <llvm/IR/InstVisitor.h>
 #include <llvm/IR/Module.h>
+#include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
+#include <llvm/Support/raw_os_ostream.h>
 #include <SymbolicRangeAnalysis.h>
 #include <fstream>
 
@@ -170,7 +172,11 @@ static const RegisterPass<FindLengthChecks> registration("find-length",
 		true, true);
 
 char FindLengthChecks::ID;
-
+static llvm::cl::opt<std::string>
+    testOutputName("test-find-length",
+        llvm::cl::Optional,
+        llvm::cl::value_desc("filename"),
+        llvm::cl::desc("Filename to write results to for regression tests"));
 
 inline FindLengthChecks::FindLengthChecks()
 	: ModulePass(ID) {
@@ -196,6 +202,13 @@ bool FindLengthChecks::runOnModule(Module &module) {
 			visitor.visit(visitee);
 		}
 	}
+	if (!testOutputName.empty()) {
+        ofstream out(testOutputName);
+        llvm::raw_os_ostream sink(out);	
+        print(sink, &module);
+        sink.flush();
+        out.close();
+    }
 	// read-only pass never changes anything
 	return false;
 }
@@ -208,11 +221,11 @@ void FindLengthChecks::print(raw_ostream &sink, const Module *module) const {
 		sink << "Analyzing " << func.getName() << "\n";
 		for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end())) {
 			if (constantMap.count(&arg))
-				sink << "Argument " << arg.getName() << " has max index " << constantMap.at(&arg) << '\n';
+				sink << "\tArgument " << arg.getName() << " has max index " << constantMap.at(&arg) << '\n';
             else if (parameterLengthMap.count(&arg))
-				sink << "Argument " << arg.getName() << " has max index argument " << *parameterLengthMap.at(&arg) << '\n';
+				sink << "\tArgument " << arg.getName() << " has max index argument " << *parameterLengthMap.at(&arg) << '\n';
 			else if (iiglue.isArray(arg))
-				sink << "Argument " << arg.getName() << " has unknown max index.\n";
+				sink << "\tArgument " << arg.getName() << " has unknown max index.\n";
 		}
 	}
 	

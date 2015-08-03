@@ -14,7 +14,9 @@
 #include <boost/range/irange.hpp>
 #include <llvm/Analysis/LoopInfo.h>
 #include <llvm/IR/Module.h>
+#include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
+#include <llvm/Support/raw_os_ostream.h>
 
 using namespace boost;
 using namespace boost::adaptors;
@@ -28,7 +30,11 @@ static const RegisterPass<FindStructSentinels> registration("find-struct-sentine
         true, true);
 
 char FindStructSentinels::ID;
-
+static llvm::cl::opt<std::string>
+    testOutputName("test-struct-sentinels",
+        llvm::cl::Optional,
+        llvm::cl::value_desc("filename"),
+        llvm::cl::desc("Filename to write results to for regression tests"));
 
 inline FindStructSentinels::FindStructSentinels()
     : ModulePass(ID) {
@@ -85,6 +91,13 @@ bool FindStructSentinels::runOnModule(Module &module) {
             }
             DEBUG(dbgs() << "Done with the missing elements\n");
         }
+    }
+    if (!testOutputName.empty()) {
+        ofstream out(testOutputName);
+        llvm::raw_os_ostream sink(out);	
+        print(sink, &module);
+        sink.flush();
+        out.close();
     }
     // read-only pass never changes anything
     return false;

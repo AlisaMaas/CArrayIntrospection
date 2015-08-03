@@ -1,6 +1,7 @@
 Import('env')
 
-env.RunTests(PLUGIN_ARGS=('-mem2reg', '-no-pointer-arithmetic', '-redef', '-sra-annotator', '-find-length'))
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-no-pointer-arithmetic', '-redef', '-sra-annotator', '-find-length'),
+TEST='find-length')
 
 ########################################################################
 #

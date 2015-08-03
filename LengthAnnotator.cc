@@ -22,6 +22,7 @@
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
+#include <llvm/Support/raw_os_ostream.h>
 #include <unordered_map>
 
 #if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) >= 3005
@@ -77,6 +78,12 @@ namespace {
 			cl::Optional,
 			cl::value_desc("filename"),
 			cl::desc("Filename to write results to"));
+	static llvm::cl::opt<std::string>
+        testOutputName("test-length-annotator",
+        llvm::cl::Optional,
+        llvm::cl::value_desc("filename"),
+        llvm::cl::desc("Filename to write results to for regression tests"));
+
 }
 
 inline LengthAnnotator::LengthAnnotator()
@@ -357,6 +364,13 @@ bool LengthAnnotator::runOnModule(Module &module) {
 	} while (changed);
 	if (!outputFileName.empty())
 		dumpToFile(outputFileName, iiglue, module);
+	if (!testOutputName.empty()) {
+        ofstream out(testOutputName);
+        llvm::raw_os_ostream sink(out);	
+        print(sink, &module);
+        sink.flush();
+        out.close();
+    }
 	return false;
 }
 

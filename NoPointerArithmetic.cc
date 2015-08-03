@@ -1,8 +1,11 @@
 #define DEBUG_TYPE "no-pointer-arithmetic"
+#include <fstream>
 #include <llvm/IR/Constants.h>
 #include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
+#include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
+#include <llvm/Support/raw_os_ostream.h>
 
 using namespace llvm;
 using namespace std;
@@ -19,6 +22,11 @@ namespace {
 	static const RegisterPass<NoPointerArithmetic> registration("no-pointer-arithmetic",
 			"Replace pointer arithmetic with GEP instructions",
 			true, false);
+    static llvm::cl::opt<std::string>
+        testOutputName("test-no-pointer-arithmetic",
+        llvm::cl::Optional,
+        llvm::cl::value_desc("filename"),
+        llvm::cl::desc("Filename to write results to for regression tests"));
 
 	char NoPointerArithmetic::ID;
 
@@ -146,7 +154,13 @@ namespace {
 	            block.dump();
 	        }
 	    }
-	
+	    if (!testOutputName.empty()) {
+            std::ofstream out(testOutputName);
+            llvm::raw_os_ostream sink(out);	
+            print(sink, &module);
+            sink.flush();
+            out.close();
+        }
 		return modified;
 	}
 

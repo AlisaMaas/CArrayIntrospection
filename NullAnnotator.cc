@@ -5,7 +5,7 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/range/combine.hpp>
 #include <fstream>
-
+#include <llvm/Support/raw_os_ostream.h>
 
 using namespace boost;
 using namespace boost::adaptors;
@@ -21,14 +21,42 @@ inline NullAnnotator::NullAnnotator()
 llvm::LoopInfo& NullAnnotator::runLoopInfo(llvm::Function &func) {
             return getAnalysis<llvm::LoopInfo>(func);
 }
-
-bool NullAnnotator::annotate(const Value &value) const {
-	return findAssociatedAnswer(&value, annotations) == NULL_TERMINATED;
+/*
+    NO_LENGTH_VALUE,
+	PARAMETER_LENGTH,
+	FIXED_LENGTH,
+	INCONSISTENT,
+	SENTINEL_TERMINATED
+*/
+pair<int, int> NullAnnotator::annotate(const LengthInfo &info) const {
+    switch (info.type) {
+	    case NO_LENGTH_VALUE:
+	        return pair<int, int>(0,-1);
+	    case INCONSISTENT:
+	        return pair<int, int>(1, -1);
+	    case SENTINEL_TERMINATED:
+	        return pair<int, int>(2, info.length);
+	    case PARAMETER_LENGTH:
+	        return pair<int, int>(6, info.length);
+	    case FIXED_LENGTH:
+	        return pair<int, int>(7, info.length);
+	    default:
+	        abort();
+	        return pair<int, int>(-1, -1);
+	}
+}
+pair<int, int> NullAnnotator::annotate(const Value &value) const {
+	return annotate(findAssociatedAnswer(&value, annotations));
 }
 
-bool NullAnnotator::annotate(const StructElement &element) const {
+pair<int, int> NullAnnotator::annotate(const StructElement &element) const {
 	const AnnotationMap::const_iterator found = annotations.find(structElements.at(element));
-	return found != annotations.end() && found->second == NULL_TERMINATED;
+	if(found != annotations.end()) {
+	    return annotate(found->second);
+	}
+	else {
+	    return pair<int, int>(0, -1);
+	}
 }
 
 void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
@@ -42,7 +70,9 @@ void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
 }
 
 void NullAnnotator::populateFromFile(const string &filename, const Module &module) {
-	DEBUG(dbgs() << "Top of populateFromFile\n");
+(void)filename;
+(void)module;
+	/*DEBUG(dbgs() << "Top of populateFromFile\n");
 	ptree root;
 	read_json(filename, root);
 	const ptree &libraryFunctions = root.get_child("library_functions");
@@ -73,24 +103,31 @@ void NullAnnotator::populateFromFile(const string &filename, const Module &modul
 			}
 			annotations[argumentToValueSet.at(&argument)] = annotation;
 		}
-	}
+	}*/
 }
 
 
 template<typename Detail> static
 void dumpArgumentDetails(ostream &out, const Function::ArgumentListType &argumentList, const char key[], const Detail &detail) {
-	out << "\t\t\t\"" << key << "\": [";
+(void)out;
+(void)argumentList;
+(void)key;
+(void)detail;
+	/*out << "\t\t\t\"" << key << "\": [";
 	for (const Argument &argument : argumentList) {
 		if (&argument != argumentList.begin())
 			out << ", ";
 		out << detail(argument);
 	}
-	out << ']';
+	out << ']';*/
 }
 
 
 void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
-	ofstream out(filename);
+(void)filename;
+(void)iiglue;
+(void)module;
+	/*ofstream out(filename);
 	out << "{\n\t\"library_functions\": {\n";
 	for (const Function &function : module) {
 		if (function.isDeclaration()) continue;
@@ -130,18 +167,20 @@ void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglu
 
 		out << "\n\t\t}";
 	}
-	out << "\n\t}\n}\n";
+	out << "\n\t}\n}\n";*/
 }
 
 
 bool NullAnnotator::runOnModule(Module &module) {
 	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
     
-	for (const string &dependency : dependencyFileNames) {
+	/*for (const string &dependency : dependencyFileNames) {
 		populateFromFile(dependency, module);
-	}
+	}*/
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
     const FindStructElements &findElements = getAnalysis<FindStructElements>();
+    const FindLengthChecks &findLength = getAnalysis<FindLengthChecks>();
+    (void) findLength;
     structElements = findElements.getStructElements();
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
     FunctionToLoopInformation functionLoopInfo;
@@ -187,6 +226,13 @@ bool NullAnnotator::runOnModule(Module &module) {
 	if (!outputFileName.empty())
 		dumpToFile(outputFileName, iiglue, module);
 	DEBUG(dbgs() << "Done!\n");
+    if (!testOutputName.empty()) {
+        ofstream out(testOutputName);
+        llvm::raw_os_ostream sink(out);	
+        print(sink, &module);
+        sink.flush();
+        out.close();
+    }
 	return false;
 }
 
@@ -196,14 +242,15 @@ void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
 	for (const Function &func : *module) {
 		if (func.isDeclaration()) continue;
 		for (const Argument &arg : iiglue.arrayArguments(func))
-			if (annotate(arg))
+			if (annotate(arg).first == 2)
 				sink << func.getName() << " with argument " << arg.getArgNo()
-				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations))
+				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations)).toString()
 				     << ")  because " << reasons.at(*argumentToValueSet.at(&arg)) << "\n";
 	}
         for (auto element : structElements)
-            if (annotate(element.first))
+            if (annotate(element.first).first == 2)
                 sink << str(&element.first)
-                     << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations))
+                     << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations)).toString()
                      << ") because " << reasons.at(*element.second) << ".\n";
+    
 }

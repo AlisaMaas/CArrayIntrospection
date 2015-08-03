@@ -1,37 +1,3 @@
-Printing analysis 'Promote Memory to Register' for function 'foo':
-Pass::print not implemented for pass: 'Promote Memory to Register'!
-Printing analysis 'Replace pointer arithmetic with GEP instructions':
-
-entry:
-  br label %for.cond
-
-for.cond:                                         ; preds = %for.inc, %entry
-  %sum.0 = phi i32 [ 0, %entry ], [ %add2, %for.inc ]
-  %i.0 = phi i32 [ 0, %entry ], [ %inc, %for.inc ]
-  %cmp = icmp sgt i32 %x, %i.0
-  br i1 %cmp, label %for.body, label %for.end
-
-for.body:                                         ; preds = %for.cond
-  %arrayidx = getelementptr inbounds i32* %array, i64 4
-  %0 = load i32* %arrayidx, align 4
-  %add = add nsw i32 %sum.0, %0
-  %idxprom = sext i32 %i.0 to i64
-  %arrayidx1 = getelementptr inbounds i32* %array, i64 %idxprom
-  %1 = load i32* %arrayidx1, align 4
-  %add2 = add nsw i32 %add, %1
-  br label %for.inc
-
-for.inc:                                          ; preds = %for.body
-  %inc = add nsw i32 %i.0, 1
-  br label %for.cond
-
-for.end:                                          ; preds = %for.cond
-  ret i32 %sum.0
-Printing analysis 'Integer live-range splitting' for function 'foo':
-Pass::print not implemented for pass: 'Integer live-range splitting'!
-Printing analysis 'Symbolic range analysis annotator (metadata)':
-Pass::print not implemented for pass: 'Symbolic range analysis annotator (metadata)'!
-Printing analysis 'Find arrays with a statically known constant or parameter-bounded length.':
 Analyzing foo
-Argument array has max index argument i32 %x
-Argument x has unknown max index.
+	Argument array has max index argument i32 %x
+	Argument x has unknown max index.

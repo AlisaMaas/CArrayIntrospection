@@ -13,7 +13,9 @@
 #include <boost/range/irange.hpp>
 #include <llvm/Analysis/LoopInfo.h>
 #include <llvm/IR/Module.h>
+#include <llvm/Support/raw_os_ostream.h>
 #include <llvm/Support/Debug.h>
+#include <llvm/Support/raw_os_ostream.h>
 
 using namespace boost;
 using namespace boost::adaptors;
@@ -25,6 +27,11 @@ using namespace std;
 static const RegisterPass<FindArraySentinels> registration("find-array-sentinels",
 		"Find each branch used to exit a loop when a sentinel value is found in an array",
 		true, true);
+static llvm::cl::opt<std::string>
+    testOutputName("test-find-array-sentinels",
+        llvm::cl::Optional,
+        llvm::cl::value_desc("filename"),
+        llvm::cl::desc("Filename to write results to for regression tests"));
 
 char FindArraySentinels::ID;
 
@@ -95,6 +102,13 @@ bool FindArraySentinels::runOnModule(Module &module) {
 			DEBUG(dbgs() << "Done with the missing arguments\n");
 		}
 	}
+	if (!testOutputName.empty()) {
+        ofstream out(testOutputName);
+        llvm::raw_os_ostream sink(out);	
+        print(sink, &module);
+        sink.flush();
+        out.close();
+    }
 	// read-only pass never changes anything
 	return false;
 }

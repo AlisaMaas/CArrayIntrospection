@@ -25,6 +25,7 @@ public:
 private:
 	std::map<llvm::Function const*, ArgumentToMaxIndexMap> maxIndexes;
 	std::map<llvm::Function const*, LengthArgumentMap> lengthArguments;
+	
 };
 
 ////////////////////////////////////////////////////////////////////////

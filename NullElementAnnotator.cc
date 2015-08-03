@@ -13,6 +13,7 @@
 #include <llvm/Pass.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
+#include <llvm/Support/raw_os_ostream.h>
 
 #include <map>
 #include <unordered_map>
@@ -65,6 +66,12 @@ namespace {
 			cl::Optional,
 			cl::value_desc("filename"),
 			cl::desc("Filename to write results to"));
+	static llvm::cl::opt<std::string>
+        testOutputName("test-null-element-annotator",
+        llvm::cl::Optional,
+        llvm::cl::value_desc("filename"),
+        llvm::cl::desc("Filename to write results to for regression tests"));
+
 }
 
 inline NullArgumentAnnotator::NullArgumentAnnotator()
@@ -216,6 +223,13 @@ bool NullArgumentAnnotator::runOnModule(Module &module) {
 	//if (!outputFileName.empty())
 	//	dumpToFile(outputFileName, iiglue, module);
 	DEBUG(dbgs() << "Done!\n");
+	if (!testOutputName.empty()) {
+        ofstream out(testOutputName);
+        llvm::raw_os_ostream sink(out);	
+        print(sink, &module);
+        sink.flush();
+        out.close();
+    }
 	return false;
 }
 

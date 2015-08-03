@@ -1,5 +1,5 @@
 Import('env')
 
-#env.RunTests(PLUGIN_ARGS=('-mem2reg', '-find-array-sentinels', '-debug'))
+#env.RunTests(PLUGIN_ARGS=('-mem2reg', '-find-array-sentinels', '-debug'), TEST='find-array-sentinels')
 
 SConscript(dirs='interproceduralTests', exports='env')
