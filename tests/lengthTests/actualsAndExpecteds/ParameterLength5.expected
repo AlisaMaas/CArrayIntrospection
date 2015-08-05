@@ -1,5 +1,5 @@
 Analyzing print
-	Argument x has max index argument i32 %y
+	Argument x has max index argument y
 	Argument y has unknown max index.
 Analyzing printf
 	Argument  has unknown max index.

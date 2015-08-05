@@ -1,6 +1,7 @@
-#define DEBUG_TYPE "null-annotator"
-#include "NullAnnotatorHelper.hh"
-#include "NullAnnotator.hh"
+#define DEBUG_TYPE "annotator"
+#include "FindLengthChecks.hh"
+#include "Annotator.hh"
+#include "AnnotatorHelper.hh"
 
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/range/combine.hpp>
@@ -14,11 +15,11 @@ using namespace llvm;
 using namespace std;
 
 
-inline NullAnnotator::NullAnnotator()
+inline Annotator::Annotator()
 	: ModulePass(ID) {
 }
 
-llvm::LoopInfo& NullAnnotator::runLoopInfo(llvm::Function &func) {
+llvm::LoopInfo& Annotator::runLoopInfo(llvm::Function &func) {
             return getAnalysis<llvm::LoopInfo>(func);
 }
 /*
@@ -28,7 +29,7 @@ llvm::LoopInfo& NullAnnotator::runLoopInfo(llvm::Function &func) {
 	INCONSISTENT,
 	SENTINEL_TERMINATED
 */
-pair<int, int> NullAnnotator::annotate(const LengthInfo &info) const {
+pair<int, int> Annotator::annotate(const LengthInfo &info) const {
     switch (info.type) {
 	    case NO_LENGTH_VALUE:
 	        return pair<int, int>(0,-1);
@@ -45,11 +46,11 @@ pair<int, int> NullAnnotator::annotate(const LengthInfo &info) const {
 	        return pair<int, int>(-1, -1);
 	}
 }
-pair<int, int> NullAnnotator::annotate(const Value &value) const {
+pair<int, int> Annotator::annotate(const Value &value) const {
 	return annotate(findAssociatedAnswer(&value, annotations));
 }
 
-pair<int, int> NullAnnotator::annotate(const StructElement &element) const {
+pair<int, int> Annotator::annotate(const StructElement &element) const {
 	const AnnotationMap::const_iterator found = annotations.find(structElements.at(element));
 	if(found != annotations.end()) {
 	    return annotate(found->second);
@@ -59,17 +60,17 @@ pair<int, int> NullAnnotator::annotate(const StructElement &element) const {
 	}
 }
 
-void NullAnnotator::getAnalysisUsage(AnalysisUsage &usage) const {
+void Annotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
-	usage.addRequired<FindLengthChecks>();
 	usage.addRequired<FindStructElements>();
 	usage.addRequired<IIGlueReader>();
 	usage.addRequired<LoopInfo>();
+	usage.addRequired<SymbolicRangeAnalysis>();
 	
 }
 
-void NullAnnotator::populateFromFile(const string &filename, const Module &module) {
+void Annotator::populateFromFile(const string &filename, const Module &module) {
 (void)filename;
 (void)module;
 	/*DEBUG(dbgs() << "Top of populateFromFile\n");
@@ -123,7 +124,7 @@ void dumpArgumentDetails(ostream &out, const Function::ArgumentListType &argumen
 }
 
 
-void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
+void Annotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
 (void)filename;
 (void)iiglue;
 (void)module;
@@ -171,7 +172,7 @@ void NullAnnotator::dumpToFile(const string &filename, const IIGlueReader &iiglu
 }
 
 
-bool NullAnnotator::runOnModule(Module &module) {
+bool Annotator::runOnModule(Module &module) {
 	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
     
 	/*for (const string &dependency : dependencyFileNames) {
@@ -179,12 +180,12 @@ bool NullAnnotator::runOnModule(Module &module) {
 	}*/
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
     const FindStructElements &findElements = getAnalysis<FindStructElements>();
-    const FindLengthChecks &findLength = getAnalysis<FindLengthChecks>();
-    (void) findLength;
+    const SymbolicRangeAnalysis &ra = getAnalysis<SymbolicRangeAnalysis>();
     structElements = findElements.getStructElements();
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
     FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
+	ValueSetSet allValueSets;
 	for (Function &func : module) {
 		if ((func.isDeclaration())) continue;
 		vector<LoopInformation> loopInfo;
@@ -201,12 +202,14 @@ bool NullAnnotator::runOnModule(Module &module) {
 		if (!Fast) {
             for (auto tuple : structElements) {
                 toCheck[&func].insert(tuple.second);
+                allValueSets.insert(tuple.second);
             }
 		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
 			if(argumentToValueSet.count(&arg)) {
 				DEBUG(dbgs() << "Already got a valueset\n");
 				toCheck[&func].insert(argumentToValueSet.at(&arg));
+				allValueSets.insert(argumentToValueSet.at(&arg));
 			}
 			else {
 				DEBUG(dbgs() << "Make a new valueset\n");
@@ -215,10 +218,46 @@ bool NullAnnotator::runOnModule(Module &module) {
 				values->insert(&arg);
 				argumentToValueSet[&arg] = values;
 				toCheck[&func].insert(values);
+				allValueSets.insert(values);
 			}
 		}
 		DEBUG(dbgs() << "Got 'em\n");
 	}
+	
+	DEBUG(dbgs() << "Get the length checks\n");
+    for (Function &func : module) {
+        DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
+        CheckGetElementPtrVisitor visitor(maxIndexes[&func], ra, module, lengths[&func], allValueSets);
+        for(BasicBlock &visitee :  func) {
+            DEBUG(dbgs() << "Visiting a new basic block...\n");
+            visitor.visit(visitee);
+        }
+	}
+	
+	for (const Function &func : iiglue.arrayReceivers()) {
+		if (!maxIndexes[&func].empty()) {
+			for (pair<const ValueSet *, long int> fixedResult: maxIndexes[&func]) {
+				annotations[fixedResult.first] = LengthInfo(FIXED_LENGTH, fixedResult.second);
+			}
+		}
+		if (!lengths[&func].empty()) {
+			for (pair<const ValueSet *, const ValueSet *> symbolicResult: lengths[&func]) {
+				annotations[symbolicResult.first] = LengthInfo(PARAMETER_LENGTH, symbolicResult.second, -1);
+				errs() << "FOUND PARAM_LENGTH!!!\n";
+
+			}
+		}
+
+		DEBUG(dbgs() << "went through all the instructions and grabbed calls\n");
+		DEBUG(dbgs() << "We found " << functionToCallSites[&func].size() << " calls in " << func.getName() << '\n');
+	}
+	
+    for (const ValueSet *v : allValueSets) {
+        if (!annotations.count(v)) {
+            annotations[v] = LengthInfo(NO_LENGTH_VALUE, -1);
+        }
+    }
+	
 	DEBUG(dbgs() << "Iterate over the module\n");
 	//const map<Function*, LoopInfo> &functionToLoopInfo)
 	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo, reasons, Fast);
@@ -237,15 +276,24 @@ bool NullAnnotator::runOnModule(Module &module) {
 }
 
 
-void NullAnnotator::print(raw_ostream &sink, const Module *module) const {
+void Annotator::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
 		if (func.isDeclaration()) continue;
 		for (const Argument &arg : iiglue.arrayArguments(func))
-			if (annotate(arg).first == 2)
-				sink << func.getName() << " with argument " << arg.getArgNo()
-				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations)).toString()
-				     << ")  because " << reasons.at(*argumentToValueSet.at(&arg)) << "\n";
+			switch(annotate(arg).first) {
+			    case 2:
+				    sink << func.getName() << " with argument " << arg.getArgNo()
+				         << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations)).toString()
+				        << ")  because " << reasons.at(*argumentToValueSet.at(&arg)) << "\n";
+				    break;
+				case 0:
+				    break;
+				default:
+				    sink << func.getName() << " with argument " << arg.getArgNo()
+				        << " should be annotated " << (getAnswer(*argumentToValueSet.at(&arg), annotations)).toString() << ".\n";
+				    break;
+			}
 	}
         for (auto element : structElements)
             if (annotate(element.first).first == 2)

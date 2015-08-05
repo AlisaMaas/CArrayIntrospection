@@ -1,9 +1,9 @@
-#define DEBUG_TYPE "null-annotator-helper"
-#include "LengthInfo.hh"
+#define DEBUG_TYPE "annotator-helper"
 #include "BacktrackPhiNodes.hh"
 #include "FindSentinelHelper.hh"
 #include "IIGlueReader.hh"
-#include "NullAnnotatorHelper.hh"
+#include "LengthInfo.hh"
+#include "AnnotatorHelper.hh"
 #include "ValueReachesValue.hh"
 
 #include <boost/algorithm/cxx11/any_of.hpp>
@@ -77,6 +77,13 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
                     return first;
                 case PARAMETER_LENGTH:
                     if (first.length == second.length) {
+                        if (first.length == -1) {
+                            assert(first.symbolicLength != nullptr);
+                            assert(second.symbolicLength != nullptr);
+                            if (first.symbolicLength != second.symbolicLength) {
+                                return LengthInfo(INCONSISTENT, -1);
+                            }
+                        }
                         return first;
                     }
                     else {
@@ -90,7 +97,7 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
     return LengthInfo();
 }
 
-pair<int, int> annotate(const LengthInfo &info) {
+pair<int, int> annotate(LengthInfo &info) {
     switch (info.type) {
 	    case NO_LENGTH_VALUE:
 	        return pair<int, int>(0,-1);
@@ -99,6 +106,7 @@ pair<int, int> annotate(const LengthInfo &info) {
 	    case SENTINEL_TERMINATED:
 	        return pair<int, int>(2, info.length);
 	    case PARAMETER_LENGTH:
+	        info.transformSymbolicLength();
 	        return pair<int, int>(6, info.length);
 	    case FIXED_LENGTH:
 	        return pair<int, int>(7, info.length);
@@ -108,8 +116,8 @@ pair<int, int> annotate(const LengthInfo &info) {
 	}
 }
 
-pair<int, int> annotate(const ValueSet &value, const AnnotationMap &annotations) {
-	const AnnotationMap::const_iterator found = annotations.find(&value);
+pair<int, int> annotate(const ValueSet &value, AnnotationMap &annotations) {
+	 AnnotationMap::iterator found = annotations.find(&value);
 	if(found != annotations.end()) {
 	    return annotate(found->second);
 	}

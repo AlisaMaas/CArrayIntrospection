@@ -1,4 +1,4 @@
 Analyzing find
-	Argument x has max index argument i32 %y
+	Argument x has max index argument y
 	Argument y has unknown max index.
 	Argument me has unknown max index.

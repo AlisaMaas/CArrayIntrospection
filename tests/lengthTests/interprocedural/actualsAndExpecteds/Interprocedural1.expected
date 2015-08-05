@@ -1,5 +1,2 @@
-print with argument 0 should be annotated No length value.
 bar with argument 0 should be annotated Parameter length of 1.
-bar with argument 1 should be annotated No length value.
 foo with argument 0 should be annotated Parameter length of 1.
-foo with argument 1 should be annotated No length value.

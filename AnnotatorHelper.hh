@@ -1,5 +1,5 @@
-#ifndef INCLUDE_NULL_ANNOTATOR_HELPER_HH
-#define INCLUDE_NULL_ANNOTATOR_HELPER_HH
+#ifndef INCLUDE_ANNOTATOR_HELPER_HH
+#define INCLUDE_ANNOTATOR_HELPER_HH
 
 #include "FindSentinelHelper.hh"
 #include "LengthInfo.hh"

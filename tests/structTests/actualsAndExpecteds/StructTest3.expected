@@ -1,6 +1,6 @@
 struct.foo:
-	element 0 accessed at a1
 	element 0 accessed at a
+	element 0 accessed at a1
 	element 1 accessed at b2
 struct.bar:
 	element 0 accessed at first

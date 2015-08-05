@@ -1,8 +1,8 @@
-#ifndef INCLUDE_NULL_ANNOTATOR_HH
-#define INCLUDE_NULL_ANNOTATOR_HH
+#ifndef INCLUDE_ANNOTATOR_HH
+#define INCLUDE_ANNOTATOR_HH
 
+#include "ValueSetsReachingValue.hh"
 #include "IIGlueReader.hh"
-#include "FindLengthChecks.hh"
 #include "FindStructElements.hh"
 #include "LengthInfo.hh"
 
@@ -19,10 +19,10 @@ namespace {
     typedef std::unordered_set<const llvm::CallInst *> CallInstSet;
 
 
-	class NullAnnotator : public llvm::ModulePass {
+	class Annotator : public llvm::ModulePass {
 	public:
 		// standard LLVM pass interface
-		NullAnnotator();
+		Annotator();
 		static char ID;
 		void getAnalysisUsage(llvm::AnalysisUsage &) const final override;
 		bool runOnModule(llvm::Module &) final override;
@@ -43,24 +43,26 @@ namespace {
 		void dumpToFile(const std::string &filename, const IIGlueReader &, const llvm::Module &) const;
 		void populateFromFile(const std::string &filename, const llvm::Module &);
 		std::pair<int, int> annotate(const LengthInfo &info) const;
+		std::map<llvm::Function const*, ValueSetToMaxIndexMap> maxIndexes;
+	    std::map<llvm::Function const*, LengthValueSetMap> lengths;
 	};
 	
-	char NullAnnotator::ID;
-	static const llvm::RegisterPass<NullAnnotator> registration("null-annotator",
-		"Determine whether and how to annotate each function with the null-terminated annotation",
+	char Annotator::ID;
+	static const llvm::RegisterPass<Annotator> registration("annotator",
+		"Determine whether and how to annotate each function",
 		true, true);
 	static llvm::cl::list<std::string>
-		dependencyFileNames("null-annotator-dependency",
+		dependencyFileNames("annotator-dependency",
 			llvm::cl::ZeroOrMore,
 			llvm::cl::value_desc("filename"),
-			llvm::cl::desc("Filename containing NullAnnotator results for dependencies; use multiple times to read multiple files"));
+			llvm::cl::desc("Filename containing Annotator results for dependencies; use multiple times to read multiple files"));
 	static llvm::cl::opt<std::string>
-		outputFileName("null-annotator-output",
+		outputFileName("annotator-output",
 			llvm::cl::Optional,
 			llvm::cl::value_desc("filename"),
 			llvm::cl::desc("Filename to write results to"));
 	static llvm::cl::opt<std::string>
-	    testOutputName("test-null-annotator",
+	    testOutputName("test-annotator",
 	        llvm::cl::Optional,
 	        llvm::cl::value_desc("filename"),
 	        llvm::cl::desc("Filename to write results to for regression tests"));

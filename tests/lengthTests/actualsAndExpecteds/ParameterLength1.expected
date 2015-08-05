@@ -1,3 +1,3 @@
 Analyzing foo
-	Argument array has max index argument i32 %x
+	Argument array has max index argument x
 	Argument x has unknown max index.

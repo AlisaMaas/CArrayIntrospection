@@ -1,7 +1,11 @@
 #ifndef INCLUDE_LENGTH_INFO_HH
 #define INCLUDE_LENGTH_INFO_HH
+#include <llvm/IR/Argument.h>
+//#include <llvm/Support/Casting.h>
 #include <string>
 #include <sstream>
+
+#include "ValueSet.hh"
 
 enum LengthType {
 	NO_LENGTH_VALUE,
@@ -13,13 +17,15 @@ enum LengthType {
 
 class LengthInfo {
 	public: 
-		LengthInfo(LengthType t, long int l) : type(t), length(l) {}
+		LengthInfo(LengthType t, long int l) : type(t), length(l), symbolicLength(nullptr) {}
+		LengthInfo(LengthType t, const ValueSet *symbolic, long int l) : type(t), length(l), symbolicLength(symbolic) {}
 		LengthInfo() {
 			type = NO_LENGTH_VALUE;
 			length = -1;
 		}
 		LengthType type;
 		long int length;
+		const ValueSet *symbolicLength;
 		static std::string getTypeString(LengthType type) {
 			switch(type) {
 				case NO_LENGTH_VALUE: return "None ";
@@ -30,11 +36,23 @@ class LengthInfo {
 			}
 			return "Impossible";
 		}
+		void transformSymbolicLength() {
+            if (length == -1) {
+                assert(symbolicLength != nullptr);
+                if (symbolicLength->size() == 1) {
+                    const llvm::Argument *arg = llvm::dyn_cast<llvm::Argument>(*symbolicLength->begin());
+                    if (arg != nullptr) {
+                        length = arg->getArgNo();
+                    }
+                }
+            }
+		}
 		std::string toString() {
 			std::stringstream stream;
 			switch(type) {
 				case NO_LENGTH_VALUE: return "No length value";
 				case PARAMETER_LENGTH: 
+				transformSymbolicLength();
 				stream << "Parameter length of " << length;
 				return stream.str();
 				case FIXED_LENGTH: 
