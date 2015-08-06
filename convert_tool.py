@@ -19,14 +19,17 @@ if __name__ == '__main__':
         for i in range(len(argumentAnnotations)):
             dict = {}
             function = original[functionName]
-            if function["args_array_receivers"][i] == -1:
+            if "args_array_receivers" in function:
+                if function["args_array_receivers"][i] == -1:
+                    functionDict["metadata"] = ["dependency"]
+                    break
+                dict["args_array_receiver"] = function["args_array_receivers"][i]
+            else:
                 functionDict["metadata"] = ["dependency"]
-                break
             if "argument_names" in function:
                 dict["argument_name"] = function["argument_names"][i]
             else:
                 dict["argument_name"] = "unknown"
-            dict["args_array_receiver"] = function["args_array_receivers"][i]
             if "argument_reasons" in function:
                 dict["argument_reason"] = function["argument_reasons"][i]
             else:

@@ -1,0 +1,36 @@
+{
+    "library_functions": [
+        {
+            "arguments": [
+                {
+                    "argument_name": "a",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "fixed": 7
+                },
+                {
+                    "argument_name": "b",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                },
+                {
+                    "argument_name": "c",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "symbolic": 3
+                },
+                {
+                    "argument_name": "d",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "foo",
+            "metadata": [
+                "dependency"
+            ]
+        }
+    ]
+}

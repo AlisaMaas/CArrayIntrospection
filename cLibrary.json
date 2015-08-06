@@ -1,85 +1,1496 @@
-{"library_functions":{
-"strcmp":{"return":"int","argument_types":["char*", "char*"],"argument_annotations":[2, 2]},
-"strlen":{"return":"size_t","argument_types":["char*"],"argument_annotations":[2]},
-"stpcpy":{"return":"char*","argument_types":["char*", "char*"],"argument_annotations":[0, 2]},
-"strcpy":{"return":"char*","argument_types":["char*", "char*"],"argument_annotations":[2, 2]},
-"strncat":{"return":"char*","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2, 2, 1]},
-"strncmp":{"return":"int","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2, 2, 1]},
-"strncpy":{"return":"char*","argument_types":["char*", "char*", "size_t"],"argument_annotations":[0, 2, 1]},
-"strcasecmp":{"return":"int","argument_types":["char*", "char*"],"argument_annotations":[2, 2]},
-"strncasecmp":{"return":"int","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2, 2, 1]},
-"open":{"return":"int","argument_types":["char*", "int"],"argument_annotations":[2, 1]},
-"freopen":{"return":"FILE*","argument_types":["char*", "char*", "FILE*"],"argument_annotations":[2,2,1]},
-"remove":{"return":"int","argument_types":["char*"],"argument_annotations":[2]},
-"rename":{"return":"int","argument_types":["char*", "char*"],"argument_annotations":[2, 2]},
-"fputs":{"return":"int","argument_types":["char*", "FILE*"],"argument_annotations":[2, 1]},
-"puts":{"return":"int","argument_types":["char*"],"argument_annotations":[2]},
-"perror":{"return":"void","argument_types":["char*"],"argument_annotations":[2]},
-"strchr":{"return":"char*","argument_types":["char*", "int"],"argument_annotations":[2, 1]},
-"strrchr":{"return":"char*","argument_types":["char*", "int"],"argument_annotations":[2, 1]},
-"strchrnul":{"return":"char*","argument_types":["char*", "int"],"argument_annotations":[2, 1]},
-"gettext":{"return":"char*","argument_types":["char*"],"argument_annotations":[2]},
-"dgettext":{"return":"char*","argument_types":["char*","char*"],"argument_annotations":[2,2]},
-"dcgettext":{"return":"char*","argument_types":["char*","char*", "int"],"argument_annotations":[2,2, 1]},
-"access":{"return":"int","argument_types":["char*", "int"],"argument_annotations":[2, 1]},
-"stat":{"return":"int","argument_types":["char*","struct stat*"],"argument_annotations":[2,0]},
-"lstat":{"return":"int","argument_types":["char*","struct stat*"],"argument_annotations":[2,0]},
-"strtod":{"return":"double","argument_types":["char*","char**"],"argument_annotations":[2,0]},
-"strtof":{"return":"double","argument_types":["char*","char**"],"argument_annotations":[2,0]},
-"strtold":{"return":"double","argument_types":["char*","char**"],"argument_annotations":[2,0]},
-"strtod_l":{"return":"double","argument_types":["char*","char**", "locale_t"],"argument_annotations":[2,0,0]},
-"strtof_l":{"return":"double","argument_types":["char*","char**", "locale_t"],"argument_annotations":[2,0,0]},
-"strtold_l":{"return":"double","argument_types":["char*","char**", "locale_t"],"argument_annotations":[2,0,0]},
-"strstr":{"return":"char*","argument_types":["char*","char*"],"argument_annotations":[2,2]},
-"setenv":{"return":"int","argument_types":["char*","char*", "int"],"argument_annotations":[2,2,1]},
-"unsetenv":{"return":"int","argument_types":["char*"],"argument_annotations":[2]},
-"utime":{"return":"int","argument_types":["char*", "struct"],"argument_annotations":[2, 0]},
-"utimes":{"return":"int","argument_types":["char*", "struct"],"argument_annotations":[2, 0]},
-"creat":{"return":"int","argument_types":["char*", "mode_t"],"argument_annotations":[2, 0]},
-"chdir":{"return":"int","argument_types":["char*"],"argument_annotations":[2]},
-"access":{"return":"int","argument_types":["char*", "mode_t"],"argument_annotations":[2, 0]},
-"chmod":{"return":"int","argument_types":["char*", "mode_t"],"argument_annotations":[2, 0]},
-"mkdir":{"return":"int","argument_types":["char*", "mode_t"],"argument_annotations":[2, 0]},
-"unlink":{"return":"int","argument_types":["char*"],"argument_annotations":[2]},
-"fropen":{"return":"FILE*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
-"strlcpy":{"return":"size_t","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2,2, 0]},
-"strlcat":{"return":"size_t","argument_types":["char*", "char*", "size_t"],"argument_annotations":[0,2, 0]},
-
-"execv":{"return":"int","argument_types":["char*", "char**"],"argument_annotations":[2,2]},
-"execvp":{"return":"int","argument_types":["char*", "char**"],"argument_annotations":[2,2]},
-"execvpe":{"return":"int","argument_types":["char*", "char**", "char**"],"argument_annotations":[2,2,2]},
-"write":{"return":"size_t","argument_types":["int", "void*", "size_t"],"argument_annotations":[1,0,1]},
-"strtol":{"return":"long","argument_types":["char*", "char**", "int"],"argument_annotations":[2,0,1]},
-"fopen":{"return":"FILE*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
-"iconv_open":{"return":"iconv_t","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
-"getenv":{"return":"char*","argument_types":["char*"],"argument_annotations":[2]},
-"strftime":{"return":"size_t","argument_types":["char*", "int", "char*", "struct tm"],"argument_annotations":[0,1,2,1]},
-"setlocale":{"return":"char*","argument_types":["int", "char*"],"argument_annotations":[1,2]},
-"strcspn":{"return":"size_t","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
-"opendir":{"return":"DIR*","argument_types":["char*"],"argument_annotations":[2]},
-"readlink":{"return":"ssize_t","argument_types":["char*", "char*", "size_t"],"argument_annotations":[2,0,1]},
-"fdopen":{"return":"FILE*","argument_types":["int", "char*"],"argument_annotations":[0,2]},
-"ngettext":{"return":"char*","argument_types":["char*", "char*", "unsigned long"],"argument_annotations":[2,2,1]},
-"dngettext":{"return":"char*","argument_types":["char*", "char*", "char*", "unsigned long"],"argument_annotations":[2,2,2,1]},
-"dcngettext":{"return":"char*","argument_types":["char*", "char*", "char*", "unsigned long","unsigned long"],"argument_annotations":[2,2,2,1,1]},
-"textdomain":{"return":"char*","argument_types":["char*"],"argument_annotations":[2]},
-"bindtextdomain":{"return":"char*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
-"bind_textdomain_codeset":{"return":"char*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
-"strpbrk":{"return":"char*","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
-"stat":{"return":"int","argument_types":["char*", "struct stat"],"argument_annotations":[2,1]},
-"lstat":{"return":"int","argument_types":["char*", "struct stat"],"argument_annotations":[2,1]},
-"rmdir":{"return":"int","argument_types":["char*"],"argument_annotations":[2]},
-"newlocale":{"return":"locale_t","argument_types":["int", "char*", "locale_t"],"argument_annotations":[1,2,1]},
-"strspn":{"return":"size_t","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
-"execve":{"return":"int","argument_types":["char*", "char*", "char*"],"argument_annotations":[2,2,2]},
-"execv":{"return":"int","argument_types":["char*", "char*"],"argument_annotations":[2,2]},
-
-"strdup":{"return":"char*","argument_types":["char*"],"argument_annotations":[2]},
-"__strdup":{"return":"char*","argument_types":["char*"],"argument_annotations":[2]}
-
-
-
-
-
-
-}}
+{
+    "library_functions": [
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "strncmp",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "strncasecmp",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "dcngettext",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "creat",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "setlocale",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "bind_textdomain_codeset",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "chmod",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "strtold",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "stpcpy",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "bindtextdomain",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "fopen",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "open",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "strncpy",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "dngettext",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "strncat",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "write",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "unlink",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "strlcpy",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "strcspn",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "puts",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "fputs",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "strtod",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "strlen",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "strtof",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "mkdir",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "strtold_l",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "gettext",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "textdomain",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "access",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "dcgettext",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "setenv",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "execve",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "strtof_l",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "strrchr",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "strdup",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "__strdup",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "rmdir",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "strchr",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "stat",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "execvpe",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "strchrnul",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "lstat",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "unsetenv",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "execvp",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "strlcat",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "getenv",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "strpbrk",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "readlink",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "ngettext",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "strstr",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "strtod_l",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "strcasecmp",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "fropen",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "utime",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "chdir",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "perror",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "opendir",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "iconv_open",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "newlocale",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "strtol",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "remove",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "dgettext",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "fdopen",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "rename",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "strcpy",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "strspn",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "freopen",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "execv",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "utimes",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "strcmp",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                },
+                {
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 1
+                }
+            ],
+            "function_name": "strftime",
+            "metadata": [
+                "dependency"
+            ]
+        }
+    ]
+}

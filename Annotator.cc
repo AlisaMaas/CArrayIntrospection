@@ -78,23 +78,25 @@ void Annotator::getAnalysisUsage(AnalysisUsage &usage) const {
 }
 
 void Annotator::populateFromFile(const string &filename, const Module &module) {
-(void)filename;
-(void)module;
-	/*DEBUG(dbgs() << "Top of populateFromFile\n");
+	DEBUG(dbgs() << "Top of populateFromFile\n");
 	ptree root;
 	read_json(filename, root);
+	DEBUG(dbgs() << "Read in json\n");
 	const ptree &libraryFunctions = root.get_child("library_functions");
+	DEBUG(dbgs() << "Size of library functions is " << libraryFunctions.size() << "\n");
 	for (const auto &framePair : libraryFunctions) {
 		// find corresponding LLVM function object
-		const string &name = framePair.first;
+		const auto &name = framePair.second.get_child("function_name").get_value<string>();
 		const Function * const function = module.getFunction(name);
 		if (!function) {
 			errs() << "warning: found function " << name << " in iiglue results but not in bitcode\n";
 			continue;
 		}
-
+		else 
+		    DEBUG(dbgs() << "Found function " << name << "\n");
 		const Function::ArgumentListType &arguments = function->getArgumentList();
-		const ptree &arg_annotations = framePair.second.get_child("argument_annotations");
+		const ptree &arg_annotations = framePair.second.get_child("arguments");
+		DEBUG(dbgs() << "there are " << arg_annotations.size() << " arguments\n");
 		if (arguments.size() != arg_annotations.size()) {
 			errs() << "Warning: Arity mismatch between function " << name
 			       << " in the .json file provided: " << filename
@@ -102,8 +104,41 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			continue;
 		}
 		for (const auto &slot : boost::combine(arguments, arg_annotations)) {
+		    DEBUG(dbgs() << "Got some arguments\n");
 			const Argument &argument = slot.get<0>();
-			const Answer annotation = static_cast<Answer>(slot.get<1>().second.get_value<int>());
+			LengthInfo annotation;
+			const ptree &arg_annotation = slot.get<1>().second;
+			DEBUG(dbgs() << "This argument has size " << slot.get<1>().second.size() << "\n");
+			try{
+                if(arg_annotation.get_child("sentinel").get_value<string>() != "") {
+                    DEBUG(dbgs() << "Length is not empty\n");
+                    annotation = LengthInfo(SENTINEL_TERMINATED, 0); 
+                    //TODO: generalize for other types of sentinels later once we support that.
+                }
+			} catch(...) {
+			    DEBUG(dbgs() << "Not a sentinel terminated argument\n");
+			}
+			try{
+			    int parameterNo = arg_annotation.get_child("symbolic").get_value<int>();
+			    annotation = LengthInfo(PARAMETER_LENGTH, parameterNo);
+			    
+			} catch (...) {
+			    DEBUG(dbgs() << "Not a symbolic length argument\n");
+			}
+			try{
+			    int fixedLen = arg_annotation.get_child("fixed").get_value<int>();
+			    annotation = LengthInfo(FIXED_LENGTH, fixedLen);
+			} catch (...) {
+			    DEBUG(dbgs() << "Not a fixed length argument\n");
+			}
+			try{
+			    int other = arg_annotation.get_child("other").get_value<int>();
+			    if (other == -1) {
+			        annotation = LengthInfo(INCONSISTENT, other);
+			    }
+			} catch(...) {
+			    DEBUG(dbgs() << "Doesn't have an other field, at least not an int one.\n");
+			}
 			if (!argumentToValueSet.count(&argument)) {
 				ValueSet *values = new set<const Value*>();
 				values->insert(&argument);
@@ -111,7 +146,7 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			}
 			annotations[argumentToValueSet.at(&argument)] = annotation;
 		}
-	}*/
+	}
 }
 
 void Annotator::dumpToFile(const string &filename, const Module &module) const {
@@ -182,9 +217,9 @@ void Annotator::dumpToFile(const string &filename, const Module &module) const {
 bool Annotator::runOnModule(Module &module) {
 	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
     
-	/*for (const string &dependency : dependencyFileNames) {
+	for (const string &dependency : dependencyFileNames) {
 		populateFromFile(dependency, module);
-	}*/
+	}
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
     const FindStructElements &findElements = getAnalysis<FindStructElements>();
     const SymbolicRangeAnalysis &ra = getAnalysis<SymbolicRangeAnalysis>();
