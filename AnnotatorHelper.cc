@@ -106,8 +106,7 @@ pair<int, int> annotate(LengthInfo &info) {
 	    case SENTINEL_TERMINATED:
 	        return pair<int, int>(2, info.length);
 	    case PARAMETER_LENGTH:
-	        info.transformSymbolicLength();
-	        return pair<int, int>(6, info.length);
+	        return pair<int, int>(6, (info.length == -1? info.getSymbolicLength() : info.length));
 	    case FIXED_LENGTH:
 	        return pair<int, int>(7, info.length);
 	    default:
@@ -140,6 +139,9 @@ const ValueSet* findAssociatedValueSet(const Value *value, const FunctionToValue
 
 LengthInfo findAssociatedAnswer(const Value *value, const AnnotationMap &annotations) {
 	for (auto mapping : annotations) {
+	    if (mapping.first == nullptr) {
+	        continue;
+	    }
 		if (mapping.first->count(value)) {
 			return mapping.second;
 		}

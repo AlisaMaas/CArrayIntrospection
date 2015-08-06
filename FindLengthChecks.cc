@@ -108,6 +108,22 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
     }
     
     DEBUG(dbgs() << "GEPI: " << gepi << "\n");
+    if (gepi.getType() != gepi.getPointerOperandType()) { //possibly detecting the struct access pattern.
+        DEBUG(dbgs() << "Types don't match. We have " << *gepi.getType() << " and " << *gepi.getPointerOperandType() << "\n");
+        if (dyn_cast<PointerType>(gepi.getPointerOperandType()) != nullptr) {
+            PointerType *pointerType = dyn_cast<PointerType>(gepi.getPointerOperandType());
+            DEBUG(dbgs() << "Got a pointer\n");
+            Type *pointee = pointerType->getElementType();
+            DEBUG(dbgs() << "Pointee type is " << *pointee << "\n");
+            if (dyn_cast<ArrayType>(pointee)) {
+                ArrayType *arrayType = dyn_cast<ArrayType>(pointee);
+                DEBUG(dbgs() << "array type is " << *arrayType << "\n");
+                maxIndexes[valueSet] = arrayType->getNumElements();
+            }
+            return; //don't mark it as bad because it's possible that we've got an array of structs.
+
+        }
+    }
     if (gepi.getNumIndices() != 1) {
         DEBUG(dbgs() << "Ignoring this one!\n");
         DEBUG(dbgs() << "It has " << gepi.getNumIndices() << " indices.\n");
@@ -117,10 +133,7 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
         //consistent way of thinking about it.
         //should probably look at how it's usually documented.
     }
-    if (gepi.getType() != gepi.getPointerOperandType()) { //possibly detecting the struct access pattern.
-        //errs() << "Types don't match. We have " << *gepi.getType() << " and " << *gepi.getPointerOperandType() << "\n";
-        return; //don't mark it as bad because it's possible that we've got an array of structs.
-    }
+
     DEBUG(dbgs() << "About to get the range\n");
     SAGERange r = rangeAnalysis.getState(gepi.idx_begin()->get());
     DEBUG(dbgs() << "[" << r.getLower() << "," << r.getUpper() << "]\n");

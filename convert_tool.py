@@ -22,9 +22,15 @@ if __name__ == '__main__':
             if function["args_array_receivers"][i] == -1:
                 functionDict["metadata"] = ["dependency"]
                 break
-            dict["argument_name"] = function["argument_names"][i]
+            if "argument_names" in function:
+                dict["argument_name"] = function["argument_names"][i]
+            else:
+                dict["argument_name"] = "unknown"
             dict["args_array_receiver"] = function["args_array_receivers"][i]
-            dict["argument_reason"] = function["argument_reasons"][i]
+            if "argument_reasons" in function:
+                dict["argument_reason"] = function["argument_reasons"][i]
+            else:
+                dict["argument_reason"] = "unknown"
             dict["metadata"] = []
             if argumentAnnotations[i] == 9:
                 dict["metadata"].append("string passed to varargs")

@@ -40,7 +40,7 @@ namespace {
 		std::unordered_map<const llvm::Function *, CallInstSet> functionToCallSites;
 		StructElementToValueSet structElements;
 		std::pair<int,int> annotate(const StructElement &element) const;
-		void dumpToFile(const std::string &filename, const IIGlueReader &, const llvm::Module &) const;
+		void dumpToFile(const std::string &filename, const llvm::Module &) const;
 		void populateFromFile(const std::string &filename, const llvm::Module &);
 		std::pair<int, int> annotate(const LengthInfo &info) const;
 		std::map<llvm::Function const*, ValueSetToMaxIndexMap> maxIndexes;

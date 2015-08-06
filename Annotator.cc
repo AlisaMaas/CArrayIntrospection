@@ -30,18 +30,25 @@ llvm::LoopInfo& Annotator::runLoopInfo(llvm::Function &func) {
 	SENTINEL_TERMINATED
 */
 pair<int, int> Annotator::annotate(const LengthInfo &info) const {
+    DEBUG(dbgs() << "Annotate switch statement about to start\n");
     switch (info.type) {
 	    case NO_LENGTH_VALUE:
+	        DEBUG(dbgs() << "No length value\n");
 	        return pair<int, int>(0,-1);
 	    case INCONSISTENT:
+	        DEBUG(dbgs() << "Inconsistent type\n");
 	        return pair<int, int>(1, -1);
 	    case SENTINEL_TERMINATED:
+	        DEBUG(dbgs() << "Symbolic length value\n");
 	        return pair<int, int>(2, info.length);
 	    case PARAMETER_LENGTH:
-	        return pair<int, int>(6, info.length);
+	        DEBUG(dbgs() << "About to getSymbolicLength\n");
+	        return pair<int, int>(6, (info.length == -1? info.getSymbolicLength(): info.length));
 	    case FIXED_LENGTH:
+	        DEBUG(dbgs() << "Fixed length value\n");
 	        return pair<int, int>(7, info.length);
 	    default:
+	        DEBUG(dbgs() << "Type is unknown\n");
 	        abort();
 	        return pair<int, int>(-1, -1);
 	}
@@ -124,51 +131,65 @@ void dumpArgumentDetails(ostream &out, const Function::ArgumentListType &argumen
 }
 
 
-void Annotator::dumpToFile(const string &filename, const IIGlueReader &iiglue, const Module &module) const {
-(void)filename;
-(void)iiglue;
-(void)module;
-	/*ofstream out(filename);
-	out << "{\n\t\"library_functions\": {\n";
+void Annotator::dumpToFile(const string &filename, const Module &module) const {
+	ofstream out(filename);
+	out << "{\n\t\"library_functions\": [\n";
 	for (const Function &function : module) {
 		if (function.isDeclaration()) continue;
 		if (&function != module.begin())
 			out << ",\n";
 
-		out << "\t\t\"" << function.getName().str() << "\": {\n";
-		const Function::ArgumentListType &argumentList = function.getArgumentList();
-
-		dumpArgumentDetails(out, argumentList, "argument_names",
-				    [](const Argument &arg) {
-					    return '\"' + arg.getName().str() + '\"';
-				    }
-			);
-		out << ",\n";
-
-		dumpArgumentDetails(out, argumentList, "argument_annotations",
-				    [&](const Argument &arg) {
-					    return getAnswer(*argumentToValueSet.at(&arg), annotations);
-				    }
-			);
-		out << ",\n";
-
-		dumpArgumentDetails(out, argumentList, "args_array_receivers",
-				    [&](const Argument &arg) {
-					    return iiglue.isArray(arg);
-				    }
-			);
-		out << ",\n";
-
-		dumpArgumentDetails(out, argumentList, "argument_reasons",
-				    [&](const Argument &arg) {
-					    const auto reason = reasons.find(*argumentToValueSet.at(&arg));
-					    return '\"' + (reason == reasons.end() ? "" : reason->second) + '\"';
-				    }
-			);
-
-		out << "\n\t\t}";
+        out << "\t\t{\n\t\t\t\"arguments\": [";
+        string depth = "\t\t\t\t\t";
+        for (const Argument &arg : function.getArgumentList()) {
+            out << "\n\t\t\t\t{\n";
+            out << depth;
+            out << "\"argument_name\": \"" << arg.getName().str() << "\"";
+            out << ",\n";
+            out << depth;
+            DEBUG(dbgs() << "About to get the reasons set\n");
+            auto reason = reasons.find(*argumentToValueSet.at(&arg));
+            DEBUG(dbgs() << "Got reasons!\n");
+            out << "\"argument_reason\": \"" << (reason == reasons.end() ? 
+                "" : reason->second) + "\"";
+            out << ",\n";
+            out << depth;
+            DEBUG(dbgs() << "About to get annotation for " << arg.getName().str() << "\n");
+            pair<int, int> annotation = annotate(arg);
+            DEBUG(dbgs() << "Got the annotation\n");
+            switch(annotation.first) {
+                case 0:
+                case 1:
+                    out << "\"other\": " << annotation.first;
+                    break;
+                case 2:
+                    out << "\"sentinel\": ";
+                    if (annotation.second == 0) {
+                        out << "\"NUL\"";
+                    }
+                    else {
+                        out << "\"" << annotation.second << "\"";
+                    }
+                    break;
+                case 6:
+                    out << "\"symbolic\": \"" << annotation.second << "\"";
+                    break;
+                case 7:
+                    out << "\"fixed\": " << annotation.second;
+                    break;
+                default:
+                    DEBUG(dbgs() << "Unknown annotation, aborting!\n");
+                    abort();
+            }
+            out << "\n\t\t\t\t}";
+        }
+        DEBUG(dbgs() << "Got all the arguments for this function\n");
+        out << "\n\t\t\t],\n\t\t\t\"function_name\":\"" << function.getName().str() << "\"";
+        out << "\n\t\t}";
 	}
-	out << "\n\t}\n}\n";*/
+	DEBUG(dbgs() << "Processed all the functions\n");
+	out << "\n\t]\n}\n";
+	out.close();
 }
 
 
@@ -200,6 +221,7 @@ bool Annotator::runOnModule(Module &module) {
 		}
 		functionLoopInfo[&func] = loopInfo;
 		if (!Fast) {
+		    DEBUG(dbgs() << "Putting in some struct elements\n");
             for (auto tuple : structElements) {
                 toCheck[&func].insert(tuple.second);
                 allValueSets.insert(tuple.second);
@@ -263,7 +285,7 @@ bool Annotator::runOnModule(Module &module) {
 	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo, reasons, Fast);
 	DEBUG(dbgs() << "Dump to a file\n");
 	if (!outputFileName.empty())
-		dumpToFile(outputFileName, iiglue, module);
+		dumpToFile(outputFileName, module);
 	DEBUG(dbgs() << "Done!\n");
     if (!testOutputName.empty()) {
         ofstream out(testOutputName);
@@ -296,9 +318,17 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 			}
 	}
         for (auto element : structElements)
-            if (annotate(element.first).first == 2)
-                sink << str(&element.first)
-                     << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations)).toString()
-                     << ") because " << reasons.at(*element.second) << ".\n";
+            switch(annotate(element.first).first) {
+                case 2:
+                    sink << str(&element.first)
+                         << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations)).toString()
+                         << ") because " << reasons.at(*element.second) << ".\n";
+                    break;
+                case 0:
+                    break;
+                default:
+                    sink << str(&element.first) 
+        		        << " should be annotated " << ((getAnswer(*element.second, annotations)).toString()) << ".\n";
+                }
     
 }

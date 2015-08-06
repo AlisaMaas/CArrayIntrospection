@@ -10,3 +10,10 @@ struct bar {
 	char* nonString;
 	struct bar *z;
 };
+
+struct baz {
+    char fixed[30];
+    char *symbolic;
+    char *both;
+    int len;
+};

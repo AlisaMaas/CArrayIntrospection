@@ -36,24 +36,24 @@ class LengthInfo {
 			}
 			return "Impossible";
 		}
-		void transformSymbolicLength() {
+		int getSymbolicLength() const {
             if (length == -1) {
                 assert(symbolicLength != nullptr);
                 if (symbolicLength->size() == 1) {
                     const llvm::Argument *arg = llvm::dyn_cast<llvm::Argument>(*symbolicLength->begin());
                     if (arg != nullptr) {
-                        length = arg->getArgNo();
+                        return arg->getArgNo();
                     }
                 }
             }
+            return -1;
 		}
-		std::string toString() {
+		std::string toString() const {
 			std::stringstream stream;
 			switch(type) {
 				case NO_LENGTH_VALUE: return "No length value";
 				case PARAMETER_LENGTH: 
-				transformSymbolicLength();
-				stream << "Parameter length of " << length;
+				stream << "Parameter length of " << (length == -1? getSymbolicLength() : length);
 				return stream.str();
 				case FIXED_LENGTH: 
 				stream << "Fixed length of " << length;

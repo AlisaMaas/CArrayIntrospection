@@ -1,4 +1,4 @@
 Import('env')
 
-env.RunTests(PLUGIN_ARGS=('-mem2reg', '-no-pointer-arithmetic', '-mem2reg','-redef','-sra', '-find-length', 
-'-annotator', '-debug', '-annotator-output', 'output.json'), TEST='annotator')
+env.RunTests(PLUGIN_ARGS=('-mem2reg', '-no-pointer-arithmetic', '-mem2reg','-redef','-sra', 
+'-annotator', '-fast=false', '-debug', '-annotator-output', 'output.json'), TEST='annotator')
