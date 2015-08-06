@@ -114,23 +114,6 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 	}*/
 }
 
-
-template<typename Detail> static
-void dumpArgumentDetails(ostream &out, const Function::ArgumentListType &argumentList, const char key[], const Detail &detail) {
-(void)out;
-(void)argumentList;
-(void)key;
-(void)detail;
-	/*out << "\t\t\t\"" << key << "\": [";
-	for (const Argument &argument : argumentList) {
-		if (&argument != argumentList.begin())
-			out << ", ";
-		out << detail(argument);
-	}
-	out << ']';*/
-}
-
-
 void Annotator::dumpToFile(const string &filename, const Module &module) const {
 	ofstream out(filename);
 	out << "{\n\t\"library_functions\": [\n";
@@ -142,6 +125,9 @@ void Annotator::dumpToFile(const string &filename, const Module &module) const {
         out << "\t\t{\n\t\t\t\"arguments\": [";
         string depth = "\t\t\t\t\t";
         for (const Argument &arg : function.getArgumentList()) {
+            if (&arg != function.getArgumentList().begin()) {
+                out << ",";
+            }
             out << "\n\t\t\t\t{\n";
             out << depth;
             out << "\"argument_name\": \"" << arg.getName().str() << "\"";
