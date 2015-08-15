@@ -4,12 +4,12 @@
 #include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
 #include <SymbolicRangeAnalysis.h>
-
 using namespace llvm;
 using namespace std;
 
 
 namespace {
+
 	class SymbolicRangeTest : public ModulePass {
 	public:
 		// standard LLVM pass interface
@@ -22,7 +22,7 @@ namespace {
 
 
 	char SymbolicRangeTest::ID;
-	static const RegisterPass<SymbolicRangeTest> registration("sra-test",
+	static const RegisterPass<SymbolicRangeTest> registration("sra-test-easily",
 		"Playing around with the Symbolic Range Analysis tool.",
 		true, true);
 }
@@ -44,18 +44,27 @@ void SymbolicRangeTest::getAnalysisUsage(AnalysisUsage &usage) const {
 
 
 bool SymbolicRangeTest::runOnModule(Module &module) {
-        const SymbolicRangeAnalysis &sra = getAnalysis<SymbolicRangeAnalysis>();
         for (Function &func : module) {
+            if (func.isDeclaration()) continue;
             errs() << "Processing " << func.getName().str() << "\n";
             for (BasicBlock &block : func) {
                 for (Instruction &inst : block) {
-                    if (!inst.getType()->isIntegerTy()) continue;
-                    SAGERange R = sra.getState(&inst);
-                    errs() << inst << "  [" << R.getLower() << ", " << R.getUpper()
-                << "]\n";
+                    if (inst.getType()->isIntegerTy()) {
+                        const SymbolicRangeAnalysis &sra = getAnalysis<SymbolicRangeAnalysis>(func);
+                        BasicBlock *placeHolder = BasicBlock::Create(module.getContext());
+                        Value *symbolicIndexInst = sra.getRangeValuesFor(&inst, IRBuilder<>(placeHolder)).second;
+                        SAGERange R = sra.getState(&inst);
+                        errs() << "Address is " << &inst;
+                        errs() << inst << " [" << R.getLower() << ", " << R.getUpper()
+                    << "]\n";
+                        if (symbolicIndexInst != nullptr)
+                            errs() << "\t\tValue is " << *symbolicIndexInst << "\n";
+                        delete placeHolder;
+                    }
                 }
             }
         }
+
 	return false;
 }
 

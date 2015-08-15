@@ -1,5 +1,1 @@
-Analyzing print
-	Argument x has max index argument y
-	Argument y has unknown max index.
-Analyzing printf
-	Argument  has unknown max index.
+print with argument 0 should be annotated Parameter length of 1.

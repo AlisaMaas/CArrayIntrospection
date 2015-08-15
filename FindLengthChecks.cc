@@ -50,7 +50,6 @@ bool CheckGetElementPtrVisitor::matchAddPattern(Value *value, Value *basePointer
             Value *secondOperand = stripSExtInst(op->getOperand(1));
             DEBUG(dbgs() << "First operand: " << *firstOperand << "\n");
             DEBUG(dbgs() << "Second operand: " << *secondOperand << "\n");
-            bool matches = false;
             const ValueSet *length = getValueLength(firstOperand, secondOperand, basePointer);
             if (!length) length = getValueLength(secondOperand, firstOperand, basePointer);
             if (length) {
@@ -76,8 +75,8 @@ bool CheckGetElementPtrVisitor::matchAddPattern(Value *value, Value *basePointer
 
 CheckGetElementPtrVisitor::CheckGetElementPtrVisitor(ValueSetToMaxIndexMap &map, 
 const SymbolicRangeAnalysis &ra, Module &m, LengthValueSetMap &l, ValueSetSet &v ) 
-: maxIndexes(map), rangeAnalysis(ra), lengths(l), valueSets(v) {
-    placeHolder = BasicBlock::Create(m.getContext());
+: maxIndexes(map), lengths(l), rangeAnalysis(ra), valueSets(v), module(m){
+    placeHolder = nullptr;
 }
 CheckGetElementPtrVisitor::~CheckGetElementPtrVisitor() {
     DEBUG(dbgs() << "destructor\n");
@@ -89,12 +88,13 @@ CheckGetElementPtrVisitor::~CheckGetElementPtrVisitor() {
     for (const ValueSet * v : notParameterBounded) {
         lengths.erase(v);        
     }
-    DEBUG(dbgs() << "Basic block holds " << placeHolder->getInstList().size()<< " things\n");
-    delete placeHolder;
     DEBUG(dbgs() << "Finished with the delete\n");
-    
+    if (placeHolder != nullptr) delete placeHolder;
 }
 void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) {
+    if (placeHolder != nullptr)
+        delete placeHolder;
+    placeHolder = BasicBlock::Create(module.getContext());
     DEBUG(dbgs() << "Top of visitor\n");
     Value *pointer = gepi.getPointerOperand();
     DEBUG(dbgs() << "Pointer operand obtained: " << *pointer << "\n");
@@ -133,9 +133,10 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
         //consistent way of thinking about it.
         //should probably look at how it's usually documented.
     }
-
-    DEBUG(dbgs() << "About to get the range\n");
-    SAGERange r = rangeAnalysis.getState(gepi.idx_begin()->get());
+    Value *index = &*gepi.idx_begin()->get();
+    DEBUG(dbgs() << "About to get the range for " << *index << "\n");
+    DEBUG(dbgs() << "\tAddress is " << index << "\n");
+    SAGERange r = rangeAnalysis.getState(index);
     DEBUG(dbgs() << "[" << r.getLower() << "," << r.getUpper() << "]\n");
     DEBUG(dbgs() << "Got it!\n");
     for (User * user : gepi.users()) {
@@ -155,9 +156,9 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
     else {
         DEBUG(dbgs() << "Not constant index\n");
         notConstantBounded.insert(valueSet);
-        DEBUG(dbgs() << "Index in question = " << *gepi.idx_begin()->get() << "\n");
-        DEBUG(dbgs() << "Is integer type? " << gepi.idx_begin()->get()->getType()->isIntegerTy() << "\n");
-        Value *symbolicIndexInst = rangeAnalysis.getRangeValuesFor(gepi.idx_begin()->get(), IRBuilder<>(placeHolder)).second;
+        DEBUG(dbgs() << "Index in question = " << *index << "\n");
+        DEBUG(dbgs() << "Is integer type? " << index->getType()->isIntegerTy() << "\n");
+        Value *symbolicIndexInst = rangeAnalysis.getRangeValuesFor(index, IRBuilder<>(placeHolder)).second;
         DEBUG(dbgs() << "As reported by range analysis: " << *symbolicIndexInst << "\n");
         bool foundMatch = false;
         foundMatch = matchAddPattern(symbolicIndexInst, pointer);
@@ -198,8 +199,6 @@ void FindLengthChecks::getAnalysisUsage(AnalysisUsage &usage) const {
 
 
 bool FindLengthChecks::runOnModule(Module &module) {
-	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
-	const SymbolicRangeAnalysis &ra = getAnalysis<SymbolicRangeAnalysis>();
 	DEBUG(dbgs() << "Top of runOnModule()\n");
 	for (const Function &func : module) {
 	    for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end())) {
@@ -210,7 +209,9 @@ bool FindLengthChecks::runOnModule(Module &module) {
 	
 	}
 	for (Function &func : module) {
+	    if(func.isDeclaration()) continue;
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
+		const SymbolicRangeAnalysis &ra = getAnalysis<SymbolicRangeAnalysis>(func);
 		CheckGetElementPtrVisitor visitor(maxIndexes[&func], ra, module, lengths[&func], valueSets);
 		for(BasicBlock &visitee :  func) {
 			DEBUG(dbgs() << "Visiting a new basic block...\n");

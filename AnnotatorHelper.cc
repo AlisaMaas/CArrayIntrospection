@@ -360,6 +360,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
             }
             firstTime = false;
             globalChanged |= changed;
+            errs() << "Done with an iteration\n";
         } while (changed);       
 		DEBUG(dbgs() << "About to go get some stores\n");
 		if (!fast) {

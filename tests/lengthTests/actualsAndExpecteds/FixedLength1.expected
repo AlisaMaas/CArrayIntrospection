@@ -1,2 +1,1 @@
-Analyzing foo
-	Argument array has max index 43
+foo with argument 0 should be annotated Fixed length of 43.

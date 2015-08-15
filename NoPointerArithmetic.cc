@@ -1,4 +1,5 @@
 #define DEBUG_TYPE "no-pointer-arithmetic"
+#define TESTING 0
 #include <fstream>
 #include <llvm/IR/Constants.h>
 #include <llvm/IR/Instructions.h>
@@ -47,8 +48,8 @@ namespace {
 					for (User *user : arg.users()) {
 						if (PHINode *node = dyn_cast<PHINode>(user)) {
 							if (node->getNumIncomingValues() != 2) {
-								errs() << "Found something close to pattern with other than 2 args\n";
-								errs() << *node << "\n";
+								DEBUG(dbgs() << "Found something close to pattern with other than 2 args\n");
+								DEBUG(dbgs() << *node << "\n");
 								continue;
 							}
 							int argument = 0;
@@ -97,40 +98,42 @@ namespace {
 								node->replaceAllUsesWith(gep);
 							}
 							else*/ if (GetElementPtrInst *gepi = dyn_cast<GetElementPtrInst>(node->getIncomingValue(other))){
-								errs() << "Found a gep!\n";
-								gepi->dump();
+								DEBUG(dbgs() << "Found a gep!\n");
+								if (TESTING) gepi->dump();
 								if (gepi->getPointerOperand() != node) {
-									errs() << "Not matching pattern because the gep didn't have the pointer in it.\n";
-									errs() << *gepi << "\n";
+									DEBUG(dbgs() << "Not matching pattern because the gep didn't have the pointer in it.\n");
+									DEBUG(dbgs() << *gepi << "\n");
 									continue;
 								}
 								else if (gepi->getNumIndices() != 1) {
-									errs() << "Not matching pattern because there is more than one index.\n";
-									errs() << *gepi << "\n";
+									DEBUG(dbgs() << "Not matching pattern because there is more than one index.\n");
+									DEBUG(dbgs() << *gepi << "\n");
 									continue;
 								}
 								else {
-								    errs() << *(*gepi->idx_begin())->getType() << "\n";
-                                    node->getParent()->getTerminator()->dump();
+								    DEBUG(dbgs() << *(*gepi->idx_begin())->getType() << "\n");
+                                    if (TESTING) node->getParent()->getTerminator()->dump();
 
 								    modified = true;
 								    Type* tInt = (*gepi->idx_begin())->getType();
-								    errs() << *tInt << "\n";
+								    DEBUG(dbgs() << *tInt << "\n");
 								    PHINode *addPHI = PHINode::Create(tInt, 2, "", node->getParent()->begin());
-								    node->getParent()->getTerminator()->dump();
+								    if (TESTING) node->getParent()->getTerminator()->dump();
 								    BinaryOperator *add = BinaryOperator::CreateNSW(Instruction::Add, addPHI, *gepi->idx_begin(), "", gepi);
 								    
-								    errs() << "Add \n";
-								    add->dump();
-								    node->getParent()->getTerminator()->dump();
+								    DEBUG(dbgs() << "Add \n");
+								    if (TESTING) { 
+								        add->dump();
+								        node->getParent()->getTerminator()->dump();
+								    }
 
 								    addPHI->addIncoming(ConstantInt::get(tInt, 0), node->getIncomingBlock(argument));
 								    addPHI->addIncoming(add, node->getIncomingBlock(other));
-								    errs() << "AddPHI: \n";
-								    addPHI->dump();
+								    DEBUG(dbgs() << "AddPHI: \n");
+								    if (TESTING) addPHI->dump();
 								    GetElementPtrInst *replacement = GetElementPtrInst::Create(&arg, ArrayRef<Value*>(addPHI), "", node->getParent()->getFirstInsertionPt());
-								    errs() << "Replacing " << *node << "\n";
-								    errs() << "With " << *replacement << "\n";
+								    DEBUG(dbgs() << "Replacing " << *node << "\n");
+								    DEBUG(dbgs() << "With " << *replacement << "\n");
 								    node->replaceAllUsesWith(replacement);
 								    node->eraseFromParent();
 								}
@@ -139,9 +142,9 @@ namespace {
 								
 							}
 							else {
-								errs() << "Not matching pattern because the non-argument was not a binary operator and not a gep\n";
-								errs() << *node << "\n";
-								errs() << "\t" << *node->getIncomingValue(other) << "\n";
+								DEBUG(dbgs() << "Not matching pattern because the non-argument was not a binary operator and not a gep\n");
+								DEBUG(dbgs() << *node << "\n");
+								DEBUG(dbgs() << "\t" << *node->getIncomingValue(other) << "\n");
 								continue;
 							}
 						}
@@ -149,10 +152,12 @@ namespace {
 				}
 			}
 		}
-	    for (const Function &func : module) {
-	        for (const BasicBlock &block : func) {
-	            block.dump();
-	        }
+		if (TESTING) {
+            for (const Function &func : module) {
+                for (const BasicBlock &block : func) {
+                    block.dump();
+                }
+            }
 	    }
 	    if (!testOutputName.empty()) {
             std::ofstream out(testOutputName);
@@ -165,6 +170,7 @@ namespace {
 	}
 
 	void NoPointerArithmetic::print(raw_ostream &out, const Module *module) const {
+	    if (!TESTING) return;
 	    for (const Function &func : *module) {
 	        for (const BasicBlock &block : func) {
 	            out << block;

@@ -72,8 +72,8 @@ void Annotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	usage.setPreservesAll();
 	usage.addRequired<FindStructElements>();
 	usage.addRequired<IIGlueReader>();
-	usage.addRequired<LoopInfo>();
 	usage.addRequired<SymbolicRangeAnalysis>();
+	usage.addRequired<LoopInfo>();
 	
 }
 
@@ -215,32 +215,24 @@ void Annotator::dumpToFile(const string &filename, const Module &module) const {
 
 
 bool Annotator::runOnModule(Module &module) {
-	DEBUG(dbgs() << "Get the argumentToValueSet map for reuse\n");
+	DEBUG(dbgs() << "Populate dependencies\n");
     
 	for (const string &dependency : dependencyFileNames) {
 		populateFromFile(dependency, module);
 	}
+	
+	DEBUG(dbgs() << "done populating dependencies\n");
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
     const FindStructElements &findElements = getAnalysis<FindStructElements>();
-    const SymbolicRangeAnalysis &ra = getAnalysis<SymbolicRangeAnalysis>();
     structElements = findElements.getStructElements();
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
     FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
 	ValueSetSet allValueSets;
+	
 	for (Function &func : module) {
+
 		if ((func.isDeclaration())) continue;
-		vector<LoopInformation> loopInfo;
-		LoopInfo &LI = getAnalysis<LoopInfo>(func);
-		for(const Loop *loop : LI) {
-		    LoopInformation info;
-		    SmallVector<BasicBlock *, 4> exitingBlocks;
-		    loop->getExitingBlocks(info.second.second);
-		    info.second.first = loop->getBlocks();
-	        info.first = loop->getHeader();
-		    loopInfo.push_back(info);
-		}
-		functionLoopInfo[&func] = loopInfo;
 		if (!Fast) {
 		    DEBUG(dbgs() << "Putting in some struct elements\n");
             for (auto tuple : structElements) {
@@ -264,17 +256,34 @@ bool Annotator::runOnModule(Module &module) {
 				allValueSets.insert(values);
 			}
 		}
-		DEBUG(dbgs() << "Got 'em\n");
-	}
-	
-	DEBUG(dbgs() << "Get the length checks\n");
-    for (Function &func : module) {
-        DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
-        CheckGetElementPtrVisitor visitor(maxIndexes[&func], ra, module, lengths[&func], allValueSets);
+		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
+        const SymbolicRangeAnalysis &sra = getAnalysis<SymbolicRangeAnalysis>(func);
+        DEBUG(dbgs() << "Acquired sra\n");
+        CheckGetElementPtrVisitor visitor(maxIndexes[&func], sra, module, lengths[&func], allValueSets);
         for(BasicBlock &visitee :  func) {
             DEBUG(dbgs() << "Visiting a new basic block...\n");
             visitor.visit(visitee);
         }
+	}
+	
+	
+	DEBUG(dbgs() << "Get the length checks\n");
+    for (Function &func : module) {
+        if ((func.isDeclaration())) continue;
+        vector<LoopInformation> loopInfo;
+		DEBUG(dbgs() << "Getting loop info\n");
+		const LoopInfo &LI = getAnalysis<LoopInfo>(func);
+		DEBUG(dbgs() << "Got loop info\n");
+		for(const Loop *loop : LI) {
+		    LoopInformation info;
+		    SmallVector<BasicBlock *, 4> exitingBlocks;
+		    loop->getExitingBlocks(info.second.second);
+		    info.second.first = loop->getBlocks();
+	        info.first = loop->getHeader();
+		    loopInfo.push_back(info);
+		}
+		functionLoopInfo[&func] = loopInfo;
+		DEBUG(dbgs() << "Got 'em\n");
 	}
 	
 	for (const Function &func : iiglue.arrayReceivers()) {
@@ -295,6 +304,8 @@ bool Annotator::runOnModule(Module &module) {
 		DEBUG(dbgs() << "We found " << functionToCallSites[&func].size() << " calls in " << func.getName() << '\n');
 	}
 	
+	DEBUG(dbgs() << "Finished going through array recievers\n");
+	
     for (const ValueSet *v : allValueSets) {
         if (!annotations.count(v)) {
             annotations[v] = LengthInfo(NO_LENGTH_VALUE, -1);
@@ -303,7 +314,9 @@ bool Annotator::runOnModule(Module &module) {
 	
 	DEBUG(dbgs() << "Iterate over the module\n");
 	//const map<Function*, LoopInfo> &functionToLoopInfo)
+	errs() << "About to start the main loop\n";
 	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo, reasons, Fast);
+	errs() << "About to write everything to disk.\n";
 	DEBUG(dbgs() << "Dump to a file\n");
 	if (!outputFileName.empty())
 		dumpToFile(outputFileName, module);
@@ -320,6 +333,7 @@ bool Annotator::runOnModule(Module &module) {
 
 
 void Annotator::print(raw_ostream &sink, const Module *module) const {
+    DEBUG(dbgs() << "About to print some things\n");
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
 		if (func.isDeclaration()) continue;
@@ -351,5 +365,5 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
                     sink << str(&element.first) 
         		        << " should be annotated " << ((getAnswer(*element.second, annotations)).toString()) << ".\n";
                 }
-    
+    DEBUG(dbgs() << "Finished printing things\n");
 }

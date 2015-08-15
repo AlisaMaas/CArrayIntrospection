@@ -1,3 +1,1 @@
-Analyzing foo
-	Argument array has max index 7
-	Argument x has unknown max index.
+foo with argument 0 should be annotated Fixed length of 7.

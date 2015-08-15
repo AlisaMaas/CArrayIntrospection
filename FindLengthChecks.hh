@@ -40,8 +40,9 @@ struct CheckGetElementPtrVisitor : public llvm::InstVisitor<CheckGetElementPtrVi
     private: 
         const ValueSet *getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer);
         bool matchAddPattern(llvm::Value *value, llvm::Value *basePointer);
-        ValueSetSet valueSets;
         const SymbolicRangeAnalysis &rangeAnalysis;
+        ValueSetSet valueSets;
+        llvm::Module &module;
         llvm::BasicBlock *placeHolder;
         ValueSetSet notConstantBounded;
         ValueSetSet notParameterBounded;

@@ -105,7 +105,7 @@ penv = env.Clone(
 
 sraFlags = [x for x in penv['CXXFLAGS'] if x[:2] != '-W']
 
-sraObject = penv.SharedObject(['SymbolicRangeTest.cc', 'FindLengthChecks.cc', 'Annotator.cc'], CXXFLAGS=(sraFlags, '-fpermissive'))
+#sraObject = penv.SharedObject(['FindLengthChecks.cc', 'Annotator.cc'], CXXFLAGS=(sraFlags, '-fpermissive'))
 
 
 penv.PrependENVPath('PATH', '/s/gcc-4.9.0/bin')
@@ -120,12 +120,13 @@ plugin, = penv.SharedLibrary('CArrayIntrospection', (
     'BacktrackPhiNodes.cc',
     'IIGlueReader.cc',
     'AnnotatorHelper.cc',
-    #'Annotator.cc',
-    sraObject,
-    #'LengthAnnotator.cc',
+    'Annotator.cc',
+    #sraObject,
+    'FindLengthChecks.cc',
     'FindSentinelHelper.cc',
     'FindStructElements.cc',
     'NoPointerArithmetic.cc',
+    'SymbolicRangeTest.cc',
 ))
 
 env['plugin'] = plugin

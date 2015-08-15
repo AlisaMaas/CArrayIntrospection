@@ -1,4 +1,1 @@
-Analyzing find
-	Argument x has max index argument y
-	Argument y has unknown max index.
-	Argument me has unknown max index.
+find with argument 0 should be annotated Parameter length of 1.
