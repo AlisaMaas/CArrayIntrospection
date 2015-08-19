@@ -32,6 +32,9 @@ llvm::LoopInfo& Annotator::runLoopInfo(llvm::Function &func) {
 pair<int, int> Annotator::annotate(const LengthInfo &info) const {
     DEBUG(dbgs() << "Annotate switch statement about to start\n");
     switch (info.type) {
+        case NOT_FIXED_LENGTH:
+            DEBUG(dbgs() << "Not fixed length\n");
+            return pair<int, int>(0, -1);
 	    case NO_LENGTH_VALUE:
 	        DEBUG(dbgs() << "No length value\n");
 	        return pair<int, int>(0,-1);
@@ -106,13 +109,18 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 		for (const auto &slot : boost::combine(arguments, arg_annotations)) {
 		    DEBUG(dbgs() << "Got some arguments\n");
 			const Argument &argument = slot.get<0>();
-			LengthInfo annotation;
 			const ptree &arg_annotation = slot.get<1>().second;
 			DEBUG(dbgs() << "This argument has size " << slot.get<1>().second.size() << "\n");
+			if (!argumentToValueSet.count(&argument)) {
+				ValueSet *values = new set<const Value*>();
+				values->insert(&argument);
+				argumentToValueSet[&argument] = values;
+			}
 			try{
-                if(arg_annotation.get_child("sentinel").get_value<string>() != "") {
+                if(!arg_annotation.get_child("sentinel").get_value<string>().empty()) {
                     DEBUG(dbgs() << "Length is not empty\n");
-                    annotation = LengthInfo(SENTINEL_TERMINATED, 0); 
+                    annotations[argumentToValueSet.at(&argument)] = LengthInfo(SENTINEL_TERMINATED, 0); 
+                    errs() << "Added a sentinel terminated thing!\n";
                     //TODO: generalize for other types of sentinels later once we support that.
                 }
 			} catch(...) {
@@ -120,31 +128,25 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			}
 			try{
 			    int parameterNo = arg_annotation.get_child("symbolic").get_value<int>();
-			    annotation = LengthInfo(PARAMETER_LENGTH, parameterNo);
-			    
+			    errs() << name << " has child " << argument.getArgNo() << " with symbolic length of " << parameterNo << "\n";
+			    annotations[argumentToValueSet.at(&argument)] = LengthInfo(PARAMETER_LENGTH, parameterNo);
 			} catch (...) {
 			    DEBUG(dbgs() << "Not a symbolic length argument\n");
 			}
 			try{
 			    int fixedLen = arg_annotation.get_child("fixed").get_value<int>();
-			    annotation = LengthInfo(FIXED_LENGTH, fixedLen);
+			    annotations[argumentToValueSet.at(&argument)] = LengthInfo(FIXED_LENGTH, fixedLen);
 			} catch (...) {
 			    DEBUG(dbgs() << "Not a fixed length argument\n");
 			}
 			try{
 			    int other = arg_annotation.get_child("other").get_value<int>();
 			    if (other == -1) {
-			        annotation = LengthInfo(INCONSISTENT, other);
+			        annotations[argumentToValueSet.at(&argument)] = LengthInfo(INCONSISTENT, other);
 			    }
 			} catch(...) {
 			    DEBUG(dbgs() << "Doesn't have an other field, at least not an int one.\n");
 			}
-			if (!argumentToValueSet.count(&argument)) {
-				ValueSet *values = new set<const Value*>();
-				values->insert(&argument);
-				argumentToValueSet[&argument] = values;
-			}
-			annotations[argumentToValueSet.at(&argument)] = annotation;
 		}
 	}
 }
@@ -229,7 +231,7 @@ bool Annotator::runOnModule(Module &module) {
     FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
 	ValueSetSet allValueSets;
-	
+	errs() << "About to get struct elements and run SRA over them\n";
 	for (Function &func : module) {
 
 		if ((func.isDeclaration())) continue;
@@ -264,8 +266,11 @@ bool Annotator::runOnModule(Module &module) {
             DEBUG(dbgs() << "Visiting a new basic block...\n");
             visitor.visit(visitee);
         }
+        for (const ValueSet *set : visitor.notConstantBounded) {
+            annotations[set] = LengthInfo(NOT_FIXED_LENGTH, -1);
+        }
 	}
-	
+	errs() << "Done with SRA!\n";
 	
 	DEBUG(dbgs() << "Get the length checks\n");
     for (Function &func : module) {

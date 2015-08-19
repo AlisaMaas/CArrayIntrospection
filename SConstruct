@@ -117,16 +117,18 @@ penv.AppendUnique(
     ), delete_existing=True)
 
 plugin, = penv.SharedLibrary('CArrayIntrospection', (
+    'FindLengthLoops.cc',
+    'FindLengthChecks.cc',
+    'FindSentinelHelper.cc',
+    'FindStructElements.cc',
+    'NoPointerArithmetic.cc',
+    'NoPointerComparisons.cpp',
+    'SymbolicRangeTest.cc',
     'BacktrackPhiNodes.cc',
     'IIGlueReader.cc',
     'AnnotatorHelper.cc',
     'Annotator.cc',
     #sraObject,
-    'FindLengthChecks.cc',
-    'FindSentinelHelper.cc',
-    'FindStructElements.cc',
-    'NoPointerArithmetic.cc',
-    'SymbolicRangeTest.cc',
 ))
 
 env['plugin'] = plugin

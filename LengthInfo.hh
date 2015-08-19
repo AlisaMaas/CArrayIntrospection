@@ -11,13 +11,18 @@ enum LengthType {
 	NO_LENGTH_VALUE,
 	PARAMETER_LENGTH,
 	FIXED_LENGTH,
+	NOT_FIXED_LENGTH,
 	INCONSISTENT,
 	SENTINEL_TERMINATED
 };
 
 class LengthInfo {
 	public: 
-		LengthInfo(LengthType t, long int l) : type(t), length(l), symbolicLength(nullptr) {}
+		LengthInfo(LengthType t, long int l) : type(t), length(l), symbolicLength(nullptr) {
+		    if (type == FIXED_LENGTH && length == 0) {
+		        type = NOT_FIXED_LENGTH;
+		    }
+		}
 		LengthInfo(LengthType t, const ValueSet *symbolic, long int l) : type(t), length(l), symbolicLength(symbolic) {}
 		LengthInfo() {
 			type = NO_LENGTH_VALUE;
@@ -31,6 +36,7 @@ class LengthInfo {
 				case NO_LENGTH_VALUE: return "None ";
 				case PARAMETER_LENGTH: return "Param";
 				case FIXED_LENGTH: return "Fixed";
+				case NOT_FIXED_LENGTH: return "Not Fixed";
 				case INCONSISTENT: return "Bad  ";
 				case SENTINEL_TERMINATED: return "Sentinel";
 			}
@@ -45,8 +51,11 @@ class LengthInfo {
                         return arg->getArgNo();
                     }
                 }
-            }
             return -1;
+            }
+            else {
+                return length;
+            }
 		}
 		std::string toString() const {
 			std::stringstream stream;
@@ -58,6 +67,7 @@ class LengthInfo {
 				case FIXED_LENGTH: 
 				stream << "Fixed length of " << length;
 				return stream.str();
+				case NOT_FIXED_LENGTH: return "Not fixed length";
 				case INCONSISTENT: return "Inconsistent length";
 				case SENTINEL_TERMINATED: 
 				stream << "Sentinel-terminated by " << length;

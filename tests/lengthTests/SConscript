@@ -1,6 +1,6 @@
 Import('env')
 
-env.RunTests(PLUGIN_ARGS=('-mem2reg', '-no-pointer-arithmetic', '-redef', '-sra-annotator', '-annotator'),
+env.RunTests(PLUGIN_ARGS=( '-mem2reg', '-redef', '-sra-annotator', '-annotator'),
 TEST='annotator')
 
 ########################################################################

@@ -1,5 +1,6 @@
 Import('env')
 
 env.RunTests(PLUGIN_ARGS=('-mem2reg', '-no-pointer-arithmetic', '-mem2reg','-redef','-sra', 
-'-annotator', '-debug', '-annotator-output', 'output.json', '-annotator-dependency', 'fakeLibrary.json'), TEST='annotator')
+'-annotator', '-debug', '-annotator-output', 'output.json', '-annotator-dependency', 'fakeLibrary.json', '-annotator-dependency',
+'cLibrary.json'), TEST='annotator')
 

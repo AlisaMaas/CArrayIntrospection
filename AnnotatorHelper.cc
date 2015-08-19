@@ -1,10 +1,12 @@
 #define DEBUG_TYPE "annotator-helper"
 #include "BacktrackPhiNodes.hh"
+#include "FindLengthLoops.hh"
 #include "FindSentinelHelper.hh"
 #include "IIGlueReader.hh"
 #include "LengthInfo.hh"
 #include "AnnotatorHelper.hh"
 #include "ValueReachesValue.hh"
+#include "ValueSetsReachingValue.hh"
 
 #include <boost/algorithm/cxx11/any_of.hpp>
 #include <boost/foreach.hpp>
@@ -40,6 +42,13 @@ using namespace std;
 
 LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
     switch(first.type) {
+        case NOT_FIXED_LENGTH:
+            switch(second.type) {
+                case FIXED_LENGTH:
+                    return first;
+                default:
+                    return second;
+            }
         case NO_LENGTH_VALUE:
             return second;
         case INCONSISTENT:
@@ -61,6 +70,7 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
             }
         case SENTINEL_TERMINATED:
             switch(second.type) {
+                case NOT_FIXED_LENGTH:
                 case NO_LENGTH_VALUE:
                 case FIXED_LENGTH:
                 case SENTINEL_TERMINATED:
@@ -71,6 +81,7 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
             }
         case PARAMETER_LENGTH:
             switch(second.type) {
+                case NOT_FIXED_LENGTH:
                 case NO_LENGTH_VALUE:
                 case FIXED_LENGTH:
                 case SENTINEL_TERMINATED:
@@ -99,6 +110,7 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
 
 pair<int, int> annotate(LengthInfo &info) {
     switch (info.type) {
+        case NOT_FIXED_LENGTH:
 	    case NO_LENGTH_VALUE:
 	        return pair<int, int>(0,-1);
 	    case INCONSISTENT:
@@ -187,19 +199,32 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
 };
 
 
-static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls, const Value *value, AnnotationMap &annotations) {
+static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls, const Value *value, AnnotationMap &annotations, 
+FunctionToValueSets toCheck, const Function &func) {
 	// if we haven't yet continued, process evidence from callees.
 	//bool foundNonNullTerminated = false;
 	bool nextPlease = false;
 	std::stringstream reason;
-	LengthInfo answer;
+	LengthInfo answer = findAssociatedAnswer(value, annotations);
+	if (answer.type == PARAMETER_LENGTH) {
+	    pair<LengthInfo, bool> partOne(answer, true);
+	    return pair<pair<LengthInfo, bool>,string>(partOne, "Preserved parameter length");
+	}
+	ValueSetSet allValueSets;
+	for (auto x : toCheck) {
+	    for (auto y : x.second)
+	        allValueSets.insert(y);
+	}
 	for (const CallInst &call : calls | indirected) {
 		DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
 		DEBUG(dbgs() << "Call: " << call.getName() << "\n");
 		DEBUG(dbgs() << "getCalledFunction name: " << call.getCalledFunction() << "\n");
-		const auto calledFunction = call.getCalledFunction();
+		const Function * calledFunction = &*call.getCalledFunction();
 		if (calledFunction == nullptr)
 			continue;
+		if (&func == calledFunction && answer.type == FIXED_LENGTH) {
+		    answer.type = NOT_FIXED_LENGTH;
+		}
 		const auto formals = calledFunction->getArgumentList().begin();
 		DEBUG(dbgs() << "Got formals\n");
 		for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
@@ -213,37 +238,45 @@ static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls
 			DEBUG(dbgs() << "match found!\n");
 			auto parameter = next(formals, argNo);
 			if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
+			    answer.type = NOT_FIXED_LENGTH;
 				continue;
 			}
+			
 			DEBUG(dbgs() << "About to enter the switch\n");
 			LengthInfo formalAnswer = findAssociatedAnswer(parameter, annotations);
-			switch (formalAnswer.type) {
-
-	        case NO_LENGTH_VALUE:
-	            break;
-	        case INCONSISTENT:
-	            answer = formalAnswer; //if treated inconsistently in a call, it's inconsistent
-	            break;
-	        case FIXED_LENGTH:
-	            answer = formalAnswer;
-	            reason << " found a call to " << call.getCalledFunction()->getName().str();
-	            reason << " with fixed length of " << formalAnswer.length << " passing " << value->getName().str();
-	            break;
-	        case PARAMETER_LENGTH:
-	            answer = formalAnswer;
-	            reason << "found a call to " << call.getCalledFunction()->getName().str();
-	            reason << " with parameter length of " << formalAnswer.length << " passing " << value->getName().str();
-	            break;
-			case SENTINEL_TERMINATED:
-				answer = formalAnswer;
-				reason << " found a call to " << call.getCalledFunction()->getName().str();
-				reason << " passing " << value->getName().str();
-				nextPlease = true;
-				break;
-
-			default:
-				// should never happen!
-				abort();
+			if (formalAnswer.type == PARAMETER_LENGTH) {
+			    int symbolicLen = formalAnswer.getSymbolicLength();
+			    formalAnswer = LengthInfo(NOT_FIXED_LENGTH,-1);
+			    if (symbolicLen > 0) {
+			        DEBUG(dbgs() << "Trying to figure out the symbolic length information\n");
+			        DEBUG(dbgs() << "In function " << func.getName() << " calling " << calledFunction->getName() << "\n");
+			        ValueSetSet lengths = valueSetsReachingValue(*&*call.getArgOperand(symbolicLen), allValueSets);
+			        if (lengths.size() == 1) {
+                        const ValueSet *length = &**lengths.begin();
+                        if (length == nullptr) {
+                            DEBUG(dbgs() << "Unable to find a length, at least we know it's not fixed length\n");
+                            formalAnswer = LengthInfo(NOT_FIXED_LENGTH,-1);
+                        }
+                        else {
+                            DEBUG(dbgs() << "Marking parameter length\n");
+                            formalAnswer = LengthInfo(PARAMETER_LENGTH, length, -1);
+                        }
+                    }
+                    else {
+                        DEBUG(dbgs() << "We actually found " << lengths.size() << " things that can become this argument\n");
+                    }
+			    }
+			    else {
+			        DEBUG(dbgs() << "Symbolic length, but value is negative..oops\n");
+			    }
+			}
+			if (formalAnswer.type != FIXED_LENGTH && answer.type == FIXED_LENGTH) {
+			    formalAnswer = LengthInfo(NOT_FIXED_LENGTH, -1);
+			}
+			answer = mergeAnswers(formalAnswer, answer);
+			if (answer.type == formalAnswer.type && formalAnswer.type != NO_LENGTH_VALUE && answer.length == formalAnswer.length) {
+			    reason << " found a call to " << call.getCalledFunction()->getName().str();
+			    reason << " passing " << value->getName().str();
 			}
 		}
 
@@ -272,18 +305,34 @@ unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &
 
 //needs to be called per function.
 //TODO: rename for consistency - this is just for finding sentinel checks in the loop
-static pair<bool, bool> processLoops(vector<LoopInformation> &LI, const Value* toCheck) {
-	pair<bool, bool> result(false, false);
+static LengthInfo processLoops(vector<LoopInformation> &LI, const Value* toCheck, const FunctionToValueSets &allValues) {
+    LengthInfo result;
 	DEBUG(dbgs() << "Getting to look through loops now!\n");
 	for (const LoopInformation loop: LI) {
 	    DEBUG(dbgs() << "Got a loop!\n");
-		ValueReport response = findSentinelChecks(loop, toCheck);
-		if (!response.first.empty() && response.second) { //found an optional sentinel check in some loop for toCheck
+		SentinelValueReport sentinelResponse = findSentinelChecks(loop, toCheck);
+		/*if (!response.first.empty() && response.second) { //found an optional sentinel check in some loop for toCheck
 		    result.first = true;
+		}*/ //TODO: decide if I want to handle finding optional loops.
+		if (!sentinelResponse.second) { //found a non-optional sentinel check in some loop for toCheck.
+		    result = mergeAnswers(result, LengthInfo(SENTINEL_TERMINATED, 0));
 		}
-		else if (!response.second) { //found a non-optional sentinel check in some loop for toCheck.
-		    result.second = true;
-		}
+		LengthValueReport lengthResponse = findLengthChecks(loop, toCheck);
+	    if (lengthResponse.size() == 1) {
+	        DEBUG(dbgs() << "Found a symbolic length check in a loop!\n");
+	        const Value *length = &*(lengthResponse.begin()->first);
+	        pair<BlockSet, bool> lengthInfo = lengthResponse[length];
+	        if (!lengthInfo.second) { //found a non-optional length check in some loop for toCheck
+	            const ValueSet *set = findAssociatedValueSet(length, allValues);
+	            if (set != nullptr) {
+	                DEBUG(dbgs() << "And it's non optional, too\n");
+	                result = mergeAnswers(result, LengthInfo(PARAMETER_LENGTH, set, -1));
+	            }
+	            else {
+	                result = mergeAnswers(result, LengthInfo(NOT_FIXED_LENGTH, -1));
+	            }
+	        }
+	    }
 	}
 	return result;
 }
@@ -298,6 +347,7 @@ static pair<bool, bool> processLoops(vector<LoopInformation> &LI, const Value* t
 * information is added from another pass.
 *
 **/
+//TODO: fix name for checkNullTermianted.
 bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTerminated, 
 	unordered_map<const Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
 	FunctionToLoopInformation &info, map<const ValueSet, string> &reasons, bool fast) {
@@ -310,10 +360,11 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 	    do {
             changed = false;
             for (Function &func : module) {
-                DEBUG(dbgs() << "Working on " << func.getName() << "\n");
+                errs() << "Working on " << func.getName() << "\n";
                 if ((func.isDeclaration())) continue;
                 if (!checkNullTerminated.count(&func)) continue;
                 for (const ValueSet *valueSet : checkNullTerminated.at(&func)) {
+                    errs() << "looking at a new value set\n";
                     LengthInfo oldAnswer = getAnswer(*valueSet, annotations);
                     LengthInfo answer = oldAnswer;
                     for (const Value * value : *valueSet) {
@@ -321,11 +372,15 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                         LengthInfo valueAnswer;
                         //bool existsOptionalCheck = false;
                         if (firstTime) {
-                            pair<bool, bool> result = processLoops(info.at(&func), value);
-                            valueAnswer = result.second? LengthInfo(SENTINEL_TERMINATED, 0) : LengthInfo();
+                            valueAnswer = processLoops(info.at(&func), value, checkNullTerminated);
                             if (valueAnswer.type == SENTINEL_TERMINATED) {
                                 std::stringstream reason;
                                 reason << "found a non optional sentinel check for " << value->getName().str() << " in " << func.getName().str();
+                                reasons[*valueSet] = reason.str();
+                            }
+                            else if (valueAnswer.type == PARAMETER_LENGTH) {
+                                std::stringstream reason;
+                                reason << "found a non optional length check for " << value->getName().str() << " in " << func.getName().str();
                                 reasons[*valueSet] = reason.str();
                             }
                             //TODO: could do stuff here if we find an optional sentinel check, but it seems unwarranted.
@@ -335,7 +390,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                         }
                         // if we haven't yet continued, process evidence from callees.
                         DEBUG(dbgs() << "About to track through the calls\n");
-                        pair<pair<LengthInfo, bool>, string> callResponse = trackThroughCalls(functionToCallSites.at(&func), value, annotations);
+                        pair<pair<LengthInfo, bool>, string> callResponse = trackThroughCalls(functionToCallSites.at(&func), value, annotations, checkNullTerminated, func);
                         if (!callResponse.second.empty()) {
                             reasons[*valueSet] = callResponse.second;
                         }
@@ -352,6 +407,9 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                         }*/
                         //DEBUG(dbgs() << "After looking for optional loops, result is " << valueAnswer << "\n");
                         answer = mergeAnswers(valueAnswer, answer);
+                        if (answer.type == NO_LENGTH_VALUE) {
+                            answer.type = NOT_FIXED_LENGTH;
+                        }
                         DEBUG(dbgs() << "After merging, result is " << answer.toString() << "\n");
                     }
                     changed |= (answer.type != oldAnswer.type || answer.length != oldAnswer.length);
@@ -361,7 +419,8 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
             firstTime = false;
             globalChanged |= changed;
             errs() << "Done with an iteration\n";
-        } while (changed);       
+        } while (changed); 
+        errs() << "About to get store information and push info through there...\n";      
 		DEBUG(dbgs() << "About to go get some stores\n");
 		if (!fast) {
             for (Function &func : module) {

@@ -1733,10 +1733,10 @@
             "arguments": [
                 {
                     "args_array_receiver": 1,
-                    "argument_name": "unknown",
+                    "argument_name": "data",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 6
                 },
                 {
                     "args_array_receiver": 0,
@@ -3990,12 +3990,12 @@
                 },
                 {
                     "args_array_receiver": 5,
-                    "argument_name": "unknown",
+                    "argument_name": "string",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -4050,13 +4050,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 0,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -4213,13 +4213,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -4631,13 +4631,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -5023,13 +5023,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -5117,13 +5117,14 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
+                        "extra length parameter",
+                        "requires struct info"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -5356,7 +5357,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "fixed": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -5571,10 +5572,10 @@
                 },
                 {
                     "args_array_receiver": 0,
-                    "argument_name": "unknown",
+                    "argument_name": "argv",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "fixed": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -6503,13 +6504,13 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 4
                 },
                 {
                     "args_array_receiver": 0,
@@ -9439,10 +9440,10 @@
                 },
                 {
                     "args_array_receiver": 0,
-                    "argument_name": "unknown",
+                    "argument_name": "p",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "fixed": 6
                 },
                 {
                     "args_array_receiver": 0,
@@ -9671,7 +9672,8 @@
                     "other": 0
                 }
             ],
-            "function_name": "g_bytes_new_with_free_func"
+            "function_name": "g_bytes_new_with_free_func",
+            "metadata":["requires struct info"]
         },
         {
             "arguments": [
@@ -10095,7 +10097,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "fixed": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -10420,7 +10422,7 @@
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -11022,13 +11024,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -11135,7 +11137,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "fixed": 6
                 },
                 {
                     "args_array_receiver": 0,
@@ -11715,13 +11717,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -12378,13 +12380,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -13146,13 +13148,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -13332,7 +13334,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -14597,7 +14599,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -14630,7 +14632,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 3
                 },
                 {
                     "args_array_receiver": 0,
@@ -15491,13 +15493,13 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -17061,7 +17063,7 @@
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -17253,13 +17255,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -17281,13 +17283,13 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -18180,13 +18182,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -19174,13 +19176,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -19686,13 +19688,13 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -20141,13 +20143,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -20258,7 +20260,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 3
                 },
                 {
                     "args_array_receiver": 0,
@@ -21443,7 +21445,7 @@
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -22233,7 +22235,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 6
                 },
                 {
                     "args_array_receiver": 0,
@@ -23541,7 +23543,7 @@
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -23930,13 +23932,13 @@
                     "sentinel": "NUL"
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -24047,7 +24049,7 @@
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -24270,13 +24272,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -24560,7 +24562,7 @@
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -25134,13 +25136,13 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 0,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -25576,7 +25578,7 @@
                     "args_array_receiver": 0,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
-                    "metadata": [],
+                    "metadata": ["would need struct info"],
                     "symbolic": 1
                 },
                 {
@@ -26308,7 +26310,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -26791,13 +26793,14 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
+                        "extra length parameter",
+                        "requires struct info"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -27956,13 +27959,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -28254,7 +28257,7 @@
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -29996,7 +29999,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 0
                 }
             ],
             "function_name": "g_slice_copy"
@@ -31617,13 +31620,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -31722,7 +31725,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 6
                 },
                 {
                     "args_array_receiver": 0,
@@ -32282,13 +32285,13 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -32691,13 +32694,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -34836,13 +34839,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -34901,7 +34904,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -35111,13 +35114,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -35193,13 +35196,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -35278,13 +35281,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -35685,13 +35688,13 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -36022,13 +36025,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -36151,7 +36154,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "fixed": 5
                 },
                 {
                     "args_array_receiver": 0,
@@ -36244,13 +36247,13 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -38055,7 +38058,7 @@
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -38960,7 +38963,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -39721,13 +39724,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 0,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -39846,13 +39849,13 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -40058,13 +40061,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -40877,7 +40880,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -41249,13 +41252,13 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 1,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -41270,13 +41273,13 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 0,
+                    "args_array_receiver": 5,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,

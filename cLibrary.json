@@ -27,6 +27,72 @@
             ]
         },
         {
+        "arguments": [
+                {
+                    "argument_name": "dest",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "symbolic": 2
+                },
+                {
+                    "argument_name": "src",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "symbolic": 2
+                },
+                {
+                    "argument_name": "len",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": -1
+                }
+            ],
+            "function_name": "memcpy",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+                "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "symbolic": 2
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "unknown",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "llvm.memcpy.p0i8.p0i8.i64"
+        },
+        {
             "arguments": [
                 {
                     "argument_name": "unknown",
@@ -376,6 +442,35 @@
                 }
             ],
             "function_name": "write",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "fds",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "symbolic": 1
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "nfds",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "args_array_receiver": 0,
+                    "argument_name": "timeout",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                }
+            ],
+            "function_name": "poll",
             "metadata": [
                 "dependency"
             ]

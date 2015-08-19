@@ -34,6 +34,7 @@ const ValueSet *CheckGetElementPtrVisitor::getValueLength(Value *first, Value *s
         else return nullptr;
     }
     else {
+        notConstantBounded.insert(getValueSetFromValue(basePointer, valueSets));
         notParameterBounded.insert(getValueSetFromValue(basePointer, valueSets));
         return nullptr;
     }

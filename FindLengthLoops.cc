@@ -1,6 +1,6 @@
-#define DEBUG_TYPE "find-sentinels-helper"
+#define DEBUG_TYPE "find-length-loops"
 
-#include "FindSentinelHelper.hh"
+#include "FindLengthLoops.hh"
 #include "PatternMatch-extras.hh"
 #include "ValueReachesValue.hh"
 
@@ -51,7 +51,7 @@ static bool reachable(const LoopInformation &loop, BlockSet &foundSoFar, const B
 	return reachableNontrivially(loop, foundSoFar, current, goal);
 }
 
-bool DFSCheckSentinelOptional(const LoopInformation &loop, BlockSet &foundSoFar) {
+bool DFSCheckOptional(const LoopInformation &loop, BlockSet &foundSoFar) {
 	const BasicBlock &loopEntry = *loop.first;
 	return reachableNontrivially(loop, foundSoFar, loopEntry, loopEntry);
 }
@@ -69,9 +69,10 @@ bool DFSCheckSentinelOptional(const LoopInformation &loop, BlockSet &foundSoFar)
 * to the sentinel checks and their optionality.
 **/
 
-SentinelValueReport findSentinelChecks(const LoopInformation &loop, const Value * goal) {
+LengthValueReport findLengthChecks(const LoopInformation &loop, const Value * goal) {
     DEBUG(dbgs() << "Looking at " << goal->getName() << " from " << loop.first->getParent()->getName() << "\n");
-	SentinelValueReport sentinelChecks;
+	LengthValueReport lengthChecks;
+	unordered_set<const Value*> slots;
 	const SmallVector<BasicBlock *, 4> exitingBlocks = loop.second.second;
 	for (BasicBlock *exitingBlock : exitingBlocks) {
 		TerminatorInst * const terminator = exitingBlock->getTerminator();
@@ -81,114 +82,85 @@ SentinelValueReport findSentinelChecks(const LoopInformation &loop, const Value 
 		// This will need to be checked to make sure it corresponds to an argument identified as an array.
 		Value *pointer;
 		Value *slot;
-
+		Value *phi;
 		// reusable pattern fragments
-
-		auto loadPattern = m_Load(
-				m_GetElementPointer(
-						m_Value(pointer),
-						m_Value(slot)
-						)
-				);
-
-		auto compareZeroPattern = m_ICmp(predicate,
-				m_CombineOr(
-						loadPattern,
-						m_SExt(loadPattern)
-						),
-						m_Zero()
-				);
-
-		// Clang 3.4 without optimization, after running mem2reg:
-		//
-		//     %0 = getelementptr inbounds i8* %pointer, i64 %slot
-		//     %1 = load i8* %0, align 1
-		//     %element = sext i8 %1 to i32
-		//     %2 = icmp ne i32 %element, 0
-		//     br i1 %2, label %trueBlock, label %falseBlock
-		//
-		// Clang 3.4 with any level of optimization:
-		//
-		//     %0 = getelementptr inbounds i8* %pointer, i64 %slot
-		//     %1 = load i8* %0, align 1
-		//     %element = icmp eq i8 %1, 0
-		//     br i1 %element, label %trueBlock, label %falseBlock
-		// When optimized code has an OR:
-		//    %arrayidx = getelementptr inbounds i8* %pointer, i64 %slot
-		//    %0 = load i8* %arrayidx, align 1, !tbaa !0
-		//    %cmp = icmp eq i8 %0, %goal
-		//    %cmp6 = icmp eq i8 %0, 0
-		//    %or.cond = or i1 %cmp, %cmp6
-		//    %indvars.iv.next = add i64 %indvars.iv, 1
-		//    br i1 %or.cond, label %for.end, label %for.cond
+        auto addPtr = m_GetElementPointer(
+                        m_Value(pointer),
+						m_SExt(m_Value(slot))
+                    );
+        
 		if (match(terminator,
 				m_Br(
 					m_CombineOr(
-							compareZeroPattern,
-							m_CombineOr(
-								m_Or(
-									compareZeroPattern,
-									m_Value()
-									),
-								m_Or(
-									m_Value(),
-									compareZeroPattern
-									)
-							)
+					        m_ICmp(predicate,
+					            addPtr,
+					            m_Value(phi)
+					        ),
+					        m_ICmp(predicate,
+					            m_Value(phi),
+					            addPtr
+					        )
 					),
 					trueBlock,
 					falseBlock))) {
 			DEBUG(dbgs() << "Matched!!!!!!\n");
 
 			// check that we actually leave the loop when sentinel is found
-			const BasicBlock *sentinelDestination;
+			const BasicBlock *destination;
 			switch (predicate) {
 			case CmpInst::ICMP_EQ:
-				sentinelDestination = trueBlock;
+				destination = trueBlock;
 				break;
 			case CmpInst::ICMP_NE:
-				sentinelDestination = falseBlock;
+				destination = falseBlock;
 				break;
 			default:
 				continue;
 			}
 			auto blocks = loop.second.first;
-			if (std::find(blocks.begin(), blocks.end(), sentinelDestination) != blocks.end()) {
+			if (std::find(blocks.begin(), blocks.end(), destination) != blocks.end()) {
 				DEBUG(dbgs() << "dest still in loop!\n\n\n\n");
 				DEBUG(dbgs() << (predicate == CmpInst::ICMP_EQ) << "\n\n\n");
 				continue;
 			}
-			if (LoadInst *load = dyn_cast<LoadInst>(pointer)) {
+			/*if (LoadInst *load = dyn_cast<LoadInst>(pointer)) {
 			    if (dyn_cast<GetElementPtrInst>(load->getPointerOperand()))
 			        pointer = load->getPointerOperand();
-			}
+			}*/
 			if (!valueReachesValue(*goal, *pointer, true)) {
-                DEBUG(dbgs() << "Sentinel check of incorrect value.\n");
+                DEBUG(dbgs() << "Length check indexes into incorrect value.\n");
+			    continue;
+			}
+			if (!valueReachesValue(*goal, *phi, true)) {
+			    DEBUG(dbgs() << "Length check against wrong end pointer\n");
 			    continue;
 			}
 			// all tests pass; this is a possible sentinel check!
-			DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
-				  << "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
+			DEBUG(dbgs() << "found possible length check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
+				  << "  exits loop by jumping to %" << destination->getName() << '\n');
 			// mark this block as one of the sentinel checks this loop.
-			sentinelChecks.first.insert(exitingBlock);
+			lengthChecks[slot].first.insert(exitingBlock);
+			slots.insert(slot);
 		}
 	}
-    BlockSet foundSoFar = sentinelChecks.first;
-    if (sentinelChecks.first.empty()) {
-        DEBUG(dbgs() << "No sentinel checks found for " << goal->getName() << "\n");
-        sentinelChecks.second = true;
-        return sentinelChecks;
+	for (const Value *slot : slots) {
+        BlockSet foundSoFar = lengthChecks[slot].first;
+        if (lengthChecks[slot].first.empty()) {
+            DEBUG(dbgs() << "No length checks found for " << goal->getName() << "\n");
+            lengthChecks[slot].second = true;
+            return lengthChecks;
+        }
+        DEBUG(dbgs() << "Checking the length check for " << goal->getName() << "\n");
+        bool optional = DFSCheckOptional(loop, foundSoFar);
+        if (optional) {
+            DEBUG(dbgs() << "The length check was optional!\n");
+            lengthChecks[slot].second = true;
+        }
+        else {
+            DEBUG(dbgs() << "The length check was non-optional - hooray!\n");
+            lengthChecks[slot].second = false;
+        }
+        DEBUG(dbgs() << "About to return the list of length checks\n");
     }
-    DEBUG(dbgs() << "Checking the sentinel check for " << goal->getName() << "\n");
-    bool optional = DFSCheckSentinelOptional(loop, foundSoFar);
-    if (optional) {
-        DEBUG(dbgs() << "The sentinel check was optional!\n");
-        sentinelChecks.second = true;
-    }
-    else {
-        DEBUG(dbgs() << "The sentinel check was non-optional - hooray!\n");
-        sentinelChecks.second = false;
-    }
-	DEBUG(dbgs() << "About to return the list of sentinel checks\n");
-	return sentinelChecks;
+	return lengthChecks;
 }

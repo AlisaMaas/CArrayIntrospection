@@ -37,6 +37,8 @@ struct CheckGetElementPtrVisitor : public llvm::InstVisitor<CheckGetElementPtrVi
 	        const SymbolicRangeAnalysis &ra, llvm::Module &m, LengthValueSetMap &l, ValueSetSet &v );
 	    ~CheckGetElementPtrVisitor();
     	void visitGetElementPtrInst(llvm::GetElementPtrInst& gepi);
+    	ValueSetSet notConstantBounded;
+        ValueSetSet notParameterBounded;
     private: 
         const ValueSet *getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer);
         bool matchAddPattern(llvm::Value *value, llvm::Value *basePointer);
@@ -44,8 +46,6 @@ struct CheckGetElementPtrVisitor : public llvm::InstVisitor<CheckGetElementPtrVi
         ValueSetSet valueSets;
         llvm::Module &module;
         llvm::BasicBlock *placeHolder;
-        ValueSetSet notConstantBounded;
-        ValueSetSet notParameterBounded;
 };
 
 

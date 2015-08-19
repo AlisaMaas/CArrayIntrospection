@@ -19,8 +19,8 @@ class Result:
         return self.functionName.__hash__() + self.argNumber
         
 def printDifferences(actualPositives, actualNegatives, observedPositives, observedNegatives):
-    TP = len(actualPositives and observedPositives)
-    TN = len(actualNegatives and observedNegatives)
+    TP = len(actualPositives & observedPositives)
+    TN = len(actualNegatives & observedNegatives)
     FP = len(observedPositives - actualPositives)
     FN = len(observedNegatives - actualNegatives)
     print "\tTrue Pos: " + str(TP)
@@ -36,7 +36,10 @@ def printDifferences(actualPositives, actualNegatives, observedPositives, observ
     for result in observedPositives - actualPositives:
         print "\t\t\t" + str(result.functionName) + " with argument number " + str(result.argNumber) + " (" + str(result.argName) + ")"
         print "\t\t\tmetadata: " + str(result.metadata)
-
+    print "\t\tFalse negatives: "
+    for result in observedNegatives - actualNegatives:
+        print "\t\t\t" + str(result.functionName) + " with argument number " + str(result.argNumber) + " (" + str(result.argName) + ")"
+        print "\t\t\tmetadata: " + str(result.metadata)
 def analyzeReport(report):
     fixedLen = set()
     notFixedLen = set()
