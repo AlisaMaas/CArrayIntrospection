@@ -275,7 +275,7 @@ FunctionToValueSets toCheck, const Function &func) {
 			}
 			answer = mergeAnswers(formalAnswer, answer);
 			if (answer.type == formalAnswer.type && formalAnswer.type != NO_LENGTH_VALUE && answer.length == formalAnswer.length) {
-			    reason << " found a call to " << call.getCalledFunction()->getName().str();
+			    reason = " found a call to " << call.getCalledFunction()->getName().str();
 			    reason << " passing " << value->getName().str();
 			}
 		}
@@ -364,7 +364,6 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                 if ((func.isDeclaration())) continue;
                 if (!checkNullTerminated.count(&func)) continue;
                 for (const ValueSet *valueSet : checkNullTerminated.at(&func)) {
-                    errs() << "looking at a new value set\n";
                     LengthInfo oldAnswer = getAnswer(*valueSet, annotations);
                     LengthInfo answer = oldAnswer;
                     for (const Value * value : *valueSet) {
