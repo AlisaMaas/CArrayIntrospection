@@ -193,7 +193,7 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
 
 
 static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls, const Value *value, AnnotationMap &annotations, 
-FunctionToValueSets toCheck, const Function &func) {
+const Function &func, ValueSetSet &allValueSets) {
 	// if we haven't yet continued, process evidence from callees.
 	//bool foundNonNullTerminated = false;
 	bool nextPlease = false;
@@ -202,11 +202,6 @@ FunctionToValueSets toCheck, const Function &func) {
 	if (answer.type == PARAMETER_LENGTH) {
 	    pair<LengthInfo, bool> partOne(answer, true);
 	    return pair<pair<LengthInfo, bool>,string>(partOne, "Preserved parameter length");
-	}
-	ValueSetSet allValueSets;
-	for (auto x : toCheck) {
-	    for (auto y : x.second)
-	        allValueSets.insert(y);
 	}
 	for (const CallInst &call : calls | indirected) {
 		DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
@@ -268,7 +263,7 @@ FunctionToValueSets toCheck, const Function &func) {
 			}
 			answer = mergeAnswers(formalAnswer, answer);
 			if (answer.type == formalAnswer.type && formalAnswer.type != NO_LENGTH_VALUE && answer.length == formalAnswer.length) {
-			    reason.clear();
+			    reason.str("");
 			    reason << " found a call to " << call.getCalledFunction()->getName().str();
 			    reason << " passing " << value->getName().str();
 			}
@@ -351,6 +346,12 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 	bool globalChanged = false;
 	bool changed;
     bool firstTime = true;
+    
+	ValueSetSet allValueSets;
+	for (auto x : checkNullTerminated) {
+	    for (auto y : x.second)
+	        allValueSets.insert(y);
+	}
 	do {
 	    do {
             changed = false;
@@ -384,7 +385,8 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                         }
                         // if we haven't yet continued, process evidence from callees.
                         DEBUG(dbgs() << "About to track through the calls\n");
-                        pair<pair<LengthInfo, bool>, string> callResponse = trackThroughCalls(functionToCallSites.at(&func), value, annotations, checkNullTerminated, func);
+                        pair<pair<LengthInfo, bool>, string> callResponse = trackThroughCalls(functionToCallSites.at(&func), 
+                        value, annotations, func, allValueSets);
                         if (!callResponse.second.empty()) {
                             reasons[*valueSet] = callResponse.second;
                         }
