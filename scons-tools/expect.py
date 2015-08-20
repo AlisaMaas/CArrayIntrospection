@@ -35,7 +35,7 @@ __expect_builder = Builder(
     action=__expect_action,
     emitter=__expect_emitter,
     suffix='.passed',
-    )
+)
 
 
 ########################################################################
@@ -45,8 +45,8 @@ def generate(env):
     env.AppendUnique(
         BUILDERS={
             'Expect': __expect_builder,
-            },
-        )
+        },
+    )
 
 
 def exists(env):
