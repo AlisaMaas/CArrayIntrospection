@@ -310,17 +310,20 @@ bool Annotator::runOnModule(Module &module) {
 	}
 	
 	DEBUG(dbgs() << "Finished going through array recievers\n");
-	
+	map<const Value *, const ValueSet*> valueToValueSet;
     for (const ValueSet *v : allValueSets) {
         if (!annotations.count(v)) {
             annotations[v] = LengthInfo(NO_LENGTH_VALUE, -1);
+        }
+        for (const Value *val : *v) {
+            valueToValueSet[val] = v;
         }
     }
 	
 	DEBUG(dbgs() << "Iterate over the module\n");
 	//const map<Function*, LoopInfo> &functionToLoopInfo)
 	errs() << "About to start the main loop\n";
-	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo, reasons, Fast);
+	iterateOverModule(module, toCheck, allCallSites, annotations, functionLoopInfo, reasons, Fast, valueToValueSet);
 	errs() << "About to write everything to disk.\n";
 	DEBUG(dbgs() << "Dump to a file\n");
 	if (!outputFileName.empty())

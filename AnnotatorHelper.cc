@@ -137,15 +137,8 @@ pair<int, int> annotate(const ValueSet &value, AnnotationMap &annotations) {
 	}
 }
 
-const ValueSet* findAssociatedValueSet(const Value *value, const FunctionToValueSets &toCheck) {
-    for (auto tuple : toCheck) {
-        for (const ValueSet *valueSet : tuple.second) {
-            if (valueSet->count(value)) {
-                return valueSet;
-            }
-        }
-    }
-    return nullptr;
+const ValueSet* findAssociatedValueSet(const Value *value, const map<const Value *, const ValueSet*> &toCheck) {
+    return toCheck.at(value);
 
 }
 
@@ -168,10 +161,10 @@ LengthInfo getAnswer(const ValueSet &value, const AnnotationMap &annotations) {
 
 struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
     AnnotationMap &annotations;
-    const FunctionToValueSets &toCheck;
+    const map<const Value *, const ValueSet*> &toCheck;
     map<const ValueSet, string> &reasons;
     bool changed;
-    ProcessStoresGEPVisitor(AnnotationMap &a, const FunctionToValueSets &v, map<const ValueSet, string> &r) : 
+    ProcessStoresGEPVisitor(AnnotationMap &a, const map<const Value *, const ValueSet*> &v, map<const ValueSet, string> &r) : 
     annotations(a), toCheck(v), reasons(r){
         changed = false;
     }
@@ -275,7 +268,8 @@ FunctionToValueSets toCheck, const Function &func) {
 			}
 			answer = mergeAnswers(formalAnswer, answer);
 			if (answer.type == formalAnswer.type && formalAnswer.type != NO_LENGTH_VALUE && answer.length == formalAnswer.length) {
-			    reason = " found a call to " << call.getCalledFunction()->getName().str();
+			    reason.clear();
+			    reason << " found a call to " << call.getCalledFunction()->getName().str();
 			    reason << " passing " << value->getName().str();
 			}
 		}
@@ -305,7 +299,7 @@ unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &
 
 //needs to be called per function.
 //TODO: rename for consistency - this is just for finding sentinel checks in the loop
-static LengthInfo processLoops(vector<LoopInformation> &LI, const Value* toCheck, const FunctionToValueSets &allValues) {
+static LengthInfo processLoops(vector<LoopInformation> &LI, const Value* toCheck, const map<const Value *, const ValueSet*> &valueToValueSet) {
     LengthInfo result;
 	DEBUG(dbgs() << "Getting to look through loops now!\n");
 	for (const LoopInformation loop: LI) {
@@ -323,7 +317,7 @@ static LengthInfo processLoops(vector<LoopInformation> &LI, const Value* toCheck
 	        const Value *length = &*(lengthResponse.begin()->first);
 	        pair<BlockSet, bool> lengthInfo = lengthResponse[length];
 	        if (!lengthInfo.second) { //found a non-optional length check in some loop for toCheck
-	            const ValueSet *set = findAssociatedValueSet(length, allValues);
+	            const ValueSet *set = findAssociatedValueSet(length, valueToValueSet);
 	            if (set != nullptr) {
 	                DEBUG(dbgs() << "And it's non optional, too\n");
 	                result = mergeAnswers(result, LengthInfo(PARAMETER_LENGTH, set, -1));
@@ -350,7 +344,8 @@ static LengthInfo processLoops(vector<LoopInformation> &LI, const Value* toCheck
 //TODO: fix name for checkNullTermianted.
 bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTerminated, 
 	unordered_map<const Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
-	FunctionToLoopInformation &info, map<const ValueSet, string> &reasons, bool fast) {
+	FunctionToLoopInformation &info, map<const ValueSet, string> &reasons, bool fast, 
+	map<const Value *, const ValueSet*> &valueToValueSet) {
 	
 	//assume pre-populated with dependencies, and processLoops has already been called.
 	bool globalChanged = false;
@@ -371,7 +366,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                         LengthInfo valueAnswer;
                         //bool existsOptionalCheck = false;
                         if (firstTime) {
-                            valueAnswer = processLoops(info.at(&func), value, checkNullTerminated);
+                            valueAnswer = processLoops(info.at(&func), value, valueToValueSet);
                             if (valueAnswer.type == SENTINEL_TERMINATED) {
                                 std::stringstream reason;
                                 reason << "found a non optional sentinel check for " << value->getName().str() << " in " << func.getName().str();
@@ -424,7 +419,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 		if (!fast) {
             for (Function &func : module) {
                 DEBUG(dbgs() << "pushing information through stores.\n");
-                ProcessStoresGEPVisitor visitor(annotations, checkNullTerminated, reasons);
+                ProcessStoresGEPVisitor visitor(annotations, valueToValueSet, reasons);
                 for(BasicBlock &visitee :  func) {
                     visitor.visit(visitee);
                 }
