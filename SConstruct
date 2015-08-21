@@ -39,6 +39,7 @@ def pathIsSRA(key, val, env):
         raise SCons.Errors.UserError('Invalid path for option %s:\n\t%s\n' % (key, problems))
 
 variables = Variables(['.scons-options'], ARGUMENTS)
+variables.Add(BoolVariable('DEBUG', 'compile for debugging', False))
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
 
 llvmConfigDefault = WhereIs('llvm-config', (
@@ -136,8 +137,14 @@ penv = env.Clone(
 )
 penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
 penv.AppendUnique(
-    CCFLAGS=('-fexceptions', '-frtti'),
-    CXXFLAGS=('-Wall', '-Wextra', '-Werror'),
+    CCFLAGS=(
+        '-fexceptions',
+        '-frtti',
+        '-Wall',
+        '-Wextra',
+        '-Werror',
+        '${("", "-g")[DEBUG]}',
+    ),
     delete_existing=True
 )
 penv.PrependENVPath('PATH', '/s/gcc-5.1.0/bin')
