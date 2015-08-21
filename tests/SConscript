@@ -7,7 +7,7 @@ Import('env')
 env.AppendUnique(CLANG_FLAGS='-Werror')
 
 
-def RunTest(self, source, pluginArgs, **kwargs):
+def RunTest(self, source, **kwargs):
     source = File(source)
     actual = source.target_from_source('actualsAndExpecteds/', '.actual')
     bitcode = self.BitcodeSource(source)
@@ -19,16 +19,16 @@ def RunTest(self, source, pluginArgs, **kwargs):
     else:
         pluginSources = bitcode
 
-    self.RunPlugin(actual, pluginSources, PLUGIN_ARGS=pluginArgs, **kwargs)
+    self.RunPlugin(actual, pluginSources, **kwargs)
     passed = self.Expect(actual)
     Alias('test', passed)
 
 env.AddMethod(RunTest)
 
 
-def RunTests(self, *pluginArgs):
+def RunTests(self, **kwargs):
     for source in Glob('*.c'):
-        self.RunTest(source, pluginArgs)
+        self.RunTest(source, **kwargs)
 
 env.AddMethod(RunTests)
 
@@ -51,5 +51,14 @@ env.AddMethod(RunTests)
 #  subdirectories
 #
 
-SConscript(dirs=['structTests', 'argumentSentinelCheckTests', 'lengthTests', 'generic'], exports='env')
-# SConscript(dirs=['sentinelCheckTests', 'lengthTests'], exports='env')
+SConscript(
+    dirs=[
+        'structTests',
+        'argumentSentinelCheckTests',
+        'lengthTests',
+        'generic',
+        'symbolicRangeTests',
+        'noPointerArithmeticTests',
+    ],
+    exports='env',
+)

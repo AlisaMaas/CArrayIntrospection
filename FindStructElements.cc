@@ -9,7 +9,9 @@
 
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/Module.h>
+#include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
+#include <llvm/Support/raw_os_ostream.h>
 #include <fstream>
 #include <sstream>
 
@@ -82,6 +84,11 @@ static const RegisterPass<FindStructElements> registration("find-struct-elements
         true, true);
 
 char FindStructElements::ID;
+static llvm::cl::opt<std::string>
+    testOutputName("test-find-struct-elements",
+        llvm::cl::Optional,
+        llvm::cl::value_desc("filename"),
+        llvm::cl::desc("Filename to write results to for regression tests"));
 
  FindStructElements::FindStructElements()
     : ModulePass(ID) {
@@ -103,6 +110,13 @@ bool FindStructElements::runOnModule(Module &module) {
             DEBUG(dbgs() << "Visiting a new basic block...\n");
             visitor.visit(visitee);
         }
+    }
+    if (!testOutputName.empty()) {
+        ofstream out(testOutputName);
+        llvm::raw_os_ostream sink(out);	
+        print(sink, &module);
+        sink.flush();
+        out.close();
     }
     // read-only pass never changes anything
     return false;

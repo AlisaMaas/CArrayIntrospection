@@ -1,0 +1,2 @@
+m_strlen with argument 0 should be annotated NULL_TERMINATED (Sentinel-terminated by 0)  because found a non optional sentinel check for a in m_strlen
+foo with argument 0 should be annotated Parameter length of 1.

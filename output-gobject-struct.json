@@ -1802,9 +1802,9 @@
 		},
 		"param_spec_ht_lookup": {
 			"argument_names": ["hash_table", "param_name", "owner_type", "walk_ancestors"],
-			"argument_annotations": [0, 2, 0, 0],
+			"argument_annotations": [0, 0, 0, 0],
 			"args_array_receivers": [1, 1, 1, 1],
-			"argument_reasons": ["", " pushed information from a store to name from param_name", "", ""]
+			"argument_reasons": ["", "", "", ""]
 		},
 		"g_param_spec_pool_list_owned": {
 			"argument_names": ["pool", "owner_type"],

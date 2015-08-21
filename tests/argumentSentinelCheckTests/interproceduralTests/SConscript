@@ -1,4 +1,14 @@
 Import('env')
 
-env.RunTests('-null-annotator', '-null-annotator-output', 'output.json')
-# SConscript(dirs=['whole-program-tests'], exports='env')
+env.RunTests(
+    PLUGIN_ARGS=(
+        '-mem2reg', '-no-pointer-arithmetic',
+        '-mem2reg', '-redef',
+        '-sra',
+        '-annotator',
+        '-annotator-output', 'output.json',
+        '-annotator-dependency', 'fakeLibrary.json',
+        '-annotator-dependency', 'cLibrary.json',
+    ),
+    TEST='annotator',
+)

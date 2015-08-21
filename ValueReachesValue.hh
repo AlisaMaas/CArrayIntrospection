@@ -25,8 +25,9 @@ inline ValueReachesValue::ValueReachesValue(const llvm::Value &goal)
 }
 
 void ValueReachesValue::visit(const llvm::Value &reached) {
-	if (&reached == &goal)
+	if (&reached == &goal) {
 		throw this;
+	}
 }
 
 bool ValueReachesValue::shouldVisit(const llvm::Value &) {

@@ -1,8 +1,0 @@
-Printing analysis 'Promote Memory to Register' for function 'foo':
-Pass::print not implemented for pass: 'Promote Memory to Register'!
-Printing analysis 'Symbolic range analysis annotator (metadata)':
-Pass::print not implemented for pass: 'Symbolic range analysis annotator (metadata)'!
-Printing analysis 'Find arrays with a statically known constant or parameter-bounded length.':
-Analyzing foo
-Argument array has unknown max index.
-Argument x has unknown max index.

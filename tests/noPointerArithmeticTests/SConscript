@@ -1,3 +1,6 @@
 Import('env')
 
-env.RunTests('-sra-annotator', '-no-pointer-arithmetic')
+env.RunTests(
+    PLUGIN_ARGS=('-mem2reg', '-no-pointer-arithmetic'),
+    TEST='no-pointer-arithmetic',
+)

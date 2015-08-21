@@ -69,9 +69,9 @@ bool DFSCheckSentinelOptional(const LoopInformation &loop, BlockSet &foundSoFar)
 * to the sentinel checks and their optionality.
 **/
 
-ValueReport findSentinelChecks(const LoopInformation &loop, const Value * goal) {
+SentinelValueReport findSentinelChecks(const LoopInformation &loop, const Value * goal) {
     DEBUG(dbgs() << "Looking at " << goal->getName() << " from " << loop.first->getParent()->getName() << "\n");
-	ValueReport sentinelChecks;
+	SentinelValueReport sentinelChecks;
 	const SmallVector<BasicBlock *, 4> exitingBlocks = loop.second.second;
 	for (BasicBlock *exitingBlock : exitingBlocks) {
 		TerminatorInst * const terminator = exitingBlock->getTerminator();
