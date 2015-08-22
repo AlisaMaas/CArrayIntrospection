@@ -138,7 +138,8 @@ pair<int, int> annotate(const ValueSet &value, AnnotationMap &annotations) {
 }
 
 const ValueSet* findAssociatedValueSet(const Value *value, const map<const Value *, const ValueSet*> &toCheck) {
-    return toCheck.at(value);
+    if (toCheck.count(value)) return toCheck.at(value);
+    return nullptr;
 
 }
 
