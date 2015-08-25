@@ -12,7 +12,7 @@ def __iiglue_target_scanner(node, env, path):
     iiglue = env.File('$IIGLUE')
     if iiglue.path == '/p/polyglot/public/bin/iiglue':
         return (
-            '/p/polyglot/public/iiglue-tools/.cabal-sandbox/bin/iiglue',
+            '/p/polyglot/public/iiglue-tools/build/.cabal-sandbox/bin/iiglue',
             '/p/polyglot/public/tools/z3-4.3.2.5a45711f22d9-x64-debian-7.4/bin/z3',
             '/unsup/llvm-3.3/bin/opt',
         )
