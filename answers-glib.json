@@ -132,7 +132,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "g_test_trap_assertions"
@@ -1736,7 +1736,7 @@
                     "argument_name": "data",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 6
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -2693,7 +2693,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "g_key_file_parse_value_as_double"
@@ -3989,13 +3989,12 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "string",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 2
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -5117,14 +5116,12 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter",
-                        "requires struct info"
                     ],
-                    "symbolic": 2
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -5575,7 +5572,7 @@
                     "argument_name": "argv",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "fixed": 1
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -8680,7 +8677,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -8912,7 +8909,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -9004,7 +9001,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 1,
@@ -10093,11 +10090,11 @@
                     "sentinel": "NUL"
                 },
                 {
-                    "args_array_receiver": 0,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "fixed": 1
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -10416,13 +10413,12 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 2
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -11251,7 +11247,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -11783,7 +11779,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "g_key_file_parse_value_as_integer"
@@ -11795,7 +11791,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -12379,12 +12375,12 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -12519,7 +12515,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -12851,7 +12847,7 @@
                     "argument_name": "data",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -13606,11 +13602,11 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 0,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -17055,13 +17051,12 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 1
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -18180,13 +18175,12 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 1
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -18778,7 +18772,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "g_key_file_parse_value_as_boolean"
@@ -19174,13 +19168,12 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -20141,13 +20134,12 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -21437,13 +21429,12 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 1
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -22233,7 +22224,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 6
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -22259,7 +22250,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -23535,13 +23526,12 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 2
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -24041,13 +24031,12 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 2
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -26308,7 +26297,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -26451,7 +26440,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -26795,10 +26784,8 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter",
-                        "requires struct info"
                     ],
-                    "symbolic": 2
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -27957,13 +27944,12 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 1
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -28249,13 +28235,12 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -29959,7 +29944,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -31722,7 +31707,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 6
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -33878,7 +33863,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -34901,7 +34886,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -36614,7 +36599,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -38048,13 +38033,12 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 2
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -41125,7 +41109,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -41247,13 +41231,12 @@
                     "other": 0
                 },
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 2
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -41917,7 +41900,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "g_markup_collect_attributes"
