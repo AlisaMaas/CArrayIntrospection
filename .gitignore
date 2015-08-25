@@ -4,6 +4,7 @@
 *~
 .dir-locals.el
 .sconf_temp
+.scons-cache
 .scons-options
 .sconsign.dblite
 compile_commands.json

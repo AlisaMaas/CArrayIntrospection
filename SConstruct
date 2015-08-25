@@ -1,5 +1,15 @@
 ########################################################################
 #
+# performance boosters
+#
+
+CacheDir('.scons-cache')
+SetOption('implicit_cache', True)
+SetOption('max_drift', 1)
+
+
+########################################################################
+#
 #  configurable paths to various supporting tools
 #
 
