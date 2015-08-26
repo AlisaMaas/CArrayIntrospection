@@ -219,7 +219,7 @@ plugin, = penv.SharedLibrary(
         'IIGlueReader.cc',
         'NameCompare.cc',
         'NoPointerArithmetic.cc',
-        'NoPointerComparisons.cpp',
+        'NoPointerComparisons.cc',
         'SymbolicRangeTest.cc',
     ),
     LIBS=sra_plugin,
