@@ -2,9 +2,9 @@ Import('env')
 
 env.RunTests(
     PLUGIN_ARGS=(
-        '-mem2reg', '-redef',
+        '-mem2reg', '-no-pointer-comparisons', '-dce', '-mem2reg', '-redef',
         '-sra-annotator',
-        '-annotator',
+        '-annotator', '-debug-only', '-find-length'
     ),
     TEST='annotator',
 )

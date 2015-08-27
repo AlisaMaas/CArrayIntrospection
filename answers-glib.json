@@ -9440,7 +9440,7 @@
                     "argument_name": "p",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "fixed": 6
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -16110,7 +16110,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "g_build_path"
@@ -16823,7 +16823,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 }
             ],
             "function_name": "g_test_log_buffer_push"
@@ -21434,7 +21434,7 @@
                     "argument_reason": "unknown",
                     "metadata": [
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -23687,7 +23687,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -28240,7 +28240,7 @@
                     "argument_reason": "unknown",
                     "metadata": [
                     ],
-                    "other": 0
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -31608,7 +31608,7 @@
                     "argument_reason": "unknown",
                     "metadata": [
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -41081,7 +41081,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 3
                 },
                 {
                     "args_array_receiver": 0,
@@ -41236,7 +41236,7 @@
                     "argument_reason": "unknown",
                     "metadata": [
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,

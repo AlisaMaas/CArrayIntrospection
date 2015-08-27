@@ -94,7 +94,24 @@ CheckGetElementPtrVisitor::~CheckGetElementPtrVisitor() {
     DEBUG(dbgs() << "Finished with the delete\n");
     if (placeHolder != nullptr) delete placeHolder;
 }
+
 void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) {
+    //ignore all GEPs that don't lead to a memory access
+    //unless that goes into a function call.
+    for (const User *user : gepi.users()) {
+        if (StoreInst::classof(user)) {
+            break;
+        }
+        if (const LoadInst *load = dyn_cast<LoadInst>(user)) {
+            if (load->getType() != load->getPointerOperand()->getType()) {
+                break;
+            }
+        }
+        if (GetElementPtrInst::classof(user))
+            break;
+        //TODO: fix up.
+        return;
+    }
     if (placeHolder != nullptr)
         delete placeHolder;
     placeHolder = BasicBlock::Create(module.getContext());

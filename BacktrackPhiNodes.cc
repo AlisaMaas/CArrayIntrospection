@@ -1,6 +1,7 @@
 #include "BacktrackPhiNodes.hh"
 #include <boost/range/iterator_range_core.hpp>
 #include <llvm/IR/Instructions.h>
+#include <llvm/IR/InstrTypes.h>
 using namespace boost;
 using namespace llvm;
 
@@ -20,6 +21,11 @@ void BacktrackPhiNodes::backtrack(const Value &value, bool skipLoads) {
 		const auto operands = make_iterator_range(phi->op_begin(), phi->op_end());
 		for (const Use &operand : operands)
 			backtrack(*operand);
+	}
+	if (const CastInst *cast = dyn_cast<CastInst>(&value)) {
+        const auto operands = make_iterator_range(cast->op_begin(), cast->op_end());
+        for (const Use &operand : operands)
+            backtrack(*operand);
 	}
 	(void)skipLoads;
 	if (false) {

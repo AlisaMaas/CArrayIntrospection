@@ -87,6 +87,22 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
                 case SENTINEL_TERMINATED:
                     return first;
                 case PARAMETER_LENGTH:
+                    if (first.length == -1 && second.length != -1) {
+                        if (first.getSymbolicLength() != second.length) {
+                            return LengthInfo(INCONSISTENT, -1);
+                        }
+                        else {
+                            return second;
+                        }
+                    }
+                    if (second.length == -1 && first.length != -1) {
+                        if (second.getSymbolicLength() != first.length) {
+                            return LengthInfo(INCONSISTENT, -1);
+                        }
+                        else {
+                            return first;
+                        }
+                    }
                     if (first.length == second.length) {
                         if (first.length == -1) {
                             assert(first.symbolicLength != nullptr);
@@ -269,10 +285,8 @@ const Function &func, ValueSetSet &allValueSets) {
 			    reason << " passing " << value->getName().str();
 			}
 		}
-
-		if (nextPlease) {
-			break;
-		}
+		
+		if (answer.type == PARAMETER_LENGTH) break;
 	}
 	pair<LengthInfo, bool> partOne(answer, nextPlease);
 	return pair<pair<LengthInfo, bool>, string> (partOne, reason.str());
