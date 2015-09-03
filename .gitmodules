@@ -1,3 +1,4 @@
 [submodule "SRA"]
 	path = SRA
 	url = https://github.com/henry-nazare/llvm-sra.git
+	branch = master
