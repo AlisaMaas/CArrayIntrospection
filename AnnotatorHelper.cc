@@ -223,8 +223,8 @@ const Function &func, ValueSetSet &allValueSets) {
 	for (const CallInst &call : calls | indirected) {
 		DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
 		DEBUG(dbgs() << "Call: " << call.getName() << "\n");
-		DEBUG(dbgs() << "getCalledFunction name: " << call.getCalledFunction() << "\n");
 		const Function * calledFunction = &*call.getCalledFunction();
+		DEBUG(dbgs() << "getCalledFunction name: " << calledFunction << "\n");
 		if (calledFunction == nullptr)
 			continue;
 		if (&func == calledFunction && answer.type == FIXED_LENGTH) {
