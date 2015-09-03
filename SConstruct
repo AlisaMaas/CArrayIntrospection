@@ -30,24 +30,6 @@ def pathIsOptionalExecutable(key, val, env):
         pathIsExecutable(key, val, env)
 
 
-def pathIsSRA(key, val, env):
-    problems = []
-
-    def check(perms, diagnostic, subpath):
-        node = File(subpath, val)
-        if not access(node.path, perms):
-            problems.append('%s: %s' % (diagnostic, node))
-
-    # check a representative sample of what we will need from
-    # llvm-sra, but don't bother checking absolutely everything
-    check(X_OK, 'not executable', 'bin/sage-opt')
-    check(R_OK, 'missing or unreadable', 'lib/SRA.so')
-    check(R_OK, 'missing or unreadable', 'Runtime/llvmsage/__init__.py')
-
-    if problems:
-        problems = '\n\t'.join(problems)
-        raise SCons.Errors.UserError('Invalid path for option %s:\n\t%s\n' % (key, problems))
-
 variables = Variables(['.scons-options'], ARGUMENTS)
 variables.Add(BoolVariable('DEBUG', 'compile for debugging', False))
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
