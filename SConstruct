@@ -179,13 +179,13 @@ sra_plugin = penv.SharedLibrary(
     LIBS=sage_plugin,
 )
 
-run_script = penv.Substfile(
-    'run.in',
-    SUBST_DICT={
-        '@LLVM_BINDIR@': '$LLVM_BINDIR',
-        '@SAGE@': '$SAGE',
-    },
-)
+subst_dict = {
+    '@LLVM_BINDIR@': '$LLVM_BINDIR',
+    '@SAGE@': '$SAGE',
+}
+run_script = penv.Substfile('run.in', SUBST_DICT=subst_dict)
+expanded_dict = {key: env.subst(value) for key, value in subst_dict.iteritems()}
+env.Depends(run_script, Value(expanded_dict))
 AddPostAction(run_script, Chmod('$TARGET', 0750))
 
 plugin, = penv.SharedLibrary(
