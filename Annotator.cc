@@ -14,13 +14,21 @@ using namespace boost::property_tree;
 using namespace llvm;
 using namespace std;
 
+#if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) < 3007
+typedef llvm::LoopInfo LoopInfoWrapperPass;
+#endif	// before LLVM 3.7
+
 
 inline Annotator::Annotator()
 	: ModulePass(ID) {
 }
 
 llvm::LoopInfo& Annotator::runLoopInfo(llvm::Function &func) {
-            return getAnalysis<llvm::LoopInfo>(func);
+#if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) < 3007
+	return getAnalysis<LoopInfoWrapperPass>(func);
+#else  // LLVM 3.7 or later
+	return getAnalysis<LoopInfoWrapperPass>(func).getLoopInfo();
+#endif	// LLVM 3.7 or later
 }
 /*
     NO_LENGTH_VALUE,
@@ -76,7 +84,7 @@ void Annotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	usage.addRequired<FindStructElements>();
 	usage.addRequired<IIGlueReader>();
 	usage.addRequired<SymbolicRangeAnalysis>();
-	usage.addRequired<LoopInfo>();
+	usage.addRequired<LoopInfoWrapperPass>();
 	
 }
 
@@ -277,7 +285,7 @@ bool Annotator::runOnModule(Module &module) {
         if ((func.isDeclaration())) continue;
         vector<LoopInformation> loopInfo;
 		DEBUG(dbgs() << "Getting loop info\n");
-		const LoopInfo &LI = getAnalysis<LoopInfo>(func);
+		const LoopInfo &LI = runLoopInfo(func);
 		DEBUG(dbgs() << "Got loop info\n");
 		for(const Loop *loop : LI) {
 		    LoopInformation info;
