@@ -44,8 +44,7 @@ namespace {
 		bool modified = false;
 		for (Function &func : module) {
 			for(Argument &arg : func.getArgumentList()) {
-				const PointerType * const argPointerType = dyn_cast<PointerType>(arg.getType());
-				if (argPointerType) {
+				if (arg.getType()->isPointerTy()) {
 					for (User *user : arg.users()) {
 						if (PHINode *node = dyn_cast<PHINode>(user)) {
 							if (node->getNumIncomingValues() != 2) {
@@ -134,7 +133,7 @@ namespace {
 								    if (TESTING) addPHI->dump();
 								    GetElementPtrInst *replacement = GetElementPtrInst::Create(
 #if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) >= 3007
-									    argPointerType->getElementType(),
+									    node->getType(),
 #endif	// LLVM 3.7 or later
 									    &arg, ArrayRef<Value*>(addPHI), "", node->getParent()->getFirstInsertionPt());
 								    DEBUG(dbgs() << "Replacing " << *node << "\n");
