@@ -84,9 +84,15 @@ LengthValueReport findLengthChecks(const LoopInformation &loop, const Value * go
 		Value *slot;
 		Value *phi;
 		// reusable pattern fragments
-        auto addPtr = m_GetElementPointer(
-                        m_Value(pointer),
-						m_SExt(m_Value(slot))
+        auto addPtr = m_CombineOr(
+                        m_CombineOr(
+                            m_GetElementPointer(
+                                m_Value(pointer),
+						        m_SExt(m_Value(slot))
+						    ),
+						m_Load(m_Value(pointer))
+					    ),
+					    m_SExt(m_Load(m_Value(pointer)))
                     );
         
 		if (match(terminator,
@@ -123,6 +129,11 @@ LengthValueReport findLengthChecks(const LoopInformation &loop, const Value * go
 				DEBUG(dbgs() << (predicate == CmpInst::ICMP_EQ) << "\n\n\n");
 				continue;
 			}
+			if (GetElementPtrInst *gep = dyn_cast<GetElementPtrInst>(pointer)) {
+			    //if (dyn_cast<GetElementPtrInst>(load->getPointerOperand()))
+			        if(gep->getNumIndices() == 1) 
+			            pointer = gep->getPointerOperand();
+			}
 			/*if (LoadInst *load = dyn_cast<LoadInst>(pointer)) {
 			    if (dyn_cast<GetElementPtrInst>(load->getPointerOperand()))
 			        pointer = load->getPointerOperand();
@@ -136,7 +147,7 @@ LengthValueReport findLengthChecks(const LoopInformation &loop, const Value * go
 			    continue;
 			}
 			// all tests pass; this is a possible sentinel check!
-			DEBUG(dbgs() << "found possible length check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
+			DEBUG(dbgs() << "found possible length check of %" << pointer->getName() << "]\n"
 				  << "  exits loop by jumping to %" << destination->getName() << '\n');
 			// mark this block as one of the sentinel checks this loop.
 			lengthChecks[slot].first.insert(exitingBlock);

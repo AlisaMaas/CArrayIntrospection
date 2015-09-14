@@ -148,7 +148,7 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
         DEBUG(dbgs() << "Ignoring this one!\n");
         DEBUG(dbgs() << "It has " << gepi.getNumIndices() << " indices.\n");
         DEBUG(dbgs() << "Pointer is null? " << (valueSet? "no" : "yes") << "\n");
-        return; //in this case, we don't care.
+        //return; //in this case, we don't care.
         //need to do some thinking about higher number of indices, and make sure to have a 
         //consistent way of thinking about it.
         //should probably look at how it's usually documented.

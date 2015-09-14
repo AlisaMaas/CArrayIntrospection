@@ -46,7 +46,13 @@ class LengthInfo {
             if (length == -1) {
                 assert(symbolicLength != nullptr);
                 if (symbolicLength->size() == 1) {
-                    const llvm::Argument *arg = llvm::dyn_cast<llvm::Argument>(*symbolicLength->begin());
+                    const llvm::Value *value = *symbolicLength->begin();
+                    while (true) {
+                        const llvm::CastInst *cast = llvm::dyn_cast<llvm::CastInst>(value);
+                        if (cast == nullptr) break;
+                        value = cast->getOperand(0);
+                    }
+                    const llvm::Argument *arg = llvm::dyn_cast<llvm::Argument>(value);
                     if (arg != nullptr) {
                         return arg->getArgNo();
                     }

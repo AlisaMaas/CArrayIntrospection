@@ -3,6 +3,60 @@
         {
             "arguments": [
                 {
+                    "argument_name": "format",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "printf",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
+                    "argument_name": "strp",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "format",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "vasprintf",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+                    "arguments": [
+                {
+                    "argument_name": "args",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": 0
+                },
+                {
+                    "argument_name": "format",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "sentinel": "NUL"
+                }
+            ],
+            "function_name": "va_start",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
@@ -495,7 +549,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "other": 0
                 },
                 {
                     "argument_name": "unknown",
@@ -1029,7 +1083,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 2
                 },
                 {
                     "argument_name": "unknown",

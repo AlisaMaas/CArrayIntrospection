@@ -75,20 +75,45 @@ SentinelValueReport findSentinelChecks(const LoopInformation &loop, const Value 
 	const SmallVector<BasicBlock *, 4> exitingBlocks = loop.second.second;
 	for (BasicBlock *exitingBlock : exitingBlocks) {
 		TerminatorInst * const terminator = exitingBlock->getTerminator();
+		/*if (const BranchInst *branch = dyn_cast<BranchInst>(terminator)) {
+		    const Value *cond = branch->getCondition();
+		    if (const PHINode *phi = dyn_cast<PHINode>(cond)) {
+                for (unsigned int i = 0; i < phi->getNumIncomingValues(); i++) {
+                    if (const Constant *constant = dyn_cast<Constant>(phi->getIncomingValue(i))) {
+                        bool outcome = !constant->isZeroValue();
+                        if (!outcome && constant->isOneValue()) {
+                            outcome = constant->isOneValue();
+                        }
+                        else break;
+                        if (branch->getNumSuccessors() == 2) { //TODO: figure if and when there are more than 2.
+                            auto blocks = loop.second.first;
+			                if (std::find(blocks.begin(), blocks.end(), branch->getSuccessor(outcome)) != blocks.end()) {
+			                    continue;
+			                }
+			                
+                        }
+                        errs() << phi->getIncomingBlock(i)->getName() << "\n";
+                    }
+                }
+		    }
+		}*/
 		// to be bound to pattern elements if match succeeds
 		BasicBlock *trueBlock, *falseBlock;
 		CmpInst::Predicate predicate;
 		// This will need to be checked to make sure it corresponds to an argument identified as an array.
 		Value *pointer;
 		Value *slot;
-
+        
 		// reusable pattern fragments
-
-		auto loadPattern = m_Load(
-				m_GetElementPointer(
+        auto gepPattern = m_GetElementPointer(
 						m_Value(pointer),
 						m_Value(slot)
-						)
+						);
+		auto loadPattern = m_Load(
+				    m_CombineOr(
+				        gepPattern,
+				        m_Value(pointer)
+				    )
 				);
 
 		auto compareZeroPattern = m_ICmp(predicate,
@@ -98,7 +123,6 @@ SentinelValueReport findSentinelChecks(const LoopInformation &loop, const Value 
 						),
 						m_Zero()
 				);
-
 		// Clang 3.4 without optimization, after running mem2reg:
 		//
 		//     %0 = getelementptr inbounds i8* %pointer, i64 %slot
@@ -139,7 +163,6 @@ SentinelValueReport findSentinelChecks(const LoopInformation &loop, const Value 
 					trueBlock,
 					falseBlock))) {
 			DEBUG(dbgs() << "Matched!!!!!!\n");
-
 			// check that we actually leave the loop when sentinel is found
 			const BasicBlock *sentinelDestination;
 			switch (predicate) {
@@ -158,16 +181,28 @@ SentinelValueReport findSentinelChecks(const LoopInformation &loop, const Value 
 				DEBUG(dbgs() << (predicate == CmpInst::ICMP_EQ) << "\n\n\n");
 				continue;
 			}
-			if (LoadInst *load = dyn_cast<LoadInst>(pointer)) {
-			    if (dyn_cast<GetElementPtrInst>(load->getPointerOperand()))
-			        pointer = load->getPointerOperand();
-			}
+			//if (slot == nullptr) {
+			    if (GetElementPtrInst *gep = dyn_cast<GetElementPtrInst>(pointer)) {
+			    //if (dyn_cast<GetElementPtrInst>(load->getPointerOperand()))
+			        if(gep->getNumIndices() == 1) 
+			            pointer = gep->getPointerOperand();
+			    }
+			    /*else if (const PHINode *phi = dyn_cast<PHINode>(pointer)) {
+			        bool foundSelf = false;
+			        for (const Value *in = phi->getIncomingValues()) {
+			            if (&*in == pointer) {
+			                foundSelf = true;
+			            }
+			            if (valueReachesValue(*goal, *pointer) );
+			        }
+			    }*/
+			//}
 			if (!valueReachesValue(*goal, *pointer, true)) {
                 DEBUG(dbgs() << "Sentinel check of incorrect value.\n");
 			    continue;
 			}
 			// all tests pass; this is a possible sentinel check!
-			DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "[%" << slot->getName() << "]\n"
+			DEBUG(dbgs() << "found possible sentinel check of %" << pointer->getName() << "\n"
 				  << "  exits loop by jumping to %" << sentinelDestination->getName() << '\n');
 			// mark this block as one of the sentinel checks this loop.
 			sentinelChecks.first.insert(exitingBlock);

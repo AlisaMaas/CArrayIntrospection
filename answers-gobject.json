@@ -414,7 +414,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__STRINGv"
@@ -447,7 +447,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -890,7 +890,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -977,7 +977,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__ENUMv"
@@ -1036,7 +1036,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -1632,7 +1632,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -1956,7 +1956,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 4
+                    "other": 0
                 }
             ],
             "function_name": "_g_closure_invoke_va"
@@ -2214,7 +2214,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -2719,7 +2719,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -2820,7 +2820,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -3146,7 +3146,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -3405,7 +3405,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_BOOLEAN__FLAGSv"
@@ -3817,7 +3817,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__VARIANTv"
@@ -3904,7 +3904,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -3944,7 +3944,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -4055,7 +4055,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -4116,7 +4116,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__UINTv"
@@ -4303,7 +4303,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -4397,7 +4397,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_type_class_meta_marshalv"
@@ -5064,7 +5064,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -5285,7 +5285,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__CHARv"
@@ -6304,7 +6304,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -6768,7 +6768,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__FLOATv"
@@ -6895,7 +6895,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -7008,7 +7008,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -7067,7 +7067,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -7435,7 +7435,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__POINTERv"
@@ -7596,7 +7596,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__UCHARv"
@@ -7783,7 +7783,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__PARAMv"
@@ -7823,7 +7823,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -8349,7 +8349,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -8512,7 +8512,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -8623,7 +8623,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -8965,7 +8965,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__DOUBLEv"
@@ -9026,7 +9026,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -9088,11 +9088,11 @@
                 {
                     "args_array_receiver": 1,
                     "argument_name": "pspecs",
-                    "argument_reason": "Found a non-optional sentinel check in some loop of this function.",
+                    "argument_reason": "",
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 }
             ],
             "function_name": "g_object_class_install_properties"
@@ -9799,7 +9799,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -9889,7 +9889,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -10180,7 +10180,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -10303,7 +10303,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -10469,7 +10469,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -10637,7 +10637,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -10684,7 +10684,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -10898,7 +10898,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_STRING__OBJECT_POINTERv"
@@ -11317,7 +11317,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -11492,7 +11492,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -11603,7 +11603,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -11662,7 +11662,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -11721,7 +11721,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -12431,7 +12431,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__BOXEDv"
@@ -12490,7 +12490,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -13006,7 +13006,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -13046,7 +13046,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -13266,7 +13266,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -13353,7 +13353,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_BOOLEAN__BOXED_BOXEDv"
@@ -13407,7 +13407,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__INTv"
@@ -13440,7 +13440,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -13606,7 +13606,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -13815,7 +13815,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -14665,7 +14665,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -14833,7 +14833,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -15496,7 +15496,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__VOIDv"
@@ -16071,7 +16071,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -16172,7 +16172,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 8
                 }
             ],
             "function_name": "g_signal_newv"
@@ -16273,7 +16273,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -16406,7 +16406,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -16751,7 +16751,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__FLAGSv"
@@ -16857,7 +16857,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__UINT_POINTERv"
@@ -17045,7 +17045,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__LONGv"
@@ -17161,7 +17161,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -17441,7 +17441,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -17585,7 +17585,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_type_iface_meta_marshalv"
@@ -17864,7 +17864,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__ULONGv"
@@ -18089,7 +18089,7 @@
                     "argument_name": "collect_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 1
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -18129,7 +18129,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -18339,7 +18339,7 @@
                     "argument_name": "param_values",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 2
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -18407,7 +18407,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__OBJECTv"
@@ -18759,7 +18759,7 @@
                     "argument_name": "param_types",
                     "argument_reason": "",
                     "metadata": [],
-                    "symbolic": 5
+                    "other": 0
                 }
             ],
             "function_name": "g_cclosure_marshal_VOID__BOOLEANv"

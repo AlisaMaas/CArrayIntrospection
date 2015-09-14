@@ -34,7 +34,7 @@ pair<int, int> Annotator::annotate(const LengthInfo &info) const {
     switch (info.type) {
         case NOT_FIXED_LENGTH:
             DEBUG(dbgs() << "Not fixed length\n");
-            return pair<int, int>(0, -1);
+            return pair<int, int>(0, -2);
 	    case NO_LENGTH_VALUE:
 	        DEBUG(dbgs() << "No length value\n");
 	        return pair<int, int>(0,-1);
@@ -183,7 +183,7 @@ void Annotator::dumpToFile(const string &filename, const Module &module) const {
             switch(annotation.first) {
                 case 0:
                 case 1:
-                    out << "\"other\": " << annotation.first;
+                    out << "\"other\": " << annotation.second;
                     break;
                 case 2:
                     out << "\"sentinel\": ";
@@ -267,6 +267,9 @@ bool Annotator::runOnModule(Module &module) {
             visitor.visit(visitee);
         }
         for (const ValueSet *set : visitor.notConstantBounded) {
+            annotations[set] = LengthInfo(NOT_FIXED_LENGTH, -1);
+        }
+        for (const ValueSet *set : visitor.notParameterBounded) {
             annotations[set] = LengthInfo(NOT_FIXED_LENGTH, -1);
         }
 	}
