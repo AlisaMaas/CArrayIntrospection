@@ -16,7 +16,6 @@ void BacktrackPhiNodes::backtrack(const Value &value, bool skipLoads) {
 
 	if (shouldVisit(value))
 		visit(value);
-
 	if (const PHINode * phi = dyn_cast<PHINode>(&value)) {
 		const auto operands = make_iterator_range(phi->op_begin(), phi->op_end());
 		for (const Use &operand : operands)

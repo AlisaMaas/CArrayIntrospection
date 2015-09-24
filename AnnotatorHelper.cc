@@ -245,7 +245,13 @@ const Function &func, ValueSetSet &allValueSets) {
 			    if (gepi->getNumIndices() == 1 && gepi->hasAllZeroIndices())
 			        actual = gepi->getPointerOperand();
 			}
-			if (!valueReachesValue(*value, *actual)) continue;
+			if ((answer.type != FIXED_LENGTH) && (!valueReachesValue(*value, *actual))) continue;
+			else if (answer.type == FIXED_LENGTH && value != actual) {
+			    if (valueReachesValue(*value, *actual)) {
+			        answer.type = NOT_FIXED_LENGTH;
+			    }
+			    continue;
+			}
 			DEBUG(dbgs() << "match found!\n");
 			auto parameter = std::next(formals, argNo);
 			if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {

@@ -197,6 +197,9 @@ SentinelValueReport findSentinelChecks(const LoopInformation &loop, const Value 
 			        }
 			    }*/
 			//}
+		    if (LoadInst *load = dyn_cast<LoadInst>(pointer)) {
+		        pointer = load->getPointerOperand();
+		    }
 			if (!valueReachesValue(*goal, *pointer, true)) {
                 DEBUG(dbgs() << "Sentinel check of incorrect value.\n");
 			    continue;

@@ -2015,7 +2015,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -3580,7 +3580,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -3605,7 +3605,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -3710,7 +3710,7 @@
 				{
 					"argument_name": "data",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "data_size",
@@ -3815,7 +3815,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -4370,7 +4370,7 @@
 				{
 					"argument_name": "stop_chars",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "stop_chars_len",
@@ -4545,7 +4545,7 @@
 				{
 					"argument_name": "stop_chars",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "stop_chars_len",
@@ -4690,7 +4690,7 @@
 				{
 					"argument_name": "stop_chars",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "3"
+					"symbolic": 3
 				},
 				{
 					"argument_name": "stop_chars_len",
@@ -4710,7 +4710,7 @@
 				{
 					"argument_name": "stop_chars",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "stop_chars_len",
@@ -7105,7 +7105,7 @@
 				{
 					"argument_name": "tokens",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "num_tokens",
@@ -22180,7 +22180,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -22710,7 +22710,7 @@
 				{
 					"argument_name": "native",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "len",
@@ -23515,7 +23515,7 @@
 				{
 					"argument_name": "networks",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "length",
@@ -30945,7 +30945,7 @@
 				{
 					"argument_name": "messages",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "num_messages",
@@ -31105,7 +31105,7 @@
 				{
 					"argument_name": "native",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "native_len",
@@ -31145,7 +31145,7 @@
 				{
 					"argument_name": "messages",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "num_messages",
@@ -31435,7 +31435,7 @@
 				{
 					"argument_name": "native",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "len",
@@ -37405,7 +37405,7 @@
 				{
 					"argument_name": "iconnames",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "len",
@@ -37510,7 +37510,7 @@
 				{
 					"argument_name": "tokens",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "num_tokens",
@@ -40415,7 +40415,7 @@
 				{
 					"argument_name": "value",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "length",
@@ -48230,7 +48230,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -48445,7 +48445,7 @@
 				{
 					"argument_name": "data",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "data_size",
@@ -48505,7 +48505,7 @@
 				{
 					"argument_name": "data",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "data_size",
@@ -49965,7 +49965,7 @@
 				{
 					"argument_name": "files",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "n_files",
@@ -49995,7 +49995,7 @@
 				{
 					"argument_name": "argv",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				}
 			],
 			"function_name":"g_application_run"
@@ -51280,7 +51280,7 @@
 				{
 					"argument_name": "files",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "n_files",
@@ -57655,7 +57655,7 @@
 				{
 					"argument_name": "contents",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "length",
@@ -59595,7 +59595,7 @@
 				{
 					"argument_name": "strinfo",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "length",
@@ -59675,7 +59675,7 @@
 				{
 					"argument_name": "words",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "3"
+					"symbolic": 3
 				},
 				{
 					"argument_name": "n_words",
@@ -59735,7 +59735,7 @@
 				{
 					"argument_name": "text",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "text_len",
@@ -59865,7 +59865,7 @@
 				{
 					"argument_name": "strinfo",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "length",
@@ -63970,7 +63970,7 @@
 				{
 					"argument_name": "entries",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "3"
+					"symbolic": 3
 				},
 				{
 					"argument_name": "num_entries",
@@ -68485,7 +68485,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -80850,7 +80850,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -82780,7 +82780,7 @@
 				{
 					"argument_name": "mime_types",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "n_mime_types",
@@ -83190,7 +83190,7 @@
 				{
 					"argument_name": "mime_types",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "n_mime_types",
@@ -83275,7 +83275,7 @@
 				{
 					"argument_name": "mime_types",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "4"
+					"symbolic": 4
 				},
 				{
 					"argument_name": "n_mime_types",
@@ -83295,7 +83295,7 @@
 				{
 					"argument_name": "mime_types",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "n_mime_types",
@@ -83375,7 +83375,7 @@
 				{
 					"argument_name": "mimes",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "n_mimes",
@@ -83395,7 +83395,7 @@
 				{
 					"argument_name": "mime_types",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "n_mime_types",
@@ -83410,7 +83410,7 @@
 				{
 					"argument_name": "file_name",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "len",
@@ -83455,7 +83455,7 @@
 				{
 					"argument_name": "file_name",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "4"
+					"symbolic": 4
 				},
 				{
 					"argument_name": "len",
@@ -83470,7 +83470,7 @@
 				{
 					"argument_name": "mime_types",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "7"
+					"symbolic": 7
 				},
 				{
 					"argument_name": "n_mime_types",
@@ -83540,7 +83540,7 @@
 				{
 					"argument_name": "mime_types",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "5"
+					"symbolic": 5
 				},
 				{
 					"argument_name": "n_mime_types",
@@ -83645,7 +83645,7 @@
 				{
 					"argument_name": "mime_types",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "3"
+					"symbolic": 3
 				},
 				{
 					"argument_name": "n_mime_types",
@@ -83750,7 +83750,7 @@
 				{
 					"argument_name": "file_name",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "len",
@@ -83765,7 +83765,7 @@
 				{
 					"argument_name": "mime_types",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "5"
+					"symbolic": 5
 				},
 				{
 					"argument_name": "n_mime_types",
@@ -83780,7 +83780,7 @@
 				{
 					"argument_name": "mimes",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "n_mimes",
@@ -84105,7 +84105,7 @@
 				{
 					"argument_name": "mime_types",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "5"
+					"symbolic": 5
 				},
 				{
 					"argument_name": "n_mime_types",

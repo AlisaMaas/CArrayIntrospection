@@ -154,11 +154,13 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 void Annotator::dumpToFile(const string &filename, const Module &module) const {
 	ofstream out(filename);
 	out << "{\n\t\"library_functions\": [\n";
+	bool first = true;
 	for (const Function &function : module) {
 		if (function.isDeclaration()) continue;
-		if (&function != module.begin())
+		if (!first) {
 			out << ",\n";
-
+		}
+        first = false;
         out << "\t\t{\n\t\t\t\"arguments\": [";
         string depth = "\t\t\t\t\t";
         for (const Argument &arg : function.getArgumentList()) {
@@ -195,7 +197,7 @@ void Annotator::dumpToFile(const string &filename, const Module &module) const {
                     }
                     break;
                 case 6:
-                    out << "\"symbolic\": \"" << annotation.second << "\"";
+                    out << "\"symbolic\": " << annotation.second;
                     break;
                 case 7:
                     out << "\"fixed\": " << annotation.second;

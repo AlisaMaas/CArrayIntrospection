@@ -1612,6 +1612,32 @@
         {
             "arguments": [
                 {
+                    "argument_name": "s1",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "symbolic": 3
+                },
+                {
+                    "argument_name": "s2",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "symbolic": 3
+                },
+                {
+                    "argument_name": "n",
+                    "argument_reason": "unknown",
+                    "metadata": [],
+                    "other": -1
+                }
+            ],
+            "function_name": "memcmp",
+            "metadata": [
+                "dependency"
+            ]
+        },
+        {
+            "arguments": [
+                {
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],

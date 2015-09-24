@@ -325,7 +325,7 @@
 				{
 					"argument_name": "buf",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "bufsize",
@@ -955,7 +955,7 @@
 				{
 					"argument_name": "line",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "3"
+					"symbolic": 3
 				},
 				{
 					"argument_name": "length",
@@ -1625,7 +1625,7 @@
 				{
 					"argument_name": "inptr",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "size",
@@ -2200,7 +2200,7 @@
 				{
 					"argument_name": "ptr",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "3"
+					"symbolic": 3
 				},
 				{
 					"argument_name": "len",
@@ -2225,7 +2225,7 @@
 				{
 					"argument_name": "ptr",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "3"
+					"symbolic": 3
 				},
 				{
 					"argument_name": "len",
@@ -2330,7 +2330,7 @@
 				{
 					"argument_name": "ptr",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "3"
+					"symbolic": 3
 				},
 				{
 					"argument_name": "len",
@@ -3490,7 +3490,7 @@
 				{
 					"argument_name": "socks",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "numsocks",
@@ -3510,7 +3510,7 @@
 				{
 					"argument_name": "socks",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "numsocks",
@@ -4180,7 +4180,7 @@
 				{
 					"argument_name": "login",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "len",
@@ -4425,7 +4425,7 @@
 				{
 					"argument_name": "string",
 					"argument_reason": " found a call to curl_easy_escape passing string",
-					"symbolic": 1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "inlength",
@@ -4460,7 +4460,7 @@
 				{
 					"argument_name": "string",
 					"argument_reason": " found a call to curl_easy_unescape passing string",
-					"symbolic": 1
+					"other": -1
 				},
 				{
 					"argument_name": "length",
@@ -4480,7 +4480,7 @@
 				{
 					"argument_name": "string",
 					"argument_reason": " found a call to Curl_urldecode passing string",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "length",
@@ -4505,7 +4505,7 @@
 				{
 					"argument_name": "string",
 					"argument_reason": " found a call to strlen passing string",
-					"symbolic": 2
+					"other": -1
 				},
 				{
 					"argument_name": "length",
@@ -5110,7 +5110,7 @@
 				{
 					"argument_name": "pointer",
 					"argument_reason": "",
-					"symbolic": 3
+					"other": -2
 				},
 				{
 					"argument_name": "length",
@@ -5810,7 +5810,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "buflen",
@@ -6045,7 +6045,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "",
-					"symbolic": 1
+					"other": -2
 				},
 				{
 					"argument_name": "size",
@@ -6160,7 +6160,7 @@
 				{
 					"argument_name": "datap",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "datalen",
@@ -6630,7 +6630,7 @@
 				{
 					"argument_name": "key",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "key_len",
@@ -6730,7 +6730,7 @@
 				{
 					"argument_name": "key",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "key_length",
@@ -6815,7 +6815,7 @@
 				{
 					"argument_name": "key",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "key_len",
@@ -6970,7 +6970,7 @@
 				{
 					"argument_name": "extra_fds",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "extra_nfds",
@@ -7370,7 +7370,7 @@
 				{
 					"argument_name": "socks",
 					"argument_reason": " found a call to waitconnect_getsock passing socks",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "numsocks",
@@ -7605,7 +7605,7 @@
 				{
 					"argument_name": "socks",
 					"argument_reason": "",
-					"symbolic": 2
+					"fixed": 2
 				},
 				{
 					"argument_name": "numsocks",
@@ -7810,7 +7810,7 @@
 				{
 					"argument_name": "data",
 					"argument_reason": "",
-					"symbolic": 1
+					"other": -2
 				},
 				{
 					"argument_name": "len",
@@ -8000,7 +8000,7 @@
 				{
 					"argument_name": "data",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "len",
@@ -8310,7 +8310,7 @@
 				{
 					"argument_name": "ufds",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "nfds",
@@ -8520,7 +8520,7 @@
 				{
 					"argument_name": "ptr",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "len",
@@ -8535,7 +8535,7 @@
 				{
 					"argument_name": "buf",
 					"argument_reason": "",
-					"symbolic": 1
+					"other": -1
 				},
 				{
 					"argument_name": "len",
@@ -8560,7 +8560,7 @@
 				{
 					"argument_name": "string",
 					"argument_reason": "",
-					"symbolic": 1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "maxlen",
@@ -8830,7 +8830,7 @@
 				{
 					"argument_name": "src",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "length",
@@ -9300,7 +9300,7 @@
 				{
 					"argument_name": "socks",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "numsocks",
@@ -9410,7 +9410,7 @@
 				{
 					"argument_name": "line",
 					"argument_reason": "",
-					"symbolic": 2
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "len",
@@ -9950,7 +9950,7 @@
 				{
 					"argument_name": "str",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "nread",
@@ -10060,7 +10060,7 @@
 				{
 					"argument_name": "socks",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "numsocks",
@@ -10650,7 +10650,7 @@
 				{
 					"argument_name": "socks",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "numsocks",
@@ -11475,7 +11475,7 @@
 				{
 					"argument_name": "ptr",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "len",
@@ -11655,7 +11655,7 @@
 				{
 					"argument_name": "data",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -1
 				},
 				{
 					"argument_name": "len",
@@ -11900,7 +11900,7 @@
 				{
 					"argument_name": "name",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "namelen",
@@ -12145,7 +12145,7 @@
 				{
 					"argument_name": "data",
 					"argument_reason": "",
-					"symbolic": 3
+					"other": -2
 				},
 				{
 					"argument_name": "datalen",
@@ -12165,7 +12165,7 @@
 				{
 					"argument_name": "user",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "1"
+					"symbolic": 1
 				},
 				{
 					"argument_name": "userlen",
@@ -12175,7 +12175,7 @@
 				{
 					"argument_name": "domain",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "3"
+					"symbolic": 3
 				},
 				{
 					"argument_name": "domlen",
@@ -12275,7 +12275,7 @@
 				{
 					"argument_name": "src",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "srclen",
@@ -12295,7 +12295,7 @@
 				{
 					"argument_name": "src",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "srclen",
@@ -12440,7 +12440,7 @@
 				{
 					"argument_name": "src",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "2"
+					"symbolic": 2
 				},
 				{
 					"argument_name": "length",
@@ -13035,7 +13035,7 @@
 				{
 					"argument_name": "value",
 					"argument_reason": "",
-					"symbolic": 3
+					"other": 0
 				},
 				{
 					"argument_name": "max_val_len",
@@ -13815,7 +13815,7 @@
 				{
 					"argument_name": "msg",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "3"
+					"symbolic": 3
 				},
 				{
 					"argument_name": "msg_len",
@@ -14265,7 +14265,7 @@
 				{
 					"argument_name": "tmp",
 					"argument_reason": "",
-					"symbolic": 1
+					"other": -1
 				},
 				{
 					"argument_name": "tmplen",
@@ -14300,7 +14300,7 @@
 				{
 					"argument_name": "buf",
 					"argument_reason": "",
-					"symbolic": 2
+					"other": -2
 				},
 				{
 					"argument_name": "size",
@@ -14450,7 +14450,7 @@
 				{
 					"argument_name": "mem",
 					"argument_reason": "",
-					"symbolic": 3
+					"other": -2
 				},
 				{
 					"argument_name": "len",
@@ -14630,7 +14630,7 @@
 				{
 					"argument_name": "raw",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "5"
+					"symbolic": 5
 				},
 				{
 					"argument_name": "len",
@@ -14910,7 +14910,7 @@
 				{
 					"argument_name": "key",
 					"argument_reason": "",
-					"symbolic": 5
+					"other": -2
 				},
 				{
 					"argument_name": "keylen",
@@ -15305,7 +15305,7 @@
 				{
 					"argument_name": "value",
 					"argument_reason": "Preserved parameter length",
-					"symbolic": "4"
+					"symbolic": 4
 				},
 				{
 					"argument_name": "valuelen",
