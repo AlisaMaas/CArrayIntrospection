@@ -128,6 +128,7 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
 pair<int, int> annotate(LengthInfo &info) {
     switch (info.type) {
         case NOT_FIXED_LENGTH:
+            return pair<int, int>(0, -2);
 	    case NO_LENGTH_VALUE:
 	        return pair<int, int>(0,-1);
 	    case INCONSISTENT:
@@ -217,6 +218,7 @@ const Function &func, ValueSetSet &allValueSets) {
 	bool nextPlease = false;
 	std::stringstream reason;
 	LengthInfo answer = findAssociatedAnswer(value, annotations);
+	//errs() << *value << "\n";
 	if (answer.type == PARAMETER_LENGTH) {
 	    pair<LengthInfo, bool> partOne(answer, true);
 	    return pair<pair<LengthInfo, bool>,string>(partOne, "Preserved parameter length");
@@ -231,6 +233,7 @@ const Function &func, ValueSetSet &allValueSets) {
 		if (&func == calledFunction && answer.type == FIXED_LENGTH) {
 		    answer.type = NOT_FIXED_LENGTH;
 		}
+		//errs() << "getCalledFunction name: " << call.getCalledFunction()->getName() << "\n";
 		const auto formals = calledFunction->getArgumentList().begin();
 		DEBUG(dbgs() << "Got formals\n");
 		for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
@@ -240,16 +243,27 @@ const Function &func, ValueSetSet &allValueSets) {
 			    if (dyn_cast<GetElementPtrInst>(load->getPointerOperand()))
 			        actual = load->getPointerOperand();
 			}
-			if (!valueReachesValue(*value, *actual)) continue;
+			if (const GetElementPtrInst *gepi = dyn_cast<GetElementPtrInst>(actual)) {
+			    if (gepi->getNumIndices() == 1 && gepi->hasAllZeroIndices())
+			        actual = gepi->getPointerOperand();
+			}
+			if ((answer.type != FIXED_LENGTH) && (!valueReachesValue(*value, *actual))) continue;
+			else if (answer.type == FIXED_LENGTH && value != actual) {
+			    if (valueReachesValue(*value, *actual)) {
+			        answer.type = NOT_FIXED_LENGTH;
+			    }
+			    continue;
+			}
 			DEBUG(dbgs() << "match found!\n");
 			auto parameter = std::next(formals, argNo);
 			if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
-			    answer.type = NOT_FIXED_LENGTH;
+			    answer = mergeAnswers(answer, LengthInfo(NOT_FIXED_LENGTH, -1));
 				continue;
 			}
 			
 			DEBUG(dbgs() << "About to enter the switch\n");
 			LengthInfo formalAnswer = findAssociatedAnswer(parameter, annotations);
+			//errs() << "Found formal arg to have " << formalAnswer.toString() << "\n";
 			if (formalAnswer.type == PARAMETER_LENGTH) {
 			    int symbolicLen = formalAnswer.getSymbolicLength();
 			    formalAnswer = LengthInfo(NOT_FIXED_LENGTH,-1);
@@ -277,9 +291,10 @@ const Function &func, ValueSetSet &allValueSets) {
 			    }
 			}
 			if (formalAnswer.type != FIXED_LENGTH && answer.type == FIXED_LENGTH) {
-			    formalAnswer = LengthInfo(NOT_FIXED_LENGTH, -1);
+			    answer = LengthInfo(NOT_FIXED_LENGTH, -1);
 			}
 			answer = mergeAnswers(formalAnswer, answer);
+			//errs() << "After merging, we decided that the answer is " << answer.toString() << "\n";
 			if (answer.type == formalAnswer.type && formalAnswer.type != NO_LENGTH_VALUE && answer.length == formalAnswer.length) {
 			    reason.str("");
 			    reason << " found a call to " << call.getCalledFunction()->getName().str();
@@ -316,9 +331,9 @@ static LengthInfo processLoops(vector<LoopInformation> &LI, const Value* toCheck
 	for (const LoopInformation loop: LI) {
 	    DEBUG(dbgs() << "Got a loop!\n");
 		SentinelValueReport sentinelResponse = findSentinelChecks(loop, toCheck);
-		/*if (!response.first.empty() && response.second) { //found an optional sentinel check in some loop for toCheck
-		    result.first = true;
-		}*/ //TODO: decide if I want to handle finding optional loops.
+		if (!sentinelResponse.first.empty() && sentinelResponse.second) { //found an optional sentinel check in some loop for toCheck
+		    result = mergeAnswers(result, LengthInfo(NOT_FIXED_LENGTH, -1));
+		} //TODO: decide if I want to handle finding optional loops.
 		if (!sentinelResponse.second) { //found a non-optional sentinel check in some loop for toCheck.
 		    result = mergeAnswers(result, LengthInfo(SENTINEL_TERMINATED, 0));
 		}
@@ -328,7 +343,7 @@ static LengthInfo processLoops(vector<LoopInformation> &LI, const Value* toCheck
 	        const Value *length = &*(lengthResponse.begin()->first);
 	        pair<BlockSet, bool> lengthInfo = lengthResponse[length];
 	        if (!lengthInfo.second) { //found a non-optional length check in some loop for toCheck
-	            const ValueSet *set = findAssociatedValueSet(length, valueToValueSet);
+	            const ValueSet *set = valueToValueSet.at(length);
 	            if (set != nullptr) {
 	                DEBUG(dbgs() << "And it's non optional, too\n");
 	                result = mergeAnswers(result, LengthInfo(PARAMETER_LENGTH, set, -1));
@@ -401,6 +416,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                         }
                         // if we haven't yet continued, process evidence from callees.
                         DEBUG(dbgs() << "About to track through the calls\n");
+                        //errs() << "Examining " << value->getName() << "\n";
                         pair<pair<LengthInfo, bool>, string> callResponse = trackThroughCalls(functionToCallSites.at(&func), 
                         value, annotations, func, allValueSets);
                         if (!callResponse.second.empty()) {
@@ -419,9 +435,6 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                         }*/
                         //DEBUG(dbgs() << "After looking for optional loops, result is " << valueAnswer << "\n");
                         answer = mergeAnswers(valueAnswer, answer);
-                        if (answer.type == NO_LENGTH_VALUE) {
-                            answer.type = NOT_FIXED_LENGTH;
-                        }
                         DEBUG(dbgs() << "After merging, result is " << answer.toString() << "\n");
                     }
                     changed |= (answer.type != oldAnswer.type || answer.length != oldAnswer.length);

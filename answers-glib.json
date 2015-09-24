@@ -5361,7 +5361,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "other": 0
                 }
             ],
             "function_name": "g_build_path_va"
@@ -6826,7 +6826,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 1,
@@ -7676,7 +7676,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 3
                 },
                 {
                     "args_array_receiver": 0,
@@ -9411,10 +9411,10 @@
                 },
                 {
                     "args_array_receiver": 0,
-                    "argument_name": "unknown",
+                    "argument_name": "remaining_text",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 4,
@@ -10486,7 +10486,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 4
                 },
                 {
                     "args_array_receiver": 0,
@@ -10733,7 +10733,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "g_markup_printf_escaped"
@@ -11052,6 +11052,12 @@
         },
         {
             "arguments": [
+            
+				{
+					"argument_name": "key_file",
+					"argument_reason": "",
+					"other": -2
+				},
                 {
                     "args_array_receiver": 0,
                     "argument_name": "unknown",
@@ -11596,7 +11602,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 1,
@@ -11767,6 +11773,11 @@
         },
         {
             "arguments": [
+                {
+					"argument_name": "key_file",
+					"argument_reason": "",
+					"other": -2
+				},
                 {
                     "args_array_receiver": 0,
                     "argument_name": "unknown",
@@ -12345,7 +12356,7 @@
             "arguments": [
                 {
                     "args_array_receiver": 0,
-                    "argument_name": "unknown",
+                    "argument_name": "format",
                     "argument_reason": "unknown",
                     "metadata": [],
                     "sentinel": "NUL"
@@ -14779,7 +14790,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
@@ -18302,7 +18313,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "fixed": 5
                 }
             ],
             "function_name": "g_utf8_get_char"
@@ -18661,7 +18672,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "fixed": 3
                 },
                 {
                     "args_array_receiver": 0,
@@ -20370,7 +20381,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -24549,7 +24560,7 @@
                     "metadata": [
                         "extra length parameter"
                     ],
-                    "other": 0
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -27756,7 +27767,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 1,
@@ -28982,7 +28993,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "g_key_file_is_key_name"
@@ -32676,11 +32687,11 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
+                        "gets next character from function call"
                     ],
                     "symbolic": 1
                 },
@@ -34583,7 +34594,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 3
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -34752,7 +34763,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "_g_utf8_strwidth"
@@ -34886,7 +34897,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "symbolic": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -35096,11 +35107,11 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
+                    "args_array_receiver": 1,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
+                        "gets next character with function call"
                     ],
                     "symbolic": 1
                 },
@@ -35178,20 +35189,19 @@
         {
             "arguments": [
                 {
-                    "args_array_receiver": 5,
-                    "argument_name": "unknown",
+                    "args_array_receiver": 1,
+                    "argument_name": "str1",
                     "argument_reason": "unknown",
                     "metadata": [
-                        "extra length parameter"
                     ],
-                    "symbolic": 1
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 0,
-                    "argument_name": "unknown",
+                    "argument_name": "str2",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "g_utf8_collate_key"
@@ -35312,17 +35322,17 @@
             "arguments": [
                 {
                     "args_array_receiver": 1,
-                    "argument_name": "unknown",
+                    "argument_name": "str1",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 },
                 {
                     "args_array_receiver": 1,
-                    "argument_name": "unknown",
+                    "argument_name": "str2",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "sentinel": "NUL"
                 }
             ],
             "function_name": "g_utf8_collate"
@@ -36961,7 +36971,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "sentinel": "NUL"
+                    "other": 0
                 },
                 {
                     "args_array_receiver": 0,
@@ -38871,10 +38881,10 @@
                 },
                 {
                     "args_array_receiver": 1,
-                    "argument_name": "unknown",
+                    "argument_name": "outbuf",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "other": 0
+                    "fixed": 5
                 }
             ],
             "function_name": "g_unichar_to_utf8"
