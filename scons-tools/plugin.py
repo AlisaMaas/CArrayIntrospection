@@ -1,6 +1,6 @@
 from SCons.Script import Builder
 from SCons.Util import splitext
-
+from os import environ
 
 ########################################################################
 #
@@ -38,6 +38,7 @@ def __run_plugin_source_args(target, source, env, for_signature):
 
 __run_plugin_builder = Builder(
     action=[[
+	'env', 'HOME=' + environ['HOME'],
         './run',
         '-analyze',
         '-debug',
