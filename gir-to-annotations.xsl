@@ -38,7 +38,8 @@
 
 	<xsl:template match="@length">
 		<xsl:text>,"symbolic":</xsl:text>
-		<xsl:value-of select="."/>
+		<xsl:variable name="instance-offset" select="count(ancestor::gir:parameter[1]/preceding-sibling::gir:instance-parameter)"/>
+		<xsl:value-of select=". + $instance-offset"/>
 	</xsl:template>
 
 	<xsl:template match="@zero-terminated[. = '0']"/>
