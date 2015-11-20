@@ -87,6 +87,14 @@ if __name__ == '__main__':
     answer_data = open(sys.argv[2])
     output = json.load(output_data)
     answers = json.load(answer_data)
+    api = []
+    api_only = False
+    if len(sys.argv) > 2:
+        api_only = True
+        names = open(sys.argv[3])
+        for n in names:
+            api.append(n.strip())
+    
     outputLibraryFunctions = output['library_functions']
     answerLibraryFunctions = answers['library_functions']
     # statistics we care about go here.
@@ -102,7 +110,21 @@ if __name__ == '__main__':
     allCollections = [totalFixedLen, totalNotFixedLen, totalSymbolicLen, totalNotSymbolicLen,
     totalSentinelTerm, totalNotSentinelTerm, observedFixedLen, observedNotFixedLen, observedSymbolicLen,
     observedNotSymbolicLen, observedSentinelTerm, observedNotSentinelTerm]
-
+    
+    if api_only:
+        to_remove = []
+        for collection in allCollections:
+            for item in collection:
+                if item.functionName not in api:
+                    to_remove.append(item)
+        for item in to_remove:
+            for collection in allCollections:
+                if item in collection:
+                    collection.remove(item)
+            if item in totalEverything:
+                totalEverything.remove(item)
+            if item in observedEverything:
+                observedEverything.remove(item)
     functionNames = set()
     for item in totalEverything - observedEverything:
         if item.functionName not in functionNames:

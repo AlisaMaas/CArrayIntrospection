@@ -45,7 +45,7 @@ pair<int, int> Annotator::annotate(const LengthInfo &info) const {
             return pair<int, int>(0, -2);
 	    case NO_LENGTH_VALUE:
 	        DEBUG(dbgs() << "No length value\n");
-	        return pair<int, int>(0,-1);
+	        return pair<int, int>(0,0);
 	    case INCONSISTENT:
 	        DEBUG(dbgs() << "Inconsistent type\n");
 	        return pair<int, int>(1, -1);

@@ -1,0 +1,2729 @@
+{
+	"library_functions": [
+		{
+			"arguments": [
+				{
+					"argument_name": "qrcode",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeInput"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mask",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeMaskMQR"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mask",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeMask"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to QRcode_encodeStringReal passing string setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "casesensitive",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeString"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to Split_splitStringToQRinput passing string setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mqr",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "casesensitive",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeStringReal"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to QRcode_encodeStringReal passing string setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "casesensitive",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeStringMQR"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeData"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 1
+				},
+				{
+					"argument_name": "length",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mqr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeDataReal"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to strlen passing string setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeString8bit"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeDataMQR"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to strlen passing string setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeString8bitMQR"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "qrlist",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_List_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_List_freeEntry"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "qrlist",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_List_size"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeInputStructured"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"QRcode_List_newEntry"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeDataStructured"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "eightbit",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "casesensitive",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeDataStructuredReal"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to strlen passing string setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeString8bitStructured"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to strlen passing string setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "casesensitive",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeStringStructured"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "major_version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "minor_version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "micro_version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_APIVersion"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"QRcode_APIVersionString"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_encodeInputToStructured"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRraw_new"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "raw",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRraw_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "filler",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mqr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"FrameFiller_set"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "raw",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRraw_getCode"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "filler",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"FrameFiller_next"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRcode_new"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "blocks",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "spec",
+					"argument_reason": "",
+					"fixed": 4
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ecc",
+					"argument_reason": " found a call to RSblock_initBlock passing ecc setting to Fixed length of 29",
+					"other": 0
+				}
+			],
+			"function_name":"RSblock_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "block",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dl",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 1
+				},
+				{
+					"argument_name": "el",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ecc",
+					"argument_reason": " found a call to RSECC_encode passing ecc setting to Fixed length of 29",
+					"other": -2
+				}
+			],
+			"function_name":"RSblock_initBlock"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRraw_new"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "raw",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRraw_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "raw",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRraw_getCode"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_isSplittableMode"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"QRinput_new"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_new2"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_newMQR"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_getVersion"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_setVersion"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_getErrorCorrectionLevel"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_setErrorCorrectionLevel"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_setVersionAndErrorCorrectionLevel"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				}
+			],
+			"function_name":"QRinput_append"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ecinum",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_appendECIheader"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_dup"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_estimateBitsModeNum"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_estimateBitsModeAn"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_estimateBitsMode8"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_estimateBitsModeKanji"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"fixed": 3
+				}
+			],
+			"function_name":"QRinput_estimateBitsModeECI"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 1
+				}
+			],
+			"function_name":"QRinput_check"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_getByteStream"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"QRinput_Struct_new"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "parity",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_Struct_setParity"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_Struct_appendInput"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_Struct_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_splitQRinputToStruct"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_Struct_insertStructuredAppendHeaders"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_setFNC1First"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "appid",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_setFNC1Second"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 1
+				}
+			],
+			"function_name":"QRinput_List_newEntry"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_appendEntry"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_List_freeEntry"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_List_dup"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": -2
+				}
+			],
+			"function_name":"QRinput_decodeECIfromByteArray"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 0
+				}
+			],
+			"function_name":"QRinput_checkModeNum"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 0
+				}
+			],
+			"function_name":"QRinput_checkModeAn"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": -2
+				}
+			],
+			"function_name":"QRinput_checkModeKanji"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_checkModeFNC1Second"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_getBitStream"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_InputList_newEntry"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_InputList_freeEntry"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_calcParity"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mqr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_estimateBitStreamSizeOfEntry"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mqr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_encodeBitStream"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bits",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_lengthOfCode"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bytes",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_splitEntry"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_Struct_calcParity"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "number",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "parity",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_insertStructuredAppendHeader"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_mergeBitStream"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_appendPaddingBitMQR"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_appendPaddingBit"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mqr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_encodeModeNum"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mqr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_encodeModeAn"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mqr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_encodeMode8"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mqr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_encodeModeKanji"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mqr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_encodeModeStructure"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_encodeModeECI"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_encodeModeFNC1Second"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bytes",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_List_shrinkEntry"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_createBitStream"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_insertFNC1Header"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_convertData"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_estimateVersion"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRinput_estimateBitStreamSize"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"BitStream_new"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "arg",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"BitStream_append"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bits",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "num",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"BitStream_appendNum"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"BitStream_appendBytes"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"BitStream_toByte"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"BitStream_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "bstream",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"BitStream_expand"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "dest",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bits",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "num",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"BitStream_writeNum"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "dest",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": -2
+				}
+			],
+			"function_name":"BitStream_writeBytes"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_getDataLength"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_getECCLength"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_getMinimumVersion"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_getWidth"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_getRemainder"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_lengthIndicator"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_maximumWords"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "spec",
+					"argument_reason": "",
+					"fixed": 4
+				}
+			],
+			"function_name":"QRspec_getEccSpec"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_getVersionPattern"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "mask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_getFormatInfo"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_newFrame"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_createFrame"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ox",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "oy",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"putFinderPattern"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_putAlignmentPattern"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ox",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "oy",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"QRspec_putAlignmentMarker"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"RSECC_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "data_length",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ecc_length",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 0
+				},
+				{
+					"argument_name": "ecc",
+					"argument_reason": "",
+					"other": -2
+				}
+			],
+			"function_name":"RSECC_encode"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"RSECC_initLookupTable"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "length",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"generator_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to dupAndToUpper passing string setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "casesensitive",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Split_splitStringToQRinput"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "str",
+					"argument_reason": " found a call to strdup passing str setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"dupAndToUpper"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to Split_identifyMode passing string setting to Fixed length of 1",
+					"other": 0
+				},
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Split_splitString"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": "",
+					"fixed": 1
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Split_identifyMode"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to Split_identifyMode passing string setting to Fixed length of 1",
+					"other": 0
+				},
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Split_eatNum"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Split_eatAn"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": " found a call to Split_identifyMode passing string setting to Fixed length of 1",
+					"other": -2
+				},
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Split_eatKanji"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "string",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "input",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hint",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Split_eat8"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_makeMask"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": -2
+				},
+				{
+					"argument_name": "mask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_writeFormatInformation"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_evaluateSymbol"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask0"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask1"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask2"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask3"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask4"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask5"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask6"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask7"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": -2
+				}
+			],
+			"function_name":"Mask_calcN2"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 0
+				},
+				{
+					"argument_name": "runLength",
+					"argument_reason": "",
+					"other": -2
+				}
+			],
+			"function_name":"Mask_calcRunLengthH"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "length",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "runLength",
+					"argument_reason": "",
+					"other": -2
+				}
+			],
+			"function_name":"Mask_calcN1N3"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": -2
+				},
+				{
+					"argument_name": "runLength",
+					"argument_reason": "",
+					"other": -2
+				}
+			],
+			"function_name":"Mask_calcRunLengthV"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRspec_getDataLengthBit"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRspec_getDataLength"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRspec_getECCLength"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRspec_getWidth"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRspec_lengthIndicator"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRspec_maximumWords"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "mask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRspec_getFormatInfo"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRspec_newFrame"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MQRspec_createFrame"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ox",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "oy",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"putFinderPattern64"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MMask_makeMask"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MMask_mask"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "version",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": -2
+				},
+				{
+					"argument_name": "mask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "level",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"MMask_writeFormatInformation"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "frame",
+					"argument_reason": "",
+					"other": -2
+				}
+			],
+			"function_name":"MMask_evaluateSymbol"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask070"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask171"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask272"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "s",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "d",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"Mask_mask373"
+		}
+	]
+}

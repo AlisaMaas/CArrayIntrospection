@@ -2,14 +2,37 @@
 #include "FindLengthChecks.hh"
 #include "IIGlueReader.hh"
 #include "ValueSetsReachingValue.hh"
+//#include "ValueReachesValue.hh"
 
+#include <boost/algorithm/cxx11/any_of.hpp>
+#include <boost/foreach.hpp>
+#include <boost/lambda/core.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/range/adaptor/filtered.hpp>
+#include <boost/range/adaptor/map.hpp>
+#include <boost/range/adaptor/transformed.hpp>
+#include <boost/range/combine.hpp>
+#include <boost/range/irange.hpp>
+#include <boost/range/iterator_range.hpp>
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <llvm/Analysis/LoopPass.h>
+#include <llvm/IR/Instructions.h>
+#include <llvm/IR/InstVisitor.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/raw_os_ostream.h>
+
+#if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) >= 3005
+#include <llvm/IR/InstIterator.h>
+#else  // LLVM 3.4 or earlier
+#include <llvm/Support/InstIterator.h>
+#endif	// LLVM 3.4 or earlier
+using namespace boost::adaptors;
+using namespace boost::algorithm;
+
+
 #include <fstream>
 
 
@@ -17,10 +40,28 @@
 using namespace boost;
 using namespace llvm;
 using namespace std;
-
+static unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &module) {
+	unordered_map<const Function *, CallInstSet> functionToCallSites;
+	// collect calls in each function for repeated scanning later
+	for (const Function &func : module) {
+		const auto instructions =
+			make_iterator_range(inst_begin(func), inst_end(func))
+			| transformed([](const Instruction &inst) { return dyn_cast<CallInst>(&inst); })
+			| filtered(boost::lambda::_1);
+		functionToCallSites.emplace(&func, CallInstSet(instructions.begin(), instructions.end()));
+		DEBUG(dbgs() << "went through all the instructions and grabbed calls\n");
+		DEBUG(dbgs() << "We found " << functionToCallSites[&func].size() << " calls in " << func.getName() << '\n');
+	}
+	return functionToCallSites;
+}
 static Value *stripSExtInst(Value *value) {
     while (SExtInst * SEI = dyn_cast<SExtInst>(value)) {
         value = SEI->getOperand(0);
+    }
+    if (PHINode *phi = dyn_cast<PHINode>(value)) {
+        if (Value * v = phi->hasConstantValue()) {
+          return v;
+        }
     }
     return value;
 }
@@ -80,6 +121,7 @@ CheckGetElementPtrVisitor::CheckGetElementPtrVisitor(ValueSetToMaxIndexMap &map,
 const SymbolicRangeAnalysis &ra, Module &m, LengthValueSetMap &l, ValueSetSet &v ) 
 : maxIndexes(map), lengths(l), rangeAnalysis(ra), valueSets(v), module(m){
     placeHolder = nullptr;
+    functionsToCallsites = collectFunctionCalls(m);
 }
 CheckGetElementPtrVisitor::~CheckGetElementPtrVisitor() {
     DEBUG(dbgs() << "destructor\n");
@@ -98,20 +140,41 @@ CheckGetElementPtrVisitor::~CheckGetElementPtrVisitor() {
 void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) {
     //ignore all GEPs that don't lead to a memory access
     //unless that goes into a function call.
+    //bool useless = true;
     for (const User *user : gepi.users()) {
         if (StoreInst::classof(user)) {
+           // useless = false;
             break;
         }
-        if (const LoadInst *load = dyn_cast<LoadInst>(user)) {
-            if (load->getType() != load->getPointerOperand()->getType()) {
+        if (dyn_cast<LoadInst>(user)) {
+            //if (load->getType() != load->getPointerOperand()->getType()) {
+              //  useless = false;
                 break;
-            }
+            //}
         }
-        if (GetElementPtrInst::classof(user))
+        if (GetElementPtrInst::classof(user)) {
+            //useless = false;
             break;
+        }
         //TODO: fix up.
-        return;
+        const CallInstSet calls = functionsToCallsites[gepi.getParent()->getParent()];
+
+        /*for (const CallInst *call : calls) {
+		    for (const unsigned argNo : irange(0u, call->getNumArgOperands())) {
+                const Value *actual = call->getArgOperand(argNo);
+                
+                if (!valueReachesValue(*actual, gepi)) {
+                    continue;
+                }
+                else {
+                    useless = false;
+                    break;
+                }
+		    }
+        }*/
+      return;
     }
+    //if (useless) return;
     if (placeHolder != nullptr)
         delete placeHolder;
     placeHolder = BasicBlock::Create(module.getContext());
@@ -128,7 +191,7 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
     }
     
     DEBUG(dbgs() << "GEPI: " << gepi << "\n");
-    if (gepi.getType() != gepi.getPointerOperandType()) { //possibly detecting the struct access pattern.
+    /*if (gepi.getType() != gepi.getPointerOperandType()) { //possibly detecting the struct access pattern.
         DEBUG(dbgs() << "Types don't match. We have " << *gepi.getType() << " and " << *gepi.getPointerOperandType() << "\n");
         if (dyn_cast<PointerType>(gepi.getPointerOperandType()) != nullptr) {
             PointerType *pointerType = dyn_cast<PointerType>(gepi.getPointerOperandType());
@@ -139,11 +202,13 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
                 ArrayType *arrayType = dyn_cast<ArrayType>(pointee);
                 DEBUG(dbgs() << "array type is " << *arrayType << "\n");
                 maxIndexes[valueSet] = arrayType->getNumElements();
+                return;
             }
-            return; //don't mark it as bad because it's possible that we've got an array of structs.
+            else if (gepi.getType()->getPointerTo() != pointerType)
+                return; //don't mark it as bad because it's possible that we've got an array of structs.
 
         }
-    }
+    }*/
     if (gepi.getNumIndices() != 1) {
         DEBUG(dbgs() << "Ignoring this one!\n");
         DEBUG(dbgs() << "It has " << gepi.getNumIndices() << " indices.\n");

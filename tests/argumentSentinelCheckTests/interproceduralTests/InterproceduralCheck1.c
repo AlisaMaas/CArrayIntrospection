@@ -24,3 +24,10 @@ int find(char string[]) {
 	}
 	return 1;
 }
+
+int bar(char* a, int n) {
+  for (int i = 0; i < n; i++) {
+    print(&a[i]);
+  }
+  return 1;
+}

@@ -1,0 +1,359 @@
+{
+	"library_functions": [
+		{
+					"arguments": [
+				{
+					"argument_name": "self",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "preferred_handler",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "cancellable",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "callback",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user_data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ensure",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"request_and_observe_channel_async"
+		},
+				{
+			"arguments": [
+				{
+					"argument_name": "self",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "preferred_handler",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "cancellable",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "callback",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user_data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ensure",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"request_channel_async"
+		},
+				{
+			"arguments": [
+				{
+					"argument_name": "proxy",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "timeout_ms",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "in_Connection_Manager",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "in_Protocol",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "in_Display_Name",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "in_Parameters",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "in_Properties",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "callback",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user_data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "destroy",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "weak_object",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"tp_cli_account_manager_call_create_account"
+		},
+				{
+			"arguments": [
+				{
+					"argument_name": "proxy",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "timeout_ms",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "in_Reason",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "in_Detailed_Hangup_Reason",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "in_Message",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "callback",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user_data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "destroy",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "weak_object",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"tp_cli_channel_type_call_call_hangup"
+		},
+				{
+			"arguments": [
+				{
+					"argument_name": "conn",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "object_path",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "immutable_properties",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "error",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"tp_channel_new_from_properties"
+		},
+				{
+			"arguments": [
+				{
+					"argument_name": "self",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "field",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "value",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "cancellable",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "callback",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user_data",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"tp_protocol_normalize_vcard_address_async"
+		},
+				{
+			"arguments": [
+				{
+					"argument_name": "object",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "iface",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "name",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "value",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "getter_data",
+					"argument_reason": " found a call to g_object_get_property passing getter_data setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"tp_dbus_properties_mixin_getter_gobject_properties"
+		},
+				{
+			"arguments": [
+				{
+					"argument_name": "self",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "part",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": " found a call to g_strdup passing key setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "fmt",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"tp_message_set_string_printf"
+		},
+				{
+			"arguments": [
+				{
+					"argument_name": "self",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "interface_name",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "property_name",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "value",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "error",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"tp_dbus_properties_mixin_set"
+		},
+				{
+			"arguments": [
+				{
+					"argument_name": "self",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "old_name",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "new_name",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "callback",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user_data",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"tp_connection_rename_group_async"
+		}
+	]
+}

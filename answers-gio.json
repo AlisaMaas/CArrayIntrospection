@@ -18555,7 +18555,7 @@
 				{
 					"argument_name": "first_property_name",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "var_args",
@@ -60695,7 +60695,7 @@
 				{
 					"argument_name": "property",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "flags",
@@ -60725,7 +60725,7 @@
 				{
 					"argument_name": "property",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "flags",

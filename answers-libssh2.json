@@ -1,0 +1,8124 @@
+{
+	"library_functions": [
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_nextid"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "channel_id",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_locate"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "channel_type",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "channel_type_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "window_size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "message",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "message_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_open"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "type",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "type_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "window_size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "msg",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "msg_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_open_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": " found a call to channel_direct_tcpip passing host setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "port",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "shost",
+					"argument_reason": " found a call to channel_direct_tcpip passing shost setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "sport",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_direct_tcpip_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": " found a call to strlen passing host setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "port",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "shost",
+					"argument_reason": " found a call to strlen passing shost setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "sport",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"channel_direct_tcpip"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": " found a call to channel_forward_listen passing host setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "port",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bound_port",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "queue_maxsize",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_forward_listen_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": " found a call to strlen passing host setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "port",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bound_port",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "queue_maxsize",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"channel_forward_listen"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "listener",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_forward_cancel"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "listener",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_forward_cancel"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "listener",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_forward_accept"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "listener",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"channel_forward_accept"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "varname",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "varname_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "value",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "value_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_setenv_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "varname",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "varname_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "value",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "value_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"channel_setenv"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "term",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "term_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "modes",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "modes_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "height",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width_px",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "height_px",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_request_pty_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "term",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "term_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "modes",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "modes_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "height",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width_px",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "height_px",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"channel_request_pty"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "height",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width_px",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "height_px",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_request_pty_size_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "height",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "width_px",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "height_px",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"channel_request_pty_size"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "single_connection",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "auth_proto",
+					"argument_reason": " found a call to channel_x11_req passing auth_proto setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "auth_cookie",
+					"argument_reason": " found a call to channel_x11_req passing auth_cookie setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "screen_number",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_x11_req_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "single_connection",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "auth_proto",
+					"argument_reason": " found a call to strlen passing auth_proto setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "auth_cookie",
+					"argument_reason": " found a call to strlen passing auth_cookie setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "screen_number",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"channel_x11_req"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "request",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "request_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "message",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "message_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_process_startup"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "req",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "req_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "msg",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "msg_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_process_startup"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "blocking",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_set_blocking"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "streamid",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_flush"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "adjustment",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "force",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "store",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_receive_window_adjust"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "stream",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_flush_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_get_exit_status"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "exitsignal",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "exitsignal_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "errmsg",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "errmsg_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "langtag",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "langtag_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_get_exit_signal"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "adj",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "force",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_receive_window_adjust"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "adj",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "force",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "window",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_receive_window_adjust2"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ignore_mode",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_extended_data"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_handle_extended_data2"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ignore_mode",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_handle_extended_data"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "stream_id",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "buflen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_read"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "stream_id",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "buflen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_read_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "read_avail",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "window_size_initial",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_window_read_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "stream_id",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_packet_data_len"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "stream_id",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"symbolic": 0
+				},
+				{
+					"argument_name": "buflen",
+					"argument_reason": "",
+					"other": 3
+				}
+			],
+			"function_name":"_libssh2_channel_write"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "stream_id",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "buflen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_write_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_send_eof"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"channel_send_eof"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_eof"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_wait_eof"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"channel_wait_eof"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_channel_close"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_close"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_wait_closed"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"channel_wait_closed"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "window_size_initial",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_channel_window_write_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_comp_methods"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "src",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "src_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"comp_method_none_comp"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "payload_limit",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "src",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "src_len",
+					"argument_reason": "",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"comp_method_none_decomp"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "compr",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"comp_method_zlib_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "src",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "src_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"comp_method_zlib_comp"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "payload_limit",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "src",
+					"argument_reason": "",
+					"symbolic": 5
+				},
+				{
+					"argument_name": "src_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"comp_method_zlib_decomp"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "compr",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"comp_method_zlib_dtor"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "opaque",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "items",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"comp_method_zlib_alloc"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "opaque",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "address",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"comp_method_zlib_free"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"libssh2_crypt_methods"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "iv",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "free_iv",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "secret",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "free_secret",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "encrypt",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"crypt_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "block",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "blocksize",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"crypt_encrypt"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"crypt_dtor"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "iv",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "free_iv",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "secret",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "free_secret",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "encrypt",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"crypt_init_arcfour128"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"libssh2_hostkey_methods"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hash_type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_hostkey_hash"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_hostkey"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hostkey",
+					"argument_reason": "",
+					"fixed": 10
+				},
+				{
+					"argument_name": "len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_type"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostkey_data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostkey_data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_rsa_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privkeyfile",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_rsa_initPEM"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privkeyfiledata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privkeyfiledata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_rsa_initPEMFromMemory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "m",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "m_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_rsa_sig_verify"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "signature",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "signature_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "veccount",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "datavec",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_rsa_signv"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_rsa_dtor"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostkey_data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostkey_data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_dss_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privkeyfile",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_dss_initPEM"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privkeyfiledata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privkeyfiledata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_dss_initPEMFromMemory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "m",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "m_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_dss_sig_verify"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "signature",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "signature_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "veccount",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "datavec",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_dss_signv"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostkey_method_ssh_dss_dtor"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "reexchange",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_kex_exchange"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method_type",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "prefs",
+					"argument_reason": " found a call to strlen passing prefs setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"libssh2_session_method_pref"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method_type",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "algs",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_supported_algs"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kexinit"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_agree_methods"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "name",
+					"argument_reason": " found a call to strncmp passing name setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "name_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "methodlist",
+					"argument_reason": "found a non optional sentinel check for methodlist in kex_get_method_by_name",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"kex_get_method_by_name"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_method_diffie_hellman_group_exchange_sha256_key_exchange"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_method_diffie_hellman_group_exchange_sha1_key_exchange"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_method_diffie_hellman_group14_sha1_key_exchange"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_method_diffie_hellman_group1_sha1_key_exchange"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "method",
+					"argument_reason": "found a non optional sentinel check for method in kex_method_strlen",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"kex_method_strlen"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "buf",
+					"argument_reason": " found a call to _libssh2_htonu32 passing buf setting to Fixed length of 3",
+					"other": 0
+				},
+				{
+					"argument_name": "list_strlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": "found a non optional sentinel check for method in kex_method_list",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"kex_method_list"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "lenp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "strp",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_string_pair"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "kex",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "kex_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostkey",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "hostkey_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_agree_kex_hostkey"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "endpoint",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "crypt",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "crypt_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_agree_crypt"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "endpoint",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mac",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "mac_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_agree_mac"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "endpoint",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "comp",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "comp_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_agree_comp"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "g",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "p",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "group_order",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_type_init",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_type_reply",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "midhash",
+					"argument_reason": "",
+					"symbolic": 7
+				},
+				{
+					"argument_name": "midhash_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "exchange_state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"diffie_hellman_sha256"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "g",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "p",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "group_order",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_type_init",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_type_reply",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "midhash",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "midhash_len",
+					"argument_reason": "",
+					"symbolic": 8
+				},
+				{
+					"argument_name": "exchange_state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"diffie_hellman_sha1"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "haystack",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 1
+				},
+				{
+					"argument_name": "haystack_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "needle",
+					"argument_reason": " found a call to strncmp passing needle setting to Sentinel-terminated by 0 found a call to strncmp passing needle setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "needle_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_agree_instr"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "kex_flags",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostkey",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "hostkey_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"kex_agree_hostkey"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"_libssh2_mac_methods"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "free_key",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"mac_method_common_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "seqno",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "packet_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "addtl",
+					"argument_reason": "",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "addtl_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"mac_method_hmac_sha2_256_hash"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"mac_method_common_dtor"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "seqno",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "packet_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "addtl",
+					"argument_reason": "",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "addtl_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"mac_method_hmac_sha2_512_hash"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "seqno",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "packet_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "addtl",
+					"argument_reason": "",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "addtl_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"mac_method_hmac_sha1_hash"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "seqno",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "packet_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "addtl",
+					"argument_reason": "",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "addtl_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"mac_method_hmac_sha1_96_hash"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "seqno",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "packet_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "addtl",
+					"argument_reason": "",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "addtl_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"mac_method_hmac_md5_hash"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "seqno",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "packet_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "addtl",
+					"argument_reason": "",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "addtl_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"mac_method_hmac_md5_96_hash"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "seqno",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "packet_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "addtl",
+					"argument_reason": "",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "addtl_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"mac_method_hmac_ripemd160_hash"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "errcode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "errmsg",
+					"argument_reason": " found a call to strlen passing errmsg setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "errflags",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_error_flags"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "errcode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "errmsg",
+					"argument_reason": " found a call to _libssh2_error_flags passing errmsg setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"_libssh2_error"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sock",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buffer",
+					"argument_reason": "",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "length",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "flags",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_recv"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sock",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buffer",
+					"argument_reason": "",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "length",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "flags",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_send"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"fixed": 3
+				}
+			],
+			"function_name":"_libssh2_ntohu32"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"fixed": 7
+				}
+			],
+			"function_name":"_libssh2_ntohu64"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"fixed": 3
+				},
+				{
+					"argument_name": "value",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_htonu32"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "value",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_store_u32"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "str",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_store_str"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "datalen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "src",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "src_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_base64_decode"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "inp",
+					"argument_reason": " found a call to strlen passing inp setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "insize",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "outptr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_base64_encode"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ptr",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bitmask",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_trace"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "handler_context",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "callback",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_trace_sethandler"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "head",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_list_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "head",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_list_add"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "head",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_list_first"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "node",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_list_next"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "node",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_list_prev"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_list_remove"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_calloc"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": -2
+				},
+				{
+					"argument_name": "datalen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "macstate",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_packet_add"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_type",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_ofs",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_len",
+					"argument_reason": " found a call to memcmp passing match_len setting to Inconsistent length",
+					"other": -1
+				}
+			],
+			"function_name":"_libssh2_packet_ask"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_types",
+					"argument_reason": " found a call to strlen passing packet_types setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_ofs",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_len",
+					"argument_reason": " found a call to _libssh2_packet_ask passing match_len setting to Inconsistent length",
+					"other": -1
+				}
+			],
+			"function_name":"_libssh2_packet_askv"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_type",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_ofs",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_len",
+					"argument_reason": " found a call to _libssh2_packet_ask passing match_len setting to Inconsistent length found a call to _libssh2_packet_ask passing match_len setting to Inconsistent length",
+					"other": -1
+				},
+				{
+					"argument_name": "state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_packet_require"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_packet_burn"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_types",
+					"argument_reason": " found a call to _libssh2_packet_askv passing packet_types setting to Sentinel-terminated by 0 found a call to strchr passing packet_types setting to Sentinel-terminated by 0 found a call to _libssh2_packet_askv passing packet_types setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_ofs",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "match_len",
+					"argument_reason": " found a call to _libssh2_packet_askv passing match_len setting to Inconsistent length found a call to _libssh2_packet_askv passing match_len setting to Inconsistent length",
+					"other": -1
+				},
+				{
+					"argument_name": "state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_packet_requirev"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "datalen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "listen_state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"packet_queue_listener"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "datalen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "x11open_state",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"packet_x11_open"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_publickey_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "pkey",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "name",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "name_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "blob",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "blob_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "overwrite",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "num_attrs",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "attrs",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 6
+				}
+			],
+			"function_name":"libssh2_publickey_add_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "pkey",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "name",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "name_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "blob",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "blob_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_publickey_remove_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "pkey",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "num_keys",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pkey_list",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_publickey_list_fetch"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "pkey",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pkey_list",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_publickey_list_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "pkey",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_publickey_shutdown"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"publickey_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "pkey",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"publickey_response_success"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "pkey",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"publickey_packet_receive"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "pdata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"publickey_response_id"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "pkey",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "status",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"publickey_status_error"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": " found a call to scp_recv passing path setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "sb",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_scp_recv"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": " found a call to scp_recv passing path setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "sb",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_scp_recv2"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": " found a call to scp_send passing path setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mtime",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "atime",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_scp_send_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": " found a call to scp_send passing path setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mtime",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "atime",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_scp_send64"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": " found a call to shell_quotearg passing path setting to Sentinel-terminated by 0 found a call to strlen passing path setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "sb",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"scp_recv"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": " found a call to strrchr passing path setting to Sentinel-terminated by 0 found a call to shell_quotearg passing path setting to Sentinel-terminated by 0 found a call to strlen passing path setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mtime",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "atime",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"scp_send"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "path",
+					"argument_reason": "found a non optional sentinel check for path in shell_quotearg",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "bufsize",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"shell_quotearg"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "banner",
+					"argument_reason": " found a call to strlen passing banner setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"libssh2_session_banner_set"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "banner",
+					"argument_reason": " found a call to libssh2_session_banner_set passing banner setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"libssh2_banner_set"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "my_alloc",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "my_free",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "my_realloc",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_init_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "cbtype",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "callback",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_callback_set"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "start_time",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_wait_socket"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_block_directions"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sock",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_handshake"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sock",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_startup"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "reason",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "desc",
+					"argument_reason": " found a call to session_disconnect passing desc setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "lang",
+					"argument_reason": " found a call to session_disconnect passing lang setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"libssh2_session_disconnect_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method_type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_methods"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_abstract"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "errmsg",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "errmsg_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "want_buf",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_last_error"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_last_errno"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "errcode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "errmsg",
+					"argument_reason": " found a call to _libssh2_error_flags passing errmsg setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"libssh2_session_set_last_error"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "flag",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "value",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_flag"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "blocking",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_session_set_blocking"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "blocking",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_set_blocking"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_get_blocking"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "timeout",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_set_timeout"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_get_timeout"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "extended",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_poll_channel_read"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "fds",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 1
+				},
+				{
+					"argument_name": "nfds",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "timeout",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_poll"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_session_banner_get"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "count",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_default_alloc"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "ptr",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_default_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "ptr",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "count",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_default_realloc"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sock",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"session_startup"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"session_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "reason",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "description",
+					"argument_reason": " found a call to strlen passing description setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "lang",
+					"argument_reason": " found a call to strlen passing lang setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"session_disconnect"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"poll_channel_write"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "listener",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"poll_listener_queued"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sockfd",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"get_socket_nonblocking"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sockfd",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "nonblock",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"session_nonblock"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"banner_send"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"banner_receive"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "session_abstract",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "channel",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "channel_abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_dtor"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_shutdown"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filename",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "filename_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "flags",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "open_type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_open_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hnd",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buffer",
+					"argument_reason": "",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "buffer_maxlen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_read"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hnd",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buffer",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "buffer_maxlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "longentry",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "longentry_maxlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "attrs",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_readdir_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hnd",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buffer",
+					"argument_reason": "",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "count",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_write"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hnd",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_fsync"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hnd",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "attrs",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "setstat",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_fstat_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "offset",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_seek64"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "offset",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_seek"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_tell"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_tell64"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hnd",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_close_handle"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filename",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "filename_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_unlink_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "source_filename",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "source_filename_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest_filename",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "dest_filename_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "flags",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_rename_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "st",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_fstatvfs"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "path_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "st",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_statvfs"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "path_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_mkdir_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "path_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_rmdir_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "path_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "stat_type",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "attrs",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_stat_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "path_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "target",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "target_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "link_type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_symlink_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_last_error"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_sftp_get_channel"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_shutdown"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filename",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "filename_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "flags",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "open_type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_open"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buffer",
+					"argument_reason": "",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "buffer_size",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_read"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buffer",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "buffer_maxlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "longentry",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "longentry_maxlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "attrs",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_readdir"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buffer",
+					"argument_reason": "",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "count",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_write"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_fsync"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "attrs",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "setstat",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_fstat"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_packetlist_flush"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_close_handle"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filename",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "filename_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_unlink"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "source_filename",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "source_filename_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest_filename",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "dest_filename_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "flags",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_rename"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "handle",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "st",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_fstatvfs"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "path_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "st",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_statvfs"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "path_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "mode",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_mkdir"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "path_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_rmdir"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "path_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "stat_type",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "attrs",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_stat"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "path",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "path_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "target",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "target_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "link_type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_symlink"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_type",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "request_id",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_packet_require"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_packet_flush"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "flags",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_attrsize"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "p",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "attrs",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_attr2bin"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "num_valid_responses",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "valid_responses",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 1
+				},
+				{
+					"argument_name": "request_id",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_packet_requirev"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "ptr",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "value",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_store_u64"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "attrs",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "p",
+					"argument_reason": " found a call to _libssh2_ntohu32 passing p setting to Fixed length of 3",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_bin2attr"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "packet_type",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "request_id",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_packet_ask"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "request_id",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"add_zombie_request"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_packet_read"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": -2
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sftp_packet_add"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "request_id",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"find_zombie_request"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "sftp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "request_id",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"remove_zombie_request"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "user_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_userauth_list"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_userauth_authenticated"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "username",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "username_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "password",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "password_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passwd_change_cb",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_userauth_password_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "user_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "publickey",
+					"argument_reason": " found a call to userauth_hostbased_fromfile passing publickey setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "privatekey",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 7
+				},
+				{
+					"argument_name": "host_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "localuser",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 9
+				},
+				{
+					"argument_name": "localuser_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_userauth_hostbased_fromfile_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "username",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "username_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "pubkeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sign_callback",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_userauth_publickey"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "user_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "publickeyfiledata",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "publickeyfiledata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privatekeyfiledata",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "privatekeyfiledata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"libssh2_userauth_publickey_frommemory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "user_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "publickey",
+					"argument_reason": " found a call to userauth_publickey_fromfile passing publickey setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "privatekey",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_userauth_publickey_fromfile_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user",
+					"argument_reason": " found a call to strlen passing user setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "pubkeydata",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "pubkeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sign_callback",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_userauth_publickey"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "user",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "user_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "response_callback",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_userauth_keyboard_interactive_ex"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "username",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "username_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"userauth_list"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "username",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "username_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "password",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "password_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passwd_change_cb",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"userauth_password"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "username",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "username_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "publickey",
+					"argument_reason": " found a call to file_read_publickey passing publickey setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "privatekey",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostname",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 7
+				},
+				{
+					"argument_name": "hostname_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "local_username",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 9
+				},
+				{
+					"argument_name": "local_username_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"userauth_hostbased_fromfile"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "username",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "username_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "publickeydata",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "publickeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privatekeydata",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "privatekeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"userauth_publickey_frommemory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "username",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "username_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "publickey",
+					"argument_reason": " found a call to file_read_publickey passing publickey setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "privatekey",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"userauth_publickey_fromfile"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "username",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "username_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "response_callback",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"userauth_keyboard_interactive"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeyfile",
+					"argument_reason": " found a call to fopen passing pubkeyfile setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"file_read_publickey"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostkey_method",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostkey_abstract",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": " found a call to strncmp passing method setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "method_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privkeyfile",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"file_read_privatekey"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeyfiledata",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 6
+				},
+				{
+					"argument_name": "pubkeyfiledata_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"memory_read_publickey"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sign_frommemory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"sign_fromfile"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostkey_method",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostkey_abstract",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": " found a call to strncmp passing method setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "method_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privkeyfiledata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privkeyfiledata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"memory_read_privatekey"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_transport_read"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 2
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data2",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "data2_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_transport_send"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "source",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dest",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"decrypt"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "encrypted",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"fullpacket"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ret",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"send_existing"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "req_version_num",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_version"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": " found a call to knownhost_add passing host setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "salt",
+					"argument_reason": " found a call to knownhost_add passing salt setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": " found a call to knownhost_add passing key setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "keylen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "typemask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "store",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_add"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": " found a call to knownhost_add passing host setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "salt",
+					"argument_reason": " found a call to knownhost_add passing salt setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": " found a call to knownhost_add passing key setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "keylen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "comment",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "commentlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "typemask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "store",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_addc"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostp",
+					"argument_reason": " found a call to knownhost_check passing hostp setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": " found a call to knownhost_check passing key setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "keylen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "typemask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ext",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_check"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostp",
+					"argument_reason": " found a call to knownhost_check passing hostp setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "port",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": " found a call to knownhost_check passing key setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "keylen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "typemask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ext",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_checkp"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_del"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "line",
+					"argument_reason": " found a call to hostline passing line setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_readline"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filename",
+					"argument_reason": " found a call to fopen passing filename setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_readfile"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "known",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buffer",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buflen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "outlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_writeline"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filename",
+					"argument_reason": " found a call to fopen passing filename setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_writefile"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ext",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "oprev",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_knownhost_get"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": " found a call to strlen passing host setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "salt",
+					"argument_reason": " found a call to strlen passing salt setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "key_type_name",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "key_type_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": " found a call to _libssh2_base64_encode passing key setting to Sentinel-terminated by 0 found a call to strlen passing key setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "keylen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "comment",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "commentlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "typemask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "store",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"knownhost_add"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostp",
+					"argument_reason": " found a call to strcmp passing hostp setting to Sentinel-terminated by 0 found a call to strcmp passing hostp setting to Sentinel-terminated by 0 found a call to strlen passing hostp setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "port",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": " found a call to strcmp passing key setting to Sentinel-terminated by 0 found a call to _libssh2_base64_encode passing key setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "keylen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "typemask",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ext",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"knownhost_check"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "entry",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"free_host"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": " found a call to hashed_hostline passing key setting to Sentinel-terminated by 0 found a call to oldstyle_hostline passing key setting to Sentinel-terminated by 0 found a call to strncmp passing key setting to Sentinel-terminated by 0 found a call to strncmp passing key setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "keylen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hostline"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "node",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "buflen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "outlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "type",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"knownhost_writeline"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "node",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"knownhost_to_external"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": "",
+					"other": -2
+				},
+				{
+					"argument_name": "hostlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_type_name",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "key_type_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": " found a call to knownhost_add passing key setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "keylen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_type",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "comment",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "commentlen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"oldstyle_hostline"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "hosts",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "host",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hostlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_type_name",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "key_type_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": " found a call to knownhost_add passing key setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "keylen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_type",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "comment",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "commentlen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"hashed_hostline"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_agent_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_agent_connect"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_agent_list_identities"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ext",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "oprev",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_agent_get_identity"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "username",
+					"argument_reason": " found a call to strlen passing username setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "identity",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_agent_userauth"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_agent_disconnect"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_agent_free"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"agent_free_identities"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"agent_list_identities"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "node",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"agent_publickey_to_external"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "data_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "abstract",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"agent_sign"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"agent_connect_unix"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "transctx",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"agent_transact_unix"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "agent",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"agent_disconnect_unix"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "rsa",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "edata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "elen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ndata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "nlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ddata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pdata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "plen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "qdata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "qlen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "e1data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "e1len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "e2data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "e2len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "coeffdata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "coefflen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_rsa_new"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "rsactx",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "m",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "m_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_rsa_sha1_verify"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "message",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "out",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_sha1"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "dsactx",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "p",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "p_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "q",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "q_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "g",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "g_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "y",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "y_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "x",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "x_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_dsa_new"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "dsactx",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "sig",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "m",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "m_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_dsa_sha1_verify"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "h",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "algo",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "iv",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "secret",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "encrypt",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_cipher_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "ctx",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "algo",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "encrypt",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "block",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "blocksize",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_cipher_crypt"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"_libssh2_EVP_aes_128_ctr"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"_libssh2_EVP_aes_192_ctr"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"_libssh2_EVP_aes_256_ctr"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"_libssh2_init_aes_ctr"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "rsa",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filedata",
+					"argument_reason": "",
+					"symbolic": 4
+				},
+				{
+					"argument_name": "filedata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_rsa_new_private_frommemory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "rsa",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filename",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_rsa_new_private"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "dsa",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filedata",
+					"argument_reason": "",
+					"symbolic": 3
+				},
+				{
+					"argument_name": "filedata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_dsa_new_private_frommemory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "dsa",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filename",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_dsa_new_private"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "rsactx",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hash",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hash_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "signature",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "signature_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_rsa_sha1_sign"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "dsactx",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hash",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "hash_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "signature",
+					"argument_reason": "",
+					"other": -2
+				}
+			],
+			"function_name":"_libssh2_dsa_sha1_sign"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "ctx",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_sha1_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "ctx",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_sha256_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "message",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "out",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_sha256"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "ctx",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_md5_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privatekey",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_pub_priv_keyfile"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privatekeydata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "privatekeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_pub_priv_keyfilememory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "keylen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "aes_ctr_cipher",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"make_ctr_evp"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "key_ctx",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "read_private_key",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filedata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filedata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"read_private_key_from_memory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "key_ctx",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "read_private_key",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filename",
+					"argument_reason": "",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"read_private_key_from_file"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pk",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"gen_publickey_from_rsa_evp"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "method_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pubkeydata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "pk",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"gen_publickey_from_dsa_evp"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "ctx",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "iv",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "enc",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"aes_ctr_init"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "ctx",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "out",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "in",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "inl",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"aes_ctr_do_cipher"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "ctx",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"aes_ctr_cleanup"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "buf",
+					"argument_reason": "Preserved parameter length",
+					"symbolic": 1
+				},
+				{
+					"argument_name": "size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "rwflag",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "passphrase",
+					"argument_reason": " found a call to strlen passing passphrase setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				}
+			],
+			"function_name":"passphrase_cb"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "rsa",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"gen_publickey_from_rsa"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "dsa",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "key_len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"gen_publickey_from_dsa"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "buf",
+					"argument_reason": "",
+					"fixed": 4
+				},
+				{
+					"argument_name": "bn",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "bn_bytes",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"write_bn"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "headerbegin",
+					"argument_reason": " found a call to strcmp passing headerbegin setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "headerend",
+					"argument_reason": " found a call to strcmp passing headerend setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "fp",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "datalen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_pem_parse"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "headerbegin",
+					"argument_reason": " found a call to strcmp passing headerbegin setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "headerend",
+					"argument_reason": " found a call to strcmp passing headerend setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "filedata",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filedata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "datalen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_pem_parse_memory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "datalen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_pem_decode_sequence"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "datalen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "i",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "ilen",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"_libssh2_pem_decode_integer"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "line",
+					"argument_reason": " found a call to strlen passing line setting to Sentinel-terminated by 0 found a call to strlen passing line setting to Sentinel-terminated by 0",
+					"sentinel": "NUL"
+				},
+				{
+					"argument_name": "line_size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "fp",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"readline"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "line",
+					"argument_reason": "",
+					"other": -2
+				},
+				{
+					"argument_name": "line_size",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filedata",
+					"argument_reason": "",
+					"other": -2
+				},
+				{
+					"argument_name": "filedata_len",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "filedata_offset",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"readline_memory"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "data",
+					"argument_reason": "",
+					"fixed": 2
+				},
+				{
+					"argument_name": "datalen",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "len",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"read_asn1_length"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "want_reply",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "interval",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_keepalive_config"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "session",
+					"argument_reason": "",
+					"other": 0
+				},
+				{
+					"argument_name": "seconds_to_next",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_keepalive_send"
+		},
+		{
+			"arguments": [
+				{
+					"argument_name": "flags",
+					"argument_reason": "",
+					"other": 0
+				}
+			],
+			"function_name":"libssh2_init"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"libssh2_exit"
+		},
+		{
+			"arguments": [
+			],
+			"function_name":"_libssh2_init_if_needed"
+		}
+	]
+}

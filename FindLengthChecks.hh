@@ -8,9 +8,14 @@
 #include "SRA/SymbolicRangeAnalysis.h"
 #include "ValueSet.hh"
 
+#include <unordered_set>
+#include <unordered_map>
+
 typedef std::map<ValueSet const*, long int> ValueSetToMaxIndexMap;
 typedef std::map<ValueSet const*, ValueSet const*> LengthValueSetMap;
 typedef std::pair<const ValueSetToMaxIndexMap*, const LengthValueSetMap*> FunctionLengthResults;
+typedef std::unordered_set<const llvm::CallInst *> CallInstSet;
+
 
 class FindLengthChecks : public llvm::ModulePass {
 public:
@@ -26,7 +31,6 @@ private:
 	std::map<llvm::Function const*, ValueSetToMaxIndexMap> maxIndexes;
 	std::map<llvm::Function const*, LengthValueSetMap> lengths;
 	ValueSetSet valueSets;
-	
 };
 
 struct CheckGetElementPtrVisitor : public llvm::InstVisitor<CheckGetElementPtrVisitor> {
@@ -46,6 +50,7 @@ struct CheckGetElementPtrVisitor : public llvm::InstVisitor<CheckGetElementPtrVi
         ValueSetSet valueSets;
         llvm::Module &module;
         llvm::BasicBlock *placeHolder;
+        std::unordered_map<const llvm::Function *, CallInstSet> functionsToCallsites;
 };
 
 

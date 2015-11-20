@@ -114,8 +114,11 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
                         }
                         return first;
                     }
-                    else {
+                    else if (first.getSymbolicLength() != second.getSymbolicLength()){
                         return LengthInfo(INCONSISTENT, -1);
+                    }
+                    else {
+                        return second;
                     }
                 case INCONSISTENT:
                     return second;
@@ -130,7 +133,7 @@ pair<int, int> annotate(LengthInfo &info) {
         case NOT_FIXED_LENGTH:
             return pair<int, int>(0, -2);
 	    case NO_LENGTH_VALUE:
-	        return pair<int, int>(0,-1);
+	        return pair<int, int>(0,0);
 	    case INCONSISTENT:
 	        return pair<int, int>(1, -1);
 	    case SENTINEL_TERMINATED:
@@ -267,7 +270,7 @@ const Function &func, ValueSetSet &allValueSets) {
 			if (formalAnswer.type == PARAMETER_LENGTH) {
 			    int symbolicLen = formalAnswer.getSymbolicLength();
 			    formalAnswer = LengthInfo(NOT_FIXED_LENGTH,-1);
-			    if (symbolicLen > 0) {
+			    if (symbolicLen >= 0) {
 			        DEBUG(dbgs() << "Trying to figure out the symbolic length information\n");
 			        DEBUG(dbgs() << "In function " << func.getName() << " calling " << calledFunction->getName() << "\n");
 			        ValueSetSet lengths = valueSetsReachingValue(*&*call.getArgOperand(symbolicLen), allValueSets);
@@ -295,10 +298,11 @@ const Function &func, ValueSetSet &allValueSets) {
 			}
 			answer = mergeAnswers(formalAnswer, answer);
 			//errs() << "After merging, we decided that the answer is " << answer.toString() << "\n";
-			if (answer.type == formalAnswer.type && formalAnswer.type != NO_LENGTH_VALUE && answer.length == formalAnswer.length) {
-			    reason.str("");
+			if (answer.type == formalAnswer.type && formalAnswer.type != NO_LENGTH_VALUE && formalAnswer.type != NOT_FIXED_LENGTH && answer.length == formalAnswer.length) {
+			    reason.str(" ");
 			    reason << " found a call to " << call.getCalledFunction()->getName().str();
 			    reason << " passing " << value->getName().str();
+			   // reason << " setting to " << answer.toString();
 			}
 		}
 		
