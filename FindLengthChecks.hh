@@ -52,17 +52,4 @@ struct CheckGetElementPtrVisitor : public llvm::InstVisitor<CheckGetElementPtrVi
 };
 
 
-////////////////////////////////////////////////////////////////////////
-
-inline const FunctionLengthResults FindLengthChecks::getResultsForFunction(const llvm::Function *func) const {
-	const ValueSetToMaxIndexMap* first;
-	const LengthValueSetMap* second;
-	const auto findConst = maxIndexes.find(func);
-	first = (findConst == maxIndexes.end() ? nullptr : &findConst->second);
-
-	const auto findParam = lengths.find(func);
-	second = (findParam == lengths.end() ? nullptr : &findParam->second);
-	return std::pair<const ValueSetToMaxIndexMap*, const LengthValueSetMap*>(first, second);
-}
-
 #endif // !INCLUDE_FIND_LENGTH_CHECKS_HH

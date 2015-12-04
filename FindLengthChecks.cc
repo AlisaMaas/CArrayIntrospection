@@ -331,3 +331,14 @@ void FindLengthChecks::print(raw_ostream &sink, const Module *module) const {
 	}
 	
 }
+
+
+const FunctionLengthResults FindLengthChecks::getResultsForFunction(const llvm::Function *func) const {
+	const auto findConst = maxIndexes.find(func);
+	const ValueSetToMaxIndexMap* first = (findConst == maxIndexes.end() ? nullptr : &findConst->second);
+
+	const auto findParam = lengths.find(func);
+	const LengthValueSetMap* second = (findParam == lengths.end() ? nullptr : &findParam->second);
+
+	return {first, second};
+}
