@@ -46,28 +46,5 @@ private:
 	std::map<llvm::Function const*, ValueSetToMaxIndexMap> maxIndexes;
 	std::map<llvm::Function const*, LengthValueSetMap> lengths;
 };
-	
-char Annotator::ID;
-static const llvm::RegisterPass<Annotator> registration("annotator",
-							"Determine whether and how to annotate each function",
-							true, true);
-static llvm::cl::list<std::string>
-dependencyFileNames("annotator-dependency",
-		    llvm::cl::ZeroOrMore,
-		    llvm::cl::value_desc("filename"),
-		    llvm::cl::desc("Filename containing Annotator results for dependencies; use multiple times to read multiple files"));
-static llvm::cl::opt<std::string>
-outputFileName("annotator-output",
-	       llvm::cl::Optional,
-	       llvm::cl::value_desc("filename"),
-	       llvm::cl::desc("Filename to write results to"));
-static llvm::cl::opt<std::string>
-testOutputName("test-annotator",
-	       llvm::cl::Optional,
-	       llvm::cl::value_desc("filename"),
-	       llvm::cl::desc("Filename to write results to for regression tests"));
-static llvm::cl::opt<bool> Fast ("fast", 
-				 llvm::cl::desc("Skip struct results for faster computation."));
-
 
 #endif // !INCLUDE_NULL_ANNOTATOR_HH

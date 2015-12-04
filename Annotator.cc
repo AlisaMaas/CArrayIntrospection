@@ -22,9 +22,37 @@ typedef llvm::LoopInfo LoopInfoWrapperPass;
 #endif	// before LLVM 3.7
 
 
+char Annotator::ID;
+
+static const llvm::RegisterPass<Annotator> registration("annotator",
+							"Determine whether and how to annotate each function",
+							true, true);
+static llvm::cl::list<std::string>
+dependencyFileNames("annotator-dependency",
+		    llvm::cl::ZeroOrMore,
+		    llvm::cl::value_desc("filename"),
+		    llvm::cl::desc("Filename containing Annotator results for dependencies; use multiple times to read multiple files"));
+
+static llvm::cl::opt<std::string>
+outputFileName("annotator-output",
+	       llvm::cl::Optional,
+	       llvm::cl::value_desc("filename"),
+	       llvm::cl::desc("Filename to write results to"));
+
+static llvm::cl::opt<std::string>
+testOutputName("test-annotator",
+	       llvm::cl::Optional,
+	       llvm::cl::value_desc("filename"),
+	       llvm::cl::desc("Filename to write results to for regression tests"));
+
+static llvm::cl::opt<bool> Fast ("fast", 
+				 llvm::cl::desc("Skip struct results for faster computation."));
+
+
 inline Annotator::Annotator()
 	: ModulePass(ID) {
 }
+
 
 llvm::LoopInfo& Annotator::runLoopInfo(llvm::Function &func) {
 #if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) < 3007
@@ -40,6 +68,8 @@ llvm::LoopInfo& Annotator::runLoopInfo(llvm::Function &func) {
 	INCONSISTENT,
 	SENTINEL_TERMINATED
 */
+
+
 pair<int, int> Annotator::annotate(const LengthInfo &info) const {
     DEBUG(dbgs() << "Annotate switch statement about to start\n");
     switch (info.type) {
@@ -67,9 +97,12 @@ pair<int, int> Annotator::annotate(const LengthInfo &info) const {
 	        return pair<int, int>(-1, -1);
 	}
 }
+
+
 pair<int, int> Annotator::annotate(const Value &value) const {
 	return annotate(findAssociatedAnswer(&value, annotations));
 }
+
 
 pair<int, int> Annotator::annotate(const StructElement &element) const {
 	const AnnotationMap::const_iterator found = annotations.find(structElements.at(element));
@@ -81,6 +114,7 @@ pair<int, int> Annotator::annotate(const StructElement &element) const {
 	}
 }
 
+
 void Annotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
@@ -90,6 +124,7 @@ void Annotator::getAnalysisUsage(AnalysisUsage &usage) const {
 	usage.addRequired<LoopInfoWrapperPass>();
 	
 }
+
 
 void Annotator::populateFromFile(const string &filename, const Module &module) {
 	DEBUG(dbgs() << "Top of populateFromFile\n");
@@ -161,6 +196,7 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 		}
 	}
 }
+
 
 void Annotator::dumpToFile(const string &filename, const Module &module) const {
 	ofstream out(filename);
