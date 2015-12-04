@@ -16,21 +16,27 @@
 
 class ValueSetsReachingValue : public BacktrackPhiNodes {
 public:
-	ValueSetsReachingValue(const ValueSetSet values);
+	ValueSetsReachingValue(const ValueSetSet &values);
 	void visit(const llvm::Value &) final override;
 	ValueSetSet result;
 	static ValueSetSet valueSetsReachingValue(const llvm::Value &start, const std::set<const ValueSet*> values);
 private:
 	const ValueSetSet valueSets;
 };
-inline ValueSetsReachingValue::ValueSetsReachingValue(const ValueSetSet values) : valueSets(values) {    }
+
+
+inline ValueSetsReachingValue::ValueSetsReachingValue(const ValueSetSet &values)
+	: valueSets(values) {
+}
+
+
 inline void ValueSetsReachingValue::visit(const llvm::Value &reached) {
 	const ValueSet* valueSet = getValueSetFromValue(&reached, valueSets);
 	if (valueSet)
 		result.insert(valueSet);
 }
 
-inline static ValueSetSet valueSetsReachingValue(const llvm::Value &start, const std::set<const ValueSet*> values) {
+inline static ValueSetSet valueSetsReachingValue(const llvm::Value &start, const ValueSetSet &values) {
 	ValueSetsReachingValue explorer(values);
 	explorer.backtrack(start);
 	return std::move(explorer.result);
