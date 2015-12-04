@@ -2,7 +2,7 @@
 #define INCLUDE_FIND_LENGTH_CHECKS_HH
 
 #include "SRA/SymbolicRangeAnalysis.h"
-#include "ValueSet.hh"
+#include "ValueSetSet.hh"
 #include "ValueSetToMaxIndexMap.hh"
 
 #include <llvm/IR/InstVisitor.h>

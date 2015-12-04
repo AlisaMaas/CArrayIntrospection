@@ -203,6 +203,7 @@ plugin, = penv.SharedLibrary(
         'NoPointerArithmetic.cc',
         'NoPointerComparisons.cc',
         'SymbolicRangeTest.cc',
+        'ValueSetSet.cc',
     ),
     LIBS=sra_plugin,
 )
