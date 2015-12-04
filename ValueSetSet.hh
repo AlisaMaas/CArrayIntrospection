@@ -8,7 +8,8 @@ namespace llvm  {
 }
 
 
-using ValueSetSet = std::set<const ValueSet *>;
+struct ValueSetSet : public std::set<const ValueSet *> {
+};
 
 
 const ValueSet *getValueSetFromValue(const llvm::Value *, const ValueSetSet &);
