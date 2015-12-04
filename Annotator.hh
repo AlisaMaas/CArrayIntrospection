@@ -1,6 +1,7 @@
 #ifndef INCLUDE_ANNOTATOR_HH
 #define INCLUDE_ANNOTATOR_HH
 
+#include "FindLengthChecks.hh"
 #include "ValueSetsReachingValue.hh"
 #include "IIGlueReader.hh"
 #include "FindStructElements.hh"
