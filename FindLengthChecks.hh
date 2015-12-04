@@ -3,6 +3,7 @@
 
 #include "SRA/SymbolicRangeAnalysis.h"
 #include "ValueSet.hh"
+#include "ValueSetToMaxIndexMap.hh"
 
 #include <llvm/IR/InstVisitor.h>
 #include <llvm/Pass.h>
@@ -10,7 +11,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-typedef std::map<ValueSet const*, long int> ValueSetToMaxIndexMap;
 typedef std::map<ValueSet const*, ValueSet const*> LengthValueSetMap;
 typedef std::pair<const ValueSetToMaxIndexMap*, const LengthValueSetMap*> FunctionLengthResults;
 typedef std::unordered_set<const llvm::CallInst *> CallInstSet;
