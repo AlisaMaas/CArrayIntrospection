@@ -2,6 +2,7 @@
 #define INCLUDE_FIND_LENGTH_CHECKS_HH
 
 #include "SRA/SymbolicRangeAnalysis.h"
+#include "LengthValueSetMap.hh"
 #include "ValueSetSet.hh"
 #include "ValueSetToMaxIndexMap.hh"
 
@@ -11,7 +12,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-typedef std::map<ValueSet const*, ValueSet const*> LengthValueSetMap;
 typedef std::pair<const ValueSetToMaxIndexMap*, const LengthValueSetMap*> FunctionLengthResults;
 typedef std::unordered_set<const llvm::CallInst *> CallInstSet;
 
