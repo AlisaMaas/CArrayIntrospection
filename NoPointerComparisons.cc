@@ -211,4 +211,3 @@ bool NoPointerComparisons::runOnFunction(Function& F) {
 
   return Generated_.size() > 0;
 }
-
