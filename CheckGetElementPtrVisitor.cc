@@ -65,8 +65,9 @@ const ValueSet *CheckGetElementPtrVisitor::getValueLength(Value *first, Value *s
         else return nullptr;
     }
     else {
-        notConstantBounded.insert(valueSets.getValueSetFromValue(basePointer));
-        notParameterBounded.insert(valueSets.getValueSetFromValue(basePointer));
+	const ValueSet * const valueSet { valueSets.getValueSetFromValue(basePointer) };
+        notConstantBounded.insert(valueSet);
+        notParameterBounded.insert(valueSet);
         return nullptr;
     }
 }
