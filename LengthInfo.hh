@@ -16,14 +16,11 @@ enum LengthType {
 };
 
 class LengthInfo {
-public: 
+public:
 	LengthInfo(LengthType t, long int l)
-		: type(t),
+		: type((t == FIXED_LENGTH && l == 0) ? NOT_FIXED_LENGTH : t),
 		  length(l),
 		  symbolicLength(nullptr) {
-		if (type == FIXED_LENGTH && length == 0) {
-		        type = NOT_FIXED_LENGTH;
-		}
 	}
 
 	LengthInfo(LengthType t, const ValueSet *symbolic, long int l)
