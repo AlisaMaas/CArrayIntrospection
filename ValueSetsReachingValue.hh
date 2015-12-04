@@ -31,7 +31,7 @@ inline ValueSetsReachingValue::ValueSetsReachingValue(const ValueSetSet &values)
 
 
 inline void ValueSetsReachingValue::visit(const llvm::Value &reached) {
-	const ValueSet* valueSet = getValueSetFromValue(&reached, valueSets);
+	const ValueSet* valueSet = valueSets.getValueSetFromValue(&reached);
 	if (valueSet)
 		result.insert(valueSet);
 }

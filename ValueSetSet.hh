@@ -9,10 +9,8 @@ namespace llvm  {
 
 
 struct ValueSetSet : public std::set<const ValueSet *> {
+	const ValueSet *getValueSetFromValue(const llvm::Value *) const;
 };
-
-
-const ValueSet *getValueSetFromValue(const llvm::Value *, const ValueSetSet &);
 
 
 #endif // !INCLUDE_VALUE_SET_SET_HH

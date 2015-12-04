@@ -92,7 +92,7 @@ void FindLengthChecks::print(raw_ostream &sink, const Module *module) const {
         const LengthValueSetMap parameterLengthMap = lengths.at(&func);
 		sink << "Analyzing " << func.getName() << "\n";
 		for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end())) {
-		   const ValueSet *set = getValueSetFromValue(&arg, valueSets);
+		   const ValueSet *set = valueSets.getValueSetFromValue(&arg);
 			if (constantMap.count(set))
 				sink << "\tArgument " << arg.getName() << " has max index " << constantMap.at(set) << '\n';
             else if (parameterLengthMap.count(set))

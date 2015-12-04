@@ -65,8 +65,8 @@ const ValueSet *CheckGetElementPtrVisitor::getValueLength(Value *first, Value *s
         else return nullptr;
     }
     else {
-        notConstantBounded.insert(getValueSetFromValue(basePointer, valueSets));
-        notParameterBounded.insert(getValueSetFromValue(basePointer, valueSets));
+        notConstantBounded.insert(valueSets.getValueSetFromValue(basePointer));
+        notParameterBounded.insert(valueSets.getValueSetFromValue(basePointer));
         return nullptr;
     }
 }
@@ -88,7 +88,7 @@ bool CheckGetElementPtrVisitor::matchAddPattern(Value *value, Value *basePointer
             if (!length) length = getValueLength(secondOperand, firstOperand, basePointer);
             if (length) {
                 DEBUG(dbgs() << "Hey, look, an argument length! \n");
-                const ValueSet *valueSet = getValueSetFromValue(basePointer, valueSets);
+                const ValueSet *valueSet = valueSets.getValueSetFromValue(basePointer);
                 const ValueSet *old = lengths[valueSet];
                 if (old == nullptr) {
                     lengths[valueSet] = length;
@@ -176,7 +176,7 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
     Value *pointer = gepi.getPointerOperand();
     DEBUG(dbgs() << "Pointer operand obtained: " << *pointer << "\n");
     
-    const ValueSet *valueSet = getValueSetFromValue(pointer, valueSets);
+    const ValueSet *valueSet = valueSets.getValueSetFromValue(pointer);
     DEBUG(dbgs() << "Got the valueSet\n");
    if (!valueSet) { //might be null if it doesn't correspond to anything interesting like an argument, or
     //if it doesn't correspond to something iiglue thinks is an array.
