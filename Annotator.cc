@@ -2,7 +2,9 @@
 
 #include "Annotator.hh"
 #include "AnnotatorHelper.hh"
+#include "CheckGetElementPtrVisitor.hh"
 #include "FindLengthChecks.hh"
+#include "SRA/SymbolicRangeAnalysis.h"
 
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/range/combine.hpp>

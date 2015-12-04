@@ -194,6 +194,7 @@ plugin, = penv.SharedLibrary(
         'Annotator.cc',
         'AnnotatorHelper.cc',
         'BacktrackPhiNodes.cc',
+        'CheckGetElementPtrVisitor.cc',
         'FindLengthChecks.cc',
         'FindLengthLoops.cc',
         'FindSentinelHelper.cc',
