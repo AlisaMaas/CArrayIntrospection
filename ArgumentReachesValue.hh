@@ -8,13 +8,13 @@
 //  across zero or more phi nodes
 //
 
-	class ArgumentReachesValue : public BacktrackPhiNodes {
-	public:
-		ArgumentReachesValue(const llvm::Value &);
-		void visit(const llvm::Value &) final override;
-	private:
-		const llvm::Value &goal;
-	};
+class ArgumentReachesValue : public BacktrackPhiNodes {
+public:
+	ArgumentReachesValue(const llvm::Value &);
+	void visit(const llvm::Value &) final override;
+private:
+	const llvm::Value &goal;
+};
 
 inline ArgumentReachesValue::ArgumentReachesValue(const llvm::Value &goal)
 	: goal(goal) {

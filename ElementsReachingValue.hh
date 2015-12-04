@@ -14,26 +14,26 @@
 //  across zero or more phi nodes
 //
 
-    typedef std::unordered_set<const StructElement*> ElementSet;
+typedef std::unordered_set<const StructElement*> ElementSet;
 
-    class ElementsReachingValue : public BacktrackPhiNodes {
-    public:
+class ElementsReachingValue : public BacktrackPhiNodes {
+public:
         void visit(const llvm::Value &) final override;
         bool shouldVisit(const llvm::Value &value) final override;
         ElementSet result;
         static ElementSet elementsReachingValue(const llvm::Value &start);
-    };
+};
 
-    inline void ElementsReachingValue::visit(const llvm::Value &reached) {
+inline void ElementsReachingValue::visit(const llvm::Value &reached) {
         DEBUG(llvm::dbgs() << "Found a thing!\n");
         result.insert(getStructElement(&reached));
-    }
+}
     
-    inline bool ElementsReachingValue::shouldVisit(const llvm::Value &value) {
+inline bool ElementsReachingValue::shouldVisit(const llvm::Value &value) {
         return getStructElement(&value) != nullptr;
-    }
+}
 
-    inline static ElementSet elementsReachingValue(const llvm::Value &start) {
+inline static ElementSet elementsReachingValue(const llvm::Value &start) {
         ElementsReachingValue explorer;
         explorer.backtrack(start);
         return std::move(explorer.result);

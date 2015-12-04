@@ -17,23 +17,23 @@ namespace llvm {
 	class Argument;
 }
 
-	typedef std::unordered_set<const llvm::Argument *> ArgumentSet;
+typedef std::unordered_set<const llvm::Argument *> ArgumentSet;
 
-	class ArgumentsReachingValue : public BacktrackPhiNodes {
-	public:
-		void visit(const llvm::Value &) final override;
-		ArgumentSet result;
-		static ArgumentSet argumentsReachingValue(const llvm::Value &start);
-	};
+class ArgumentsReachingValue : public BacktrackPhiNodes {
+public:
+	void visit(const llvm::Value &) final override;
+	ArgumentSet result;
+	static ArgumentSet argumentsReachingValue(const llvm::Value &start);
+};
 
-	inline void ArgumentsReachingValue::visit(const llvm::Value &reached) {
-		result.insert(llvm::dyn_cast<llvm::Argument>(&reached));
-	}
+inline void ArgumentsReachingValue::visit(const llvm::Value &reached) {
+	result.insert(llvm::dyn_cast<llvm::Argument>(&reached));
+}
 
-	inline static ArgumentSet argumentsReachingValue(const llvm::Value &start) {
-		ArgumentsReachingValue explorer;
-		explorer.backtrack(start);
-		return std::move(explorer.result);
+inline static ArgumentSet argumentsReachingValue(const llvm::Value &start) {
+	ArgumentsReachingValue explorer;
+	explorer.backtrack(start);
+	return std::move(explorer.result);
 }
 
 #endif	// !INCLUDE_ARGUMENTS_REACHING_VALUE_HH
