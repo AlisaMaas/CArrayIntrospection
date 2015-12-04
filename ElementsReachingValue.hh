@@ -14,7 +14,6 @@
 //  across zero or more phi nodes
 //
 
-namespace {
     typedef std::unordered_set<const StructElement*> ElementSet;
 
     class ElementsReachingValue : public BacktrackPhiNodes {
@@ -38,7 +37,6 @@ namespace {
         ElementsReachingValue explorer;
         explorer.backtrack(start);
         return std::move(explorer.result);
-    }
 }
 
 #endif    // !INCLUDE_ELEMENTS_REACHING_VALUE_HH

@@ -14,7 +14,6 @@
 //  across zero or more phi nodes
 //
 
-namespace {
 	class ValueSetsReachingValue : public BacktrackPhiNodes {
 	public:
 	    ValueSetsReachingValue(const ValueSetSet values);
@@ -35,7 +34,6 @@ namespace {
 		ValueSetsReachingValue explorer(values);
 		explorer.backtrack(start);
 		return std::move(explorer.result);
-	}
 }
 
 #endif	// !INCLUDE_ARGUMENTS_REACHING_VALUE_HH

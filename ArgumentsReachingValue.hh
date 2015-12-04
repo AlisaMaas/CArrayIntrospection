@@ -17,7 +17,6 @@ namespace llvm {
 	class Argument;
 }
 
-namespace {
 	typedef std::unordered_set<const llvm::Argument *> ArgumentSet;
 
 	class ArgumentsReachingValue : public BacktrackPhiNodes {
@@ -35,7 +34,6 @@ namespace {
 		ArgumentsReachingValue explorer;
 		explorer.backtrack(start);
 		return std::move(explorer.result);
-	}
 }
 
 #endif	// !INCLUDE_ARGUMENTS_REACHING_VALUE_HH

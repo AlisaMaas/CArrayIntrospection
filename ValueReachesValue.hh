@@ -8,7 +8,6 @@
 //  across zero or more phi nodes
 //
 
-namespace {
 	class ValueReachesValue : public BacktrackPhiNodes {
 	public:
 		ValueReachesValue(const llvm::Value &);
@@ -17,7 +16,6 @@ namespace {
 	private:
 		const llvm::Value &goal;
 	};
-}
 
 
 inline ValueReachesValue::ValueReachesValue(const llvm::Value &goal)

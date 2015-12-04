@@ -15,7 +15,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-namespace {
     typedef std::unordered_map<const ValueSet*, LengthInfo> AnnotationMap;
     typedef std::unordered_set<const llvm::CallInst *> CallInstSet;
 
@@ -69,6 +68,5 @@ namespace {
 	        llvm::cl::desc("Filename to write results to for regression tests"));
 	static llvm::cl::opt<bool> Fast ("fast", 
 	        llvm::cl::desc("Skip struct results for faster computation."));
-}
 
 #endif // !INCLUDE_NULL_ANNOTATOR_HH
