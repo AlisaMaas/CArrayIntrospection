@@ -22,17 +22,17 @@ inline ValueReachesValue::ValueReachesValue(const llvm::Value &goal)
 	: goal(goal) {
 }
 
-void ValueReachesValue::visit(const llvm::Value &reached) {
+inline void ValueReachesValue::visit(const llvm::Value &reached) {
 	if (&reached == &goal) {
 		throw this;
 	}
 }
 
-bool ValueReachesValue::shouldVisit(const llvm::Value &) {
+inline bool ValueReachesValue::shouldVisit(const llvm::Value &) {
 	return true;
 }
 
-static bool valueReachesValue(const llvm::Value &goal, const llvm::Value &start, bool skipLoads=false) {
+inline bool valueReachesValue(const llvm::Value &goal, const llvm::Value &start, bool skipLoads=false) {
 	ValueReachesValue explorer(goal);
 	try {
 		explorer.backtrack(start, skipLoads);
