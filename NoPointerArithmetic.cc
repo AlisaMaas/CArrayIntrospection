@@ -1,5 +1,6 @@
 #define DEBUG_TYPE "no-pointer-arithmetic"
 #define TESTING 0
+
 #include <fstream>
 #include <llvm/IR/Constants.h>
 #include <llvm/IR/Instructions.h>
@@ -10,6 +11,7 @@
 
 using namespace llvm;
 using namespace std;
+
 namespace {
 	class NoPointerArithmetic : public ModulePass {
 		public:

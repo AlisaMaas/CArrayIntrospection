@@ -14,11 +14,12 @@
 #include <boost/range/combine.hpp>
 #include <boost/range/irange.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <fstream>
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <llvm/Analysis/LoopPass.h>
-#include <llvm/IR/Instructions.h>
 #include <llvm/IR/InstVisitor.h>
+#include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
@@ -29,17 +30,13 @@
 #else  // LLVM 3.4 or earlier
 #include <llvm/Support/InstIterator.h>
 #endif	// LLVM 3.4 or earlier
+
 using namespace boost::adaptors;
 using namespace boost::algorithm;
-
-
-#include <fstream>
-
-
-
 using namespace boost;
 using namespace llvm;
 using namespace std;
+
 static unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &module) {
 	unordered_map<const Function *, CallInstSet> functionToCallSites;
 	// collect calls in each function for repeated scanning later

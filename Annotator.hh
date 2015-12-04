@@ -2,10 +2,10 @@
 #define INCLUDE_ANNOTATOR_HH
 
 #include "FindLengthChecks.hh"
-#include "ValueSetsReachingValue.hh"
-#include "IIGlueReader.hh"
 #include "FindStructElements.hh"
+#include "IIGlueReader.hh"
 #include "LengthInfo.hh"
+#include "ValueSetsReachingValue.hh"
 
 #include <llvm/IR/Module.h>
 #include <llvm/Pass.h>

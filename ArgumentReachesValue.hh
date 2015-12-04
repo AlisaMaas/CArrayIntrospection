@@ -1,6 +1,6 @@
-#include <llvm/IR/Module.h>
-
 #include "BacktrackPhiNodes.hh"
+
+#include <llvm/IR/Module.h>
 
 ////////////////////////////////////////////////////////////////////////
 //

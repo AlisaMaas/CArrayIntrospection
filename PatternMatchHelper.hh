@@ -3,8 +3,8 @@
 
 #include <llvm/Analysis/LoopInfo.h>
 #include <llvm/IR/BasicBlock.h>
-#include <unordered_set>
 #include <unordered_map>
+#include <unordered_set>
 
 #include "ValueSet.hh"
 

@@ -1,10 +1,12 @@
 #ifndef INCLUDE_ELEMENTS_REACHING_VALUE_HH
 #define INCLUDE_ELEMENTS_REACHING_VALUE_HH
+
+#include "BacktrackPhiNodes.hh"
+#include "FindStructElements.hh"
+
 #include <llvm/Support/Casting.h>
 #include <llvm/Support/Debug.h>
 #include <unordered_set>
-#include "BacktrackPhiNodes.hh"
-#include "FindStructElements.hh"
 
 ////////////////////////////////////////////////////////////////////////
 //

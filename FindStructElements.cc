@@ -7,12 +7,12 @@
 #include <llvm/IR/InstVisitor.h>
 #pragma GCC diagnostic pop
 
+#include <fstream>
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/Module.h>
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/raw_os_ostream.h>
-#include <fstream>
 #include <sstream>
 
 using namespace llvm;

@@ -1,15 +1,14 @@
 #ifndef INCLUDE_FIND_LENGTH_CHECKS_HH
 #define INCLUDE_FIND_LENGTH_CHECKS_HH
 
-#include <llvm/IR/InstVisitor.h>
-#include <llvm/Pass.h>
-#include <map>
-
 #include "SRA/SymbolicRangeAnalysis.h"
 #include "ValueSet.hh"
 
-#include <unordered_set>
+#include <llvm/IR/InstVisitor.h>
+#include <llvm/Pass.h>
+#include <map>
 #include <unordered_map>
+#include <unordered_set>
 
 typedef std::map<ValueSet const*, long int> ValueSetToMaxIndexMap;
 typedef std::map<ValueSet const*, ValueSet const*> LengthValueSetMap;

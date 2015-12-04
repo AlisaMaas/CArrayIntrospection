@@ -1,10 +1,11 @@
 #ifndef INCLUDE_FIND_STRUCT_ELEMENTS_HH
 #define INCLUDE_FIND_STRUCT_ELEMENTS_HH
 
+#include "FindSentinelHelper.hh"
+
 #include <llvm/Pass.h>
 #include <map>
 #include <vector>
-#include "FindSentinelHelper.hh"
 
 typedef std::pair<llvm::StructType*, int> StructElement;
 typedef std::map<StructElement, ValueSet*> StructElementToValueSet;

@@ -1,10 +1,11 @@
 #ifndef INCLUDE_ARGUMENTS_REACHING_VALUE_HH
 #define INCLUDE_ARGUMENTS_REACHING_VALUE_HH
 
-#include <llvm/Support/Casting.h>
-#include <set>
 #include "BacktrackPhiNodes.hh"
 #include "ValueSet.hh"
+
+#include <llvm/Support/Casting.h>
+#include <set>
 
 
 ////////////////////////////////////////////////////////////////////////

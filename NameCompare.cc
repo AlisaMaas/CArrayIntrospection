@@ -1,4 +1,5 @@
 #include "NameCompare.hh"
+
 #include <llvm/ADT/StringRef.h>
 
 using namespace llvm;

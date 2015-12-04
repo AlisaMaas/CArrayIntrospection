@@ -1,11 +1,12 @@
 #ifndef INCLUDE_LENGTH_INFO_HH
 #define INCLUDE_LENGTH_INFO_HH
-#include <llvm/IR/Argument.h>
-//#include <llvm/Support/Casting.h>
-#include <string>
-#include <sstream>
 
 #include "ValueSet.hh"
+
+#include <llvm/IR/Argument.h>
+//#include <llvm/Support/Casting.h>
+#include <sstream>
+#include <string>
 
 enum LengthType {
 	NO_LENGTH_VALUE,

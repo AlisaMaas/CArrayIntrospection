@@ -1,10 +1,10 @@
 #define DEBUG_TYPE "annotator-helper"
+#include "AnnotatorHelper.hh"
 #include "BacktrackPhiNodes.hh"
 #include "FindLengthLoops.hh"
 #include "FindSentinelHelper.hh"
 #include "IIGlueReader.hh"
 #include "LengthInfo.hh"
-#include "AnnotatorHelper.hh"
 #include "ValueReachesValue.hh"
 #include "ValueSetsReachingValue.hh"
 

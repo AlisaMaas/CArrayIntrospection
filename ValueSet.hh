@@ -2,8 +2,8 @@
 #define INCLUDE_VALUE_SET_HH
 
 #include <llvm/IR/Value.h>
-
 #include <set>
+
 /**
 * Collection of typedefs to be used in a generic manner.
 **/

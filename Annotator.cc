@@ -1,7 +1,7 @@
 #define DEBUG_TYPE "annotator"
-#include "FindLengthChecks.hh"
 #include "Annotator.hh"
 #include "AnnotatorHelper.hh"
+#include "FindLengthChecks.hh"
 
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/range/combine.hpp>
