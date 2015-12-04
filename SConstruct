@@ -200,6 +200,7 @@ plugin, = penv.SharedLibrary(
         'FindSentinelHelper.cc',
         'FindStructElements.cc',
         'IIGlueReader.cc',
+        'LengthInfo.cc',
         'NameCompare.cc',
         'NoPointerArithmetic.cc',
         'NoPointerComparisons.cc',
