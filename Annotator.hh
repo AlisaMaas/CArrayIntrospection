@@ -1,6 +1,7 @@
 #ifndef INCLUDE_ANNOTATOR_HH
 #define INCLUDE_ANNOTATOR_HH
 
+#include "CallInstSet.hh"
 #include "FindLengthChecks.hh"
 #include "FindStructElements.hh"
 #include "IIGlueReader.hh"
@@ -16,7 +17,6 @@
 #include <unordered_set>
 
 typedef std::unordered_map<const ValueSet*, LengthInfo> AnnotationMap;
-typedef std::unordered_set<const llvm::CallInst *> CallInstSet;
 
 
 class Annotator : public llvm::ModulePass {

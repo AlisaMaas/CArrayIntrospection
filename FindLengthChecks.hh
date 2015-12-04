@@ -13,7 +13,6 @@
 #include <unordered_set>
 
 typedef std::pair<const ValueSetToMaxIndexMap*, const LengthValueSetMap*> FunctionLengthResults;
-typedef std::unordered_set<const llvm::CallInst *> CallInstSet;
 
 
 class FindLengthChecks : public llvm::ModulePass {

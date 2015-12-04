@@ -1,4 +1,5 @@
 #define DEBUG_TYPE "find-length"
+#include "CallInstSet.hh"
 #include "FindLengthChecks.hh"
 #include "IIGlueReader.hh"
 #include "ValueSetsReachingValue.hh"
