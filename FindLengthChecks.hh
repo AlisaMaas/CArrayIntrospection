@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-typedef std::pair<const ValueSetToMaxIndexMap*, const LengthValueSetMap*> FunctionLengthResults;
+typedef std::pair<const ValueSetToMaxIndexMap *, const LengthValueSetMap *> FunctionLengthResults;
 
 
 class FindLengthChecks : public llvm::ModulePass {

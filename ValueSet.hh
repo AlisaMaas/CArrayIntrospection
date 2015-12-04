@@ -7,8 +7,8 @@ namespace llvm {
 	class Value;
 }
 
-typedef std::set<const llvm::Value *> ValueSet;
 
+typedef std::set<const llvm::Value *> ValueSet;
 
 
 #endif // !INCLUDE_VALUE_SET_HH

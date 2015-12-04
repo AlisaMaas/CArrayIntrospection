@@ -1,4 +1,5 @@
 #define DEBUG_TYPE "annotator"
+
 #include "Annotator.hh"
 #include "AnnotatorHelper.hh"
 #include "FindLengthChecks.hh"

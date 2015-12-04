@@ -1,4 +1,5 @@
 #define DEBUG_TYPE "find-length"
+
 #include "CallInstSet.hh"
 #include "FindLengthChecks.hh"
 #include "IIGlueReader.hh"
@@ -277,7 +278,7 @@ void FindLengthChecks::getAnalysisUsage(AnalysisUsage &usage) const {
 	// read-only pass never changes anything
 	usage.setPreservesAll();
 	usage.addRequired<IIGlueReader>();
-	usage.addRequired<SymbolicRangeAnalysis >();
+	usage.addRequired<SymbolicRangeAnalysis>();
 }
 
 
