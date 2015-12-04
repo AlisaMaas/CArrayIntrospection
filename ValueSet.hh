@@ -1,9 +1,11 @@
 #ifndef INCLUDE_VALUE_SET_HH
 #define INCLUDE_VALUE_SET_HH
 
-#include <llvm/IR/Value.h>
 #include <set>
 
+namespace llvm {
+	class Value;
+}
 
 typedef std::set<const llvm::Value *> ValueSet;
 
