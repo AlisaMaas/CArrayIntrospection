@@ -17,16 +17,26 @@ enum LengthType {
 
 class LengthInfo {
 public: 
-	LengthInfo(LengthType t, long int l) : type(t), length(l), symbolicLength(nullptr) {
+	LengthInfo(LengthType t, long int l)
+		: type(t),
+		  length(l),
+		  symbolicLength(nullptr) {
 		if (type == FIXED_LENGTH && length == 0) {
 		        type = NOT_FIXED_LENGTH;
 		}
 	}
-	LengthInfo(LengthType t, const ValueSet *symbolic, long int l) : type(t), length(l), symbolicLength(symbolic) {}
+
+	LengthInfo(LengthType t, const ValueSet *symbolic, long int l)
+		: type(t),
+		  length(l),
+		  symbolicLength(symbolic) {
+	}
+
 	LengthInfo()
 		: type(NO_LENGTH_VALUE),
 		  length(-1) {
 	}
+
 	LengthType type;
 	long int length;
 	const ValueSet *symbolicLength;
