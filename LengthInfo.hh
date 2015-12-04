@@ -23,9 +23,9 @@ public:
 		}
 	}
 	LengthInfo(LengthType t, const ValueSet *symbolic, long int l) : type(t), length(l), symbolicLength(symbolic) {}
-	LengthInfo() {
-		type = NO_LENGTH_VALUE;
-		length = -1;
+	LengthInfo()
+		: type(NO_LENGTH_VALUE),
+		  length(-1) {
 	}
 	LengthType type;
 	long int length;
