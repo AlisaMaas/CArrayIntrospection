@@ -1,21 +1,9 @@
 struct.bar:
-	element 0 accessed at first
-	element 0 accessed at first
-	element 1 accessed at x
-	element 1 accessed at x
-	element 1 accessed at x
-	element 2 accessed at y
-	element 2 accessed at y
-	element 2 accessed at y
-	element 3 accessed at z
-	element 3 accessed at z
-	element 3 accessed at z
+	element 0 accessed
+	element 1 accessed
+	element 2 accessed
+	element 3 accessed
 struct.foo:
-	element 0 accessed at a
-	element 0 accessed at a
-	element 0 accessed at a
-	element 0 accessed at a1
-	element 1 accessed at b
-	element 1 accessed at b2
-	element 1 accessed at b2
-	element 2 accessed at c
+	element 0 accessed
+	element 1 accessed
+	element 2 accessed

@@ -1,4 +1,4 @@
 struct.bar:
-	element 1 accessed at x
-	element 2 accessed at y
-	element 3 accessed at z
+	element 1 accessed
+	element 2 accessed
+	element 3 accessed
