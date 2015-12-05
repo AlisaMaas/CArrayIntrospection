@@ -201,9 +201,7 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
             annotations[valueSet] = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
             if (old.type != annotations[valueSet].type || old.length != annotations[valueSet].length) {
                 std::stringstream reason;
-                reason << " pushed information from a store to ";
-                reason << pointer->getName().str();
-                reason << " from ";
+                reason << " pushed information from a store from ";
                 reason << value->getName().str();
                 reasons[*valueSet] = reason.str();
                 DEBUG(dbgs() << "Updating answer!\n");  
