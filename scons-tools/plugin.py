@@ -41,7 +41,6 @@ __run_plugin_builder = Builder(
 	'env', 'HOME=' + environ['HOME'],
         './run',
         '-analyze',
-        '-debug',
         '$_RUN_PLUGIN_SOURCE_ARGS',
         '$PLUGIN_ARGS',
         '-test-$TEST=$TARGET',
