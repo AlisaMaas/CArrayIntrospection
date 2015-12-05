@@ -404,7 +404,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                             valueAnswer = processLoops(info.at(&func), value, valueToValueSet);
                             if (valueAnswer.type == SENTINEL_TERMINATED) {
                                 std::stringstream reason;
-                                reason << "found a non optional sentinel check for " << value->getName().str() << " in " << func.getName().str();
+                                reason << "found a non optional sentinel check in " << func.getName().str();
                                 reasons[*valueSet] = reason.str();
                             }
                             else if (valueAnswer.type == PARAMETER_LENGTH) {
