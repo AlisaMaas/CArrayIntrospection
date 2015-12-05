@@ -301,7 +301,6 @@ const Function &func, ValueSetSet &allValueSets) {
 			if (answer.type == formalAnswer.type && formalAnswer.type != NO_LENGTH_VALUE && formalAnswer.type != NOT_FIXED_LENGTH && answer.length == formalAnswer.length) {
 			    reason.str(" ");
 			    reason << " found a call to " << call.getCalledFunction()->getName().str();
-			    reason << " passing " << value->getName().str();
 			   // reason << " setting to " << answer.toString();
 			}
 		}
