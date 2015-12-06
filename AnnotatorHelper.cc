@@ -201,9 +201,7 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
             annotations[valueSet] = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
             if (old.type != annotations[valueSet].type || old.length != annotations[valueSet].length) {
                 std::stringstream reason;
-                reason << " pushed information from a store to ";
-                reason << pointer->getName().str();
-                reason << " from ";
+                reason << " pushed information from a store from ";
                 reason << value->getName().str();
                 reasons[*valueSet] = reason.str();
                 DEBUG(dbgs() << "Updating answer!\n");  
@@ -301,7 +299,6 @@ const Function &func, ValueSetSet &allValueSets) {
 			if (answer.type == formalAnswer.type && formalAnswer.type != NO_LENGTH_VALUE && formalAnswer.type != NOT_FIXED_LENGTH && answer.length == formalAnswer.length) {
 			    reason.str(" ");
 			    reason << " found a call to " << call.getCalledFunction()->getName().str();
-			    reason << " passing " << value->getName().str();
 			   // reason << " setting to " << answer.toString();
 			}
 		}
@@ -405,7 +402,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                             valueAnswer = processLoops(info.at(&func), value, valueToValueSet);
                             if (valueAnswer.type == SENTINEL_TERMINATED) {
                                 std::stringstream reason;
-                                reason << "found a non optional sentinel check for " << value->getName().str() << " in " << func.getName().str();
+                                reason << "found a non optional sentinel check in " << func.getName().str();
                                 reasons[*valueSet] = reason.str();
                             }
                             else if (valueAnswer.type == PARAMETER_LENGTH) {

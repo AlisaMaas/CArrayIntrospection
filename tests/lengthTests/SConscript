@@ -4,7 +4,7 @@ env.RunTests(
     PLUGIN_ARGS=(
         '-mem2reg', '-no-pointer-comparisons', '-dce', '-mem2reg', '-redef',
         '-sra-annotator',
-        '-annotator', '-debug-only', '-find-length'
+        '-annotator',
     ),
     TEST='annotator',
 )

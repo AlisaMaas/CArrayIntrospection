@@ -1,4 +1,4 @@
 struct.foo:
-	element 0 accessed at a
-	element 1 accessed at b
-	element 2 accessed at c
+	element 0 accessed
+	element 1 accessed
+	element 2 accessed
