@@ -28,8 +28,6 @@ private:
 
 ////////////////////////////////////////////////////////////////////////
 
-StructElement* getStructElement(const llvm::Value *value);
-
 
 inline const StructElementToValueSet &FindStructElements::getStructElements() const {
     return structElementCollections;

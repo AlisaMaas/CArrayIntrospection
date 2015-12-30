@@ -26,11 +26,11 @@ public:
 
 inline void ElementsReachingValue::visit(const llvm::Value &reached) {
         DEBUG(llvm::dbgs() << "Found a thing!\n");
-        result.insert(getStructElement(&reached));
+        result.insert(StructElement::get(reached));
 }
     
 inline bool ElementsReachingValue::shouldVisit(const llvm::Value &value) {
-        return getStructElement(&value) != nullptr;
+        return StructElement::get(value) != nullptr;
 }
 
 inline static ElementSet elementsReachingValue(const llvm::Value &start) {
