@@ -4,8 +4,11 @@
   (flycheck-disabled-checkers c/c++-clang)
   (flycheck-gcc-definitions . @CPPDEFINES@)
   (flycheck-gcc-include-path . @CPPPATH@)
-  (flycheck-gcc-language-standard . "c++11")))
+  (flycheck-gcc-language-standard . "c++11"))
+ ("SRA"
+  . (c++-mode
+     (c-file-style . "gnu"))))
 
 ;; Local variables:
-;; flycheck-disabled-checkers: (emacs-lisp)
+;; flycheck-disabled-checkers: (emacs-lisp emacs-lisp-checkdoc)
 ;; End:
