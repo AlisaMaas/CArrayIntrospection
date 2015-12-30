@@ -21,7 +21,7 @@ using namespace std;
 
 string str(const StructElement *element) {
     std::stringstream stream;
-    stream << "struct " << element->first->getName().str() << "[" << element->second << "]";
+    stream << "struct " << element->structure.getName().str() << "[" << element->index << "]";
     return stream.str();
 }
 
@@ -50,7 +50,7 @@ StructElement* getStructElement(const llvm::Value *value) {
             assert(constant != nullptr);
             int index = constant->getSExtValue();
             DEBUG(llvm::dbgs() << "Offset of " << index << "\n");
-            StructElement *p = new std::pair<llvm::StructType*, int>(structTy, index);
+            StructElement *p = new StructElement(*structTy, index);
             return p;
         }
     }
@@ -59,10 +59,10 @@ StructElement* getStructElement(const llvm::Value *value) {
 
 struct FindStructsGEPVisitor : public InstVisitor<FindStructsGEPVisitor> {
     StructElementToValueSet &structCollection;
-    std::vector<llvm::StructType*> &orderedTypes;
-    FindStructsGEPVisitor(StructElementToValueSet &s,vector<StructType*> &o) : structCollection(s), orderedTypes(o) {}
+    std::vector<const StructType *> &orderedTypes;
+    FindStructsGEPVisitor(StructElementToValueSet &s,vector<const StructType *> &o) : structCollection(s), orderedTypes(o) {}
 
-    void visitGetElementPtrInst(GetElementPtrInst& gepi) {
+    void visitGetElementPtrInst(GetElementPtrInst &gepi) {
         DEBUG(dbgs() << "Top of visitor\n");
         DEBUG(dbgs() << gepi << "\n");
 
@@ -72,8 +72,8 @@ struct FindStructsGEPVisitor : public InstVisitor<FindStructsGEPVisitor> {
             structCollection[*element] = new set<const Value*>();
         }
         structCollection[*element]->insert(&gepi);
-        if (find(orderedTypes.begin(), orderedTypes.end(), element->first) == orderedTypes.end()) {
-            orderedTypes.push_back(element->first);
+        if (find(orderedTypes.begin(), orderedTypes.end(), &element->structure) == orderedTypes.end()) {
+            orderedTypes.push_back(&element->structure);
         }
         
     }
@@ -123,10 +123,10 @@ bool FindStructElements::runOnModule(Module &module) {
 }
 
 void FindStructElements::print(raw_ostream &sink, const Module* ) const {
-    for (StructType *structTy : orderedTypes) {
+    for (const StructType *structTy : orderedTypes) {
         sink << structTy->getName() << ":\n";
         for (unsigned i = 0; i < structTy->getNumElements(); i++) {
-            pair<StructType*, int> p(structTy, i);
+	    const StructElement p { *structTy, i };
 	    const auto found(structElementCollections.find(p));
 	    if (found != structElementCollections.end())
 	        sink << "\telement " << i << " accessed\n";

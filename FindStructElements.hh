@@ -2,12 +2,12 @@
 #define INCLUDE_FIND_STRUCT_ELEMENTS_HH
 
 #include "FindSentinelHelper.hh"
+#include "StructElement.hh"
 
 #include <llvm/Pass.h>
 #include <map>
 #include <vector>
 
-typedef std::pair<llvm::StructType*, int> StructElement;
 typedef std::map<StructElement, ValueSet*> StructElementToValueSet;
 
 class FindStructElements : public llvm::ModulePass {
@@ -23,7 +23,7 @@ public:
     const std::vector<const llvm::StructType *> &getAllStructs() const;
 private:
     StructElementToValueSet structElementCollections;
-    std::vector<llvm::StructType*> orderedTypes;
+    std::vector<const llvm::StructType *> orderedTypes;
 };
 
 ////////////////////////////////////////////////////////////////////////
