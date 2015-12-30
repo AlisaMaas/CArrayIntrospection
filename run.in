@@ -2,4 +2,7 @@
 
 top="$(dirname "$0")"
 export SHELL=/bin/sh
-exec '@SAGE@' -sh -c "env PYTHONPATH=\$PYTHONPATH:'$top/SRA/SAGE/Runtime' '@LLVM_BINDIR@/opt' -load '$top/CArrayIntrospection.so' $*"
+
+. /etc/profile.d/modules.sh
+export -f module
+exec bash '@SAGE@' -sh -c "env PYTHONPATH=\$PYTHONPATH:'$top/SRA/SAGE/Runtime' '@LLVM_BINDIR@/opt' -load '$top/CArrayIntrospection.so' $*"
