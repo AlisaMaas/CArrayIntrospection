@@ -19,8 +19,8 @@ public:
     bool runOnModule(llvm::Module &) override final;
     void print(llvm::raw_ostream &, const llvm::Module *) const override;
     // access to analysis results derived by this pass
-    const StructElementToValueSet getStructElements() const;
-    const std::vector<llvm::StructType*> getAllStructs() const;
+    const StructElementToValueSet &getStructElements() const;
+    const std::vector<const llvm::StructType *> &getAllStructs() const;
 private:
     StructElementToValueSet structElementCollections;
     std::vector<llvm::StructType*> orderedTypes;
@@ -32,11 +32,11 @@ StructElement* getStructElement(const llvm::Value *value);
 
 std::string str(const StructElement *element);
 
-inline const StructElementToValueSet FindStructElements::getStructElements() const {
+inline const StructElementToValueSet &FindStructElements::getStructElements() const {
     return structElementCollections;
 }
 
-inline const std::vector<llvm::StructType*> FindStructElements::getAllStructs() const {
+inline const std::vector<const llvm::StructType*> &FindStructElements::getAllStructs() const {
     return orderedTypes;
 }
 
