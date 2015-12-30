@@ -19,27 +19,34 @@ using namespace llvm;
 using namespace std;
 
 
-struct FindStructsGEPVisitor : public InstVisitor<FindStructsGEPVisitor> {
-    StructElementToValueSet &structCollection;
-    std::vector<const StructType *> &orderedTypes;
-    FindStructsGEPVisitor(StructElementToValueSet &s,vector<const StructType *> &o) : structCollection(s), orderedTypes(o) {}
+namespace {
+	struct FindStructsGEPVisitor : public InstVisitor<FindStructsGEPVisitor> {
+		StructElementToValueSet &structCollection;
+		std::vector<const StructType *> &orderedTypes;
+		FindStructsGEPVisitor(StructElementToValueSet &s,vector<const StructType *> &o) : structCollection(s), orderedTypes(o) {}
 
-    void visitGetElementPtrInst(GetElementPtrInst &gepi) {
-        DEBUG(dbgs() << "Top of visitor\n");
-        DEBUG(dbgs() << gepi << "\n");
+		void visitGetElementPtrInst(GetElementPtrInst &);
+	};
+}
 
-        const auto element = StructElement::get(gepi);
-        if (!element) return;
-        if (!structCollection.count(*element)) {
-            structCollection[*element] = new set<const Value*>();
-        }
-        structCollection[*element]->insert(&gepi);
-        if (find(orderedTypes.begin(), orderedTypes.end(), &element->structure) == orderedTypes.end()) {
-            orderedTypes.push_back(&element->structure);
-        }
+
+void FindStructsGEPVisitor::visitGetElementPtrInst(GetElementPtrInst &gepi)
+{
+	DEBUG(dbgs() << "Top of visitor\n");
+	DEBUG(dbgs() << gepi << "\n");
+
+	const auto element = StructElement::get(gepi);
+	if (!element) return;
+	if (!structCollection.count(*element)) {
+		structCollection[*element] = new set<const Value*>();
+	}
+	structCollection[*element]->insert(&gepi);
+	if (find(orderedTypes.begin(), orderedTypes.end(), &element->structure) == orderedTypes.end()) {
+		orderedTypes.push_back(&element->structure);
+	}
         
-    }
-};
+}
+
 
 static const RegisterPass<FindStructElements> registration("find-struct-elements",
         "Organize GEP instructions referring to struct element accesses by struct element.",
