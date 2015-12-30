@@ -37,10 +37,7 @@ void FindStructsGEPVisitor::visitGetElementPtrInst(GetElementPtrInst &gepi)
 
 	const auto element = StructElement::get(gepi);
 	if (!element) return;
-	if (!structCollection.count(*element)) {
-		structCollection[*element] = new set<const Value*>();
-	}
-	structCollection[*element]->insert(&gepi);
+	structCollection[*element].insert(&gepi);
 	if (find(orderedTypes.begin(), orderedTypes.end(), &element->structure) == orderedTypes.end()) {
 		orderedTypes.push_back(&element->structure);
 	}

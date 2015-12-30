@@ -8,7 +8,7 @@
 #include <map>
 #include <vector>
 
-typedef std::map<StructElement, ValueSet*> StructElementToValueSet;
+typedef std::map<StructElement, ValueSet> StructElementToValueSet;
 
 class FindStructElements : public llvm::ModulePass {
 public:
