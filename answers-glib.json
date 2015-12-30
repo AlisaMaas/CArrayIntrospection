@@ -11139,7 +11139,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "fixed": 6
+                    "fixed": 1
                 },
                 {
                     "args_array_receiver": 0,
@@ -11253,7 +11253,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 1
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -13617,7 +13617,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 1
+                    "symbolic": 2
                 },
                 {
                     "args_array_receiver": 0,
@@ -22856,7 +22856,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 4
+                    "symbolic": 3
                 },
                 {
                     "args_array_receiver": 0,
@@ -23880,14 +23880,14 @@
                     "args_array_receiver": 0,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
-                    "fixed": 8,
+                    "fixed": 7,
                     "metadata": []
                 },
                 {
                     "args_array_receiver": 0,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
-                    "fixed": 64,
+                    "fixed": 63,
                     "metadata": []
                 }
             ],
@@ -33386,7 +33386,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 0
+                    "symbolic": 3
                 },
                 {
                     "args_array_receiver": 0,
@@ -38236,14 +38236,14 @@
                     "args_array_receiver": 0,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
-                    "fixed": 4,
+                    "fixed": 3,
                     "metadata": []
                 },
                 {
                     "args_array_receiver": 0,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
-                    "fixed": 16,
+                    "fixed": 15,
                     "metadata": []
                 }
             ],
@@ -39428,14 +39428,14 @@
                     "args_array_receiver": 0,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
-                    "fixed": 5,
+                    "fixed": 4,
                     "metadata": []
                 },
                 {
                     "args_array_receiver": 0,
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
-                    "fixed": 16,
+                    "fixed": 15,
                     "metadata": []
                 }
             ],
@@ -41119,7 +41119,7 @@
                     "argument_name": "unknown",
                     "argument_reason": "unknown",
                     "metadata": [],
-                    "symbolic": 1
+                    "symbolic": 7
                 },
                 {
                     "args_array_receiver": 0,
