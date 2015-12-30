@@ -7,10 +7,11 @@
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/raw_ostream.h>
 
+using namespace boost;
 using namespace llvm;
 
 
-StructElement* StructElement::get(const llvm::Value &value)
+optional<StructElement> StructElement::get(const llvm::Value &value)
 {
 	//const LoadInst *load;
 	/*while ((load = dyn_cast<LoadInst>(&value))) {
@@ -24,7 +25,7 @@ StructElement* StructElement::get(const llvm::Value &value)
 		const llvm::Type * const pointer = gepi->getPointerOperandType()->getPointerElementType();
 		if (gepi->getNumIndices() != 2 || !gepi->hasAllConstantIndices()) {
 			DEBUG(llvm::dbgs() << "Aborting\n");
-			return nullptr;
+			return none;
 		}
 		DEBUG(llvm::dbgs() << "is struct? " << pointer->isStructTy() << "\n");
 		if (const llvm::StructType * const structTy = llvm::dyn_cast<llvm::StructType>(pointer)) {
@@ -35,10 +36,10 @@ StructElement* StructElement::get(const llvm::Value &value)
 			assert(constant != nullptr);
 			int index = constant->getSExtValue();
 			DEBUG(llvm::dbgs() << "Offset of " << index << "\n");
-			return new StructElement(*structTy, index);
+			return StructElement(*structTy, index);
 		}
 	}
-	return nullptr;
+	return none;
 }
 
 

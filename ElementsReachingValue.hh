@@ -30,7 +30,7 @@ inline void ElementsReachingValue::visit(const llvm::Value &reached) {
 }
     
 inline bool ElementsReachingValue::shouldVisit(const llvm::Value &value) {
-        return StructElement::get(value) != nullptr;
+        return StructElement::get(value);
 }
 
 inline static ElementSet elementsReachingValue(const llvm::Value &start) {

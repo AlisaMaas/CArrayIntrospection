@@ -28,7 +28,7 @@ struct FindStructsGEPVisitor : public InstVisitor<FindStructsGEPVisitor> {
         DEBUG(dbgs() << "Top of visitor\n");
         DEBUG(dbgs() << gepi << "\n");
 
-        StructElement* element = StructElement::get(gepi);
+        const auto element = StructElement::get(gepi);
         if (!element) return;
         if (!structCollection.count(*element)) {
             structCollection[*element] = new set<const Value*>();

@@ -1,13 +1,14 @@
 #ifndef INCLUDE_STRUCT_ELEMENT_HH
 #define INCLUDE_STRUCT_ELEMENT_HH
 
+#include <boost/optional.hpp>
 #include <llvm/IR/DerivedTypes.h>
 
 
 class StructElement {
 public:
 	StructElement(const llvm::StructType &, unsigned);
-	static StructElement *get(const llvm::Value &);
+	static boost::optional<StructElement> get(const llvm::Value &);
 
 	const llvm::StructType &structure;
 	unsigned index;
