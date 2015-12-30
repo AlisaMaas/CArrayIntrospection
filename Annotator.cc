@@ -157,15 +157,11 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			const Argument &argument = slot.get<0>();
 			const ptree &arg_annotation = slot.get<1>().second;
 			DEBUG(dbgs() << "This argument has size " << slot.get<1>().second.size() << "\n");
-			if (!argumentToValueSet.count(&argument)) {
-				ValueSet *values = new set<const Value*>();
-				values->insert(&argument);
-				argumentToValueSet[&argument] = values;
-			}
+			argumentToValueSet[&argument].insert(&argument);
 			try{
                 if(!arg_annotation.get_child("sentinel").get_value<string>().empty()) {
                     DEBUG(dbgs() << "Length is not empty\n");
-                    annotations[argumentToValueSet.at(&argument)] = LengthInfo(SENTINEL_TERMINATED, 0); 
+                    annotations[&argumentToValueSet.at(&argument)] = LengthInfo(SENTINEL_TERMINATED, 0);
                     errs() << "Added a sentinel terminated thing!\n";
                     //TODO: generalize for other types of sentinels later once we support that.
                 }
@@ -175,20 +171,20 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			try{
 			    int parameterNo = arg_annotation.get_child("symbolic").get_value<int>();
 			    errs() << name << " has child " << argument.getArgNo() << " with symbolic length of " << parameterNo << "\n";
-			    annotations[argumentToValueSet.at(&argument)] = LengthInfo(PARAMETER_LENGTH, parameterNo);
+			    annotations[&argumentToValueSet.at(&argument)] = LengthInfo(PARAMETER_LENGTH, parameterNo);
 			} catch (...) {
 			    DEBUG(dbgs() << "Not a symbolic length argument\n");
 			}
 			try{
 			    int fixedLen = arg_annotation.get_child("fixed").get_value<int>();
-			    annotations[argumentToValueSet.at(&argument)] = LengthInfo(FIXED_LENGTH, fixedLen);
+			    annotations[&argumentToValueSet.at(&argument)] = LengthInfo(FIXED_LENGTH, fixedLen);
 			} catch (...) {
 			    DEBUG(dbgs() << "Not a fixed length argument\n");
 			}
 			try{
 			    int other = arg_annotation.get_child("other").get_value<int>();
 			    if (other == -1) {
-			        annotations[argumentToValueSet.at(&argument)] = LengthInfo(INCONSISTENT, other);
+			        annotations[&argumentToValueSet.at(&argument)] = LengthInfo(INCONSISTENT, other);
 			    }
 			} catch(...) {
 			    DEBUG(dbgs() << "Doesn't have an other field, at least not an int one.\n");
@@ -220,7 +216,7 @@ void Annotator::dumpToFile(const string &filename, const Module &module) const {
             out << ",\n";
             out << depth;
             DEBUG(dbgs() << "About to get the reasons set\n");
-            auto reason = reasons.find(*argumentToValueSet.at(&arg));
+            auto reason = reasons.find(argumentToValueSet.at(&arg));
             DEBUG(dbgs() << "Got reasons!\n");
             out << "\"argument_reason\": \"" << (reason == reasons.end() ? 
                 "" : reason->second) + "\"";
@@ -292,20 +288,10 @@ bool Annotator::runOnModule(Module &module) {
             }
 		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
-			if(argumentToValueSet.count(&arg)) {
-				DEBUG(dbgs() << "Already got a valueset\n");
-				toCheck[&func].insert(argumentToValueSet.at(&arg));
-				allValueSets.insert(argumentToValueSet.at(&arg));
-			}
-			else {
-				DEBUG(dbgs() << "Make a new valueset\n");
-				set<const Value*> *values = new set<const Value*>();
-				assert(values != nullptr);
-				values->insert(&arg);
-				argumentToValueSet[&arg] = values;
-				toCheck[&func].insert(values);
-				allValueSets.insert(values);
-			}
+			set<const Value *> &values = argumentToValueSet[&arg];
+			values.insert(&arg);
+			toCheck[&func].insert(&values);
+			allValueSets.insert(&values);
 		}
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
         const SymbolicRangeAnalysis &sra = getAnalysis<SymbolicRangeAnalysis>(func);
@@ -401,14 +387,14 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 			switch(annotate(arg).first) {
 			    case 2:
 				    sink << func.getName() << " with argument " << arg.getArgNo()
-				         << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations)).toString()
-				        << ")  because " << reasons.at(*argumentToValueSet.at(&arg)) << "\n";
+				         << " should be annotated NULL_TERMINATED (" << (getAnswer(argumentToValueSet.at(&arg), annotations)).toString()
+				        << ")  because " << reasons.at(argumentToValueSet.at(&arg)) << "\n";
 				    break;
 				case 0:
 				    break;
 				default:
 				    sink << func.getName() << " with argument " << arg.getArgNo()
-				        << " should be annotated " << (getAnswer(*argumentToValueSet.at(&arg), annotations)).toString() << ".\n";
+				        << " should be annotated " << (getAnswer(argumentToValueSet.at(&arg), annotations)).toString() << ".\n";
 				    break;
 			}
 	}

@@ -35,7 +35,7 @@ public:
 private:
 	// map from function name and argument number to whether or not that argument gets annotated
 	AnnotationMap annotations;
-	std::unordered_map<const llvm::Argument *, const ValueSet*> argumentToValueSet;
+	std::unordered_map<const llvm::Argument *, ValueSet> argumentToValueSet;
 	std::map<const ValueSet, std::string> reasons;
 	std::unordered_map<const llvm::Function *, CallInstSet> functionToCallSites;
 	StructElementToValueSet structElements;
