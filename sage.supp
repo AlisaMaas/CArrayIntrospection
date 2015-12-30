@@ -1,0 +1,20 @@
+{
+   malloc under mpexp
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   fun:newblock
+   fun:constlog2
+   fun:mplog2
+   ...
+   fun:mpexp
+}
+
+{
+   realloc under sage_gmp_realloc under __gmpz_realloc
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:realloc
+   fun:sage_gmp_realloc
+   fun:__gmpz_realloc
+}

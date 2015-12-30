@@ -1,0 +1,106 @@
+{
+   calloc under Python library
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   obj:/usr/lib64/libpython2.7.so.1.0
+}
+
+{
+   calloc under PyEval_CallObjectWithKeywords
+   Memcheck:Leak
+   match-leak-kinds: possible
+   ...
+   fun:PyDict_SetItemString
+   fun:PyModule_AddObject
+   fun:initdatetime
+   fun:_PyImport_LoadDynamicModule
+   ...
+   fun:PyImport_ImportModuleLevel
+   ...
+   fun:PyObject_Call
+   fun:PyEval_CallObjectWithKeywords
+}
+
+{
+   calloc under PyEval_EvalCodeEx
+   Memcheck:Leak
+   match-leak-kinds:possible
+   fun:calloc
+   ...
+   fun:PyEval_EvalCodeEx
+}
+
+{
+   calloc under PyEval_EvalFrameEx
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   ...
+   fun:PyEval_EvalFrameEx
+}
+
+{
+   calloc under PyObject_Call
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   ...
+   fun:PyObject_Call
+}
+
+{
+   malloc under PyEval_EvalCodeEx
+   Memcheck:Leak
+   match-leak-kinds:definite,possible
+   fun:malloc
+   ...
+   fun:PyEval_EvalCodeEx
+}
+
+{
+   malloc under PyObject_Call
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   ...
+   fun:PyObject_Call
+}
+
+{
+   malloc under PyObject_Malloc
+   Memcheck:Leak
+   match-leak-kinds:definite,possible
+   fun:malloc
+   fun:PyObject_Malloc
+}
+
+{
+   realloc under PyEval_EvalCodeEx
+   Memcheck:Leak
+   match-leak-kinds:possible
+   fun:realloc
+   ...
+   fun:PyEval_EvalCodeEx
+}
+
+{
+   realloc under PyEval_EvalFrameEx
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:realloc
+   fun:_PyObject_GC_Resize
+   fun:PyFrame_New
+   fun:PyEval_EvalFrameEx
+}
+
+{
+   realloc under PyUnicodeUCS4_DecodeUTF8Stateful under PyMarshal_ReadObjectFromString
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:realloc
+   ...
+   fun:PyUnicodeUCS4_DecodeUTF8Stateful
+   ...
+   fun:PyMarshal_ReadObjectFromString
+}

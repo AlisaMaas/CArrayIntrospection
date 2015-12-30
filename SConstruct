@@ -183,8 +183,9 @@ sra_plugin = penv.SharedLibrary(
 subst_dict = {
     '@LLVM_BINDIR@': '$LLVM_BINDIR',
     '@SAGE@': '$SAGE',
-    '@VALGRIND@': '${ "valgrind --error-exitcode=166" if VALGRIND else "" }'
+    '@VALGRIND@': '${ "valgrind --error-exitcode=166 --leak-check=full --errors-for-leak-kinds=definite --suppressions=python.supp --suppressions=sage.supp" if VALGRIND else "" }'
 }
+
 run_script = penv.Substfile('run.in', SUBST_DICT=subst_dict)
 expanded_dict = {key: env.subst(value) for key, value in subst_dict.iteritems()}
 env.Depends(run_script, Value(expanded_dict))
