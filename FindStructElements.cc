@@ -92,9 +92,8 @@ void FindStructElements::print(raw_ostream &sink, const Module* ) const {
     for (const StructType *structTy : orderedTypes) {
         sink << structTy->getName() << ":\n";
         for (unsigned i = 0; i < structTy->getNumElements(); i++) {
-	    const StructElement p { *structTy, i };
-	    const auto found(structElementCollections.find(p));
-	    if (found != structElementCollections.end())
+	    const StructElement probe { *structTy, i };
+	    if (structElementCollections.count(probe) > 0)
 	        sink << "\telement " << i << " accessed\n";
         }
         
