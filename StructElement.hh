@@ -6,13 +6,11 @@
 
 class StructElement {
 public:
+	StructElement(const llvm::StructType &, unsigned);
 	static StructElement *get(const llvm::Value &);
+
 	const llvm::StructType &structure;
 	unsigned index;
-
-public:
-	// TODO: make this private
-	StructElement(const llvm::StructType &, unsigned);
 };
 
 
