@@ -19,12 +19,6 @@ using namespace llvm;
 using namespace std;
 
 
-string str(const StructElement *element) {
-    std::stringstream stream;
-    stream << "struct " << element->structure.getName().str() << "[" << element->index << "]";
-    return stream.str();
-}
-
 StructElement* getStructElement(const llvm::Value *value) {
     //const LoadInst *load;
     /*while ((load = dyn_cast<LoadInst>(value))) {

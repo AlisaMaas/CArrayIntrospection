@@ -9,7 +9,6 @@ public:
 	const llvm::StructType &structure;
 	unsigned index;
 	static StructElement *get(const llvm::Value *);
-	std::string str() const;
 
 public:
 	// TODO: make this private
@@ -18,6 +17,8 @@ public:
 
 
 bool operator<(const StructElement &, const StructElement &);
+
+llvm::raw_ostream &operator<<(llvm::raw_ostream &, const StructElement &);
 
 
 ////////////////////////////////////////////////////////////////////////

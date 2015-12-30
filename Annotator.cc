@@ -415,15 +415,15 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
         for (auto element : structElements)
             switch(annotate(element.first).first) {
                 case 2:
-                    sink << str(&element.first)
+                    sink << element.first
                          << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations)).toString()
                          << ") because " << reasons.at(*element.second) << ".\n";
                     break;
                 case 0:
                     break;
                 default:
-                    sink << str(&element.first) 
-        		        << " should be annotated " << ((getAnswer(*element.second, annotations)).toString()) << ".\n";
+                    sink << element.first
+			 << " should be annotated " << ((getAnswer(*element.second, annotations)).toString()) << ".\n";
                 }
     DEBUG(dbgs() << "Finished printing things\n");
 }

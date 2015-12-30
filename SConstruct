@@ -206,6 +206,7 @@ plugin, = penv.SharedLibrary(
         'NameCompare.cc',
         'NoPointerArithmetic.cc',
         'NoPointerComparisons.cc',
+        'StructElement.cc',
         'SymbolicRangeTest.cc',
         'ValueSetSet.cc',
     ),

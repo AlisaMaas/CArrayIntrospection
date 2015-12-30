@@ -30,7 +30,6 @@ private:
 
 StructElement* getStructElement(const llvm::Value *value);
 
-std::string str(const StructElement *element);
 
 inline const StructElementToValueSet &FindStructElements::getStructElements() const {
     return structElementCollections;
