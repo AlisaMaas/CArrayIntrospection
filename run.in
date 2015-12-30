@@ -8,4 +8,4 @@ if [ -e /etc/profile.d/modules.sh ]; then
   export -f module
 fi
 
-exec bash '@SAGE@' -sh -c "env PYTHONPATH=\$PYTHONPATH:'$top/SRA/SAGE/Runtime' '@LLVM_BINDIR@/opt' -load '$top/CArrayIntrospection.so' $*"
+exec bash '@SAGE@' -sh -c "env PYTHONPATH=\$PYTHONPATH:'$top/SRA/SAGE/Runtime' @VALGRIND@ '@LLVM_BINDIR@/opt' -load '$top/CArrayIntrospection.so' $*"

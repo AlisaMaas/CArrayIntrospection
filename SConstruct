@@ -33,6 +33,7 @@ def pathIsOptionalExecutable(key, val, env):
 variables = Variables(['.scons-options'], ARGUMENTS)
 variables.Add(BoolVariable('DEBUG', 'compile for debugging', False))
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
+variables.Add(BoolVariable('VALGRIND', 'run tests under Valgrind', False))
 
 llvmConfigDefault = WhereIs('llvm-config', (
     '/p/polyglot/public/bin',
@@ -182,6 +183,7 @@ sra_plugin = penv.SharedLibrary(
 subst_dict = {
     '@LLVM_BINDIR@': '$LLVM_BINDIR',
     '@SAGE@': '$SAGE',
+    '@VALGRIND@': '${ "valgrind --error-exitcode=166" if VALGRIND else "" }'
 }
 run_script = penv.Substfile('run.in', SUBST_DICT=subst_dict)
 expanded_dict = {key: env.subst(value) for key, value in subst_dict.iteritems()}
