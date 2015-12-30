@@ -89,11 +89,11 @@ if __name__ == '__main__':
     answers = json.load(answer_data)
     api = []
     api_only = False
-    if len(sys.argv) > 2:
-        api_only = True
-        names = open(sys.argv[3])
-        for n in names:
-            api.append(n.strip())
+    #if len(sys.argv) > 2:
+    #    api_only = True
+    #    names = open(sys.argv[3])
+    #    for n in names:
+    #        api.append(n.strip())
     
     outputLibraryFunctions = output['library_functions']
     answerLibraryFunctions = answers['library_functions']

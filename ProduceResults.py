@@ -1,8 +1,13 @@
 import sys
 
+'''
+Usage: python ProduceResults.py name-of-answers-file.csv name-of-output-file.csv name-of-file-to-write.csv printable-name-of-library
+'''
 if __name__ == "__main__":
   a = open(sys.argv[1])
   o = open(sys.argv[2])
+  r = open(sys.argv[3], 'w')
+  name = sys.argv[4]
   if 'h' in sys.argv:
     human = True
   else:
@@ -23,13 +28,15 @@ if __name__ == "__main__":
   falsePosSentinel = 0
   falsePosSymbolic = 0
   falsePosFixed = 0
+  functionNames = set()
   for i in a:
     answers.append(i.strip())
-  for answer in answers:
+  '''for answer in answers:
     split = answer.split(",")
     if len(split[fixed]) > 0:
       print answer
-  print numFixedLength
+  '''
+ # print numFixedLength
   for i in o:
     outputs.append(i.strip())
   i = 1
@@ -56,6 +63,7 @@ if __name__ == "__main__":
       break
     assert (answer[function_name] == output[function_name])
     assert (answer[slot] == output[slot])
+    functionNames.add(answer[function_name])
     if len(answer[fixed]) > 0:
       if answer[fixed] == output[fixed]:
         foundFixedLength += 1
@@ -74,34 +82,34 @@ if __name__ == "__main__":
       numSymbolicLength += 1
     if answer[symbolic] != output[symbolic] and len(output[symbolic]) > 0:
         falsePosSymbolic += 1
-    if answer[fixed] != output[fixed]:
+    '''if answer[fixed] != output[fixed]:
       print answer[function_name] + " with argument #" + answer[slot] + " should be fixed length of " + answer[fixed] + " but saw " + output[fixed]
     if answer[sentinel] != output[sentinel]:
       print answer[function_name] + " with argument #" + answer[slot] + " should be sentinel terminated by " + answer[sentinel] + " but saw " + output[sentinel]
     if answer[symbolic] != output[symbolic]:
       print answer[function_name] + " with argument #" + answer[slot] + " should be symbolic length of " + answer[symbolic] + " but saw " + output[symbolic]
+    '''
     j += 1  
     i += 1
     numArgs += 1
-  print "Number of arguments: " + str(numArgs)
-  print "Num fixed length " + str(numFixedLength)
-  print "Num sentinel terminated " + str(numSentinelTerminated)
-  print "Num symbolic length " + str(numSymbolicLength)
-  if numFixedLength != 0:
-    print "True positive rate for fixed length: " + str(float(foundFixedLength)/float(numFixedLength))
-  if numSentinelTerminated != 0:
-    print "True positive rate for sentinel terminated: " + str(float(foundSentinelTerminated)/float(numSentinelTerminated))
+  #Library details info, minus the KLoC and runtime
+  #name,number-of-functions,number-of-all-args,number-of-symbolic-args,number-of-fixed-args,number-of-sentinel-args
+  r.write(name + "," + str(len(functionNames)) + "," + str(numArgs) + "," + str(numSymbolicLength) + "," + str(numFixedLength) + "," + str(numSentinelTerminated))
+  
+  symbolicTPR = ""
   if numSymbolicLength != 0:
-    print "True positive rate for symbolic length: " + str(float(foundSymbolicLength)/float(numSymbolicLength))
-  print "Number of found symbolics: " + str(foundSymbolicLength)
-  print "Number of false symbolic positives: " + str(falsePosSymbolic)
-  fpr = float(falsePosSymbolic)/(falsePosSymbolic + (numArgs - numSymbolicLength))
-  print "False positive rate for symbolic: " + str(fpr)
-  print "Number of found sentinels: " + str(foundSentinelTerminated)
-  print "Number of false sentinel positives: " + str(falsePosSentinel)
-  fpr = float(falsePosSentinel)/(falsePosSentinel + (numArgs - numSentinelTerminated))
-  print "False positive rate for symbolic: " + str(fpr)
-  print "Number of found fixed length: " + str(foundFixedLength)
-  print "Number of false fixed positives: " + str(falsePosFixed)
-  fpr = float(falsePosFixed)/(falsePosFixed + (numArgs - numFixedLength))
-  print "False positive rate for fixed: " + str(fpr)
+    symbolicTPR = str(float(foundSymbolicLength)/float(numSymbolicLength))
+  symbolicFPR = float(falsePosSymbolic)/(falsePosSymbolic + (numArgs - numSymbolicLength))
+
+  fixedTPR = ""
+  if numFixedLength != 0:
+    fixedTPR = str(float(foundFixedLength)/float(numFixedLength))
+  fixedFPR = float(falsePosFixed)/(falsePosFixed + (numArgs - numFixedLength))
+  sentinelTPR = ""
+  if numSentinelTerminated != 0:
+    sentinelTPR = str(float(foundSentinelTerminated)/float(numSentinelTerminated))
+  sentinelFPR = float(falsePosSentinel)/(falsePosSentinel + (numArgs - numSentinelTerminated))
+  
+  #name,symbolic-true-positive,symbolic-false-positive,fixed-true-positive,fixed-false-positive,sentinel-true-positive,sentinel-false-positive
+
+  r.write("\n" + name + "," + str(symbolicTPR) + "," + str(symbolicFPR) + "," + str(fixedTPR) + "," + str(fixedFPR) + "," + str(sentinelTPR) + "," + str(sentinelFPR))
