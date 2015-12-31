@@ -112,7 +112,12 @@ bool CheckGetElementPtrVisitor::matchAddPattern(Value *value, Value *basePointer
 CheckGetElementPtrVisitor::CheckGetElementPtrVisitor(
 	ValueSetToMaxIndexMap &map, const SymbolicRangeAnalysis &ra,
 	const Module &m, LengthValueSetMap &l, const ValueSetSet &v)
-	: maxIndexes(map), lengths(l), rangeAnalysis(ra), valueSets(v), module(m){
+	: maxIndexes(map),
+	  lengths(l),
+	  rangeAnalysis(ra),
+	  valueSets(v),
+	  module(m)
+{
 	placeHolder = nullptr;
 	functionsToCallsites = collectFunctionCalls(m);
 }
