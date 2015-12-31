@@ -116,10 +116,10 @@ CheckGetElementPtrVisitor::CheckGetElementPtrVisitor(
 	  lengths(l),
 	  rangeAnalysis(ra),
 	  valueSets(v),
-	  module(m)
+	  module(m),
+	  placeHolder(nullptr),
+	  functionsToCallsites(collectFunctionCalls(m))
 {
-	placeHolder = nullptr;
-	functionsToCallsites = collectFunctionCalls(m);
 }
 
 
