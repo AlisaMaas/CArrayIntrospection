@@ -1,5 +1,5 @@
 {
-   calloc under Python library
+   leak from calloc under Python library
    Memcheck:Leak
    match-leak-kinds: possible
    fun:calloc
@@ -7,7 +7,7 @@
 }
 
 {
-   calloc under PyEval_CallObjectWithKeywords
+   leak from calloc under PyEval_CallObjectWithKeywords
    Memcheck:Leak
    match-leak-kinds: possible
    ...
@@ -23,7 +23,7 @@
 }
 
 {
-   calloc under PyEval_EvalCodeEx
+   leak from calloc under PyEval_EvalCodeEx
    Memcheck:Leak
    match-leak-kinds:possible
    fun:calloc
@@ -32,7 +32,7 @@
 }
 
 {
-   calloc under PyEval_EvalFrameEx
+   leak from calloc under PyEval_EvalFrameEx
    Memcheck:Leak
    match-leak-kinds: possible
    fun:calloc
@@ -41,7 +41,7 @@
 }
 
 {
-   calloc under PyObject_Call
+   leak from calloc under PyObject_Call
    Memcheck:Leak
    match-leak-kinds: possible
    fun:calloc
@@ -50,7 +50,7 @@
 }
 
 {
-   malloc under PyEval_EvalCodeEx
+   leak from malloc under PyEval_EvalCodeEx
    Memcheck:Leak
    match-leak-kinds:definite,possible
    fun:malloc
@@ -59,7 +59,7 @@
 }
 
 {
-   malloc under PyObject_Call
+   leak from malloc under PyObject_Call
    Memcheck:Leak
    match-leak-kinds: possible
    fun:malloc
@@ -68,7 +68,7 @@
 }
 
 {
-   malloc under PyObject_Malloc
+   leak from malloc under PyObject_Malloc
    Memcheck:Leak
    match-leak-kinds:definite,possible
    fun:malloc
@@ -76,7 +76,7 @@
 }
 
 {
-   realloc under PyEval_EvalCodeEx
+   leak from realloc under PyEval_EvalCodeEx
    Memcheck:Leak
    match-leak-kinds:possible
    fun:realloc
@@ -85,7 +85,7 @@
 }
 
 {
-   realloc under PyEval_EvalFrameEx
+   leak from realloc under PyEval_EvalFrameEx
    Memcheck:Leak
    match-leak-kinds: possible
    fun:realloc
@@ -95,7 +95,7 @@
 }
 
 {
-   realloc under PyUnicodeUCS4_DecodeUTF8Stateful under PyMarshal_ReadObjectFromString
+   leak from realloc under PyUnicodeUCS4_DecodeUTF8Stateful under PyMarshal_ReadObjectFromString
    Memcheck:Leak
    match-leak-kinds: possible
    fun:realloc
