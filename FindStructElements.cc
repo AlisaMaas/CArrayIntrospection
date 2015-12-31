@@ -41,61 +41,61 @@ void FindStructsGEPVisitor::visitGetElementPtrInst(GetElementPtrInst &gepi)
 	if (find(orderedTypes.begin(), orderedTypes.end(), &element->structure) == orderedTypes.end()) {
 		orderedTypes.push_back(&element->structure);
 	}
-        
+	
 }
 
 
 static const RegisterPass<FindStructElements> registration("find-struct-elements",
-        "Organize GEP instructions referring to struct element accesses by struct element.",
-        true, true);
+							   "Organize GEP instructions referring to struct element accesses by struct element.",
+							   true, true);
 
 char FindStructElements::ID;
 static llvm::cl::opt<std::string>
-    testOutputName("test-find-struct-elements",
-        llvm::cl::Optional,
-        llvm::cl::value_desc("filename"),
-        llvm::cl::desc("Filename to write results to for regression tests"));
+testOutputName("test-find-struct-elements",
+	       llvm::cl::Optional,
+	       llvm::cl::value_desc("filename"),
+	       llvm::cl::desc("Filename to write results to for regression tests"));
 
- FindStructElements::FindStructElements()
-    : ModulePass(ID) {
+FindStructElements::FindStructElements()
+	: ModulePass(ID) {
 }
 
 void FindStructElements::getAnalysisUsage(AnalysisUsage &usage) const {
-    // read-only pass never changes anything
-    usage.setPreservesAll();
+	// read-only pass never changes anything
+	usage.setPreservesAll();
 }
 
 
 bool FindStructElements::runOnModule(Module &module) {
-    DEBUG(dbgs() << "Top of runOnModule()\n");
+	DEBUG(dbgs() << "Top of runOnModule()\n");
     
-    for (Function &func : module) {
-        DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
-        FindStructsGEPVisitor visitor(structElementCollections, orderedTypes);
-        for(BasicBlock &visitee :  func) {
-            DEBUG(dbgs() << "Visiting a new basic block...\n");
-            visitor.visit(visitee);
-        }
-    }
-    if (!testOutputName.empty()) {
-        ofstream out(testOutputName);
-        llvm::raw_os_ostream sink(out);	
-        print(sink, &module);
-        sink.flush();
-        out.close();
-    }
-    // read-only pass never changes anything
-    return false;
+	for (Function &func : module) {
+		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
+		FindStructsGEPVisitor visitor(structElementCollections, orderedTypes);
+		for(BasicBlock &visitee :  func) {
+			DEBUG(dbgs() << "Visiting a new basic block...\n");
+			visitor.visit(visitee);
+		}
+	}
+	if (!testOutputName.empty()) {
+		ofstream out(testOutputName);
+		llvm::raw_os_ostream sink(out);	
+		print(sink, &module);
+		sink.flush();
+		out.close();
+	}
+	// read-only pass never changes anything
+	return false;
 }
 
 void FindStructElements::print(raw_ostream &sink, const Module* ) const {
-    for (const StructType *structTy : orderedTypes) {
-        sink << structTy->getName() << ":\n";
-        for (unsigned i = 0; i < structTy->getNumElements(); i++) {
-	    const StructElement probe { *structTy, i };
-	    if (structElementCollections.count(probe) > 0)
-	        sink << "\telement " << i << " accessed\n";
-        }
-        
-    }
+	for (const StructType *structTy : orderedTypes) {
+		sink << structTy->getName() << ":\n";
+		for (unsigned i = 0; i < structTy->getNumElements(); i++) {
+			const StructElement probe { *structTy, i };
+			if (structElementCollections.count(probe) > 0)
+				sink << "\telement " << i << " accessed\n";
+		}
+	
+	}
 }
