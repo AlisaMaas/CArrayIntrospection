@@ -17,7 +17,7 @@ public:
 	ValueSetToMaxIndexMap &maxIndexes;
 	LengthValueSetMap &lengths;
 	CheckGetElementPtrVisitor(ValueSetToMaxIndexMap &map, const SymbolicRangeAnalysis &ra,
-				  llvm::Module &m, LengthValueSetMap &l, ValueSetSet &v);
+				  const llvm::Module &m, LengthValueSetMap &l, const ValueSetSet &v);
 	~CheckGetElementPtrVisitor();
 	void visitGetElementPtrInst(llvm::GetElementPtrInst& gepi);
 	ValueSetSet notConstantBounded;
@@ -27,7 +27,7 @@ private:
 	bool matchAddPattern(llvm::Value *value, llvm::Value *basePointer);
 	const SymbolicRangeAnalysis &rangeAnalysis;
 	ValueSetSet valueSets;
-	llvm::Module &module;
+	const llvm::Module &module;
 	llvm::BasicBlock *placeHolder;
 	std::unordered_map<const llvm::Function *, CallInstSet> functionsToCallsites;
 };
