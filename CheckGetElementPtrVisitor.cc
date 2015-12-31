@@ -25,22 +25,6 @@ using namespace llvm;
 using namespace std;
 
 
-static unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &module) {
-	unordered_map<const Function *, CallInstSet> functionToCallSites;
-	// collect calls in each function for repeated scanning later
-	for (const Function &func : module) {
-		const auto instructions =
-			make_iterator_range(inst_begin(func), inst_end(func))
-			| transformed([](const Instruction &inst) { return dyn_cast<CallInst>(&inst); })
-			| filtered(boost::lambda::_1);
-		functionToCallSites.emplace(&func, CallInstSet(instructions.begin(), instructions.end()));
-		DEBUG(dbgs() << "went through all the instructions and grabbed calls\n");
-		DEBUG(dbgs() << "We found " << functionToCallSites[&func].size() << " calls in " << func.getName() << '\n');
-	}
-	return functionToCallSites;
-}
-
-
 static Value *stripSExtInst(Value *value) {
 	while (SExtInst * SEI = dyn_cast<SExtInst>(value)) {
 		value = SEI->getOperand(0);
