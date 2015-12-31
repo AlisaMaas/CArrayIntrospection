@@ -104,3 +104,39 @@
    ...
    fun:PyMarshal_ReadObjectFromString
 }
+
+{
+   invalid 4-byte read in PyObject_Free
+   Memcheck:Addr4
+   fun:PyObject_Free
+}
+
+{
+   invalid 4-byte read in PyObject_Realloc
+   Memcheck:Addr4
+   fun:PyObject_Realloc
+}
+
+{
+   uninitialized 8-byte use in PyObject_Free
+   Memcheck:Value8
+   fun:PyObject_Free
+}
+
+{
+   uninitialized 8-byte use in PyObject_Realloc
+   Memcheck:Value8
+   fun:PyObject_Realloc
+}
+
+{
+   uninitialized conditional in PyObject_Free
+   Memcheck:Cond
+   fun:PyObject_Free
+}
+
+{
+   uninitialized conditional in PyObject_Realloc
+   Memcheck:Cond
+   fun:PyObject_Realloc
+}

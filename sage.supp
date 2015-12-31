@@ -11,10 +11,39 @@
 }
 
 {
-   realloc under sage_gmp_realloc under __gmpz_realloc
+   leak from malloc under mpfr_init2
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   fun:sage_malloc
+   fun:__pyx_f_4sage_3ext_6memory_sage_sig_malloc
+   fun:mpfr_init2
+}
+
+{
+   leak from realloc under __gmpz_realloc
    Memcheck:Leak
    match-leak-kinds: possible
    fun:realloc
-   fun:sage_gmp_realloc
+   ...
    fun:__gmpz_realloc
+}
+
+{
+   leak from operator new[] under initCanonicalForm
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:_Znam
+   fun:_ZN5ArrayI13CanonicalFormEaSERKS1_
+   fun:_Z6initPTv
+   fun:_Z17initCanonicalFormv
+   fun:__static_initialization_and_destruction_0
+   fun:_GLOBAL__sub_I_iparith.cc
+   fun:_dl_init
+   fun:dl_open_worker
+   fun:_dl_catch_error
+   fun:_dl_open
+   fun:dlopen_doit
+   fun:_dl_catch_error
+   fun:_dlerror_run
 }
