@@ -9,8 +9,6 @@
 #include <map>
 #include <unordered_set>
 
-typedef std::pair<const ValueSetToMaxIndexMap *, const LengthValueSetMap *> FunctionLengthResults;
-
 
 class FindLengthChecks : public llvm::ModulePass {
 public:
@@ -20,8 +18,7 @@ public:
 	void getAnalysisUsage(llvm::AnalysisUsage &) const final;
 	bool runOnModule(llvm::Module &) override final;
 	void print(llvm::raw_ostream &, const llvm::Module *) const override;
-	// access to analysis results derived by this pass
-	const FunctionLengthResults getResultsForFunction(const llvm::Function *) const;
+
 private:
 	std::map<llvm::Function const*, ValueSetToMaxIndexMap> maxIndexes;
 	std::map<llvm::Function const*, LengthValueSetMap> lengths;
