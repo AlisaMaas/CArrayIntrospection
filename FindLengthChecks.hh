@@ -7,7 +7,6 @@
 
 #include <llvm/Pass.h>
 #include <map>
-#include <unordered_set>
 
 
 class FindLengthChecks : public llvm::ModulePass {
