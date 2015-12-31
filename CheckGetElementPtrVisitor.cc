@@ -117,7 +117,6 @@ CheckGetElementPtrVisitor::CheckGetElementPtrVisitor(
 	  rangeAnalysis(ra),
 	  valueSets(v),
 	  module(m),
-	  placeHolder(nullptr),
 	  functionsToCallsites(collectFunctionCalls(m))
 {
 }
@@ -134,7 +133,6 @@ CheckGetElementPtrVisitor::~CheckGetElementPtrVisitor() {
 		lengths.erase(v);
 	}
 	DEBUG(dbgs() << "Finished with the delete\n");
-	if (placeHolder != nullptr) delete placeHolder;
 }
 
 
@@ -176,9 +174,7 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
 		return;
 	}
 	//if (useless) return;
-	if (placeHolder != nullptr)
-		delete placeHolder;
-	placeHolder = BasicBlock::Create(module.getContext());
+	placeHolder.reset(BasicBlock::Create(module.getContext()));
 	DEBUG(dbgs() << "Top of visitor\n");
 	Value *pointer = gepi.getPointerOperand();
 	DEBUG(dbgs() << "Pointer operand obtained: " << *pointer << "\n");
@@ -244,7 +240,7 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
 		notConstantBounded.insert(valueSet);
 		DEBUG(dbgs() << "Index in question = " << *index << "\n");
 		DEBUG(dbgs() << "Is integer type? " << index->getType()->isIntegerTy() << "\n");
-		Value *symbolicIndexInst = rangeAnalysis.getRangeValuesFor(index, IRBuilder<>(placeHolder)).second;
+		Value *symbolicIndexInst = rangeAnalysis.getRangeValuesFor(index, IRBuilder<>(placeHolder.get())).second;
 		DEBUG(dbgs() << "As reported by range analysis: " << *symbolicIndexInst << "\n");
 		bool foundMatch = false;
 		foundMatch = matchAddPattern(symbolicIndexInst, pointer);

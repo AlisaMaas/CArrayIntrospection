@@ -28,7 +28,7 @@ private:
 	const SymbolicRangeAnalysis &rangeAnalysis;
 	const ValueSetSet &valueSets;
 	const llvm::Module &module;
-	llvm::BasicBlock *placeHolder;
+	std::unique_ptr<llvm::BasicBlock> placeHolder;
 	std::unordered_map<const llvm::Function *, CallInstSet> functionsToCallsites;
 };
 
