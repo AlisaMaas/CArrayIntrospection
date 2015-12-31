@@ -25,7 +25,7 @@
 {
    leak from calloc under PyEval_EvalCodeEx
    Memcheck:Leak
-   match-leak-kinds:possible
+   match-leak-kinds: possible
    fun:calloc
    ...
    fun:PyEval_EvalCodeEx
@@ -52,7 +52,7 @@
 {
    leak from malloc under PyEval_EvalCodeEx
    Memcheck:Leak
-   match-leak-kinds:definite,possible
+   match-leak-kinds: definite,possible
    fun:malloc
    ...
    fun:PyEval_EvalCodeEx
@@ -70,7 +70,7 @@
 {
    leak from malloc under PyObject_Malloc
    Memcheck:Leak
-   match-leak-kinds:definite,possible
+   match-leak-kinds: definite,possible
    fun:malloc
    fun:PyObject_Malloc
 }
