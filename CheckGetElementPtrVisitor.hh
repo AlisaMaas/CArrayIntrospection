@@ -26,7 +26,7 @@ private:
 	const ValueSet *getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer);
 	bool matchAddPattern(llvm::Value *value, llvm::Value *basePointer);
 	const SymbolicRangeAnalysis &rangeAnalysis;
-	ValueSetSet valueSets;
+	const ValueSetSet &valueSets;
 	const llvm::Module &module;
 	llvm::BasicBlock *placeHolder;
 	std::unordered_map<const llvm::Function *, CallInstSet> functionsToCallsites;
