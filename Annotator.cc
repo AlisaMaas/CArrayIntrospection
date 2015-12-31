@@ -275,7 +275,7 @@ bool Annotator::runOnModule(Module &module) {
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
     FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
-	ValueSetSet allValueSets;
+	ValueSetSet<const ValueSet *> allValueSets;
 	errs() << "About to get struct elements and run SRA over them\n";
 	for (Function &func : module) {
 
@@ -296,7 +296,7 @@ bool Annotator::runOnModule(Module &module) {
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
         const SymbolicRangeAnalysis &sra = getAnalysis<SymbolicRangeAnalysis>(func);
         DEBUG(dbgs() << "Acquired sra\n");
-        CheckGetElementPtrVisitor visitor(maxIndexes[&func], sra, module, lengths[&func], allValueSets);
+        CheckGetElementPtrVisitor<const ValueSet *> visitor(maxIndexes[&func], sra, module, lengths[&func], allValueSets);
         for(BasicBlock &visitee :  func) {
             DEBUG(dbgs() << "Visiting a new basic block...\n");
             visitor.visit(visitee);

@@ -14,32 +14,30 @@
 //  across zero or more phi nodes
 //
 
+template <typename VS>
 class ValueSetsReachingValue : public BacktrackPhiNodes {
 public:
-	ValueSetsReachingValue(const ValueSetSet &values);
+	ValueSetsReachingValue(const ValueSetSet<VS> &values);
 	void visit(const llvm::Value &) final override;
-	ValueSetSet result;
-	static ValueSetSet valueSetsReachingValue(const llvm::Value &start, const std::set<const ValueSet*> values);
+	ValueSetSet<const ValueSet *> result;
+	static ValueSetSet<const ValueSet *> valueSetsReachingValue(const llvm::Value &start, const std::set<const ValueSet*> values);
 private:
-	const ValueSetSet &valueSets;
+	const ValueSetSet<VS> &valueSets;
 };
 
 
-inline ValueSetsReachingValue::ValueSetsReachingValue(const ValueSetSet &values)
-	: valueSets(values) {
-}
+template <typename VS>
+ValueSetSet<const ValueSet *> valueSetsReachingValue(const llvm::Value &, const ValueSetSet<VS> &);
 
 
-inline void ValueSetsReachingValue::visit(const llvm::Value &reached) {
-	const ValueSet* valueSet = valueSets.getValueSetFromValue(&reached);
-	if (valueSet)
-		result.insert(valueSet);
+////////////////////////////////////////////////////////////////////////
+
+
+template <typename VS>
+inline ValueSetsReachingValue<VS>::ValueSetsReachingValue(const ValueSetSet<VS> &values)
+	: valueSets(values)
+{
 }
 
-inline static ValueSetSet valueSetsReachingValue(const llvm::Value &start, const ValueSetSet &values) {
-	ValueSetsReachingValue explorer(values);
-	explorer.backtrack(start);
-	return std::move(explorer.result);
-}
 
 #endif	// !INCLUDE_ARGUMENTS_REACHING_VALUE_HH

@@ -210,6 +210,7 @@ plugin, = penv.SharedLibrary(
         'StructElement.cc',
         'SymbolicRangeTest.cc',
         'ValueSetSet.cc',
+        'ValueSetsReachingValue.cc',
     ),
     LIBS=sra_plugin,
 )

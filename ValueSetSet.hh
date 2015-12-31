@@ -8,7 +8,8 @@ namespace llvm  {
 }
 
 
-struct ValueSetSet : public std::set<const ValueSet *> {
+template <class VS = const ValueSet *>
+struct ValueSetSet : public std::set<VS> {
 	const ValueSet *getValueSetFromValue(const llvm::Value *) const;
 };
 

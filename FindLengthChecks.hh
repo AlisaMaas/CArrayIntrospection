@@ -21,7 +21,7 @@ public:
 private:
 	std::map<llvm::Function const*, ValueSetToMaxIndexMap> maxIndexes;
 	std::map<llvm::Function const*, LengthValueSetMap> lengths;
-	ValueSetSet valueSets;
+	ValueSetSet<ValueSet> valueSets;
 };
 
 

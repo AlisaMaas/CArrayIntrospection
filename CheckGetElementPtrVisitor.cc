@@ -38,8 +38,12 @@ static Value *stripSExtInst(Value *value) {
 }
 
 
-const ValueSet *CheckGetElementPtrVisitor::getValueLength(Value *first, Value *second, const Value *basePointer) {
-	const ValueSetSet reaching = valueSetsReachingValue(*first, valueSets);
+////////////////////////////////////////////////////////////////////////
+
+
+template <typename VS>
+const ValueSet *CheckGetElementPtrVisitor<VS>::getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer) {
+	const ValueSetSet<const ValueSet *> reaching = valueSetsReachingValue(*first, valueSets);
 	if (reaching.empty()) return nullptr;
 	else if (reaching.size() == 1) {
 		ConstantInt* c;
@@ -57,7 +61,8 @@ const ValueSet *CheckGetElementPtrVisitor::getValueLength(Value *first, Value *s
 }
 
 
-bool CheckGetElementPtrVisitor::matchAddPattern(Value *value, Value *basePointer) {
+template <typename VS>
+bool CheckGetElementPtrVisitor<VS>::matchAddPattern(llvm::Value *value, llvm::Value *basePointer) {
 	DEBUG(dbgs() << "Looking at " << *value << " in matchAddPattern\n");
 	value = stripSExtInst(value);
 	DEBUG(dbgs() << "Looking at stripped " << *value << " in matchAddPattern\n");
@@ -93,9 +98,10 @@ bool CheckGetElementPtrVisitor::matchAddPattern(Value *value, Value *basePointer
 }
 
 
-CheckGetElementPtrVisitor::CheckGetElementPtrVisitor(
+template <typename VS>
+CheckGetElementPtrVisitor<VS>::CheckGetElementPtrVisitor(
 	ValueSetToMaxIndexMap &map, const SymbolicRangeAnalysis &ra,
-	const Module &m, LengthValueSetMap &l, const ValueSetSet &v)
+	const llvm::Module &m, LengthValueSetMap &l, const ValueSetSet<VS> &v)
 	: maxIndexes(map),
 	  lengths(l),
 	  rangeAnalysis(ra),
@@ -106,7 +112,8 @@ CheckGetElementPtrVisitor::CheckGetElementPtrVisitor(
 }
 
 
-CheckGetElementPtrVisitor::~CheckGetElementPtrVisitor() {
+template <typename VS>
+CheckGetElementPtrVisitor<VS>::~CheckGetElementPtrVisitor() {
 	DEBUG(dbgs() << "destructor\n");
 	for (const ValueSet * v : notConstantBounded) {
 		DEBUG(dbgs() << "Kicking out some constants\n");
@@ -120,7 +127,8 @@ CheckGetElementPtrVisitor::~CheckGetElementPtrVisitor() {
 }
 
 
-void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) {
+template <typename VS>
+void CheckGetElementPtrVisitor<VS>::visitGetElementPtrInst(llvm::GetElementPtrInst& gepi) {
 	//ignore all GEPs that don't lead to a memory access
 	//unless that goes into a function call.
 	//bool useless = true;
@@ -240,3 +248,7 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
 	}
 	DEBUG(dbgs() << "Bottom of visitor\n");
 }
+
+
+template class CheckGetElementPtrVisitor<const ValueSet *>;
+template class CheckGetElementPtrVisitor<      ValueSet  >;

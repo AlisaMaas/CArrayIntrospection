@@ -56,18 +56,15 @@ void FindLengthChecks::getAnalysisUsage(AnalysisUsage &usage) const {
 
 bool FindLengthChecks::runOnModule(Module &module) {
 	DEBUG(dbgs() << "Top of runOnModule()\n");
-	for (const Function &func : module) {
-		for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end())) {
-			ValueSet *set = new ValueSet();
-			set->insert(&arg);
-			valueSets.insert(set);
-		}
-	}
+	for (const Function &func : module)
+		for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end()))
+			valueSets.insert(ValueSet { &arg });
+
 	for (Function &func : module) {
 		if (func.isDeclaration()) continue;
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
 		const SymbolicRangeAnalysis &ra = getAnalysis<SymbolicRangeAnalysis>(func);
-		CheckGetElementPtrVisitor visitor(maxIndexes[&func], ra, module, lengths[&func], valueSets);
+		CheckGetElementPtrVisitor<ValueSet> visitor(maxIndexes[&func], ra, module, lengths[&func], valueSets);
 		for(BasicBlock &visitee :  func) {
 			DEBUG(dbgs() << "Visiting a new basic block...\n");
 			visitor.visit(visitee);
