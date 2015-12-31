@@ -78,7 +78,7 @@
 {
    leak from realloc under PyEval_EvalCodeEx
    Memcheck:Leak
-   match-leak-kinds:possible
+   match-leak-kinds: definite,possible
    fun:realloc
    ...
    fun:PyEval_EvalCodeEx
