@@ -21,7 +21,7 @@ public:
 	ValueSetSet result;
 	static ValueSetSet valueSetsReachingValue(const llvm::Value &start, const std::set<const ValueSet*> values);
 private:
-	const ValueSetSet valueSets;
+	const ValueSetSet &valueSets;
 };
 
 
