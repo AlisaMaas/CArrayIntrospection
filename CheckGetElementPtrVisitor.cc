@@ -213,7 +213,7 @@ void CheckGetElementPtrVisitor::visitGetElementPtrInst(GetElementPtrInst& gepi) 
         //consistent way of thinking about it.
         //should probably look at how it's usually documented.
     }
-    Value *index = &*gepi.idx_begin()->get();
+    Value *index = gepi.idx_begin()->get();
     DEBUG(dbgs() << "About to get the range for " << *index << "\n");
     DEBUG(dbgs() << "\tAddress is " << index << "\n");
     SAGERange r = rangeAnalysis.getState(index);

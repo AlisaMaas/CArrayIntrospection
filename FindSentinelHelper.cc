@@ -191,7 +191,7 @@ SentinelValueReport findSentinelChecks(const LoopInformation &loop, const Value 
 			    /*else if (const PHINode *phi = dyn_cast<PHINode>(pointer)) {
 			        bool foundSelf = false;
 			        for (const Value *in = phi->getIncomingValues()) {
-			            if (&*in == pointer) {
+			            if (in == pointer) {
 			                foundSelf = true;
 			            }
 			            if (valueReachesValue(*goal, *pointer) );
