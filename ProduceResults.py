@@ -82,13 +82,12 @@ if __name__ == "__main__":
       numSymbolicLength += 1
     if answer[symbolic] != output[symbolic] and len(output[symbolic]) > 0:
         falsePosSymbolic += 1
-   ''' if answer[fixed] != output[fixed]:
-      print answer[function_name] + " with argument #" + answer[slot] + " should be fixed length of " + answer[fixed] + " but saw " + output[fixed]
-    if answer[sentinel] != output[sentinel]:
-      print answer[function_name] + " with argument #" + answer[slot] + " should be sentinel terminated by " + answer[sentinel] + " but saw " + output[sentinel]
-    if answer[symbolic] != output[symbolic]:
-      print answer[function_name] + " with argument #" + answer[slot] + " should be symbolic length of " + answer[symbolic] + " but saw " + output[symbolic]
-    '''
+    #if answer[fixed] != output[fixed]:
+      #print answer[function_name] + " with argument #" + answer[slot] + " should be fixed length of " + answer[fixed] + " but saw " + output[fixed]
+    #if answer[sentinel] != output[sentinel]:
+      #print answer[function_name] + " with argument #" + answer[slot] + " should be sentinel terminated by " + answer[sentinel] + " but saw " + output[sentinel]
+    #if answer[symbolic] != output[symbolic]:
+      #print answer[function_name] + " with argument #" + answer[slot] + " should be symbolic length of " + answer[symbolic] + " but saw " + output[symbolic]
     j += 1  
     i += 1
     numArgs += 1
