@@ -94,7 +94,7 @@ namespace {
 								replacement->addIncoming(ConstantInt::get(tInt, 0), node->getIncomingBlock(argument));
 								replacement->addIncoming(BinaryOperator::Create(Instruction::Add, replacement, toAdd, "", oldAdd), node->getIncomingBlock(other));
 								GetElementPtrInst *gep = GetElementPtrInst::Create(&arg, ArrayRef<Value*>(replacement), 
-									"", &*node->getParent()->getFirstInsertionPt());
+									"", node->getParent()->getFirstInsertionPt());
 								errs() << "Replacing " << *node << "\n";
 								errs() << "With " << *replacement << "\n";
 								node->replaceAllUsesWith(gep);
