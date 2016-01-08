@@ -388,7 +388,18 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 			    case 2:
 				    sink << func.getName() << " with argument " << arg.getArgNo()
 				         << " should be annotated NULL_TERMINATED (" << (getAnswer(argumentToValueSet.at(&arg), annotations)).toString()
-				        << ")  because " << reasons.at(argumentToValueSet.at(&arg)) << "\n";
+				        << ")  because ";
+				        if (argumentToValueSet.count(&arg)) {
+				          if (reasons.count(argumentToValueSet.at(&arg))) {
+				            sink << reasons.at(argumentToValueSet.at(&arg)) << "\n";
+				          }
+				          else {
+				            sink << "reason omitted.\n";
+				          }
+				        }
+				        else {
+				          sink << " argument unknown, reason omitted.\n";
+				        }
 				    break;
 				case 0:
 				    break;

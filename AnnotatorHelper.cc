@@ -227,7 +227,7 @@ static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls
 	for (const CallInst &call : calls | indirected) {
 		DEBUG(dbgs() << "About to iterate over the arguments to the call\n");
 		DEBUG(dbgs() << "Call: " << call.getName() << "\n");
-		const Function * calledFunction = &*call.getCalledFunction();
+		const Function * calledFunction = call.getCalledFunction();
 		DEBUG(dbgs() << "getCalledFunction name: " << calledFunction << "\n");
 		if (calledFunction == nullptr)
 			continue;
@@ -271,9 +271,9 @@ static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls
 			    if (symbolicLen >= 0) {
 			        DEBUG(dbgs() << "Trying to figure out the symbolic length information\n");
 			        DEBUG(dbgs() << "In function " << func.getName() << " calling " << calledFunction->getName() << "\n");
-			        ValueSetSet<const ValueSet *> lengths = valueSetsReachingValue(*&*call.getArgOperand(symbolicLen), allValueSets);
+			        ValueSetSet<const ValueSet *> lengths = valueSetsReachingValue(*call.getArgOperand(symbolicLen), allValueSets);
 			        if (lengths.size() == 1) {
-                        const ValueSet *length = &**lengths.begin();
+                        const ValueSet *length = *lengths.begin();
                         if (length == nullptr) {
                             DEBUG(dbgs() << "Unable to find a length, at least we know it's not fixed length\n");
                             formalAnswer = LengthInfo(NOT_FIXED_LENGTH,-1);
@@ -341,7 +341,7 @@ static LengthInfo processLoops(vector<LoopInformation> &LI, const Value* toCheck
 		LengthValueReport lengthResponse = findLengthChecks(loop, toCheck);
 	    if (lengthResponse.size() == 1) {
 	        DEBUG(dbgs() << "Found a symbolic length check in a loop!\n");
-	        const Value *length = &*(lengthResponse.begin()->first);
+	        const Value *length = lengthResponse.begin()->first;
 	        pair<BlockSet, bool> lengthInfo = lengthResponse[length];
 	        if (!lengthInfo.second) { //found a non-optional length check in some loop for toCheck
 	            const ValueSet *set = valueToValueSet.at(length);

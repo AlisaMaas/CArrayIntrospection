@@ -51,7 +51,7 @@ if __name__ == "__main__":
           i += 1
         else:
           j += 1
-      elif answer[slot] < output[slot]:
+      elif int(answer[slot]) < int(output[slot]):
         i += 1
       else:
         j += 1
@@ -82,13 +82,12 @@ if __name__ == "__main__":
       numSymbolicLength += 1
     if answer[symbolic] != output[symbolic] and len(output[symbolic]) > 0:
         falsePosSymbolic += 1
-    '''if answer[fixed] != output[fixed]:
-      print answer[function_name] + " with argument #" + answer[slot] + " should be fixed length of " + answer[fixed] + " but saw " + output[fixed]
-    if answer[sentinel] != output[sentinel]:
-      print answer[function_name] + " with argument #" + answer[slot] + " should be sentinel terminated by " + answer[sentinel] + " but saw " + output[sentinel]
-    if answer[symbolic] != output[symbolic]:
-      print answer[function_name] + " with argument #" + answer[slot] + " should be symbolic length of " + answer[symbolic] + " but saw " + output[symbolic]
-    '''
+    #if answer[fixed] != output[fixed]:
+      #print answer[function_name] + " with argument #" + answer[slot] + " should be fixed length of " + answer[fixed] + " but saw " + output[fixed]
+    #if answer[sentinel] != output[sentinel]:
+      #print answer[function_name] + " with argument #" + answer[slot] + " should be sentinel terminated by " + answer[sentinel] + " but saw " + output[sentinel]
+    #if answer[symbolic] != output[symbolic]:
+      #print answer[function_name] + " with argument #" + answer[slot] + " should be symbolic length of " + answer[symbolic] + " but saw " + output[symbolic]
     j += 1  
     i += 1
     numArgs += 1
@@ -97,18 +96,21 @@ if __name__ == "__main__":
   r.write(name + "," + str(len(functionNames)) + "," + str(numArgs) + "," + str(numSymbolicLength) + "," + str(numFixedLength) + "," + str(numSentinelTerminated))
   
   symbolicTPR = ""
+  symbolicFPR = ""
   if numSymbolicLength != 0:
     symbolicTPR = str(float(foundSymbolicLength)/float(numSymbolicLength))
-  symbolicFPR = float(falsePosSymbolic)/(falsePosSymbolic + (numArgs - numSymbolicLength))
+    symbolicFPR = float(falsePosSymbolic)/(falsePosSymbolic + (numArgs - numSymbolicLength))
 
   fixedTPR = ""
+  fixedFPR = ""
   if numFixedLength != 0:
     fixedTPR = str(float(foundFixedLength)/float(numFixedLength))
-  fixedFPR = float(falsePosFixed)/(falsePosFixed + (numArgs - numFixedLength))
+    fixedFPR = float(falsePosFixed)/(falsePosFixed + (numArgs - numFixedLength))
   sentinelTPR = ""
+  sentinelFPR = ""
   if numSentinelTerminated != 0:
     sentinelTPR = str(float(foundSentinelTerminated)/float(numSentinelTerminated))
-  sentinelFPR = float(falsePosSentinel)/(falsePosSentinel + (numArgs - numSentinelTerminated))
+    sentinelFPR = float(falsePosSentinel)/(falsePosSentinel + (numArgs - numSentinelTerminated))
   
   #name,symbolic-true-positive,symbolic-false-positive,fixed-true-positive,fixed-false-positive,sentinel-true-positive,sentinel-false-positive
 
