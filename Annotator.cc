@@ -153,25 +153,25 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			const Argument &argument = slot.get<0>();
 			const ptree &arg_annotation = slot.get<1>().second;
 			DEBUG(dbgs() << "This argument has size " << slot.get<1>().second.size() << "\n");
-			argumentToValueSet[&argument].insert(&argument);
+			argumentToValueSet.emplace(&argument, ValueSet { &argument });
 			if (const auto child = arg_annotation.get_child_optional("sentinel")) {
 				if (!child->get_value<string>().empty()) {
 					DEBUG(dbgs() << "Length is not empty\n");
-					annotations[&argumentToValueSet.at(&argument)] = LengthInfo(SENTINEL_TERMINATED, 0);
+					annotations.emplace(&argumentToValueSet.at(&argument), LengthInfo(SENTINEL_TERMINATED, 0));
 					errs() << "Added a sentinel terminated thing!\n";
 					//TODO: generalize for other types of sentinels later once we support that.
 				}
 			} else if (const auto child = arg_annotation.get_child_optional("symbolic")) {
 				const int parameterNo{child->get_value<int>()};
 				errs() << name << " has child " << argument.getArgNo() << " with symbolic length of " << parameterNo << "\n";
-				annotations[&argumentToValueSet.at(&argument)] = LengthInfo(PARAMETER_LENGTH, parameterNo);
+				annotations.emplace(&argumentToValueSet.at(&argument), LengthInfo(PARAMETER_LENGTH, parameterNo));
 			} else if (const auto child = arg_annotation.get_child_optional("fixed")) {
 				const int fixedLen = child->get_value<int>();
-				annotations[&argumentToValueSet.at(&argument)] = LengthInfo(FIXED_LENGTH, fixedLen);
+				annotations.emplace(&argumentToValueSet.at(&argument), LengthInfo(FIXED_LENGTH, fixedLen));
 			} else if (const auto child = arg_annotation.get_child_optional("other")) {
 				const int other = child->get_value<int>();
 				if (other == -1)
-					annotations[&argumentToValueSet.at(&argument)] = LengthInfo(INCONSISTENT, other);
+					annotations.emplace(&argumentToValueSet.at(&argument), LengthInfo(INCONSISTENT, other));
 			}
 		}
 	}
