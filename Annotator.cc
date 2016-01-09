@@ -331,9 +331,7 @@ bool Annotator::runOnModule(Module &module) {
 	DEBUG(dbgs() << "Finished going through array recievers\n");
 	map<const Value *, const ValueSet *> valueToValueSet;
 	for (const ValueSet *v : allValueSets) {
-		if (!annotations.count(v)) {
-			annotations[v] = LengthInfo(NO_LENGTH_VALUE, -1);
-		}
+		annotations.emplace(v, LengthInfo(NO_LENGTH_VALUE, -1));
 		for (const Value *val : *v) {
 			valueToValueSet[val] = v;
 		}
