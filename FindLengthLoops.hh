@@ -1,9 +1,8 @@
 #ifndef INCLUDE_FIND_LENGTH_LOOPS_HELPER_HH
 #define INCLUDE_FIND_LENGTH_LOOPS_HELPER_HH
 
+#include "LengthValueReport.hh"
 #include "PatternMatchHelper.hh"
-
-typedef std::unordered_map<const llvm::Value*, std::pair<BlockSet, bool>> LengthValueReport;
 
 /**
 * Checks whether a particular loop's sentinel check is optional given the list of blocks
