@@ -154,36 +154,24 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			const ptree &arg_annotation = slot.get<1>().second;
 			DEBUG(dbgs() << "This argument has size " << slot.get<1>().second.size() << "\n");
 			argumentToValueSet[&argument].insert(&argument);
-			try {
-				if (!arg_annotation.get_child("sentinel").get_value<string>().empty()) {
+			if (const auto child = arg_annotation.get_child_optional("sentinel")) {
+				if (!child->get_value<string>().empty()) {
 					DEBUG(dbgs() << "Length is not empty\n");
 					annotations[&argumentToValueSet.at(&argument)] = LengthInfo(SENTINEL_TERMINATED, 0);
 					errs() << "Added a sentinel terminated thing!\n";
 					//TODO: generalize for other types of sentinels later once we support that.
 				}
-			} catch (...) {
-				DEBUG(dbgs() << "Not a sentinel terminated argument\n");
-			}
-			try {
-				int parameterNo = arg_annotation.get_child("symbolic").get_value<int>();
+			} else if (const auto child = arg_annotation.get_child_optional("symbolic")) {
+				const int parameterNo{child->get_value<int>()};
 				errs() << name << " has child " << argument.getArgNo() << " with symbolic length of " << parameterNo << "\n";
 				annotations[&argumentToValueSet.at(&argument)] = LengthInfo(PARAMETER_LENGTH, parameterNo);
-			} catch (...) {
-				DEBUG(dbgs() << "Not a symbolic length argument\n");
-			}
-			try {
-				int fixedLen = arg_annotation.get_child("fixed").get_value<int>();
+			} else if (const auto child = arg_annotation.get_child_optional("fixed")) {
+				const int fixedLen = child->get_value<int>();
 				annotations[&argumentToValueSet.at(&argument)] = LengthInfo(FIXED_LENGTH, fixedLen);
-			} catch (...) {
-				DEBUG(dbgs() << "Not a fixed length argument\n");
-			}
-			try {
-				int other = arg_annotation.get_child("other").get_value<int>();
-				if (other == -1) {
+			} else if (const auto child = arg_annotation.get_child_optional("other")) {
+				const int other = child->get_value<int>();
+				if (other == -1)
 					annotations[&argumentToValueSet.at(&argument)] = LengthInfo(INCONSISTENT, other);
-				}
-			} catch (...) {
-				DEBUG(dbgs() << "Doesn't have an other field, at least not an int one.\n");
 			}
 		}
 	}
