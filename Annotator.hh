@@ -1,6 +1,7 @@
 #ifndef INCLUDE_ANNOTATOR_HH
 #define INCLUDE_ANNOTATOR_HH
 
+#include "AnnotationMap.hh"
 #include "CallInstSet.hh"
 #include "FindLengthChecks.hh"
 #include "FindStructElements.hh"
@@ -15,8 +16,6 @@
 #include <map>
 #include <unordered_map>
 #include <unordered_set>
-
-typedef std::unordered_map<const ValueSet*, LengthInfo> AnnotationMap;
 
 
 class Annotator : public llvm::ModulePass {

@@ -1,6 +1,7 @@
 #ifndef INCLUDE_ANNOTATOR_HELPER_HH
 #define INCLUDE_ANNOTATOR_HELPER_HH
 
+#include "AnnotationMap.hh"
 #include "FindSentinelHelper.hh"
 #include "LengthInfo.hh"
 
@@ -12,7 +13,6 @@
 #include <unordered_map>
 
 typedef std::unordered_set<const llvm::CallInst *> CallInstSet;
-typedef std::unordered_map<const ValueSet*, LengthInfo> AnnotationMap;
 typedef std::unordered_map<const llvm::Function*, std::unordered_set<const ValueSet*>> FunctionToValueSets;
 typedef std::unordered_map<llvm::Function*, std::vector<LoopInformation>> FunctionToLoopInformation;
 
