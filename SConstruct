@@ -33,6 +33,7 @@ def pathIsOptionalExecutable(key, val, env):
 variables = Variables(['.scons-options'], ARGUMENTS)
 variables.Add(BoolVariable('DEBUG', 'compile for debugging', False))
 variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/public/bin/iiglue', pathIsOptionalExecutable))
+variables.Add(BoolVariable('VALGRIND', 'run tests under Valgrind', False))
 
 llvmConfigDefault = WhereIs('llvm-config', (
     '/p/polyglot/public/tools/llvm-3.7.1/install/bin',
@@ -182,7 +183,9 @@ sra_plugin = penv.SharedLibrary(
 subst_dict = {
     '@LLVM_BINDIR@': '$LLVM_BINDIR',
     '@SAGE@': '$SAGE',
+    '@VALGRIND@': '${ "valgrind --error-exitcode=166 --leak-check=full --errors-for-leak-kinds=definite --suppressions=python.supp --suppressions=sage.supp" if VALGRIND else "" }'
 }
+
 run_script = penv.Substfile('run.in', SUBST_DICT=subst_dict)
 expanded_dict = {key: env.subst(value) for key, value in subst_dict.iteritems()}
 env.Depends(run_script, Value(expanded_dict))
@@ -204,8 +207,10 @@ plugin, = penv.SharedLibrary(
         'NameCompare.cc',
         'NoPointerArithmetic.cc',
         'NoPointerComparisons.cc',
+        'StructElement.cc',
         'SymbolicRangeTest.cc',
         'ValueSetSet.cc',
+        'ValueSetsReachingValue.cc',
     ),
     LIBS=sra_plugin,
 )
