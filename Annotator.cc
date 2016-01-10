@@ -49,7 +49,8 @@ static llvm::cl::opt<bool> Fast("fast",
 
 
 inline Annotator::Annotator()
-	: ModulePass(ID) {
+	: ModulePass(ID),
+	  structElements(nullptr) {
 }
 
 
@@ -104,7 +105,7 @@ pair<int, int> Annotator::annotate(const Value &value) const {
 
 
 pair<int, int> Annotator::annotate(const StructElement &element) const {
-	const AnnotationMap::const_iterator found = annotations.find(structElements.at(element).get());
+	const AnnotationMap::const_iterator found = annotations.find(structElements->at(element).get());
 	if (found != annotations.end()) {
 		return annotate(found->second);
 	} else {
@@ -253,7 +254,7 @@ bool Annotator::runOnModule(Module &module) {
 	DEBUG(dbgs() << "done populating dependencies\n");
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	const FindStructElements &findElements = getAnalysis<FindStructElements>();
-	structElements = findElements.getStructElements();
+	structElements = &findElements.getStructElements();
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
 	FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
@@ -264,7 +265,7 @@ bool Annotator::runOnModule(Module &module) {
 		if ((func.isDeclaration())) continue;
 		if (!Fast) {
 			DEBUG(dbgs() << "Putting in some struct elements\n");
-			for (const auto &tuple : structElements) {
+			for (const auto &tuple : *structElements) {
 				toCheck[&func].insert(tuple.second.get());
 				allValueSets.insert(tuple.second.get());
 			}
@@ -389,7 +390,7 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 				break;
 			}
 	}
-	for (const auto &element : structElements)
+	for (const auto &element : *structElements)
 		switch (annotate(element.first).first) {
 		case 2:
 			sink << element.first
@@ -403,4 +404,10 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 			     << " should be annotated " << ((getAnswer(*element.second, annotations)).toString()) << ".\n";
 		}
 	DEBUG(dbgs() << "Finished printing things\n");
+}
+
+
+bool Annotator::doFinalization(llvm::Module &) {
+	structElements = nullptr;
+	return false;
 }

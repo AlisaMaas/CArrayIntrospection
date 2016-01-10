@@ -26,6 +26,7 @@ public:
 	void getAnalysisUsage(llvm::AnalysisUsage &) const final override;
 	bool runOnModule(llvm::Module &) final override;
 	void print(llvm::raw_ostream &, const llvm::Module *) const final override;
+	bool doFinalization(llvm::Module &) final override;
 
 	// access to analysis results derived by this pass
 	std::pair<int,int> annotate(const llvm::Value &) const;
@@ -37,7 +38,7 @@ private:
 	std::unordered_map<const llvm::Argument *, ValueSet> argumentToValueSet;
 	std::map<const ValueSet, std::string> reasons;
 	std::unordered_map<const llvm::Function *, CallInstSet> functionToCallSites;
-	StructElementToValueSet structElements;
+	const StructElementToValueSet *structElements;
 	std::pair<int,int> annotate(const StructElement &element) const;
 	void dumpToFile(const std::string &filename, const llvm::Module &) const;
 	void populateFromFile(const std::string &filename, const llvm::Module &);
