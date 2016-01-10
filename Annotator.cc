@@ -157,21 +157,21 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			if (const auto child = arg_annotation.get_child_optional("sentinel")) {
 				if (!child->get_value<string>().empty()) {
 					DEBUG(dbgs() << "Length is not empty\n");
-					annotations.emplace(argumentValueSet, LengthInfo(SENTINEL_TERMINATED, 0));
+					annotations.emplace(argumentValueSet, LengthInfo::sentinelTerminated);
 					errs() << "Added a sentinel terminated thing!\n";
 					//TODO: generalize for other types of sentinels later once we support that.
 				}
 			} else if (const auto child = arg_annotation.get_child_optional("symbolic")) {
-				const int parameterNo{child->get_value<int>()};
+				const int parameterNo = child->get_value<int>();
 				errs() << name << " has child " << argument.getArgNo() << " with symbolic length of " << parameterNo << "\n";
-				annotations.emplace(argumentValueSet, LengthInfo(PARAMETER_LENGTH, parameterNo));
+				annotations.emplace(argumentValueSet, LengthInfo::parameterLength(parameterNo));
 			} else if (const auto child = arg_annotation.get_child_optional("fixed")) {
 				const int fixedLen = child->get_value<int>();
-				annotations.emplace(argumentValueSet, LengthInfo(FIXED_LENGTH, fixedLen));
+				annotations.emplace(argumentValueSet, LengthInfo::fixedLength(fixedLen));
 			} else if (const auto child = arg_annotation.get_child_optional("other")) {
 				const int other = child->get_value<int>();
 				if (other == -1)
-					annotations.emplace(argumentValueSet, LengthInfo(INCONSISTENT, other));
+					annotations.emplace(argumentValueSet, LengthInfo::inconsistent);
 			}
 		}
 	}
@@ -284,10 +284,10 @@ bool Annotator::runOnModule(Module &module) {
 			visitor.visit(visitee);
 		}
 		for (const ValueSet *set : visitor.notConstantBounded) {
-			annotations[set] = LengthInfo(NOT_FIXED_LENGTH, -1);
+			annotations[set] = LengthInfo::notFixedLength;
 		}
 		for (const ValueSet *set : visitor.notParameterBounded) {
-			annotations[set] = LengthInfo(NOT_FIXED_LENGTH, -1);
+			annotations[set] = LengthInfo::notFixedLength;
 		}
 	}
 	errs() << "Done with SRA!\n";
@@ -313,13 +313,13 @@ bool Annotator::runOnModule(Module &module) {
 
 	for (const Function &func : iiglue.arrayReceivers()) {
 		if (!maxIndexes[&func].empty()) {
-			for (pair<const ValueSet *, long int> fixedResult : maxIndexes[&func]) {
-				annotations[fixedResult.first] = LengthInfo(FIXED_LENGTH, fixedResult.second);
+			for (const auto &fixedResult : maxIndexes[&func]) {
+				annotations[fixedResult.first] = LengthInfo::fixedLength(fixedResult.second);
 			}
 		}
 		if (!lengths[&func].empty()) {
-			for (pair<const ValueSet *, const ValueSet *> symbolicResult : lengths[&func]) {
-				annotations[symbolicResult.first] = LengthInfo(PARAMETER_LENGTH, symbolicResult.second, -1);
+			for (const auto &symbolicResult : lengths[&func]) {
+				annotations[symbolicResult.first] = LengthInfo::parameterLength(symbolicResult.second);
 				errs() << "FOUND PARAM_LENGTH!!!\n";
 			}
 		}
@@ -331,7 +331,7 @@ bool Annotator::runOnModule(Module &module) {
 	DEBUG(dbgs() << "Finished going through array recievers\n");
 	map<const Value *, const ValueSet *> valueToValueSet;
 	for (const ValueSet *v : allValueSets) {
-		annotations.emplace(v, LengthInfo(NO_LENGTH_VALUE, -1));
+		annotations.emplace(v, LengthInfo());
 		for (const Value *val : *v) {
 			valueToValueSet[val] = v;
 		}
