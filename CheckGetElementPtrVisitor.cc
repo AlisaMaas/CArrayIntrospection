@@ -222,9 +222,10 @@ void CheckGetElementPtrVisitor<VS>::visitGetElementPtrInst(llvm::GetElementPtrIn
 		DEBUG(dbgs() << "Range not unknown!\n");
 		long int index = r.getUpper().getInteger();
 		DEBUG(dbgs() << "index = " << index << "\n");
-		if (index > maxIndexes[valueSet]) {
+		long &max{maxIndexes[valueSet]};
+		if (index > max) {
 			DEBUG(dbgs() << "Yay range analysis! Adding to the map!\n");
-			maxIndexes[valueSet] = index;
+			max = index;
 		}
 	}
 	else {

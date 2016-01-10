@@ -192,16 +192,17 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
         Value* value = store.getValueOperand();
         const ValueSet *valueSet = findAssociatedValueSet(value, toCheck);
         if (valueSet) {
-            LengthInfo old = annotations[valueSet];
-            annotations[valueSet] = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
-            if (old.type != annotations[valueSet].type || old.length != annotations[valueSet].length) {
+	    LengthInfo &current{annotations[valueSet]};
+	    const LengthInfo old{current};
+            current = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
+            if (old.type != current.type || old.length != current.length) {
                 std::stringstream reason;
                 reason << " pushed information from a store from ";
                 reason << value->getName().str();
                 reasons[*valueSet] = reason.str();
                 DEBUG(dbgs() << "Updating answer!\n");  
             }
-            changed |= (old.type != annotations[valueSet].type || old.length != annotations[valueSet].length);
+            changed |= (old.type != current.type || old.length != current.length);
         }
     }
 };

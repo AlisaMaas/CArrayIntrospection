@@ -156,21 +156,22 @@ LengthValueReport findLengthChecks(const LoopInformation &loop, const Value * go
 		}
 	}
 	for (const Value *slot : slots) {
-        BlockSet foundSoFar = lengthChecks[slot].first;
-        if (lengthChecks[slot].first.empty()) {
+	auto &checksForSlot = lengthChecks[slot];
+        BlockSet foundSoFar = checksForSlot.first;
+        if (checksForSlot.first.empty()) {
             DEBUG(dbgs() << "No length checks found for " << goal->getName() << "\n");
-            lengthChecks[slot].second = true;
+            checksForSlot.second = true;
             return lengthChecks;
         }
         DEBUG(dbgs() << "Checking the length check for " << goal->getName() << "\n");
         bool optional = DFSCheckOptional(loop, foundSoFar);
         if (optional) {
             DEBUG(dbgs() << "The length check was optional!\n");
-            lengthChecks[slot].second = true;
+            checksForSlot.second = true;
         }
         else {
             DEBUG(dbgs() << "The length check was non-optional - hooray!\n");
-            lengthChecks[slot].second = false;
+            checksForSlot.second = false;
         }
         DEBUG(dbgs() << "About to return the list of length checks\n");
     }
