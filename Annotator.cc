@@ -312,13 +312,13 @@ bool Annotator::runOnModule(Module &module) {
 	}
 
 	for (const Function &func : iiglue.arrayReceivers()) {
-		if (!maxIndexes[&func].empty()) {
-			for (const auto &fixedResult : maxIndexes[&func]) {
+		const auto &maxIndexesForFunc = maxIndexes.find(&func);
+		if (maxIndexesForFunc != maxIndexes.end())
+			for (const auto &fixedResult : maxIndexesForFunc->second)
 				annotations[fixedResult.first] = LengthInfo::fixedLength(fixedResult.second);
-			}
-		}
-		if (!lengths[&func].empty()) {
-			for (const auto &symbolicResult : lengths[&func]) {
+		const auto lengthsForFunc = lengths.find(&func);
+		if (lengthsForFunc != lengths.end()) {
+			for (const auto &symbolicResult : lengthsForFunc->second) {
 				annotations[symbolicResult.first] = LengthInfo::parameterLength(symbolicResult.second);
 				errs() << "FOUND PARAM_LENGTH!!!\n";
 			}
