@@ -104,7 +104,7 @@ pair<int, int> Annotator::annotate(const Value &value) const {
 
 
 pair<int, int> Annotator::annotate(const StructElement &element) const {
-	const AnnotationMap::const_iterator found = annotations.find(&structElements.at(element));
+	const AnnotationMap::const_iterator found = annotations.find(structElements.at(element).get());
 	if (found != annotations.end()) {
 		return annotate(found->second);
 	} else {
@@ -265,8 +265,8 @@ bool Annotator::runOnModule(Module &module) {
 		if (!Fast) {
 			DEBUG(dbgs() << "Putting in some struct elements\n");
 			for (const auto &tuple : structElements) {
-				toCheck[&func].insert(&tuple.second);
-				allValueSets.insert(&tuple.second);
+				toCheck[&func].insert(tuple.second.get());
+				allValueSets.insert(tuple.second.get());
 			}
 		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
@@ -393,14 +393,14 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 		switch (annotate(element.first).first) {
 		case 2:
 			sink << element.first
-			     << " should be annotated NULL_TERMINATED (" << (getAnswer(element.second, annotations)).toString()
-			     << ") because " << reasons.at(element.second) << ".\n";
+			     << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations)).toString()
+			     << ") because " << reasons.at(*element.second) << ".\n";
 			break;
 		case 0:
 			break;
 		default:
 			sink << element.first
-			     << " should be annotated " << ((getAnswer(element.second, annotations)).toString()) << ".\n";
+			     << " should be annotated " << ((getAnswer(*element.second, annotations)).toString()) << ".\n";
 		}
 	DEBUG(dbgs() << "Finished printing things\n");
 }
