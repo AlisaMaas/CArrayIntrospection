@@ -89,12 +89,16 @@ void FindLengthChecks::print(raw_ostream &sink, const Module *module) const {
 		sink << "Analyzing " << func.getName() << "\n";
 		for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end())) {
 			const ValueSet *set = valueSets.getValueSetFromValue(&arg);
-			if (constantMap.count(set))
-				sink << "\tArgument " << arg.getName() << " has max index " << constantMap.at(set) << '\n';
-			else if (parameterLengthMap.count(set))
-				sink << "\tArgument " << arg.getName() << " has max index argument " << (*parameterLengthMap.at(set)->begin())->getName() << '\n';
-			else if (iiglue.isArray(arg))
-				sink << "\tArgument " << arg.getName() << " has unknown max index.\n";
+			const auto foundConstant = constantMap.find(set);
+			if (foundConstant != constantMap.end())
+				sink << "\tArgument " << arg.getName() << " has max index " << foundConstant->second << '\n';
+			else {
+				const auto foundParam = parameterLengthMap.find(set);
+				if (foundParam != parameterLengthMap.end())
+					sink << "\tArgument " << arg.getName() << " has max index argument " << (*foundParam->second->begin())->getName() << '\n';
+				else if (iiglue.isArray(arg))
+					sink << "\tArgument " << arg.getName() << " has unknown max index.\n";
+			}
 		}
 	}
 

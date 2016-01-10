@@ -364,13 +364,15 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 		if (func.isDeclaration()) continue;
 		for (const Argument &arg : iiglue.arrayArguments(func))
 			switch (annotate(arg).first) {
-			case 2:
+			case 2: {
 				sink << func.getName() << " with argument " << arg.getArgNo()
 				     << " should be annotated NULL_TERMINATED (" << (getAnswer(argumentToValueSet.at(&arg), annotations)).toString()
 				     << ")  because ";
-				if (argumentToValueSet.count(&arg)) {
-					if (reasons.count(argumentToValueSet.at(&arg))) {
-						sink << reasons.at(argumentToValueSet.at(&arg)) << "\n";
+				const auto foundArg = argumentToValueSet.find(&arg);
+				if (foundArg != argumentToValueSet.end()) {
+					const auto foundReason = reasons.find(foundArg->second);
+					if (foundReason != reasons.end()) {
+						sink << foundReason->second << "\n";
 					} else {
 						sink << "reason omitted.\n";
 					}
@@ -378,6 +380,7 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 					sink << " argument unknown, reason omitted.\n";
 				}
 				break;
+			}
 			case 0:
 				break;
 			default:

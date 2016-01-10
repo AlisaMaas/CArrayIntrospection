@@ -159,9 +159,8 @@ pair<int, int> annotate(const ValueSet &value, AnnotationMap &annotations) {
 }
 
 const ValueSet* findAssociatedValueSet(const Value *value, const map<const Value *, const ValueSet*> &toCheck) {
-    if (toCheck.count(value)) return toCheck.at(value);
-    return nullptr;
-
+	const auto found = toCheck.find(value);
+	return found == toCheck.end() ? nullptr : found->second;
 }
 
 LengthInfo findAssociatedAnswer(const Value *value, const AnnotationMap &annotations) {
@@ -390,8 +389,9 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
             for (Function &func : module) {
                 errs() << "Working on " << func.getName() << "\n";
                 if ((func.isDeclaration())) continue;
-                if (!checkNullTerminated.count(&func)) continue;
-                for (const ValueSet *valueSet : checkNullTerminated.at(&func)) {
+		const auto found = checkNullTerminated.find(&func);
+                if (found == checkNullTerminated.end()) continue;
+                for (const ValueSet *valueSet : found->second) {
                     LengthInfo oldAnswer = getAnswer(*valueSet, annotations);
                     LengthInfo answer = oldAnswer;
                     for (const Value * value : *valueSet) {
