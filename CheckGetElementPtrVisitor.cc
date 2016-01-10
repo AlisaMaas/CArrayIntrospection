@@ -79,14 +79,13 @@ bool CheckGetElementPtrVisitor<VS>::matchAddPattern(llvm::Value *value, llvm::Va
 			if (length) {
 				DEBUG(dbgs() << "Hey, look, an argument length! \n");
 				const ValueSet *valueSet = valueSets.getValueSetFromValue(basePointer);
-				const ValueSet *old = lengths[valueSet];
-				if (old == nullptr) {
-					lengths[valueSet] = length;
+				const auto emplaced = lengths.emplace(valueSet, length);
+				if (emplaced.second)
+					// no prior value
 					return true;
-				}
-				else if (old == length) {
+				else if (emplaced.first->second == length)
+					// prior value already same
 					return true;
-				}
 				else {
 					notParameterBounded.insert(valueSet);
 				}
