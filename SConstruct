@@ -140,6 +140,13 @@ penv.AppendUnique(
     ),
     delete_existing=True
 )
+
+if penv['DEBUG']:
+    try:
+        penv['CPPDEFINES'].remove('NDEBUG')
+    except ValueError:
+        pass
+
 penv.PrependENVPath('PATH', '/s/gcc-5.1.0/bin')
 
 
