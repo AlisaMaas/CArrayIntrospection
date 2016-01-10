@@ -37,7 +37,7 @@ public:
 	LengthType type;
 	long int length;
 	const ValueSet *symbolicLength;
-	static std::string getTypeString(LengthType);
+	static std::string getTypeString(const LengthType &);
 	int getSymbolicLength() const;
 	std::string toString() const;
 };

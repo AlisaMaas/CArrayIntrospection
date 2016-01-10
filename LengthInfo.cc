@@ -6,8 +6,8 @@
 #include <sstream>
 
 
-std::string LengthInfo::getTypeString(LengthType type) {
 	switch(type) {
+std::string LengthInfo::getTypeString(const LengthType &type) {
 	case NO_LENGTH_VALUE: return "None ";
 	case PARAMETER_LENGTH: return "Param";
 	case FIXED_LENGTH: return "Fixed";
