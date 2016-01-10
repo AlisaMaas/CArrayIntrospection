@@ -164,14 +164,10 @@ const ValueSet* findAssociatedValueSet(const Value *value, const map<const Value
 }
 
 LengthInfo findAssociatedAnswer(const Value *value, const AnnotationMap &annotations) {
-	for (auto mapping : annotations) {
-	    if (mapping.first == nullptr) {
-	        continue;
-	    }
-		if (mapping.first->count(value)) {
-			return mapping.second;
-		}
-	}
+	for (auto mapping : annotations)
+	    if (mapping.first && mapping.first->count(value))
+		    return mapping.second;
+
 	return { };
 }
 
