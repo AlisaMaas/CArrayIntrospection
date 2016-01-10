@@ -6,8 +6,33 @@
 #include <sstream>
 
 
-std::string LengthInfo::getTypeString(LengthType type) {
-	switch(type) {
+const LengthInfo LengthInfo::notFixedLength{NOT_FIXED_LENGTH};
+
+const LengthInfo LengthInfo::inconsistent{INCONSISTENT};
+
+const LengthInfo LengthInfo::sentinelTerminated{SENTINEL_TERMINATED, 0L};
+
+
+LengthInfo LengthInfo::parameterLength(long slot) {
+	assert(slot >= 0);
+	return {PARAMETER_LENGTH, slot};
+}
+
+
+LengthInfo LengthInfo::parameterLength(const ValueSet *symbolic) {
+	return {PARAMETER_LENGTH, symbolic};
+}
+
+
+LengthInfo LengthInfo::fixedLength(long length) {
+	assert(length >= 0);
+	if (length == 0) return notFixedLength;
+	return {FIXED_LENGTH, length};
+}
+
+
+std::string LengthInfo::getTypeString(const LengthType &type) {
+	switch (type) {
 	case NO_LENGTH_VALUE: return "None ";
 	case PARAMETER_LENGTH: return "Param";
 	case FIXED_LENGTH: return "Fixed";

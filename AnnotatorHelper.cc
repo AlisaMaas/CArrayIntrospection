@@ -90,7 +90,7 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
                 case PARAMETER_LENGTH:
                     if (first.length == -1 && second.length != -1) {
                         if (first.getSymbolicLength() != second.length) {
-                            return LengthInfo(INCONSISTENT, -1);
+				return LengthInfo::inconsistent;
                         }
                         else {
                             return second;
@@ -98,7 +98,7 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
                     }
                     if (second.length == -1 && first.length != -1) {
                         if (second.getSymbolicLength() != first.length) {
-                            return LengthInfo(INCONSISTENT, -1);
+				return LengthInfo::inconsistent;
                         }
                         else {
                             return first;
@@ -109,13 +109,13 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
                             assert(first.symbolicLength != nullptr);
                             assert(second.symbolicLength != nullptr);
                             if (first.symbolicLength != second.symbolicLength) {
-                                return LengthInfo(INCONSISTENT, -1);
+				    return LengthInfo::inconsistent;
                             }
                         }
                         return first;
                     }
                     else if (first.getSymbolicLength() != second.getSymbolicLength()){
-                        return LengthInfo(INCONSISTENT, -1);
+			    return LengthInfo::inconsistent;
                     }
                     else {
                         return second;
@@ -125,7 +125,7 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
             }
     }
     abort();
-    return LengthInfo();
+    return { };
 }
 
 pair<int, int> annotate(LengthInfo &info) {
@@ -159,21 +159,16 @@ pair<int, int> annotate(const ValueSet &value, AnnotationMap &annotations) {
 }
 
 const ValueSet* findAssociatedValueSet(const Value *value, const map<const Value *, const ValueSet*> &toCheck) {
-    if (toCheck.count(value)) return toCheck.at(value);
-    return nullptr;
-
+	const auto found = toCheck.find(value);
+	return found == toCheck.end() ? nullptr : found->second;
 }
 
 LengthInfo findAssociatedAnswer(const Value *value, const AnnotationMap &annotations) {
-	for (auto mapping : annotations) {
-	    if (mapping.first == nullptr) {
-	        continue;
-	    }
-		if (mapping.first->count(value)) {
-			return mapping.second;
-		}
-	}
-	return LengthInfo();
+	for (auto mapping : annotations)
+	    if (mapping.first && mapping.first->count(value))
+		    return mapping.second;
+
+	return { };
 }
 
 LengthInfo getAnswer(const ValueSet &value, const AnnotationMap &annotations) {
@@ -197,16 +192,17 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
         Value* value = store.getValueOperand();
         const ValueSet *valueSet = findAssociatedValueSet(value, toCheck);
         if (valueSet) {
-            LengthInfo old = annotations[valueSet];
-            annotations[valueSet] = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
-            if (old.type != annotations[valueSet].type || old.length != annotations[valueSet].length) {
+	    LengthInfo &current{annotations[valueSet]};
+	    const LengthInfo old{current};
+            current = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
+            if (old.type != current.type || old.length != current.length) {
                 std::stringstream reason;
                 reason << " pushed information from a store from ";
                 reason << value->getName().str();
                 reasons[*valueSet] = reason.str();
                 DEBUG(dbgs() << "Updating answer!\n");  
             }
-            changed |= (old.type != annotations[valueSet].type || old.length != annotations[valueSet].length);
+            changed |= (old.type != current.type || old.length != current.length);
         }
     }
 };
@@ -258,7 +254,7 @@ static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls
 			DEBUG(dbgs() << "match found!\n");
 			auto parameter = std::next(formals, argNo);
 			if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
-			    answer = mergeAnswers(answer, LengthInfo(NOT_FIXED_LENGTH, -1));
+				answer = mergeAnswers(answer, LengthInfo::notFixedLength);
 				continue;
 			}
 			
@@ -267,7 +263,7 @@ static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls
 			//errs() << "Found formal arg to have " << formalAnswer.toString() << "\n";
 			if (formalAnswer.type == PARAMETER_LENGTH) {
 			    int symbolicLen = formalAnswer.getSymbolicLength();
-			    formalAnswer = LengthInfo(NOT_FIXED_LENGTH,-1);
+			    formalAnswer = LengthInfo::notFixedLength;
 			    if (symbolicLen >= 0) {
 			        DEBUG(dbgs() << "Trying to figure out the symbolic length information\n");
 			        DEBUG(dbgs() << "In function " << func.getName() << " calling " << calledFunction->getName() << "\n");
@@ -276,11 +272,11 @@ static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls
                         const ValueSet *length = *lengths.begin();
                         if (length == nullptr) {
                             DEBUG(dbgs() << "Unable to find a length, at least we know it's not fixed length\n");
-                            formalAnswer = LengthInfo(NOT_FIXED_LENGTH,-1);
+                            formalAnswer = LengthInfo::notFixedLength;
                         }
                         else {
                             DEBUG(dbgs() << "Marking parameter length\n");
-                            formalAnswer = LengthInfo(PARAMETER_LENGTH, length, -1);
+                            formalAnswer = LengthInfo::parameterLength(length);
                         }
                     }
                     else {
@@ -292,7 +288,7 @@ static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls
 			    }
 			}
 			if (formalAnswer.type != FIXED_LENGTH && answer.type == FIXED_LENGTH) {
-			    answer = LengthInfo(NOT_FIXED_LENGTH, -1);
+				answer = LengthInfo::notFixedLength;
 			}
 			answer = mergeAnswers(formalAnswer, answer);
 			//errs() << "After merging, we decided that the answer is " << answer.toString() << "\n";
@@ -327,16 +323,16 @@ unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &
 //needs to be called per function.
 //TODO: rename for consistency - this is just for finding sentinel checks in the loop
 static LengthInfo processLoops(vector<LoopInformation> &LI, const Value* toCheck, const map<const Value *, const ValueSet*> &valueToValueSet) {
-    LengthInfo result;
+	LengthInfo result;
 	DEBUG(dbgs() << "Getting to look through loops now!\n");
 	for (const LoopInformation loop: LI) {
 	    DEBUG(dbgs() << "Got a loop!\n");
 		SentinelValueReport sentinelResponse = findSentinelChecks(loop, toCheck);
 		if (!sentinelResponse.first.empty() && sentinelResponse.second) { //found an optional sentinel check in some loop for toCheck
-		    result = mergeAnswers(result, LengthInfo(NOT_FIXED_LENGTH, -1));
+			result = mergeAnswers(result, LengthInfo::notFixedLength);
 		} //TODO: decide if I want to handle finding optional loops.
 		if (!sentinelResponse.second) { //found a non-optional sentinel check in some loop for toCheck.
-		    result = mergeAnswers(result, LengthInfo(SENTINEL_TERMINATED, 0));
+			result = mergeAnswers(result, LengthInfo::sentinelTerminated);
 		}
 		LengthValueReport lengthResponse = findLengthChecks(loop, toCheck);
 	    if (lengthResponse.size() == 1) {
@@ -347,10 +343,10 @@ static LengthInfo processLoops(vector<LoopInformation> &LI, const Value* toCheck
 	            const ValueSet *set = valueToValueSet.at(length);
 	            if (set != nullptr) {
 	                DEBUG(dbgs() << "And it's non optional, too\n");
-	                result = mergeAnswers(result, LengthInfo(PARAMETER_LENGTH, set, -1));
+	                result = mergeAnswers(result, LengthInfo::parameterLength(set));
 	            }
 	            else {
-	                result = mergeAnswers(result, LengthInfo(NOT_FIXED_LENGTH, -1));
+			    result = mergeAnswers(result, LengthInfo::notFixedLength);
 	            }
 	        }
 	    }
@@ -390,8 +386,9 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
             for (Function &func : module) {
                 errs() << "Working on " << func.getName() << "\n";
                 if ((func.isDeclaration())) continue;
-                if (!checkNullTerminated.count(&func)) continue;
-                for (const ValueSet *valueSet : checkNullTerminated.at(&func)) {
+		const auto found = checkNullTerminated.find(&func);
+                if (found == checkNullTerminated.end()) continue;
+                for (const ValueSet *valueSet : found->second) {
                     LengthInfo oldAnswer = getAnswer(*valueSet, annotations);
                     LengthInfo answer = oldAnswer;
                     for (const Value * value : *valueSet) {

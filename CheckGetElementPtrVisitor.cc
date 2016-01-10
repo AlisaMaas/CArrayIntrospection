@@ -79,14 +79,13 @@ bool CheckGetElementPtrVisitor<VS>::matchAddPattern(llvm::Value *value, llvm::Va
 			if (length) {
 				DEBUG(dbgs() << "Hey, look, an argument length! \n");
 				const ValueSet *valueSet = valueSets.getValueSetFromValue(basePointer);
-				const ValueSet *old = lengths[valueSet];
-				if (old == nullptr) {
-					lengths[valueSet] = length;
+				const auto emplaced = lengths.emplace(valueSet, length);
+				if (emplaced.second)
+					// no prior value
 					return true;
-				}
-				else if (old == length) {
+				else if (emplaced.first->second == length)
+					// prior value already same
 					return true;
-				}
 				else {
 					notParameterBounded.insert(valueSet);
 				}
@@ -222,9 +221,10 @@ void CheckGetElementPtrVisitor<VS>::visitGetElementPtrInst(llvm::GetElementPtrIn
 		DEBUG(dbgs() << "Range not unknown!\n");
 		long int index = r.getUpper().getInteger();
 		DEBUG(dbgs() << "index = " << index << "\n");
-		if (index > maxIndexes[valueSet]) {
+		long &max{maxIndexes[valueSet]};
+		if (index > max) {
 			DEBUG(dbgs() << "Yay range analysis! Adding to the map!\n");
-			maxIndexes[valueSet] = index;
+			max = index;
 		}
 	}
 	else {

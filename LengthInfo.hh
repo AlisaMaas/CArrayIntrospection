@@ -17,29 +17,52 @@ enum LengthType {
 
 class LengthInfo {
 public:
-	LengthInfo(LengthType t, long int l)
-		: type((t == FIXED_LENGTH && l == 0) ? NOT_FIXED_LENGTH : t),
-		  length(l),
-		  symbolicLength(nullptr) {
-	}
+	static const LengthInfo notFixedLength;
+	static const LengthInfo inconsistent;
+	static const LengthInfo sentinelTerminated;
+	static LengthInfo parameterLength(long);
+	static LengthInfo parameterLength(const ValueSet *);
+	static LengthInfo fixedLength(long);
 
-	LengthInfo(LengthType t, const ValueSet *symbolic, long int l)
-		: type(t),
-		  length(l),
-		  symbolicLength(symbolic) {
-	}
-
-	LengthInfo()
-		: type(NO_LENGTH_VALUE),
-		  length(-1) {
-	}
+	LengthInfo();
 
 	LengthType type;
-	long int length;
-	const ValueSet *symbolicLength;
-	static std::string getTypeString(LengthType);
+	long int length{-1};
+	const ValueSet *symbolicLength{nullptr};
+	static std::string getTypeString(const LengthType &);
 	int getSymbolicLength() const;
 	std::string toString() const;
+
+private:
+	LengthInfo(LengthType);
+	LengthInfo(LengthType, long);
+	LengthInfo(LengthType, const ValueSet *);
 };
+
+
+////////////////////////////////////////////////////////////////////////
+
+
+inline LengthInfo::LengthInfo()
+	: LengthInfo{NO_LENGTH_VALUE} {
+}
+
+
+inline LengthInfo::LengthInfo(LengthType type)
+	: type{type} {
+}
+
+
+inline LengthInfo::LengthInfo(LengthType type, long int length)
+	: type{type},
+	  length{length} {
+}
+
+
+inline LengthInfo::LengthInfo(LengthType type, const ValueSet *symbolic)
+	: type{type},
+	  symbolicLength{symbolic} {
+}
+
 
 #endif // !INCLUDE_LENGTH_INFO_HH
