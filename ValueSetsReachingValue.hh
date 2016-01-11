@@ -20,7 +20,6 @@ public:
 	ValueSetsReachingValue(const ValueSetSet<VS> &values);
 	void visit(const llvm::Value &) final override;
 	ValueSetSet<const ValueSet *> result;
-	static ValueSetSet<const ValueSet *> valueSetsReachingValue(const llvm::Value &start, const std::set<const ValueSet*> values);
 private:
 	const ValueSetSet<VS> &valueSets;
 };
