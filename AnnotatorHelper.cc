@@ -361,10 +361,9 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 	bool firstTime = true;
 
 	ValueSetSet<shared_ptr<const ValueSet>> allValueSets;
-	for (auto x : checkNullTerminated) {
-		for (auto y : x.second)
-			allValueSets.insert(y);
-	}
+	for (auto x : checkNullTerminated)
+		allValueSets.insert(begin(x.second), end(x.second));
+
 	do {
 		do {
 			changed = false;
