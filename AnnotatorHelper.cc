@@ -35,11 +35,11 @@
 #include <llvm/Support/InstIterator.h>
 #endif	// LLVM 3.4 or earlier
 
-using namespace boost;
 using namespace boost::adaptors;
 using namespace boost::algorithm;
 using namespace llvm;
 using namespace std;
+
 
 LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
     switch(first.type) {
@@ -233,7 +233,7 @@ static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls
 		//errs() << "getCalledFunction name: " << call.getCalledFunction()->getName() << "\n";
 		const auto formals = calledFunction->getArgumentList().begin();
 		DEBUG(dbgs() << "Got formals\n");
-		for (const unsigned argNo : irange(0u, call.getNumArgOperands())) {
+		for (const unsigned argNo : boost::irange(0u, call.getNumArgOperands())) {
 			DEBUG(dbgs() << "Starting iteration\n");
 			const Value *actual = call.getArgOperand(argNo);
 			if (const LoadInst *load = dyn_cast<LoadInst>(actual)) {
@@ -310,7 +310,7 @@ unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &
 	// collect calls in each function for repeated scanning later
 	for (const Function &func : module) {
 		const auto instructions =
-			make_iterator_range(inst_begin(func), inst_end(func))
+			boost::make_iterator_range(inst_begin(func), inst_end(func))
 			| transformed([](const Instruction &inst) { return dyn_cast<CallInst>(&inst); })
 			| filtered(boost::lambda::_1);
 		functionToCallSites.emplace(&func, CallInstSet(instructions.begin(), instructions.end()));
