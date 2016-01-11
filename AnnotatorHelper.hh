@@ -8,13 +8,14 @@
 
 #include <llvm/IR/Instructions.h>
 #include <llvm/IR/Module.h>
+#include <memory>
 #include <string>
 #include <set>
 #include <unordered_set>
 #include <unordered_map>
 
 
-typedef std::unordered_map<const llvm::Function*, std::unordered_set<const ValueSet*>> FunctionToValueSets;
+typedef std::unordered_map<const llvm::Function*, std::unordered_set<std::shared_ptr<const ValueSet>>> FunctionToValueSets;
 typedef std::unordered_map<llvm::Function*, std::vector<LoopInformation>> FunctionToLoopInformation;
 
 LengthInfo findAssociatedAnswer(const llvm::Value *value, const AnnotationMap &annotations);

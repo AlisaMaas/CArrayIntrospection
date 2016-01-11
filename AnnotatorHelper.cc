@@ -378,7 +378,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
     ValueSetSet<const ValueSet *> allValueSets;
 	for (auto x : checkNullTerminated) {
 	    for (auto y : x.second)
-	        allValueSets.insert(y);
+		    allValueSets.insert(y.get());
 	}
 	do {
 	    do {
@@ -388,7 +388,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                 if ((func.isDeclaration())) continue;
 		const auto found = checkNullTerminated.find(&func);
                 if (found == checkNullTerminated.end()) continue;
-                for (const ValueSet *valueSet : found->second) {
+                for (const auto &valueSet : found->second) {
                     LengthInfo oldAnswer = getAnswer(*valueSet, annotations);
                     LengthInfo answer = oldAnswer;
                     for (const Value * value : *valueSet) {
@@ -436,7 +436,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
                         DEBUG(dbgs() << "After merging, result is " << answer.toString() << "\n");
                     }
                     changed |= (answer.type != oldAnswer.type || answer.length != oldAnswer.length);
-                    annotations[valueSet] = answer;
+                    annotations[valueSet.get()] = answer;
                 }
             }
             firstTime = false;

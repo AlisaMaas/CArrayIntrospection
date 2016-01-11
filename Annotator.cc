@@ -265,7 +265,7 @@ bool Annotator::runOnModule(Module &module) {
 		if (!Fast) {
 			DEBUG(dbgs() << "Putting in some struct elements\n");
 			for (const auto &tuple : *structElements) {
-				toCheck[&func].insert(tuple.second.get());
+				toCheck[&func].insert(tuple.second);
 				allValueSets.insert(tuple.second);
 			}
 		}
@@ -273,7 +273,7 @@ bool Annotator::runOnModule(Module &module) {
 			const auto emplaced = argumentToValueSet.emplace(&arg, make_shared<ValueSet>(ValueSet{&arg}));
 			assert(emplaced.second);
 			const auto values = emplaced.first->second;
-			toCheck[&func].insert(values.get());
+			toCheck[&func].insert(values);
 			allValueSets.insert(values);
 		}
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
