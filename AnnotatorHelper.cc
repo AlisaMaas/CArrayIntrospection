@@ -202,7 +202,7 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
 
 
 static pair<LengthInfo, string> trackThroughCalls(CallInstSet &calls, const Value *value, AnnotationMap &annotations,
-						  const Function &func, ValueSetSet<const ValueSet *> &allValueSets) {
+						  const Function &func, ValueSetSet<shared_ptr<const ValueSet>> &allValueSets) {
 	// if we haven't yet continued, process evidence from callees.
 	//bool foundNonNullTerminated = false;
 	std::stringstream reason;
@@ -259,7 +259,7 @@ static pair<LengthInfo, string> trackThroughCalls(CallInstSet &calls, const Valu
 				if (symbolicLen >= 0) {
 					DEBUG(dbgs() << "Trying to figure out the symbolic length information\n");
 					DEBUG(dbgs() << "In function " << func.getName() << " calling " << calledFunction->getName() << "\n");
-					const ValueSetSet<const ValueSet *> lengths = valueSetsReachingValue(*call.getArgOperand(symbolicLen), allValueSets);
+					const ValueSetSet<shared_ptr<const ValueSet>> lengths = valueSetsReachingValue(*call.getArgOperand(symbolicLen), allValueSets);
 					if (lengths.size() == 1) {
 						const auto &length = *lengths.begin();
 						if (!length) {
@@ -267,7 +267,7 @@ static pair<LengthInfo, string> trackThroughCalls(CallInstSet &calls, const Valu
 							formalAnswer = LengthInfo::notFixedLength;
 						} else {
 							DEBUG(dbgs() << "Marking parameter length\n");
-							formalAnswer = LengthInfo::parameterLength(length);
+							formalAnswer = LengthInfo::parameterLength(length.get());
 						}
 					} else {
 						DEBUG(dbgs() << "We actually found " << lengths.size() << " things that can become this argument\n");
@@ -360,10 +360,10 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 	bool changed;
 	bool firstTime = true;
 
-	ValueSetSet<const ValueSet *> allValueSets;
+	ValueSetSet<shared_ptr<const ValueSet>> allValueSets;
 	for (auto x : checkNullTerminated) {
 		for (auto y : x.second)
-			allValueSets.insert(y.get());
+			allValueSets.insert(y);
 	}
 	do {
 		do {
