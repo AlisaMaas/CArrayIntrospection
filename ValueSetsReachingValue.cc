@@ -4,6 +4,9 @@
 #include <llvm/Support/Casting.h>
 
 using namespace llvm;
+using namespace std;
+
+
 namespace {
 	////////////////////////////////////////////////////////////////
 	//
@@ -45,7 +48,7 @@ template <typename VS>
 ValueSetSet<const ValueSet *> valueSetsReachingValue(const Value &start, const ValueSetSet<VS> &values) {
 	ValueSetsReachingValue<VS> explorer(values);
 	explorer.backtrack(start);
-	return std::move(explorer.result);
+	return move(explorer.result);
 }
 
 
