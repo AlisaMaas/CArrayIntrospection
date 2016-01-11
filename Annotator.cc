@@ -257,7 +257,7 @@ bool Annotator::runOnModule(Module &module) {
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
 	FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
-	ValueSetSet<const ValueSet *> allValueSets;
+	ValueSetSet<shared_ptr<const ValueSet>> allValueSets;
 	errs() << "About to get struct elements and run SRA over them\n";
 	for (Function &func : module) {
 
@@ -266,29 +266,29 @@ bool Annotator::runOnModule(Module &module) {
 			DEBUG(dbgs() << "Putting in some struct elements\n");
 			for (const auto &tuple : *structElements) {
 				toCheck[&func].insert(tuple.second.get());
-				allValueSets.insert(tuple.second.get());
+				allValueSets.insert(tuple.second);
 			}
 		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
 			const auto emplaced = argumentToValueSet.emplace(&arg, make_shared<ValueSet>(ValueSet{&arg}));
 			assert(emplaced.second);
-			const auto values = emplaced.first->second.get();
-			toCheck[&func].insert(values);
+			const auto values = emplaced.first->second;
+			toCheck[&func].insert(values.get());
 			allValueSets.insert(values);
 		}
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
 		const SymbolicRangeAnalysis &sra = getAnalysis<SymbolicRangeAnalysis>(func);
 		DEBUG(dbgs() << "Acquired sra\n");
-		CheckGetElementPtrVisitor<const ValueSet *> visitor(maxIndexes[&func], sra, module, lengths[&func], allValueSets);
+		SharedCheckGetElementPtrVisitor visitor{maxIndexes[&func], sra, module, lengths[&func], allValueSets};
 		for (BasicBlock &visitee : func) {
 			DEBUG(dbgs() << "Visiting a new basic block...\n");
 			visitor.visit(visitee);
 		}
-		for (const ValueSet *set : visitor.notConstantBounded) {
-			annotations[set] = LengthInfo::notFixedLength;
+		for (const auto &set : visitor.notConstantBounded) {
+			annotations[set.get()] = LengthInfo::notFixedLength;
 		}
-		for (const ValueSet *set : visitor.notParameterBounded) {
-			annotations[set] = LengthInfo::notFixedLength;
+		for (const auto &set : visitor.notParameterBounded) {
+			annotations[set.get()] = LengthInfo::notFixedLength;
 		}
 	}
 	errs() << "Done with SRA!\n";
@@ -331,10 +331,10 @@ bool Annotator::runOnModule(Module &module) {
 
 	DEBUG(dbgs() << "Finished going through array recievers\n");
 	map<const Value *, const ValueSet *> valueToValueSet;
-	for (const ValueSet *v : allValueSets) {
-		annotations.emplace(v, LengthInfo());
+	for (const auto &v : allValueSets) {
+		annotations.emplace(v.get(), LengthInfo());
 		for (const Value *val : *v) {
-			valueToValueSet[val] = v;
+			valueToValueSet[val] = v.get();
 		}
 	}
 
