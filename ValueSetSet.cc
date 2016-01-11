@@ -28,3 +28,12 @@ std::shared_ptr<ValueSet> ValueSetSet<std::shared_ptr<ValueSet>>::getValueSetFro
 
         return { };
 }
+
+
+std::shared_ptr<const ValueSet> ValueSetSet<std::shared_ptr<const ValueSet>>::getValueSetFromValue(const llvm::Value *value) const {
+        for (const auto &valueSet : *this)
+		if (valueSet && valueSet->count(value))
+			return valueSet;
+
+        return { };
+}

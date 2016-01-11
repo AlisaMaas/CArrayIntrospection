@@ -21,4 +21,10 @@ struct ValueSetSet<std::shared_ptr<ValueSet>> : public std::set<std::shared_ptr<
 };
 
 
+template <>
+struct ValueSetSet<std::shared_ptr<const ValueSet>> : public std::set<std::shared_ptr<const ValueSet>> {
+	std::shared_ptr<const ValueSet> getValueSetFromValue(const llvm::Value *) const;
+};
+
+
 #endif // !INCLUDE_VALUE_SET_SET_HH
