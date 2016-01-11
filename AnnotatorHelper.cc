@@ -261,7 +261,7 @@ static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls
 				if (symbolicLen >= 0) {
 					DEBUG(dbgs() << "Trying to figure out the symbolic length information\n");
 					DEBUG(dbgs() << "In function " << func.getName() << " calling " << calledFunction->getName() << "\n");
-					ValueSetSet<const ValueSet *> lengths = valueSetsReachingValue(*call.getArgOperand(symbolicLen), allValueSets);
+					const ValueSetSet<const ValueSet *> lengths = valueSetsReachingValue(*call.getArgOperand(symbolicLen), allValueSets);
 					if (lengths.size() == 1) {
 						const ValueSet *length = *lengths.begin();
 						if (length == nullptr) {
