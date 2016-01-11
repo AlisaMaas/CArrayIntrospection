@@ -331,11 +331,11 @@ bool Annotator::runOnModule(Module &module) {
 	}
 
 	DEBUG(dbgs() << "Finished going through array recievers\n");
-	map<const Value *, const ValueSet *> valueToValueSet;
+	map<const Value *, shared_ptr<const ValueSet>> valueToValueSet;
 	for (const auto &v : allValueSets) {
 		annotations.emplace(v.get(), LengthInfo());
 		for (const Value *val : *v) {
-			const auto emplaced = valueToValueSet.emplace(val, v.get());
+			const auto emplaced = valueToValueSet.emplace(val, v);
 			assert(emplaced.second);
 		}
 	}

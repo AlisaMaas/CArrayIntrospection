@@ -26,6 +26,7 @@
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/raw_ostream.h>
+#include <memory>
 #include <set>
 #include <sstream>
 
@@ -152,7 +153,7 @@ pair<int, int> annotate(const ValueSet &value, AnnotationMap &annotations) {
 	}
 }
 
-const ValueSet *findAssociatedValueSet(const Value *value, const map<const Value *, const ValueSet *> &toCheck) {
+static const shared_ptr<const ValueSet> findAssociatedValueSet(const Value *value, const map<const Value *, shared_ptr<const ValueSet>> &toCheck) {
 	const auto found = toCheck.find(value);
 	return found == toCheck.end() ? nullptr : found->second;
 }
@@ -172,10 +173,10 @@ LengthInfo getAnswer(const ValueSet &value, const AnnotationMap &annotations) {
 
 struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
 	AnnotationMap &annotations;
-	const map<const Value *, const ValueSet *> &toCheck;
+	const map<const Value *, shared_ptr<const ValueSet>> &toCheck;
 	map<const ValueSet, string> &reasons;
 	bool changed;
-	ProcessStoresGEPVisitor(AnnotationMap &a, const map<const Value *, const ValueSet *> &v, map<const ValueSet, string> &r) : annotations(a), toCheck(v), reasons(r) {
+	ProcessStoresGEPVisitor(AnnotationMap &a, const map<const Value *, std::shared_ptr<const ValueSet>> &v, map<const ValueSet, string> &r) : annotations(a), toCheck(v), reasons(r) {
 		changed = false;
 	}
 
@@ -183,9 +184,9 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
 		DEBUG(dbgs() << "Top of store instruction visitor\n");
 		Value *pointer = store.getPointerOperand();
 		Value *value = store.getValueOperand();
-		const ValueSet *valueSet = findAssociatedValueSet(value, toCheck);
+		const shared_ptr<const ValueSet> valueSet{findAssociatedValueSet(value, toCheck)};
 		if (valueSet) {
-			LengthInfo &current{annotations[valueSet]};
+			LengthInfo &current{annotations[valueSet.get()]};
 			const LengthInfo old{current};
 			current = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
 			if (old.type != current.type || old.length != current.length) {
@@ -308,7 +309,7 @@ unordered_map<const Function *, CallInstSet> collectFunctionCalls(const Module &
 
 //needs to be called per function.
 //TODO: rename for consistency - this is just for finding sentinel checks in the loop
-static LengthInfo processLoops(vector<LoopInformation> &LI, const Value *toCheck, const map<const Value *, const ValueSet *> &valueToValueSet) {
+static LengthInfo processLoops(vector<LoopInformation> &LI, const Value *toCheck, const map<const Value *, shared_ptr<const ValueSet>> &valueToValueSet) {
 	LengthInfo result;
 	DEBUG(dbgs() << "Getting to look through loops now!\n");
 	for (const LoopInformation loop : LI) {
@@ -326,10 +327,10 @@ static LengthInfo processLoops(vector<LoopInformation> &LI, const Value *toCheck
 			const Value *length = lengthResponse.begin()->first;
 			pair<BlockSet, bool> lengthInfo = lengthResponse[length];
 			if (!lengthInfo.second) { //found a non-optional length check in some loop for toCheck
-				const ValueSet *set = valueToValueSet.at(length);
-				if (set != nullptr) {
+				const auto &set = valueToValueSet.at(length);
+				if (set) {
 					DEBUG(dbgs() << "And it's non optional, too\n");
-					result = mergeAnswers(result, LengthInfo::parameterLength(set));
+					result = mergeAnswers(result, LengthInfo::parameterLength(set.get()));
 				} else {
 					result = mergeAnswers(result, LengthInfo::notFixedLength);
 				}
@@ -353,7 +354,7 @@ static LengthInfo processLoops(vector<LoopInformation> &LI, const Value *toCheck
 bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTerminated,
 		       unordered_map<const Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
 		       FunctionToLoopInformation &info, map<const ValueSet, string> &reasons, bool fast,
-		       map<const Value *, const ValueSet *> &valueToValueSet) {
+		       map<const Value *, shared_ptr<const ValueSet>> &valueToValueSet) {
 
 	//assume pre-populated with dependencies, and processLoops has already been called.
 	bool globalChanged = false;

@@ -24,7 +24,7 @@ std::unordered_map<const llvm::Function *, CallInstSet> collectFunctionCalls(con
 bool iterateOverModule(llvm::Module &module, const FunctionToValueSets &checkNullTerminated, 
 	std::unordered_map<const llvm::Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
 	FunctionToLoopInformation &info, std::map<const ValueSet, std::string> &reasons, bool fast, 
-	std::map<const llvm::Value *, const ValueSet*> &valueToValueSet);
+		       std::map<const llvm::Value *, std::shared_ptr<const ValueSet>> &valueToValueSet);
 LengthInfo getAnswer(const ValueSet &, const AnnotationMap &annotations);
 
 #endif // !INCLUDE_NULL_ANNOTATOR_HELPER_HH
