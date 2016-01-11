@@ -263,8 +263,8 @@ static pair<pair<LengthInfo, bool>, string> trackThroughCalls(CallInstSet &calls
 					DEBUG(dbgs() << "In function " << func.getName() << " calling " << calledFunction->getName() << "\n");
 					const ValueSetSet<const ValueSet *> lengths = valueSetsReachingValue(*call.getArgOperand(symbolicLen), allValueSets);
 					if (lengths.size() == 1) {
-						const ValueSet *length = *lengths.begin();
-						if (length == nullptr) {
+						const auto &length = *lengths.begin();
+						if (!length) {
 							DEBUG(dbgs() << "Unable to find a length, at least we know it's not fixed length\n");
 							formalAnswer = LengthInfo::notFixedLength;
 						} else {
