@@ -8,6 +8,7 @@
 
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/range/combine.hpp>
+#include <cassert>
 #include <fstream>
 #include <llvm/Support/raw_os_ostream.h>
 
@@ -334,7 +335,8 @@ bool Annotator::runOnModule(Module &module) {
 	for (const auto &v : allValueSets) {
 		annotations.emplace(v.get(), LengthInfo());
 		for (const Value *val : *v) {
-			valueToValueSet[val] = v.get();
+			const auto emplaced = valueToValueSet.emplace(val, v.get());
+			assert(emplaced.second);
 		}
 	}
 
