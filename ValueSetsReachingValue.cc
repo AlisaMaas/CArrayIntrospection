@@ -1,6 +1,36 @@
+#include "BacktrackPhiNodes.hh"
 #include "ValueSetsReachingValue.hh"
 
+#include <llvm/Support/Casting.h>
+
 using namespace llvm;
+namespace {
+	////////////////////////////////////////////////////////////////
+	//
+	//  collect the set of all arguments that may flow to a given value
+	//  across zero or more phi nodes
+	//
+
+	template <typename VS>
+	class ValueSetsReachingValue : public BacktrackPhiNodes {
+	public:
+		ValueSetsReachingValue(const ValueSetSet<VS> &values);
+		void visit(const llvm::Value &) final override;
+		ValueSetSet<const ValueSet *> result;
+	private:
+		const ValueSetSet<VS> &valueSets;
+	};
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+
+template <typename VS>
+inline ValueSetsReachingValue<VS>::ValueSetsReachingValue(const ValueSetSet<VS> &values)
+	: valueSets(values)
+{
+}
 
 
 template <typename VS>
