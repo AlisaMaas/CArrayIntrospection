@@ -19,7 +19,6 @@
 #endif	// LLVM 3.4 or earlier
 
 
-using namespace boost;
 using namespace boost::adaptors;
 using namespace llvm;
 using namespace std;
