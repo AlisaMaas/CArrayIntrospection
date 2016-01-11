@@ -11,7 +11,6 @@
 #include <fstream>
 #include <llvm/Support/raw_os_ostream.h>
 
-using namespace boost;
 using namespace boost::adaptors;
 using namespace boost::property_tree;
 using namespace llvm;
@@ -154,25 +153,25 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			const Argument &argument = slot.get<0>();
 			const ptree &arg_annotation = slot.get<1>().second;
 			DEBUG(dbgs() << "This argument has size " << slot.get<1>().second.size() << "\n");
-			const ValueSet * const argumentValueSet { &argumentToValueSet.emplace(&argument, ValueSet { &argument }).first->second };
+			const auto &argumentValueSet = argumentToValueSet.emplace(&argument, make_shared<ValueSet>(ValueSet{&argument})).first->second;
 			if (const auto child = arg_annotation.get_child_optional("sentinel")) {
 				if (!child->get_value<string>().empty()) {
 					DEBUG(dbgs() << "Length is not empty\n");
-					annotations.emplace(argumentValueSet, LengthInfo::sentinelTerminated);
+					annotations.emplace(argumentValueSet.get(), LengthInfo::sentinelTerminated);
 					errs() << "Added a sentinel terminated thing!\n";
 					//TODO: generalize for other types of sentinels later once we support that.
 				}
 			} else if (const auto child = arg_annotation.get_child_optional("symbolic")) {
 				const int parameterNo = child->get_value<int>();
 				errs() << name << " has child " << argument.getArgNo() << " with symbolic length of " << parameterNo << "\n";
-				annotations.emplace(argumentValueSet, LengthInfo::parameterLength(parameterNo));
+				annotations.emplace(argumentValueSet.get(), LengthInfo::parameterLength(parameterNo));
 			} else if (const auto child = arg_annotation.get_child_optional("fixed")) {
 				const int fixedLen = child->get_value<int>();
-				annotations.emplace(argumentValueSet, LengthInfo::fixedLength(fixedLen));
+				annotations.emplace(argumentValueSet.get(), LengthInfo::fixedLength(fixedLen));
 			} else if (const auto child = arg_annotation.get_child_optional("other")) {
 				const int other = child->get_value<int>();
 				if (other == -1)
-					annotations.emplace(argumentValueSet, LengthInfo::inconsistent);
+					annotations.emplace(argumentValueSet.get(), LengthInfo::inconsistent);
 			}
 		}
 	}
@@ -201,7 +200,7 @@ void Annotator::dumpToFile(const string &filename, const Module &module) const {
 			out << ",\n";
 			out << depth;
 			DEBUG(dbgs() << "About to get the reasons set\n");
-			auto reason = reasons.find(argumentToValueSet.at(&arg));
+			auto reason = reasons.find(*argumentToValueSet.at(&arg));
 			DEBUG(dbgs() << "Got reasons!\n");
 			out << "\"argument_reason\": \"" << (reason == reasons.end() ? "" : reason->second) + "\"";
 			out << ",\n";
@@ -271,10 +270,11 @@ bool Annotator::runOnModule(Module &module) {
 			}
 		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
-			set<const Value *> &values = argumentToValueSet[&arg];
-			values.insert(&arg);
-			toCheck[&func].insert(&values);
-			allValueSets.insert(&values);
+			const auto emplaced = argumentToValueSet.emplace(&arg, make_shared<ValueSet>(ValueSet{&arg}));
+			assert(emplaced.second);
+			const auto values = emplaced.first->second.get();
+			toCheck[&func].insert(values);
+			allValueSets.insert(values);
 		}
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
 		const SymbolicRangeAnalysis &sra = getAnalysis<SymbolicRangeAnalysis>(func);
@@ -367,11 +367,11 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 			switch (annotate(arg).first) {
 			case 2: {
 				sink << func.getName() << " with argument " << arg.getArgNo()
-				     << " should be annotated NULL_TERMINATED (" << (getAnswer(argumentToValueSet.at(&arg), annotations)).toString()
+				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations)).toString()
 				     << ")  because ";
 				const auto foundArg = argumentToValueSet.find(&arg);
 				if (foundArg != argumentToValueSet.end()) {
-					const auto foundReason = reasons.find(foundArg->second);
+					const auto foundReason = reasons.find(*foundArg->second.get());
 					if (foundReason != reasons.end()) {
 						sink << foundReason->second << "\n";
 					} else {
@@ -386,7 +386,7 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 				break;
 			default:
 				sink << func.getName() << " with argument " << arg.getArgNo()
-				     << " should be annotated " << (getAnswer(argumentToValueSet.at(&arg), annotations)).toString() << ".\n";
+				     << " should be annotated " << (getAnswer(*argumentToValueSet.at(&arg), annotations)).toString() << ".\n";
 				break;
 			}
 	}

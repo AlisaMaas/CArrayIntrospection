@@ -14,6 +14,7 @@
 #include <llvm/Support/CommandLine.h>
 #include <llvm/Support/Debug.h>
 #include <map>
+#include <memory>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -35,7 +36,7 @@ public:
 private:
 	// map from function name and argument number to whether or not that argument gets annotated
 	AnnotationMap annotations;
-	std::unordered_map<const llvm::Argument *, ValueSet> argumentToValueSet;
+	std::unordered_map<const llvm::Argument *, std::shared_ptr<ValueSet>> argumentToValueSet;
 	std::map<const ValueSet, std::string> reasons;
 	std::unordered_map<const llvm::Function *, CallInstSet> functionToCallSites;
 	const StructElementToValueSet *structElements;
