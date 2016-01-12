@@ -104,8 +104,8 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
 			}
 			if (first.length == second.length) {
 				if (first.length == -1) {
-					assert(first.symbolicLength != nullptr);
-					assert(second.symbolicLength != nullptr);
+					assert(first.symbolicLength);
+					assert(second.symbolicLength);
 					if (first.symbolicLength != second.symbolicLength) {
 						return LengthInfo::inconsistent;
 					}
