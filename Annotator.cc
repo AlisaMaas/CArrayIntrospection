@@ -258,7 +258,7 @@ bool Annotator::runOnModule(Module &module) {
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
 	FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
-	ValueSetSet<shared_ptr<const ValueSet>> allValueSets;
+	ValueSetSet allValueSets;
 	errs() << "About to get struct elements and run SRA over them\n";
 	for (Function &func : module) {
 

@@ -42,7 +42,7 @@ static Value *stripSExtInst(Value *value) {
 
 
 const shared_ptr<const ValueSet> CheckGetElementPtrVisitor::getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer) {
-	const ValueSetSet<shared_ptr<const ValueSet>> reaching = valueSetsReachingValue(*first, valueSets);
+	const ValueSetSet reaching = valueSetsReachingValue(*first, valueSets);
 	if (reaching.empty()) return nullptr;
 	else if (reaching.size() == 1) {
 		ConstantInt* c;
@@ -97,7 +97,7 @@ bool CheckGetElementPtrVisitor::matchAddPattern(llvm::Value *value, llvm::Value 
 
 CheckGetElementPtrVisitor::CheckGetElementPtrVisitor(
 	ValueSetToMaxIndexMap &map, const SymbolicRangeAnalysis &ra,
-	const llvm::Module &m, LengthValueSetMap &l, const ValueSetSet<shared_ptr<const ValueSet>> &v)
+	const llvm::Module &m, LengthValueSetMap &l, const ValueSetSet &v)
 	: maxIndexes(map),
 	  lengths(l),
 	  rangeAnalysis(ra),

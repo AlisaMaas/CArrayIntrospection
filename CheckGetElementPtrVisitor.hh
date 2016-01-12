@@ -19,16 +19,16 @@ public:
 	ValueSetToMaxIndexMap &maxIndexes;
 	LengthValueSetMap &lengths;
 	CheckGetElementPtrVisitor(ValueSetToMaxIndexMap &, const SymbolicRangeAnalysis &ra,
-				  const llvm::Module &m, LengthValueSetMap &, const ValueSetSet<std::shared_ptr<const ValueSet>> &v);
+				  const llvm::Module &m, LengthValueSetMap &, const ValueSetSet &v);
 	~CheckGetElementPtrVisitor();
 	void visitGetElementPtrInst(llvm::GetElementPtrInst& gepi);
-	ValueSetSet<std::shared_ptr<const ValueSet>> notConstantBounded;
-	ValueSetSet<std::shared_ptr<const ValueSet>> notParameterBounded;
+	ValueSetSet notConstantBounded;
+	ValueSetSet notParameterBounded;
 private:
 	const std::shared_ptr<const ValueSet> getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer);
 	bool matchAddPattern(llvm::Value *value, llvm::Value *basePointer);
 	const SymbolicRangeAnalysis &rangeAnalysis;
-	const ValueSetSet<std::shared_ptr<const ValueSet>> &valueSets;
+	const ValueSetSet &valueSets;
 	const llvm::Module &module;
 	std::unique_ptr<llvm::BasicBlock> placeHolder;
 	std::unordered_map<const llvm::Function *, CallInstSet> functionsToCallsites;

@@ -22,7 +22,7 @@ public:
 private:
 	std::map<llvm::Function const *, ValueSetToMaxIndexMap> maxIndexes;
 	std::map<llvm::Function const *, LengthValueSetMap> lengths;
-	ValueSetSet<std::shared_ptr<const ValueSet>> valueSets;
+	ValueSetSet valueSets;
 };
 
 

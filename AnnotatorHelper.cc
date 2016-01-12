@@ -174,7 +174,7 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
 
 
 static pair<LengthInfo, string> trackThroughCalls(CallInstSet &calls, const Value *value, AnnotationMap &annotations,
-						  const Function &func, ValueSetSet<shared_ptr<const ValueSet>> &allValueSets) {
+						  const Function &func, ValueSetSet &allValueSets) {
 	// if we haven't yet continued, process evidence from callees.
 	//bool foundNonNullTerminated = false;
 	stringstream reason;
@@ -231,7 +231,7 @@ static pair<LengthInfo, string> trackThroughCalls(CallInstSet &calls, const Valu
 				if (symbolicLen >= 0) {
 					DEBUG(dbgs() << "Trying to figure out the symbolic length information\n");
 					DEBUG(dbgs() << "In function " << func.getName() << " calling " << calledFunction->getName() << "\n");
-					const ValueSetSet<shared_ptr<const ValueSet>> lengths = valueSetsReachingValue(*call.getArgOperand(symbolicLen), allValueSets);
+					const ValueSetSet lengths = valueSetsReachingValue(*call.getArgOperand(symbolicLen), allValueSets);
 					if (lengths.size() == 1) {
 						const auto &length = *lengths.begin();
 						if (!length) {
@@ -332,7 +332,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 	bool changed;
 	bool firstTime = true;
 
-	ValueSetSet<shared_ptr<const ValueSet>> allValueSets;
+	ValueSetSet allValueSets;
 	for (auto x : checkNullTerminated)
 		allValueSets.insert(begin(x.second), end(x.second));
 
