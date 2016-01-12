@@ -321,7 +321,7 @@ bool Annotator::runOnModule(Module &module) {
 		const auto lengthsForFunc = lengths.find(&func);
 		if (lengthsForFunc != lengths.end()) {
 			for (const auto &symbolicResult : lengthsForFunc->second) {
-				annotations[symbolicResult.first.get()] = LengthInfo::parameterLength(symbolicResult.second.get());
+				annotations[symbolicResult.first.get()] = LengthInfo::parameterLength(symbolicResult.second);
 				errs() << "FOUND PARAM_LENGTH!!!\n";
 			}
 		}

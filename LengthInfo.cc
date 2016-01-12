@@ -21,7 +21,7 @@ LengthInfo LengthInfo::parameterLength(long slot) {
 }
 
 
-LengthInfo LengthInfo::parameterLength(const ValueSet *symbolic) {
+LengthInfo LengthInfo::parameterLength(const shared_ptr<const ValueSet> &symbolic) {
 	return {PARAMETER_LENGTH, symbolic};
 }
 
@@ -48,7 +48,7 @@ string LengthInfo::getTypeString(const LengthType &type) {
 
 int LengthInfo::getSymbolicLength() const {
 	if (length == -1) {
-		assert(symbolicLength != nullptr);
+		assert(symbolicLength);
 		if (symbolicLength->size() == 1) {
 			const llvm::Value *value = *symbolicLength->begin();
 			while (true) {

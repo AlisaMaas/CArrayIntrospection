@@ -268,7 +268,7 @@ static pair<LengthInfo, string> trackThroughCalls(CallInstSet &calls, const Valu
 							formalAnswer = LengthInfo::notFixedLength;
 						} else {
 							DEBUG(dbgs() << "Marking parameter length\n");
-							formalAnswer = LengthInfo::parameterLength(length.get());
+							formalAnswer = LengthInfo::parameterLength(length);
 						}
 					} else {
 						DEBUG(dbgs() << "We actually found " << lengths.size() << " things that can become this argument\n");
@@ -330,7 +330,7 @@ static LengthInfo processLoops(vector<LoopInformation> &LI, const Value *toCheck
 				const auto &set = valueToValueSet.at(length);
 				if (set) {
 					DEBUG(dbgs() << "And it's non optional, too\n");
-					result = mergeAnswers(result, LengthInfo::parameterLength(set.get()));
+					result = mergeAnswers(result, LengthInfo::parameterLength(set));
 				} else {
 					result = mergeAnswers(result, LengthInfo::notFixedLength);
 				}
