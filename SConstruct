@@ -216,6 +216,7 @@ plugin, = penv.SharedLibrary(
         'NoPointerComparisons.cc',
         'StructElement.cc',
         'SymbolicRangeTest.cc',
+        'ValueReachesValue.cc',
         'ValueSetSet.cc',
         'ValueSetsReachingValue.cc',
     ),
