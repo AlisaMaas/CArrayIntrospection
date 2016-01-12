@@ -1,3 +1,6 @@
+#ifndef INCLUDE_VALUE_REACHES_VALUE_HH
+#define INCLUDE_VALUE_REACHES_VALUE_HH
+
 #include "BacktrackPhiNodes.hh"
 
 #include <llvm/IR/Module.h>
@@ -43,4 +46,4 @@ inline bool valueReachesValue(const llvm::Value &goal, const llvm::Value &start,
 }
 
 
-////////////////////////////////////////////////////////////////////////
+#endif // !INCLUDE_VALUE_REACHES_VALUE_HH
