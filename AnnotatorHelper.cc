@@ -124,35 +124,6 @@ LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
 	return {};
 }
 
-pair<int, int> annotate(LengthInfo &info) {
-	switch (info.type) {
-	case NOT_FIXED_LENGTH:
-		return pair<int, int>(0, -2);
-	case NO_LENGTH_VALUE:
-		return pair<int, int>(0, 0);
-	case INCONSISTENT:
-		return pair<int, int>(1, -1);
-	case SENTINEL_TERMINATED:
-		return pair<int, int>(2, info.length);
-	case PARAMETER_LENGTH:
-		return pair<int, int>(6, (info.length == -1 ? info.getSymbolicLength() : info.length));
-	case FIXED_LENGTH:
-		return pair<int, int>(7, info.length);
-	default:
-		abort();
-		return pair<int, int>(-1, -1);
-	}
-}
-
-pair<int, int> annotate(const ValueSet &value, AnnotationMap &annotations) {
-	AnnotationMap::iterator found = annotations.find(&value);
-	if (found != annotations.end()) {
-		return annotate(found->second);
-	} else {
-		return pair<int, int>(0, -1);
-	}
-}
-
 static const shared_ptr<const ValueSet> findAssociatedValueSet(const Value *value, const map<const Value *, shared_ptr<const ValueSet>> &toCheck) {
 	const auto found = toCheck.find(value);
 	return found == toCheck.end() ? nullptr : found->second;
