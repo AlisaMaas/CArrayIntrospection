@@ -75,26 +75,26 @@ pair<int, int> Annotator::annotate(const LengthInfo &info) const {
 	switch (info.type) {
 	case NOT_FIXED_LENGTH:
 		DEBUG(dbgs() << "Not fixed length\n");
-		return pair<int, int>(0, -2);
+		return {0, -2};
 	case NO_LENGTH_VALUE:
 		DEBUG(dbgs() << "No length value\n");
-		return pair<int, int>(0, 0);
+		return {0, 0};
 	case INCONSISTENT:
 		DEBUG(dbgs() << "Inconsistent type\n");
-		return pair<int, int>(1, -1);
+		return {1, -1};
 	case SENTINEL_TERMINATED:
 		DEBUG(dbgs() << "Symbolic length value\n");
-		return pair<int, int>(2, info.length);
+		return {2, info.length};
 	case PARAMETER_LENGTH:
 		DEBUG(dbgs() << "About to getSymbolicLength\n");
-		return pair<int, int>(6, (info.length == -1 ? info.getSymbolicLength() : info.length));
+		return {6, (info.length == -1 ? info.getSymbolicLength() : info.length)};
 	case FIXED_LENGTH:
 		DEBUG(dbgs() << "Fixed length value\n");
-		return pair<int, int>(7, info.length);
+		return {7, info.length};
 	default:
 		DEBUG(dbgs() << "Type is unknown\n");
 		abort();
-		return pair<int, int>(-1, -1);
+		return {-1, -1};
 	}
 }
 
@@ -109,7 +109,7 @@ pair<int, int> Annotator::annotate(const StructElement &element) const {
 	if (found != annotations.end()) {
 		return annotate(found->second);
 	} else {
-		return pair<int, int>(0, -1);
+		return {0, -1};
 	}
 }
 
