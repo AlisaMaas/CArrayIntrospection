@@ -2,7 +2,6 @@
 
 #include "CheckGetElementPtrVisitor.hh"
 #include "SRA/SymbolicRangeAnalysis.h"
-#include "ValueSetsReachingValue.hh"
 
 #include <boost/lambda/core.hpp>
 #include <boost/range/adaptor/filtered.hpp>
@@ -42,7 +41,7 @@ static Value *stripSExtInst(Value *value) {
 
 
 const shared_ptr<const ValueSet> CheckGetElementPtrVisitor::getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer) {
-	const ValueSetSet reaching = valueSetsReachingValue(*first, valueSets);
+	const ValueSetSet reaching{valueSets.valueSetsReachingValue(*first)};
 	if (reaching.empty()) return nullptr;
 	else if (reaching.size() == 1) {
 		ConstantInt* c;

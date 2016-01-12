@@ -218,7 +218,6 @@ plugin, = penv.SharedLibrary(
         'SymbolicRangeTest.cc',
         'ValueReachesValue.cc',
         'ValueSetSet.cc',
-        'ValueSetsReachingValue.cc',
     ),
     LIBS=sra_plugin,
 )

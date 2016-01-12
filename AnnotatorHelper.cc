@@ -6,7 +6,7 @@
 #include "IIGlueReader.hh"
 #include "LengthInfo.hh"
 #include "ValueReachesValue.hh"
-#include "ValueSetsReachingValue.hh"
+#include "ValueSetSet.hh"
 
 #include <boost/algorithm/cxx11/any_of.hpp>
 #include <boost/foreach.hpp>
@@ -231,7 +231,7 @@ static pair<LengthInfo, string> trackThroughCalls(CallInstSet &calls, const Valu
 				if (symbolicLen >= 0) {
 					DEBUG(dbgs() << "Trying to figure out the symbolic length information\n");
 					DEBUG(dbgs() << "In function " << func.getName() << " calling " << calledFunction->getName() << "\n");
-					const ValueSetSet lengths = valueSetsReachingValue(*call.getArgOperand(symbolicLen), allValueSets);
+					const ValueSetSet lengths{allValueSets.valueSetsReachingValue(*call.getArgOperand(symbolicLen))};
 					if (lengths.size() == 1) {
 						const auto &length = *lengths.begin();
 						if (!length) {

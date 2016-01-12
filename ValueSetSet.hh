@@ -11,6 +11,7 @@ namespace llvm  {
 
 struct ValueSetSet : public std::set<std::shared_ptr<const ValueSet>> {
 	value_type getValueSetFromValue(const llvm::Value *) const;
+	ValueSetSet valueSetsReachingValue(const llvm::Value &) const;
 };
 
 
