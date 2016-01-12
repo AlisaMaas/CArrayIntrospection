@@ -5,6 +5,8 @@
 #include <llvm/IR/InstrTypes.h>
 #include <sstream>
 
+using namespace std;
+
 
 const LengthInfo LengthInfo::notFixedLength{NOT_FIXED_LENGTH};
 
@@ -31,7 +33,7 @@ LengthInfo LengthInfo::fixedLength(long length) {
 }
 
 
-std::string LengthInfo::getTypeString(const LengthType &type) {
+string LengthInfo::getTypeString(const LengthType &type) {
 	switch (type) {
 	case NO_LENGTH_VALUE: return "None ";
 	case PARAMETER_LENGTH: return "Param";
@@ -67,8 +69,8 @@ int LengthInfo::getSymbolicLength() const {
 }
 
 
-std::string LengthInfo::toString() const {
-	std::stringstream stream;
+string LengthInfo::toString() const {
+	stringstream stream;
 	switch(type) {
 	case NO_LENGTH_VALUE: return "No length value";
 	case PARAMETER_LENGTH: 
