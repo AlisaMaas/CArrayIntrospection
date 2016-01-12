@@ -42,7 +42,7 @@ using namespace llvm;
 using namespace std;
 
 
-LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
+static LengthInfo mergeAnswers(LengthInfo first, LengthInfo second) {
 	switch (first.type) {
 	case NOT_FIXED_LENGTH:
 		switch (second.type) {
