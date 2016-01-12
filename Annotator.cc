@@ -105,7 +105,7 @@ pair<int, int> Annotator::annotate(const Value &value) const {
 
 
 pair<int, int> Annotator::annotate(const StructElement &element) const {
-	const AnnotationMap::const_iterator found = annotations.find(structElements->at(element).get());
+	const auto found = annotations.find(structElements->at(element));
 	if (found != annotations.end()) {
 		return annotate(found->second);
 	} else {
@@ -158,21 +158,21 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			if (const auto child = arg_annotation.get_child_optional("sentinel")) {
 				if (!child->get_value<string>().empty()) {
 					DEBUG(dbgs() << "Length is not empty\n");
-					annotations.emplace(argumentValueSet.get(), LengthInfo::sentinelTerminated);
+					annotations.emplace(argumentValueSet, LengthInfo::sentinelTerminated);
 					errs() << "Added a sentinel terminated thing!\n";
 					//TODO: generalize for other types of sentinels later once we support that.
 				}
 			} else if (const auto child = arg_annotation.get_child_optional("symbolic")) {
 				const int parameterNo = child->get_value<int>();
 				errs() << name << " has child " << argument.getArgNo() << " with symbolic length of " << parameterNo << "\n";
-				annotations.emplace(argumentValueSet.get(), LengthInfo::parameterLength(parameterNo));
+				annotations.emplace(argumentValueSet, LengthInfo::parameterLength(parameterNo));
 			} else if (const auto child = arg_annotation.get_child_optional("fixed")) {
 				const int fixedLen = child->get_value<int>();
-				annotations.emplace(argumentValueSet.get(), LengthInfo::fixedLength(fixedLen));
+				annotations.emplace(argumentValueSet, LengthInfo::fixedLength(fixedLen));
 			} else if (const auto child = arg_annotation.get_child_optional("other")) {
 				const int other = child->get_value<int>();
 				if (other == -1)
-					annotations.emplace(argumentValueSet.get(), LengthInfo::inconsistent);
+					annotations.emplace(argumentValueSet, LengthInfo::inconsistent);
 			}
 		}
 	}
@@ -285,12 +285,11 @@ bool Annotator::runOnModule(Module &module) {
 			DEBUG(dbgs() << "Visiting a new basic block...\n");
 			visitor.visit(visitee);
 		}
-		for (const auto &set : visitor.notConstantBounded) {
-			annotations[set.get()] = LengthInfo::notFixedLength;
-		}
-		for (const auto &set : visitor.notParameterBounded) {
-			annotations[set.get()] = LengthInfo::notFixedLength;
-		}
+		for (const auto &set : visitor.notConstantBounded)
+			annotations[set] = LengthInfo::notFixedLength;
+
+		for (const auto &set : visitor.notParameterBounded)
+			annotations[set] = LengthInfo::notFixedLength;
 	}
 	errs() << "Done with SRA!\n";
 
@@ -317,11 +316,11 @@ bool Annotator::runOnModule(Module &module) {
 		const auto &maxIndexesForFunc = maxIndexes.find(&func);
 		if (maxIndexesForFunc != maxIndexes.end())
 			for (const auto &fixedResult : maxIndexesForFunc->second)
-				annotations[fixedResult.first.get()] = LengthInfo::fixedLength(fixedResult.second);
+				annotations[fixedResult.first] = LengthInfo::fixedLength(fixedResult.second);
 		const auto lengthsForFunc = lengths.find(&func);
 		if (lengthsForFunc != lengths.end()) {
 			for (const auto &symbolicResult : lengthsForFunc->second) {
-				annotations[symbolicResult.first.get()] = LengthInfo::parameterLength(symbolicResult.second);
+				annotations[symbolicResult.first] = LengthInfo::parameterLength(symbolicResult.second);
 				errs() << "FOUND PARAM_LENGTH!!!\n";
 			}
 		}
@@ -333,7 +332,7 @@ bool Annotator::runOnModule(Module &module) {
 	DEBUG(dbgs() << "Finished going through array recievers\n");
 	map<const Value *, shared_ptr<const ValueSet>> valueToValueSet;
 	for (const auto &v : allValueSets) {
-		annotations.emplace(v.get(), LengthInfo());
+		annotations.emplace(v, LengthInfo());
 		for (const Value *val : *v) {
 			const auto emplaced = valueToValueSet.emplace(val, v);
 			assert(emplaced.second);
@@ -369,7 +368,7 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 			switch (annotate(arg).first) {
 			case 2: {
 				sink << func.getName() << " with argument " << arg.getArgNo()
-				     << " should be annotated NULL_TERMINATED (" << (getAnswer(*argumentToValueSet.at(&arg), annotations)).toString()
+				     << " should be annotated NULL_TERMINATED (" << (getAnswer(argumentToValueSet.at(&arg), annotations)).toString()
 				     << ")  because ";
 				const auto foundArg = argumentToValueSet.find(&arg);
 				if (foundArg != argumentToValueSet.end()) {
@@ -388,7 +387,7 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 				break;
 			default:
 				sink << func.getName() << " with argument " << arg.getArgNo()
-				     << " should be annotated " << (getAnswer(*argumentToValueSet.at(&arg), annotations)).toString() << ".\n";
+				     << " should be annotated " << (getAnswer(argumentToValueSet.at(&arg), annotations)).toString() << ".\n";
 				break;
 			}
 	}
@@ -396,14 +395,14 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 		switch (annotate(element.first).first) {
 		case 2:
 			sink << element.first
-			     << " should be annotated NULL_TERMINATED (" << (getAnswer(*element.second, annotations)).toString()
+			     << " should be annotated NULL_TERMINATED (" << (getAnswer(element.second, annotations)).toString()
 			     << ") because " << reasons.at(*element.second) << ".\n";
 			break;
 		case 0:
 			break;
 		default:
 			sink << element.first
-			     << " should be annotated " << ((getAnswer(*element.second, annotations)).toString()) << ".\n";
+			     << " should be annotated " << ((getAnswer(element.second, annotations)).toString()) << ".\n";
 		}
 	DEBUG(dbgs() << "Finished printing things\n");
 }

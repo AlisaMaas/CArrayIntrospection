@@ -137,8 +137,8 @@ LengthInfo findAssociatedAnswer(const Value *value, const AnnotationMap &annotat
 	return {};
 }
 
-LengthInfo getAnswer(const ValueSet &value, const AnnotationMap &annotations) {
-	const AnnotationMap::const_iterator found = annotations.find(&value);
+LengthInfo getAnswer(const shared_ptr<const ValueSet> &value, const AnnotationMap &annotations) {
+	const auto found = annotations.find(value);
 	return found == annotations.end() ? LengthInfo() : found->second;
 }
 
@@ -157,7 +157,7 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
 		Value *value = store.getValueOperand();
 		const shared_ptr<const ValueSet> valueSet{findAssociatedValueSet(value, toCheck)};
 		if (valueSet) {
-			LengthInfo &current{annotations[valueSet.get()]};
+			LengthInfo &current{annotations[valueSet]};
 			const LengthInfo old{current};
 			current = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
 			if (old.type != current.type || old.length != current.length) {
@@ -345,7 +345,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 				const auto found = checkNullTerminated.find(&func);
 				if (found == checkNullTerminated.end()) continue;
 				for (const auto &valueSet : found->second) {
-					LengthInfo oldAnswer = getAnswer(*valueSet, annotations);
+					LengthInfo oldAnswer = getAnswer(valueSet, annotations);
 					LengthInfo answer = oldAnswer;
 					for (const Value *value : *valueSet) {
 						//go through the loops.
@@ -391,7 +391,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 						DEBUG(dbgs() << "After merging, result is " << answer.toString() << "\n");
 					}
 					changed |= (answer.type != oldAnswer.type || answer.length != oldAnswer.length);
-					annotations[valueSet.get()] = answer;
+					annotations[valueSet] = answer;
 				}
 			}
 			firstTime = false;

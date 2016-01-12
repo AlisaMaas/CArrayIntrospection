@@ -20,10 +20,10 @@ typedef std::unordered_map<llvm::Function*, std::vector<LoopInformation>> Functi
 
 LengthInfo findAssociatedAnswer(const llvm::Value *value, const AnnotationMap &annotations);
 std::unordered_map<const llvm::Function *, CallInstSet> collectFunctionCalls(const llvm::Module &);
-bool iterateOverModule(llvm::Module &module, const FunctionToValueSets &checkNullTerminated, 
-	std::unordered_map<const llvm::Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
-	FunctionToLoopInformation &info, std::map<const ValueSet, std::string> &reasons, bool fast, 
+bool iterateOverModule(llvm::Module &module, const FunctionToValueSets &checkNullTerminated,
+		       std::unordered_map<const llvm::Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
+		       FunctionToLoopInformation &info, std::map<const ValueSet, std::string> &reasons, bool fast,
 		       std::map<const llvm::Value *, std::shared_ptr<const ValueSet>> &valueToValueSet);
-LengthInfo getAnswer(const ValueSet &, const AnnotationMap &annotations);
+LengthInfo getAnswer(const std::shared_ptr<const ValueSet> &, const AnnotationMap &annotations);
 
 #endif // !INCLUDE_NULL_ANNOTATOR_HELPER_HH
