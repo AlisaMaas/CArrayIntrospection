@@ -38,10 +38,10 @@ private:
 
 struct SharedCheckGetElementPtrVisitor : public llvm::InstVisitor<SharedCheckGetElementPtrVisitor> {
 public:
-	ValueSetToMaxIndexMap &maxIndexes;
-	LengthValueSetMap &lengths;
-	SharedCheckGetElementPtrVisitor(ValueSetToMaxIndexMap &map, const SymbolicRangeAnalysis &ra,
-				  const llvm::Module &m, LengthValueSetMap &l, const ValueSetSet<std::shared_ptr<const ValueSet>> &v);
+	SharedValueSetToMaxIndexMap &maxIndexes;
+	SharedLengthValueSetMap &lengths;
+	SharedCheckGetElementPtrVisitor(SharedValueSetToMaxIndexMap &, const SymbolicRangeAnalysis &ra,
+				  const llvm::Module &m, SharedLengthValueSetMap &, const ValueSetSet<std::shared_ptr<const ValueSet>> &v);
 	~SharedCheckGetElementPtrVisitor();
 	void visitGetElementPtrInst(llvm::GetElementPtrInst& gepi);
 	ValueSetSet<std::shared_ptr<const ValueSet>> notConstantBounded;

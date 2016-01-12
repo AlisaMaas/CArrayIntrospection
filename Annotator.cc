@@ -317,11 +317,11 @@ bool Annotator::runOnModule(Module &module) {
 		const auto &maxIndexesForFunc = maxIndexes.find(&func);
 		if (maxIndexesForFunc != maxIndexes.end())
 			for (const auto &fixedResult : maxIndexesForFunc->second)
-				annotations[fixedResult.first] = LengthInfo::fixedLength(fixedResult.second);
+				annotations[fixedResult.first.get()] = LengthInfo::fixedLength(fixedResult.second);
 		const auto lengthsForFunc = lengths.find(&func);
 		if (lengthsForFunc != lengths.end()) {
 			for (const auto &symbolicResult : lengthsForFunc->second) {
-				annotations[symbolicResult.first] = LengthInfo::parameterLength(symbolicResult.second);
+				annotations[symbolicResult.first.get()] = LengthInfo::parameterLength(symbolicResult.second.get());
 				errs() << "FOUND PARAM_LENGTH!!!\n";
 			}
 		}

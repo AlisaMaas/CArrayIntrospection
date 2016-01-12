@@ -296,12 +296,12 @@ bool SharedCheckGetElementPtrVisitor::matchAddPattern(llvm::Value *value, llvm::
 			if (!length) length = getValueLength(secondOperand, firstOperand, basePointer);
 			if (length) {
 				DEBUG(dbgs() << "Hey, look, an argument length! \n");
-				const shared_ptr<const ValueSet> valueSet{valueSets.getValueSetFromValue(basePointer)};
-				const auto emplaced = lengths.emplace(valueSet.get(), length.get());
+				const auto valueSet = valueSets.getValueSetFromValue(basePointer);
+				const auto emplaced = lengths.emplace(valueSet, length);
 				if (emplaced.second)
 					// no prior value
 					return true;
-				else if (emplaced.first->second == length.get())
+				else if (emplaced.first->second == length)
 					// prior value already same
 					return true;
 				else {
@@ -316,8 +316,8 @@ bool SharedCheckGetElementPtrVisitor::matchAddPattern(llvm::Value *value, llvm::
 
 
 SharedCheckGetElementPtrVisitor::SharedCheckGetElementPtrVisitor(
-	ValueSetToMaxIndexMap &map, const SymbolicRangeAnalysis &ra,
-	const llvm::Module &m, LengthValueSetMap &l, const ValueSetSet<shared_ptr<const ValueSet>> &v)
+	SharedValueSetToMaxIndexMap &map, const SymbolicRangeAnalysis &ra,
+	const llvm::Module &m, SharedLengthValueSetMap &l, const ValueSetSet<shared_ptr<const ValueSet>> &v)
 	: maxIndexes(map),
 	  lengths(l),
 	  rangeAnalysis(ra),
@@ -332,11 +332,11 @@ SharedCheckGetElementPtrVisitor::~SharedCheckGetElementPtrVisitor() {
 	DEBUG(dbgs() << "destructor\n");
 	for (const auto &v : notConstantBounded) {
 		DEBUG(dbgs() << "Kicking out some constants\n");
-		maxIndexes.erase(v.get());
+		maxIndexes.erase(v);
 	}
 	DEBUG(dbgs() << "Done with constants\n");
 	for (const auto &v : notParameterBounded) {
-		lengths.erase(v.get());
+		lengths.erase(v);
 	}
 	DEBUG(dbgs() << "Finished with the delete\n");
 }
@@ -436,7 +436,7 @@ void SharedCheckGetElementPtrVisitor::visitGetElementPtrInst(llvm::GetElementPtr
 		DEBUG(dbgs() << "Range not unknown!\n");
 		long int index = r.getUpper().getInteger();
 		DEBUG(dbgs() << "index = " << index << "\n");
-		long &max{maxIndexes[valueSet.get()]};
+		long &max{maxIndexes[valueSet]};
 		if (index > max) {
 			DEBUG(dbgs() << "Yay range analysis! Adding to the map!\n");
 			max = index;
