@@ -145,9 +145,9 @@ LengthInfo getAnswer(const shared_ptr<const ValueSet> &value, const AnnotationMa
 struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
 	AnnotationMap &annotations;
 	const map<const Value *, shared_ptr<const ValueSet>> &toCheck;
-	map<const ValueSet, string> &reasons;
+	map<shared_ptr<const ValueSet>, string> &reasons;
 	bool changed;
-	ProcessStoresGEPVisitor(AnnotationMap &a, const map<const Value *, std::shared_ptr<const ValueSet>> &v, map<const ValueSet, string> &r) : annotations(a), toCheck(v), reasons(r) {
+	ProcessStoresGEPVisitor(AnnotationMap &a, const map<const Value *, shared_ptr<const ValueSet>> &v, map<shared_ptr<const ValueSet>, string> &r) : annotations(a), toCheck(v), reasons(r) {
 		changed = false;
 	}
 
@@ -161,10 +161,10 @@ struct ProcessStoresGEPVisitor : public InstVisitor<ProcessStoresGEPVisitor> {
 			const LengthInfo old{current};
 			current = mergeAnswers(findAssociatedAnswer(pointer, annotations), old);
 			if (old.type != current.type || old.length != current.length) {
-				std::stringstream reason;
+				stringstream reason;
 				reason << " pushed information from a store from ";
 				reason << value->getName().str();
-				reasons[*valueSet] = reason.str();
+				reasons[valueSet] = reason.str();
 				DEBUG(dbgs() << "Updating answer!\n");
 			}
 			changed |= (old.type != current.type || old.length != current.length);
@@ -177,7 +177,7 @@ static pair<LengthInfo, string> trackThroughCalls(CallInstSet &calls, const Valu
 						  const Function &func, ValueSetSet<shared_ptr<const ValueSet>> &allValueSets) {
 	// if we haven't yet continued, process evidence from callees.
 	//bool foundNonNullTerminated = false;
-	std::stringstream reason;
+	stringstream reason;
 	LengthInfo answer = findAssociatedAnswer(value, annotations);
 	//errs() << *value << "\n";
 	if (answer.type == PARAMETER_LENGTH) {
@@ -216,7 +216,7 @@ static pair<LengthInfo, string> trackThroughCalls(CallInstSet &calls, const Valu
 				continue;
 			}
 			DEBUG(dbgs() << "match found!\n");
-			auto parameter = std::next(formals, argNo);
+			auto parameter = next(formals, argNo);
 			if (parameter == calledFunction->getArgumentList().end() || argNo != parameter->getArgNo()) {
 				answer = mergeAnswers(answer, LengthInfo::notFixedLength);
 				continue;
@@ -324,7 +324,7 @@ static LengthInfo processLoops(vector<LoopInformation> &LI, const Value *toCheck
 //TODO: fix name for checkNullTermianted.
 bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTerminated,
 		       unordered_map<const Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
-		       FunctionToLoopInformation &info, map<const ValueSet, string> &reasons, bool fast,
+		       FunctionToLoopInformation &info, map<shared_ptr<const ValueSet>, string> &reasons, bool fast,
 		       map<const Value *, shared_ptr<const ValueSet>> &valueToValueSet) {
 
 	//assume pre-populated with dependencies, and processLoops has already been called.
@@ -354,13 +354,13 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 						if (firstTime) {
 							valueAnswer = processLoops(info.at(&func), value, valueToValueSet);
 							if (valueAnswer.type == SENTINEL_TERMINATED) {
-								std::stringstream reason;
+								stringstream reason;
 								reason << "found a non optional sentinel check in " << func.getName().str();
-								reasons[*valueSet] = reason.str();
+								reasons[valueSet] = reason.str();
 							} else if (valueAnswer.type == PARAMETER_LENGTH) {
-								std::stringstream reason;
+								stringstream reason;
 								reason << "found a non optional length check for " << value->getName().str() << " in " << func.getName().str();
-								reasons[*valueSet] = reason.str();
+								reasons[valueSet] = reason.str();
 							}
 							//TODO: could do stuff here if we find an optional sentinel check, but it seems unwarranted.
 							//The thing we would do is make it inconsistent. But right now this doesn't give us any false positives
@@ -373,7 +373,7 @@ bool iterateOverModule(Module &module, const FunctionToValueSets &checkNullTermi
 						const auto callResponse = trackThroughCalls(functionToCallSites.at(&func),
 											    value, annotations, func, allValueSets);
 						if (!callResponse.second.empty()) {
-							reasons[*valueSet] = callResponse.second;
+							reasons[valueSet] = callResponse.second;
 						}
 						DEBUG(dbgs() << "Finished going through the calls\n");
 						DEBUG(dbgs() << "Done finding sentinel checks\n");

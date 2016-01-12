@@ -201,7 +201,7 @@ void Annotator::dumpToFile(const string &filename, const Module &module) const {
 			out << ",\n";
 			out << depth;
 			DEBUG(dbgs() << "About to get the reasons set\n");
-			auto reason = reasons.find(*argumentToValueSet.at(&arg));
+			auto reason = reasons.find(argumentToValueSet.at(&arg));
 			DEBUG(dbgs() << "Got reasons!\n");
 			out << "\"argument_reason\": \"" << (reason == reasons.end() ? "" : reason->second) + "\"";
 			out << ",\n";
@@ -372,7 +372,7 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 				     << ")  because ";
 				const auto foundArg = argumentToValueSet.find(&arg);
 				if (foundArg != argumentToValueSet.end()) {
-					const auto foundReason = reasons.find(*foundArg->second.get());
+					const auto foundReason = reasons.find(foundArg->second);
 					if (foundReason != reasons.end()) {
 						sink << foundReason->second << "\n";
 					} else {
@@ -396,7 +396,7 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 		case 2:
 			sink << element.first
 			     << " should be annotated NULL_TERMINATED (" << (getAnswer(element.second, annotations)).toString()
-			     << ") because " << reasons.at(*element.second) << ".\n";
+			     << ") because " << reasons.at(element.second) << ".\n";
 			break;
 		case 0:
 			break;

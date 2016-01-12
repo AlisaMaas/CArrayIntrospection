@@ -22,7 +22,7 @@ LengthInfo findAssociatedAnswer(const llvm::Value *value, const AnnotationMap &a
 std::unordered_map<const llvm::Function *, CallInstSet> collectFunctionCalls(const llvm::Module &);
 bool iterateOverModule(llvm::Module &module, const FunctionToValueSets &checkNullTerminated,
 		       std::unordered_map<const llvm::Function *, CallInstSet> &functionToCallSites, AnnotationMap &annotations,
-		       FunctionToLoopInformation &info, std::map<const ValueSet, std::string> &reasons, bool fast,
+		       FunctionToLoopInformation &info, std::map<std::shared_ptr<const ValueSet>, std::string> &reasons, bool fast,
 		       std::map<const llvm::Value *, std::shared_ptr<const ValueSet>> &valueToValueSet);
 LengthInfo getAnswer(const std::shared_ptr<const ValueSet> &, const AnnotationMap &annotations);
 
