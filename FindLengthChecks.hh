@@ -20,8 +20,8 @@ public:
 	void print(llvm::raw_ostream &, const llvm::Module *) const override;
 
 private:
-	std::map<llvm::Function const *, SharedValueSetToMaxIndexMap> maxIndexes;
-	std::map<llvm::Function const *, SharedLengthValueSetMap> lengths;
+	std::map<llvm::Function const *, ValueSetToMaxIndexMap> maxIndexes;
+	std::map<llvm::Function const *, LengthValueSetMap> lengths;
 	ValueSetSet<std::shared_ptr<const ValueSet>> valueSets;
 };
 

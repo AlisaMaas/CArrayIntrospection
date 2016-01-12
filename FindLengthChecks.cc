@@ -64,7 +64,7 @@ bool FindLengthChecks::runOnModule(Module &module) {
 		if (func.isDeclaration()) continue;
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
 		const SymbolicRangeAnalysis &ra = getAnalysis<SymbolicRangeAnalysis>(func);
-		SharedCheckGetElementPtrVisitor visitor(maxIndexes[&func], ra, module, lengths[&func], valueSets);
+		CheckGetElementPtrVisitor visitor{maxIndexes[&func], ra, module, lengths[&func], valueSets};
 		for(BasicBlock &visitee :  func) {
 			DEBUG(dbgs() << "Visiting a new basic block...\n");
 			visitor.visit(visitee);

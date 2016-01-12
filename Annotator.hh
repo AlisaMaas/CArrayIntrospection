@@ -44,8 +44,8 @@ private:
 	void dumpToFile(const std::string &filename, const llvm::Module &) const;
 	void populateFromFile(const std::string &filename, const llvm::Module &);
 	std::pair<int, int> annotate(const LengthInfo &info) const;
-	std::map<llvm::Function const*, SharedValueSetToMaxIndexMap> maxIndexes;
-	std::map<llvm::Function const*, SharedLengthValueSetMap> lengths;
+	std::map<llvm::Function const*, ValueSetToMaxIndexMap> maxIndexes;
+	std::map<llvm::Function const*, LengthValueSetMap> lengths;
 };
 
 #endif // !INCLUDE_NULL_ANNOTATOR_HH

@@ -280,7 +280,7 @@ bool Annotator::runOnModule(Module &module) {
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
 		const SymbolicRangeAnalysis &sra = getAnalysis<SymbolicRangeAnalysis>(func);
 		DEBUG(dbgs() << "Acquired sra\n");
-		SharedCheckGetElementPtrVisitor visitor{maxIndexes[&func], sra, module, lengths[&func], allValueSets};
+		CheckGetElementPtrVisitor visitor{maxIndexes[&func], sra, module, lengths[&func], allValueSets};
 		for (BasicBlock &visitee : func) {
 			DEBUG(dbgs() << "Visiting a new basic block...\n");
 			visitor.visit(visitee);
