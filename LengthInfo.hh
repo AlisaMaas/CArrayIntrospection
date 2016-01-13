@@ -3,6 +3,7 @@
 
 #include "ValueSet.hh"
 
+#include <memory>
 #include <string>
 
 
@@ -21,14 +22,14 @@ public:
 	static const LengthInfo inconsistent;
 	static const LengthInfo sentinelTerminated;
 	static LengthInfo parameterLength(long);
-	static LengthInfo parameterLength(const ValueSet *);
+	static LengthInfo parameterLength(const std::shared_ptr<const ValueSet> &);
 	static LengthInfo fixedLength(long);
 
 	LengthInfo();
 
 	LengthType type;
 	long int length{-1};
-	const ValueSet *symbolicLength{nullptr};
+	std::shared_ptr<const ValueSet> symbolicLength;
 	static std::string getTypeString(const LengthType &);
 	int getSymbolicLength() const;
 	std::string toString() const;
@@ -36,7 +37,7 @@ public:
 private:
 	LengthInfo(LengthType);
 	LengthInfo(LengthType, long);
-	LengthInfo(LengthType, const ValueSet *);
+	LengthInfo(LengthType, const std::shared_ptr<const ValueSet> &);
 };
 
 
@@ -59,7 +60,7 @@ inline LengthInfo::LengthInfo(LengthType type, long int length)
 }
 
 
-inline LengthInfo::LengthInfo(LengthType type, const ValueSet *symbolic)
+inline LengthInfo::LengthInfo(LengthType type, const std::shared_ptr<const ValueSet> &symbolic)
 	: type{type},
 	  symbolicLength{symbolic} {
 }

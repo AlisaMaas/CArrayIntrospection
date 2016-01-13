@@ -140,6 +140,13 @@ penv.AppendUnique(
     ),
     delete_existing=True
 )
+
+if penv['DEBUG']:
+    try:
+        penv['CPPDEFINES'].remove('NDEBUG')
+    except ValueError:
+        pass
+
 penv.PrependENVPath('PATH', '/s/gcc-5.1.0/bin')
 
 
@@ -209,8 +216,8 @@ plugin, = penv.SharedLibrary(
         'NoPointerComparisons.cc',
         'StructElement.cc',
         'SymbolicRangeTest.cc',
+        'ValueReachesValue.cc',
         'ValueSetSet.cc',
-        'ValueSetsReachingValue.cc',
     ),
     LIBS=sra_plugin,
 )

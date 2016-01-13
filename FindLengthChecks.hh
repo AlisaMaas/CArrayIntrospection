@@ -7,6 +7,7 @@
 
 #include <llvm/Pass.h>
 #include <map>
+#include <memory>
 
 
 class FindLengthChecks : public llvm::ModulePass {
@@ -19,9 +20,9 @@ public:
 	void print(llvm::raw_ostream &, const llvm::Module *) const override;
 
 private:
-	std::map<llvm::Function const*, ValueSetToMaxIndexMap> maxIndexes;
-	std::map<llvm::Function const*, LengthValueSetMap> lengths;
-	ValueSetSet<ValueSet> valueSets;
+	std::map<llvm::Function const *, ValueSetToMaxIndexMap> maxIndexes;
+	std::map<llvm::Function const *, LengthValueSetMap> lengths;
+	ValueSetSet valueSets;
 };
 
 

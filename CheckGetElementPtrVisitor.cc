@@ -2,7 +2,6 @@
 
 #include "CheckGetElementPtrVisitor.hh"
 #include "SRA/SymbolicRangeAnalysis.h"
-#include "ValueSetsReachingValue.hh"
 
 #include <boost/lambda/core.hpp>
 #include <boost/range/adaptor/filtered.hpp>
@@ -10,6 +9,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/raw_os_ostream.h>
+#include <memory>
 #include <unordered_map>
 
 #if (1000 * LLVM_VERSION_MAJOR + LLVM_VERSION_MINOR) >= 3005
@@ -19,7 +19,6 @@
 #endif	// LLVM 3.4 or earlier
 
 
-using namespace boost;
 using namespace boost::adaptors;
 using namespace llvm;
 using namespace std;
@@ -41,28 +40,26 @@ static Value *stripSExtInst(Value *value) {
 ////////////////////////////////////////////////////////////////////////
 
 
-template <typename VS>
-const ValueSet *CheckGetElementPtrVisitor<VS>::getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer) {
-	const ValueSetSet<const ValueSet *> reaching = valueSetsReachingValue(*first, valueSets);
+const shared_ptr<const ValueSet> CheckGetElementPtrVisitor::getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer) {
+	const ValueSetSet reaching{valueSets.valueSetsReachingValue(*first)};
 	if (reaching.empty()) return nullptr;
 	else if (reaching.size() == 1) {
 		ConstantInt* c;
 		if ((c = dyn_cast<ConstantInt>(second)) && c->isMinusOne()) {
 			return *reaching.begin();
 		}
-		else return nullptr;
+		else return {};
 	}
 	else {
-		const ValueSet * const valueSet { valueSets.getValueSetFromValue(basePointer) };
+		const shared_ptr<const ValueSet> valueSet{valueSets.getValueSetFromValue(basePointer)};
 		notConstantBounded.insert(valueSet);
 		notParameterBounded.insert(valueSet);
-		return nullptr;
+		return {};
 	}
 }
 
 
-template <typename VS>
-bool CheckGetElementPtrVisitor<VS>::matchAddPattern(llvm::Value *value, llvm::Value *basePointer) {
+bool CheckGetElementPtrVisitor::matchAddPattern(llvm::Value *value, llvm::Value *basePointer) {
 	DEBUG(dbgs() << "Looking at " << *value << " in matchAddPattern\n");
 	value = stripSExtInst(value);
 	DEBUG(dbgs() << "Looking at stripped " << *value << " in matchAddPattern\n");
@@ -74,11 +71,11 @@ bool CheckGetElementPtrVisitor<VS>::matchAddPattern(llvm::Value *value, llvm::Va
 			Value *secondOperand = stripSExtInst(op->getOperand(1));
 			DEBUG(dbgs() << "First operand: " << *firstOperand << "\n");
 			DEBUG(dbgs() << "Second operand: " << *secondOperand << "\n");
-			const ValueSet *length = getValueLength(firstOperand, secondOperand, basePointer);
+			shared_ptr<const ValueSet> length{getValueLength(firstOperand, secondOperand, basePointer)};
 			if (!length) length = getValueLength(secondOperand, firstOperand, basePointer);
 			if (length) {
 				DEBUG(dbgs() << "Hey, look, an argument length! \n");
-				const ValueSet *valueSet = valueSets.getValueSetFromValue(basePointer);
+				const auto valueSet = valueSets.getValueSetFromValue(basePointer);
 				const auto emplaced = lengths.emplace(valueSet, length);
 				if (emplaced.second)
 					// no prior value
@@ -97,10 +94,9 @@ bool CheckGetElementPtrVisitor<VS>::matchAddPattern(llvm::Value *value, llvm::Va
 }
 
 
-template <typename VS>
-CheckGetElementPtrVisitor<VS>::CheckGetElementPtrVisitor(
+CheckGetElementPtrVisitor::CheckGetElementPtrVisitor(
 	ValueSetToMaxIndexMap &map, const SymbolicRangeAnalysis &ra,
-	const llvm::Module &m, LengthValueSetMap &l, const ValueSetSet<VS> &v)
+	const llvm::Module &m, LengthValueSetMap &l, const ValueSetSet &v)
 	: maxIndexes(map),
 	  lengths(l),
 	  rangeAnalysis(ra),
@@ -111,23 +107,21 @@ CheckGetElementPtrVisitor<VS>::CheckGetElementPtrVisitor(
 }
 
 
-template <typename VS>
-CheckGetElementPtrVisitor<VS>::~CheckGetElementPtrVisitor() {
+CheckGetElementPtrVisitor::~CheckGetElementPtrVisitor() {
 	DEBUG(dbgs() << "destructor\n");
-	for (const ValueSet * v : notConstantBounded) {
+	for (const auto &v : notConstantBounded) {
 		DEBUG(dbgs() << "Kicking out some constants\n");
 		maxIndexes.erase(v);
 	}
 	DEBUG(dbgs() << "Done with constants\n");
-	for (const ValueSet * v : notParameterBounded) {
+	for (const auto &v : notParameterBounded) {
 		lengths.erase(v);
 	}
 	DEBUG(dbgs() << "Finished with the delete\n");
 }
 
 
-template <typename VS>
-void CheckGetElementPtrVisitor<VS>::visitGetElementPtrInst(llvm::GetElementPtrInst& gepi) {
+void CheckGetElementPtrVisitor::visitGetElementPtrInst(llvm::GetElementPtrInst& gepi) {
 	//ignore all GEPs that don't lead to a memory access
 	//unless that goes into a function call.
 	//bool useless = true;
@@ -170,7 +164,7 @@ void CheckGetElementPtrVisitor<VS>::visitGetElementPtrInst(llvm::GetElementPtrIn
 	Value *pointer = gepi.getPointerOperand();
 	DEBUG(dbgs() << "Pointer operand obtained: " << *pointer << "\n");
 
-	const ValueSet *valueSet = valueSets.getValueSetFromValue(pointer);
+	const auto valueSet{valueSets.getValueSetFromValue(pointer)};
 	DEBUG(dbgs() << "Got the valueSet\n");
 	if (!valueSet) { //might be null if it doesn't correspond to anything interesting like an argument, or
 		//if it doesn't correspond to something iiglue thinks is an array.
@@ -248,7 +242,3 @@ void CheckGetElementPtrVisitor<VS>::visitGetElementPtrInst(llvm::GetElementPtrIn
 	}
 	DEBUG(dbgs() << "Bottom of visitor\n");
 }
-
-
-template class CheckGetElementPtrVisitor<const ValueSet *>;
-template class CheckGetElementPtrVisitor<      ValueSet  >;
