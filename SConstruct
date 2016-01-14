@@ -127,6 +127,9 @@ penv = env.Clone(
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
     SHLIBPREFIX=None,
+    tools=(
+        'compilation-database',
+    ),
 )
 penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
 penv.AppendUnique(
@@ -232,32 +235,7 @@ Alias('plugin', plugin)
 #  IDE support files
 #
 
-# compilation database for use with various Clang LibTooling tools
-
-import json
-
-
-def compilation_database(env, topdir):
-    for obj in plugin.sources:
-        src, = obj.sources
-        yield {
-            'directory': topdir,
-            'file': src.path,
-            'command': env.subst('$SHCXXCOM', target=obj, source=src),
-        }
-
-
-def stash_compile_commands(target, source, env):
-    sconstruct, topdir = source
-    target, = target
-    commands = list(compilation_database(env, topdir.read()))
-    json.dump(commands, open(str(target), 'w'), indent=2)
-
-
-penv.Command('compile_commands.json', ('SConstruct', Value(Dir('#').abspath)), stash_compile_commands)
-
-
-# Emacs flychecker configuration
+penv.CompilationDatabase(plugin)
 
 from itertools import imap
 
