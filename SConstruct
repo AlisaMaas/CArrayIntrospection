@@ -129,6 +129,7 @@ penv = env.Clone(
     SHLIBPREFIX=None,
     tools=(
         'compilation-database',
+        'dir-locals-el',
     ),
 )
 penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
@@ -236,25 +237,7 @@ Alias('plugin', plugin)
 #
 
 penv.CompilationDatabase(plugin)
-
-from itertools import imap
-
-
-def elispString(text):
-    return '"%s"' % text.replace('"', '\\"')
-
-
-def elispStringList(texts):
-    return '(%s)' % ' '.join(imap(elispString, texts))
-
-config = penv.Substfile(
-    '.dir-locals.el.in',
-    SUBST_DICT={
-        '@CPPDEFINES@': elispStringList(penv['CPPDEFINES']),
-        '@CPPPATH@': elispStringList(penv['CPPPATH']),
-        '@CXX@': elispString(penv.WhereIs('$CXX')),
-    },
-)
+penv.DirLocalsEl()
 
 
 ########################################################################
