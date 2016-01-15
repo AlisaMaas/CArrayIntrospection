@@ -138,7 +138,12 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 		if (!function) {
 			errs() << "warning: found function " << name << " in iiglue results but not in bitcode\n";
 			continue;
-		} else
+		} 
+		else if (!function->isDeclaration()) {
+		    errs() << "Warning: found function " << name << " with definition rather than declaration.\n";
+		    continue;
+		}
+		else
 			DEBUG(dbgs() << "Found function " << name << "\n");
 		const Function::ArgumentListType &arguments = function->getArgumentList();
 		const ptree &arg_annotations = framePair.second.get_child("arguments");
