@@ -340,6 +340,7 @@ bool Annotator::runOnModule(Module &module) {
 		annotations.emplace(v, LengthInfo());
 		for (const Value *val : *v) {
 			const auto emplaced = valueToValueSet.emplace(val, v);
+			(void) emplaced;
 			assert(emplaced.second);
 		}
 	}
