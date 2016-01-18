@@ -8,10 +8,10 @@
 
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/range/combine.hpp>
+#include <cassert>
 #include <fstream>
 #include <llvm/Support/raw_os_ostream.h>
 
-using namespace boost;
 using namespace boost::adaptors;
 using namespace boost::property_tree;
 using namespace llvm;
@@ -49,7 +49,8 @@ static llvm::cl::opt<bool> Fast("fast",
 
 
 inline Annotator::Annotator()
-	: ModulePass(ID) {
+	: ModulePass(ID),
+	  structElements(nullptr) {
 }
 
 
@@ -74,26 +75,26 @@ pair<int, int> Annotator::annotate(const LengthInfo &info) const {
 	switch (info.type) {
 	case NOT_FIXED_LENGTH:
 		DEBUG(dbgs() << "Not fixed length\n");
-		return pair<int, int>(0, -2);
+		return {0, -2};
 	case NO_LENGTH_VALUE:
 		DEBUG(dbgs() << "No length value\n");
-		return pair<int, int>(0, 0);
+		return {0, 0};
 	case INCONSISTENT:
 		DEBUG(dbgs() << "Inconsistent type\n");
-		return pair<int, int>(1, -1);
+		return {1, -1};
 	case SENTINEL_TERMINATED:
 		DEBUG(dbgs() << "Symbolic length value\n");
-		return pair<int, int>(2, info.length);
+		return {2, info.length};
 	case PARAMETER_LENGTH:
 		DEBUG(dbgs() << "About to getSymbolicLength\n");
-		return pair<int, int>(6, (info.length == -1 ? info.getSymbolicLength() : info.length));
+		return {6, (info.length == -1 ? info.getSymbolicLength() : info.length)};
 	case FIXED_LENGTH:
 		DEBUG(dbgs() << "Fixed length value\n");
-		return pair<int, int>(7, info.length);
+		return {7, info.length};
 	default:
 		DEBUG(dbgs() << "Type is unknown\n");
 		abort();
-		return pair<int, int>(-1, -1);
+		return {-1, -1};
 	}
 }
 
@@ -104,11 +105,11 @@ pair<int, int> Annotator::annotate(const Value &value) const {
 
 
 pair<int, int> Annotator::annotate(const StructElement &element) const {
-	const AnnotationMap::const_iterator found = annotations.find(&structElements.at(element));
+	const auto found = annotations.find(structElements->at(element));
 	if (found != annotations.end()) {
 		return annotate(found->second);
 	} else {
-		return pair<int, int>(0, -1);
+		return {0, -1};
 	}
 }
 
@@ -137,7 +138,12 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 		if (!function) {
 			errs() << "warning: found function " << name << " in iiglue results but not in bitcode\n";
 			continue;
-		} else
+		} 
+		else if (!function->isDeclaration()) {
+		    errs() << "Warning: found function " << name << " with definition rather than declaration.\n";
+		    continue;
+		}
+		else
 			DEBUG(dbgs() << "Found function " << name << "\n");
 		const Function::ArgumentListType &arguments = function->getArgumentList();
 		const ptree &arg_annotations = framePair.second.get_child("arguments");
@@ -153,7 +159,7 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			const Argument &argument = slot.get<0>();
 			const ptree &arg_annotation = slot.get<1>().second;
 			DEBUG(dbgs() << "This argument has size " << slot.get<1>().second.size() << "\n");
-			const ValueSet * const argumentValueSet { &argumentToValueSet.emplace(&argument, ValueSet { &argument }).first->second };
+			const auto &argumentValueSet = argumentToValueSet.emplace(&argument, make_shared<ValueSet>(ValueSet{&argument})).first->second;
 			if (const auto child = arg_annotation.get_child_optional("sentinel")) {
 				if (!child->get_value<string>().empty()) {
 					DEBUG(dbgs() << "Length is not empty\n");
@@ -253,42 +259,42 @@ bool Annotator::runOnModule(Module &module) {
 	DEBUG(dbgs() << "done populating dependencies\n");
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	const FindStructElements &findElements = getAnalysis<FindStructElements>();
-	structElements = findElements.getStructElements();
+	structElements = &findElements.getStructElements();
 	unordered_map<const Function *, CallInstSet> allCallSites = collectFunctionCalls(module);
 	FunctionToLoopInformation functionLoopInfo;
 	FunctionToValueSets toCheck;
-	ValueSetSet<const ValueSet *> allValueSets;
+	ValueSetSet allValueSets;
 	errs() << "About to get struct elements and run SRA over them\n";
 	for (Function &func : module) {
 
 		if ((func.isDeclaration())) continue;
 		if (!Fast) {
 			DEBUG(dbgs() << "Putting in some struct elements\n");
-			for (const auto &tuple : structElements) {
-				toCheck[&func].insert(&tuple.second);
-				allValueSets.insert(&tuple.second);
+			for (const auto &tuple : *structElements) {
+				toCheck[&func].insert(tuple.second);
+				allValueSets.insert(tuple.second);
 			}
 		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
-			set<const Value *> &values = argumentToValueSet[&arg];
-			values.insert(&arg);
-			toCheck[&func].insert(&values);
-			allValueSets.insert(&values);
+			const auto emplaced = argumentToValueSet.emplace(&arg, make_shared<ValueSet>(ValueSet{&arg}));
+			assert(emplaced.second);
+			const auto values = emplaced.first->second;
+			toCheck[&func].insert(values);
+			allValueSets.insert(values);
 		}
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
 		const SymbolicRangeAnalysis &sra = getAnalysis<SymbolicRangeAnalysis>(func);
 		DEBUG(dbgs() << "Acquired sra\n");
-		CheckGetElementPtrVisitor<const ValueSet *> visitor(maxIndexes[&func], sra, module, lengths[&func], allValueSets);
+		CheckGetElementPtrVisitor visitor{maxIndexes[&func], sra, module, lengths[&func], allValueSets};
 		for (BasicBlock &visitee : func) {
 			DEBUG(dbgs() << "Visiting a new basic block...\n");
 			visitor.visit(visitee);
 		}
-		for (const ValueSet *set : visitor.notConstantBounded) {
+		for (const auto &set : visitor.notConstantBounded)
 			annotations[set] = LengthInfo::notFixedLength;
-		}
-		for (const ValueSet *set : visitor.notParameterBounded) {
+
+		for (const auto &set : visitor.notParameterBounded)
 			annotations[set] = LengthInfo::notFixedLength;
-		}
 	}
 	errs() << "Done with SRA!\n";
 
@@ -329,11 +335,13 @@ bool Annotator::runOnModule(Module &module) {
 	}
 
 	DEBUG(dbgs() << "Finished going through array recievers\n");
-	map<const Value *, const ValueSet *> valueToValueSet;
-	for (const ValueSet *v : allValueSets) {
+	map<const Value *, shared_ptr<const ValueSet>> valueToValueSet;
+	for (const auto &v : allValueSets) {
 		annotations.emplace(v, LengthInfo());
 		for (const Value *val : *v) {
-			valueToValueSet[val] = v;
+			const auto emplaced = valueToValueSet.emplace(val, v);
+			(void) emplaced;
+			assert(emplaced.second);
 		}
 	}
 
@@ -389,7 +397,7 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 				break;
 			}
 	}
-	for (const auto &element : structElements)
+	for (const auto &element : *structElements)
 		switch (annotate(element.first).first) {
 		case 2:
 			sink << element.first
@@ -403,4 +411,10 @@ void Annotator::print(raw_ostream &sink, const Module *module) const {
 			     << " should be annotated " << ((getAnswer(element.second, annotations)).toString()) << ".\n";
 		}
 	DEBUG(dbgs() << "Finished printing things\n");
+}
+
+
+bool Annotator::doFinalization(llvm::Module &) {
+	structElements = nullptr;
+	return false;
 }

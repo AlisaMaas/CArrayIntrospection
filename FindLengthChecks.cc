@@ -5,7 +5,6 @@
 #include "FindLengthChecks.hh"
 #include "IIGlueReader.hh"
 #include "SRA/SymbolicRangeAnalysis.h"
-#include "ValueSetsReachingValue.hh"
 
 #include <boost/algorithm/cxx11/any_of.hpp>
 #include <boost/foreach.hpp>
@@ -25,8 +24,8 @@
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/raw_os_ostream.h>
 
-using namespace boost::algorithm;
 using namespace boost;
+using namespace boost::algorithm;
 using namespace llvm;
 using namespace std;
 
@@ -58,13 +57,13 @@ bool FindLengthChecks::runOnModule(Module &module) {
 	DEBUG(dbgs() << "Top of runOnModule()\n");
 	for (const Function &func : module)
 		for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end()))
-			valueSets.insert(ValueSet { &arg });
+			valueSets.insert(make_shared<const ValueSet>(ValueSet{&arg}));
 
 	for (Function &func : module) {
 		if (func.isDeclaration()) continue;
 		DEBUG(dbgs() << "Analyzing " << func.getName() << "\n");
 		const SymbolicRangeAnalysis &ra = getAnalysis<SymbolicRangeAnalysis>(func);
-		CheckGetElementPtrVisitor<ValueSet> visitor(maxIndexes[&func], ra, module, lengths[&func], valueSets);
+		CheckGetElementPtrVisitor visitor{maxIndexes[&func], ra, module, lengths[&func], valueSets};
 		for(BasicBlock &visitee :  func) {
 			DEBUG(dbgs() << "Visiting a new basic block...\n");
 			visitor.visit(visitee);
@@ -84,11 +83,11 @@ bool FindLengthChecks::runOnModule(Module &module) {
 void FindLengthChecks::print(raw_ostream &sink, const Module *module) const {
 	const IIGlueReader &iiglue = getAnalysis<IIGlueReader>();
 	for (const Function &func : *module) {
-		const ValueSetToMaxIndexMap constantMap = maxIndexes.at(&func);
-		const LengthValueSetMap parameterLengthMap = lengths.at(&func);
+		const auto &constantMap = maxIndexes.at(&func);
+		const auto &parameterLengthMap = lengths.at(&func);
 		sink << "Analyzing " << func.getName() << "\n";
 		for (const Argument &arg : make_iterator_range(func.arg_begin(), func.arg_end())) {
-			const ValueSet *set = valueSets.getValueSetFromValue(&arg);
+			const auto set = valueSets.getValueSetFromValue(&arg);
 			const auto foundConstant = constantMap.find(set);
 			if (foundConstant != constantMap.end())
 				sink << "\tArgument " << arg.getName() << " has max index " << foundConstant->second << '\n';

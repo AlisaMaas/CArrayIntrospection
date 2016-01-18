@@ -127,6 +127,10 @@ penv = env.Clone(
     INCPREFIX='-isystem ',
     LIBS=('LLVM-$llvm_version',),
     SHLIBPREFIX=None,
+    tools=(
+        'compilation-database',
+        'dir-locals-el',
+    ),
 )
 penv.ParseConfig('$LLVM_CONFIG --cxxflags --ldflags')
 penv.AppendUnique(
@@ -140,6 +144,13 @@ penv.AppendUnique(
     ),
     delete_existing=True
 )
+
+if penv['DEBUG']:
+    try:
+        penv['CPPDEFINES'].remove('NDEBUG')
+    except ValueError:
+        pass
+
 penv.PrependENVPath('PATH', '/s/gcc-5.1.0/bin')
 
 
@@ -209,8 +220,8 @@ plugin, = penv.SharedLibrary(
         'NoPointerComparisons.cc',
         'StructElement.cc',
         'SymbolicRangeTest.cc',
+        'ValueReachesValue.cc',
         'ValueSetSet.cc',
-        'ValueSetsReachingValue.cc',
     ),
     LIBS=sra_plugin,
 )
@@ -225,51 +236,8 @@ Alias('plugin', plugin)
 #  IDE support files
 #
 
-# compilation database for use with various Clang LibTooling tools
-
-import json
-
-
-def compilation_database(env, topdir):
-    for obj in plugin.sources:
-        src, = obj.sources
-        yield {
-            'directory': topdir,
-            'file': src.path,
-            'command': env.subst('$SHCXXCOM', target=obj, source=src),
-        }
-
-
-def stash_compile_commands(target, source, env):
-    sconstruct, topdir = source
-    target, = target
-    commands = list(compilation_database(env, topdir.read()))
-    json.dump(commands, open(str(target), 'w'), indent=2)
-
-
-penv.Command('compile_commands.json', ('SConstruct', Value(Dir('#').abspath)), stash_compile_commands)
-
-
-# Emacs flychecker configuration
-
-from itertools import imap
-
-
-def elispString(text):
-    return '"%s"' % text.replace('"', '\\"')
-
-
-def elispStringList(texts):
-    return '(%s)' % ' '.join(imap(elispString, texts))
-
-config = penv.Substfile(
-    '.dir-locals.el.in',
-    SUBST_DICT={
-        '@CPPDEFINES@': elispStringList(penv['CPPDEFINES']),
-        '@CPPPATH@': elispStringList(penv['CPPPATH']),
-        '@CXX@': elispString(penv.WhereIs('$CXX')),
-    },
-)
+penv.CompilationDatabase(plugin)
+penv.DirLocalsEl()
 
 
 ########################################################################

@@ -1,21 +1,53 @@
+#include "BacktrackPhiNodes.hh"
 #include "ValueSetSet.hh"
 
+using namespace llvm;
+using namespace std;
 
-template <>
-const ValueSet* ValueSetSet<const ValueSet *>::getValueSetFromValue(const llvm::Value *value) const {
-        for (const ValueSet *valueSet : *this)
-		if (valueSet != nullptr && valueSet->count(value))
-			return valueSet;
 
-        return nullptr;
+namespace {
+	////////////////////////////////////////////////////////////////
+	//
+	//  collect the set of all arguments that may flow to a given value
+	//  across zero or more phi nodes
+	//
+
+	class ValueSetsReachingValue : public BacktrackPhiNodes {
+	public:
+		ValueSetsReachingValue(const ValueSetSet &values);
+		void visit(const Value &) final override;
+		ValueSetSet result;
+	private:
+		const ValueSetSet &valueSets;
+	};
 }
 
 
-template <>
-const ValueSet* ValueSetSet<ValueSet>::getValueSetFromValue(const llvm::Value *value) const {
-        for (const ValueSet &valueSet : *this)
-		if (valueSet.count(value))
-			return &valueSet;
+inline ValueSetsReachingValue::ValueSetsReachingValue(const ValueSetSet &values)
+	: valueSets{values}
+{
+}
 
-        return nullptr;
+
+void ValueSetsReachingValue::visit(const Value &reached) {
+	const shared_ptr<const ValueSet> valueSet{valueSets.getValueSetFromValue(&reached)};
+	if (valueSet)
+		result.insert(valueSet);
+}
+
+
+std::shared_ptr<const ValueSet> ValueSetSet::getValueSetFromValue(const Value *value) const {
+        for (const auto &valueSet : *this)
+		if (valueSet && valueSet->count(value))
+			return valueSet;
+
+        return { };
+}
+
+
+ValueSetSet ValueSetSet::valueSetsReachingValue(const Value &start) const
+{
+	ValueSetsReachingValue explorer{*this};
+	explorer.backtrack(start);
+	return move(explorer.result);
 }

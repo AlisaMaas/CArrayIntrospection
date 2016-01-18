@@ -8,27 +8,27 @@
 #include "ValueSetToMaxIndexMap.hh"
 
 #include <llvm/IR/InstVisitor.h>
+#include <memory>
 #include <unordered_map>
 
 class SymbolicRangeAnalysis;
 
 
-template <typename VS>
-struct CheckGetElementPtrVisitor : public llvm::InstVisitor<CheckGetElementPtrVisitor<VS>> {
+struct CheckGetElementPtrVisitor : public llvm::InstVisitor<CheckGetElementPtrVisitor> {
 public:
 	ValueSetToMaxIndexMap &maxIndexes;
 	LengthValueSetMap &lengths;
-	CheckGetElementPtrVisitor(ValueSetToMaxIndexMap &map, const SymbolicRangeAnalysis &ra,
-				  const llvm::Module &m, LengthValueSetMap &l, const ValueSetSet<VS> &v);
+	CheckGetElementPtrVisitor(ValueSetToMaxIndexMap &, const SymbolicRangeAnalysis &ra,
+				  const llvm::Module &m, LengthValueSetMap &, const ValueSetSet &v);
 	~CheckGetElementPtrVisitor();
 	void visitGetElementPtrInst(llvm::GetElementPtrInst& gepi);
-	ValueSetSet<const ValueSet *> notConstantBounded;
-	ValueSetSet<const ValueSet *> notParameterBounded;
+	ValueSetSet notConstantBounded;
+	ValueSetSet notParameterBounded;
 private:
-	const ValueSet *getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer);
+	const std::shared_ptr<const ValueSet> getValueLength(llvm::Value *first, llvm::Value *second, const llvm::Value *basePointer);
 	bool matchAddPattern(llvm::Value *value, llvm::Value *basePointer);
 	const SymbolicRangeAnalysis &rangeAnalysis;
-	const ValueSetSet<VS> &valueSets;
+	const ValueSetSet &valueSets;
 	const llvm::Module &module;
 	std::unique_ptr<llvm::BasicBlock> placeHolder;
 	std::unordered_map<const llvm::Function *, CallInstSet> functionsToCallsites;

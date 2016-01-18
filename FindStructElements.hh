@@ -6,9 +6,11 @@
 
 #include <llvm/Pass.h>
 #include <map>
+#include <memory>
 #include <vector>
 
-typedef std::map<StructElement, ValueSet> StructElementToValueSet;
+typedef std::map<StructElement, std::shared_ptr<ValueSet>> StructElementToValueSet;
+
 
 class FindStructElements : public llvm::ModulePass {
 public:

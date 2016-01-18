@@ -1,4 +1,4 @@
 [submodule "SRA"]
 	path = SRA
 	url = https://github.com/AlisaMaas/llvm-sra.git
-	branch = valgrind
+	branch = master
