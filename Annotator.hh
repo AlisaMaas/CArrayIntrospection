@@ -41,7 +41,7 @@ private:
 	const StructElementToValueSet *structElements;
 	std::pair<int,int> annotate(const StructElement &element) const;
 	void dumpToFile(const std::string &filename, const llvm::Module &) const;
-	void populateFromFile(const std::string &filename, const llvm::Module &);
+	void populateFromFile(const std::string &filename, const llvm::Module &, const bool);
 	std::pair<int, int> annotate(const LengthInfo &info) const;
 	std::map<llvm::Function const*, ValueSetToMaxIndexMap> maxIndexes;
 	std::map<llvm::Function const*, LengthValueSetMap> lengths;

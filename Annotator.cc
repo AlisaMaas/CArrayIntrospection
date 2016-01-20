@@ -28,10 +28,15 @@ static const llvm::RegisterPass<Annotator> registration("annotator",
 							"Determine whether and how to annotate each function",
 							true, true);
 
-static llvm::cl::list<std::string> dependencyFileNames("annotator-dependency",
+static llvm::cl::list<std::string> dependencyFileNames("external-dependency",
 						       llvm::cl::ZeroOrMore,
 						       llvm::cl::value_desc("filename"),
 						       llvm::cl::desc("Filename containing Annotator results for dependencies; use multiple times to read multiple files"));
+
+static llvm::cl::list<std::string> hintFileNames("hint",
+                                llvm::cl::ZeroOrMore,
+                                llvm::cl::value_desc("filename"),
+                                llvm::cl::desc("Filename containing Annotator results for hand-annotated functions within the library; use multiple times to read multiple files"));
 
 static llvm::cl::opt<std::string> outputFileName("annotator-output",
 						 llvm::cl::Optional,
@@ -124,7 +129,7 @@ void Annotator::getAnalysisUsage(AnalysisUsage &usage) const {
 }
 
 
-void Annotator::populateFromFile(const string &filename, const Module &module) {
+void Annotator::populateFromFile(const string &filename, const Module &module, const bool ignoreImplementations) {
 	DEBUG(dbgs() << "Top of populateFromFile\n");
 	ptree root;
 	read_json(filename, root);
@@ -139,7 +144,7 @@ void Annotator::populateFromFile(const string &filename, const Module &module) {
 			errs() << "warning: found function " << name << " in iiglue results but not in bitcode\n";
 			continue;
 		} 
-		else if (!function->isDeclaration()) {
+		else if (ignoreImplementations && !function->isDeclaration()) {
 		    errs() << "Warning: found function " << name << " with definition rather than declaration.\n";
 		    continue;
 		}
@@ -253,7 +258,11 @@ bool Annotator::runOnModule(Module &module) {
 	DEBUG(dbgs() << "Populate dependencies\n");
 
 	for (const string &dependency : dependencyFileNames) {
-		populateFromFile(dependency, module);
+		populateFromFile(dependency, module, true);
+	}
+	
+	for (const string &dependency : hintFileNames) {
+	    populateFromFile(dependency, module, false);
 	}
 
 	DEBUG(dbgs() << "done populating dependencies\n");
