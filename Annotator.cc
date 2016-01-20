@@ -260,7 +260,7 @@ bool Annotator::runOnModule(Module &module) {
 	for (const string &dependency : dependencyFileNames) {
 		populateFromFile(dependency, module, true);
 	}
-	
+
 	for (const string &dependency : hintFileNames) {
 	    populateFromFile(dependency, module, false);
 	}
@@ -286,7 +286,7 @@ bool Annotator::runOnModule(Module &module) {
 		}
 		for (const Argument &arg : iiglue.arrayArguments(func)) {
 			const auto emplaced = argumentToValueSet.emplace(&arg, make_shared<ValueSet>(ValueSet{&arg}));
-			assert(emplaced.second);
+			assert(!hintFileNames.empty() || emplaced.second);
 			const auto values = emplaced.first->second;
 			toCheck[&func].insert(values);
 			allValueSets.insert(values);
