@@ -48,7 +48,7 @@
 		<xsl:text>,"sentinel":"NUL"</xsl:text>
 	</xsl:template>
 
-	<xsl:template match="gir:type[@name = 'String' or @name = 'utf8']">
+	<xsl:template match="gir:type[(@name = 'String' or @name = 'utf8') and not(contains(@c:type, '**'))]">
 		<xsl:text>,"sentinel":"NUL"</xsl:text>
 	</xsl:template>
 </xsl:stylesheet>
