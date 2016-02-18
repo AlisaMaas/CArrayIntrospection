@@ -7,8 +7,8 @@ env.RunTests(
         '-sra',
         '-annotator',
         '-annotator-output', 'output.json',
-        '-annotator-dependency', 'fakeLibrary.json',
-        '-annotator-dependency', 'cLibrary.json',
+        '-external-dependency', 'fakeLibrary.json',
+        '-external-dependency', 'cLibrary.json',
     ),
     TEST='annotator',
 )
