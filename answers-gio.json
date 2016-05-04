@@ -1385,7 +1385,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "",
-					"other": -1
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -7275,7 +7275,7 @@
 				{
 					"argument_name": "uri_scheme",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_file_has_uri_scheme"
@@ -7400,7 +7400,7 @@
 				{
 					"argument_name": "name",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_file_get_child"
@@ -7915,7 +7915,7 @@
 				{
 					"argument_name": "etag",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "make_backup",
@@ -9010,7 +9010,7 @@
 				{
 					"argument_name": "attribute",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "type",
@@ -14055,7 +14055,7 @@
 				{
 					"argument_name": "attribute",
 					"argument_reason": " found a call to g_file_info_find_value_by_name passing attribute",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_file_info_has_attribute"
@@ -15400,7 +15400,7 @@
 				{
 					"argument_name": "attribute",
 					"argument_reason": " found a call to g_hash_table_lookup passing attribute",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"_lookup_attribute"
@@ -15455,7 +15455,7 @@
 				{
 					"argument_name": "attributes",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "cancellable",
@@ -15480,7 +15480,7 @@
 				{
 					"argument_name": "attributes",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "io_priority",
@@ -16200,7 +16200,7 @@
 				{
 					"argument_name": "attributes",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "cancellable",
@@ -16225,7 +16225,7 @@
 				{
 					"argument_name": "attributes",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "io_priority",
@@ -18685,7 +18685,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "",
-					"other": -1
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -19835,7 +19835,7 @@
 				{
 					"argument_name": "extension_point_name",
 					"argument_reason": " found a call to g_io_extension_point_lookup passing extension_point_name",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "type",
@@ -24230,7 +24230,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "",
-					"other": -1
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -24280,7 +24280,7 @@
 				{
 					"argument_name": "format",
 					"argument_reason": " found a call to g_output_stream_vprintf passing format",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_output_stream_printf"
@@ -24310,7 +24310,7 @@
 				{
 					"argument_name": "format",
 					"argument_reason": " found a call to g_strdup_vprintf passing format",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "args",
@@ -26280,7 +26280,7 @@
 				{
 					"argument_name": "buffer",
 					"argument_reason": "",
-					"other": -1
+					"symbolic": 2
 				},
 				{
 					"argument_name": "count",
@@ -27460,7 +27460,7 @@
 				{
 					"argument_name": "protocol",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "domain",
@@ -30390,7 +30390,7 @@
 				{
 					"argument_name": "iface",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "error",
@@ -30420,7 +30420,7 @@
 				{
 					"argument_name": "iface",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "error",
@@ -34435,7 +34435,7 @@
 				{
 					"argument_name": "argv0",
 					"argument_reason": " found a call to g_ptr_array_add passing argv0",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_subprocess_launcher_spawn"
@@ -39140,7 +39140,7 @@
 				{
 					"argument_name": "purpose",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "identity",
@@ -39255,7 +39255,7 @@
 				{
 					"argument_name": "handle",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "interaction",
@@ -41180,7 +41180,7 @@
 				{
 					"argument_name": "path",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_vfs_get_file_for_path"
@@ -41530,7 +41530,7 @@
 				{
 					"argument_name": "kind",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_volume_get_identifier"
@@ -43025,7 +43025,7 @@
 				{
 					"argument_name": "desktop_env",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_desktop_app_info_get_show_in"
@@ -50085,7 +50085,7 @@
 				{
 					"argument_name": "id",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_application_withdraw_notification"
@@ -54825,7 +54825,7 @@
 				{
 					"argument_name": "format_string",
 					"argument_reason": " found a call to g_variant_new_va passing format_string",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_menu_item_set_attribute"
@@ -54840,7 +54840,7 @@
 				{
 					"argument_name": "link",
 					"argument_reason": " found a call to g_hash_table_remove passing link",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "model",
@@ -55215,7 +55215,7 @@
 				{
 					"argument_name": "object_path",
 					"argument_reason": " found a call to g_dbus_connection_register_object passing object_path",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "menu",
@@ -59695,7 +59695,7 @@
 				{
 					"argument_name": "words",
 					"argument_reason": "",
-					"fixed": 16
+					"other": 0
 				},
 				{
 					"argument_name": "alias",
@@ -60270,7 +60270,7 @@
 				{
 					"argument_name": "format",
 					"argument_reason": " found a call to g_variant_get_va passing format",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_settings_get"
@@ -60290,7 +60290,7 @@
 				{
 					"argument_name": "format",
 					"argument_reason": " found a call to g_variant_new_va passing format",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_settings_set"
@@ -60795,7 +60795,7 @@
 				{
 					"argument_name": "property",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_settings_unbind"
@@ -61740,7 +61740,7 @@
 				{
 					"argument_name": "out_guid",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "cancellable",
@@ -64045,12 +64045,12 @@
 				{
 					"argument_name": "dbus_error_name",
 					"argument_reason": " found a call to g_hash_table_lookup passing dbus_error_name",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "dbus_error_message",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_dbus_error_new_for_dbus_error"
@@ -64065,12 +64065,12 @@
 				{
 					"argument_name": "dbus_error_name",
 					"argument_reason": " found a call to g_dbus_error_new_for_dbus_error passing dbus_error_name",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "dbus_error_message",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "format",
@@ -64090,12 +64090,12 @@
 				{
 					"argument_name": "dbus_error_name",
 					"argument_reason": " found a call to g_dbus_error_new_for_dbus_error passing dbus_error_name",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "dbus_error_message",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "format",
@@ -64530,7 +64530,7 @@
 				{
 					"argument_name": "guid",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "flags",
@@ -64615,7 +64615,7 @@
 				{
 					"argument_name": "address",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "flags",
@@ -64865,7 +64865,7 @@
 				{
 					"argument_name": "object_path",
 					"argument_reason": " found a call to g_hash_table_lookup passing object_path",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "interface_info",
@@ -65310,7 +65310,7 @@
 				{
 					"argument_name": "object_path",
 					"argument_reason": " found a call to g_hash_table_lookup passing object_path",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "vtable",
@@ -67600,7 +67600,7 @@
 				{
 					"argument_name": "error_message_format",
 					"argument_reason": " found a call to g_dbus_message_new_method_error_valist passing error_message_format",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_dbus_message_new_method_error"
@@ -67620,7 +67620,7 @@
 				{
 					"argument_name": "error_message_format",
 					"argument_reason": " found a call to g_strdup_vprintf passing error_message_format",
-					"other": -1
+					"sentinel": "NUL"
 				},
 				{
 					"argument_name": "var_args",
@@ -67645,7 +67645,7 @@
 				{
 					"argument_name": "error_message",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_dbus_message_new_method_error_literal"
@@ -69765,7 +69765,7 @@
 				{
 					"argument_name": "property_name",
 					"argument_reason": " found a call to g_hash_table_lookup passing property_name",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_dbus_proxy_get_cached_property"
@@ -73550,7 +73550,7 @@
 				{
 					"argument_name": "error_message",
 					"argument_reason": "",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_dbus_method_invocation_return_dbus_error"
@@ -74680,7 +74680,7 @@
 				{
 					"argument_name": "interface_name",
 					"argument_reason": " found a call to g_hash_table_lookup passing interface_name",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_dbus_object_skeleton_remove_interface_by_name"
@@ -75910,7 +75910,7 @@
 				{
 					"argument_name": "object_path",
 					"argument_reason": " found a call to g_dbus_object_manager_server_unexport_unlocked passing object_path",
-					"other": -1
+					"sentinel": "NUL"
 				}
 			],
 			"function_name":"g_dbus_object_manager_server_unexport"
@@ -81335,7 +81335,7 @@
 				{
 					"argument_name": "msg",
 					"argument_reason": "",
-					"fixed": 519
+					"other": 0
 				},
 				{
 					"argument_name": "hostname",
@@ -81675,7 +81675,7 @@
 				{
 					"argument_name": "msg",
 					"argument_reason": "",
-					"fixed": 4
+					"other": 0
 				},
 				{
 					"argument_name": "hostname",

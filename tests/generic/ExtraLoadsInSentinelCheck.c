@@ -7,6 +7,7 @@
 **/
 
 void find(char **arg) {
+    find(arg + 7);
     for (int i = 0; *arg[i]; i++){
         find(arg);
     }

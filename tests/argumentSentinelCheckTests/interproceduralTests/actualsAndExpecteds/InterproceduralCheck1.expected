@@ -1,2 +1,3 @@
 foo with argument 0 should be annotated NULL_TERMINATED (Sentinel-terminated by 0)  because  found a call to find
 find with argument 0 should be annotated NULL_TERMINATED (Sentinel-terminated by 0)  because found a non optional sentinel check in find
+bar with argument 0 should be annotated Parameter length of 1.

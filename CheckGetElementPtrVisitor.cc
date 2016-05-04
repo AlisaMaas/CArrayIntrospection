@@ -2,11 +2,13 @@
 
 #include "CheckGetElementPtrVisitor.hh"
 #include "SRA/SymbolicRangeAnalysis.h"
+#include "ValueReachesValue.hh"
 
 #include <boost/lambda/core.hpp>
 #include <boost/range/adaptor/filtered.hpp>
 #include <boost/range/adaptor/transformed.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/range/irange.hpp>
 #include <llvm/Support/Debug.h>
 #include <llvm/Support/raw_os_ostream.h>
 #include <memory>
@@ -124,52 +126,67 @@ CheckGetElementPtrVisitor::~CheckGetElementPtrVisitor() {
 void CheckGetElementPtrVisitor::visitGetElementPtrInst(llvm::GetElementPtrInst& gepi) {
 	//ignore all GEPs that don't lead to a memory access
 	//unless that goes into a function call.
-	//bool useless = true;
-	for (const User *user : gepi.users()) {
-		if (StoreInst::classof(user)) {
-			// useless = false;
-			break;
-		}
-		if (dyn_cast<LoadInst>(user)) {
-			//if (load->getType() != load->getPointerOperand()->getType()) {
-			//  useless = false;
-			break;
-			//}
-		}
-		if (GetElementPtrInst::classof(user)) {
-			//useless = false;
-			break;
-		}
-		//TODO: fix up.
-		const CallInstSet calls = functionsToCallsites[gepi.getParent()->getParent()];
-
-		/*for (const CallInst *call : calls) {
-		  for (const unsigned argNo : irange(0u, call->getNumArgOperands())) {
-		  const Value *actual = call->getArgOperand(argNo);
-
-		  if (!valueReachesValue(*actual, gepi)) {
-		  continue;
-		  }
-		  else {
-		  useless = false;
-		  break;
-		  }
-		  }
-		  }*/
-		return;
-	}
-	//if (useless) return;
 	placeHolder.reset(BasicBlock::Create(module.getContext()));
 	DEBUG(dbgs() << "Top of visitor\n");
 	Value *pointer = gepi.getPointerOperand();
 	DEBUG(dbgs() << "Pointer operand obtained: " << *pointer << "\n");
-
 	const auto valueSet{valueSets.getValueSetFromValue(pointer)};
 	DEBUG(dbgs() << "Got the valueSet\n");
 	if (!valueSet) { //might be null if it doesn't correspond to anything interesting like an argument, or
 		//if it doesn't correspond to something iiglue thinks is an array.
 		DEBUG(dbgs() << "ValueSet is null. Here's what we know about this pointer: " << *pointer << "\n");
 		return;
+	}
+	bool useless = true;
+	for (const User *user : gepi.users()) {
+		if (StoreInst::classof(user)) {
+			useless = false;
+			break;
+		}
+		if (LoadInst::classof(user)) {
+			    useless = false;
+			    break;
+		}
+		if (GetElementPtrInst::classof(user)) {
+			useless = false;
+			break;
+		}
+		//TODO: fix up.
+		const CallInstSet calls = functionsToCallsites[gepi.getParent()->getParent()];
+
+		for (const CallInst *call : calls) {
+		    for (const unsigned argNo : boost::irange(0u, call->getNumArgOperands())) {
+		        const Value *actual = call->getArgOperand(argNo);
+
+		        if (!valueReachesValue(*actual, *user, true)) {
+		            continue;
+		        }
+		        else {
+		            useless = false;
+		            break;
+		        }
+		    }
+		}
+		//return;
+	}
+	const CallInstSet calls = functionsToCallsites[gepi.getParent()->getParent()];
+
+	for (const CallInst *call : calls) {
+        for (const unsigned argNo : boost::irange(0u, call->getNumArgOperands())) {
+            const Value *actual = call->getArgOperand(argNo);
+
+            if (!valueReachesValue(*actual, gepi)) {
+                continue;
+            }
+            else {
+                useless = false;
+                break;
+            }
+        }
+    }
+	if (useless) {
+	    errs() << "Ignoring " << gepi << "\n";
+	    return;
 	}
 
 	DEBUG(dbgs() << "GEPI: " << gepi << "\n");

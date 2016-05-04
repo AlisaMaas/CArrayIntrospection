@@ -628,9 +628,9 @@ gck_session_verify_finish,1,,,
 gck_session_verify_full,0,,,
 gck_session_verify_full,1,,,
 gck_session_verify_full,2,,,
-gck_session_verify_full,3,,,3
+gck_session_verify_full,3,,,4
 gck_session_verify_full,4,,,
-gck_session_verify_full,5,,,5
+gck_session_verify_full,5,,,6
 gck_session_verify_full,6,,,
 gck_session_verify_full,7,,,
 gck_session_wrap_key,0,,,

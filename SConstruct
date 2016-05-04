@@ -36,7 +36,7 @@ variables.Add(PathVariable('IIGLUE', 'Path to iiglue executable', '/p/polyglot/p
 variables.Add(BoolVariable('VALGRIND', 'run tests under Valgrind', False))
 
 llvmConfigDefault = WhereIs('llvm-config', (
-    '/p/polyglot/public/tools/llvm-3.7.1/install/bin',
+    '/p/polyglot/public/tools/llvm-3.6.1/install/bin',
     '/usr/bin',
 )) or '/usr/bin/llvm-config'
 variables.Add(PathVariable('LLVM_CONFIG', 'Path to llvm-config executable', llvmConfigDefault, pathIsExecutable))

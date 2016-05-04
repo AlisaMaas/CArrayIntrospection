@@ -210,7 +210,7 @@ static pair<LengthInfo, string> trackThroughCalls(CallInstSet &calls, const Valu
 			if ((answer.type != FIXED_LENGTH) && (!valueReachesValue(*value, *actual)))
 				continue;
 			else if (answer.type == FIXED_LENGTH && value != actual) {
-				if (valueReachesValue(*value, *actual)) {
+				if (valueReachesValue(*value, *actual, true)) {
 					answer.type = NOT_FIXED_LENGTH;
 				}
 				continue;
